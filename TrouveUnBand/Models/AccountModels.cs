@@ -17,6 +17,8 @@ namespace TrouveUnBand.Models
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 
     [Table("UserProfile")]
@@ -73,14 +75,31 @@ namespace TrouveUnBand.Models
 
     public class RegisterModel
     {
+        [Key]
+        [Display(Name = "Prénom")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Nom")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Date de Naissance")]
+        [DataType(DataType.Date)]
+        public string BirthDate { get; set; }
+
         [Required]
         [Display(Name = "Nom d'utilisateur")]
-        public string UserName { get; set; }
+        public string NickName { get; set; }
+
+        [Required]
+        [Display(Name = "Adresse Courriel")]
+        public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Mot de passe")]
+        [Display(Name = "Mot de Passe")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
