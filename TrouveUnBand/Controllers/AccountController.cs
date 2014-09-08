@@ -10,9 +10,6 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using TrouveUnBand.Filters;
 using TrouveUnBand.Models;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Data;
 
 namespace TrouveUnBand.Controllers
 {
@@ -20,7 +17,6 @@ namespace TrouveUnBand.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        private TBDBContext db = new TBDBContext();
         //
         // GET: /Account/Login
 
@@ -76,17 +72,15 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model, User user)
+        public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
                 // Tentative d'inscription de l'utilisateur
                 try
                 {
-                   //TODO: Ajout BD
-                   // WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    db.Users.Add(user);
-                    //WebSecurity.Login(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -113,7 +107,7 @@ namespace TrouveUnBand.Controllers
             if (ownerAccount == User.Identity.Name)
             {
                 // Utiliser une transaction pour empêcher l’utilisateur de supprimer ses dernières informations d’identification de connexion
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.Serializable }))
+                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
                 {
                     bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
@@ -333,8 +327,6 @@ namespace TrouveUnBand.Controllers
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
-
-      
 
         #region Applications auxiliaires
         private ActionResult RedirectToLocal(string returnUrl)
