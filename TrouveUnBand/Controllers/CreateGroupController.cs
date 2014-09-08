@@ -16,5 +16,10 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
+        public ActionResult ConfirmCreateGroup()
+        {
+            return View();
+        }
+
     }
 }

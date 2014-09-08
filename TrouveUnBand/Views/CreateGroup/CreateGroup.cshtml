@@ -3,3 +3,61 @@
 }
 
 <h2>CreateGroup</h2>
+
+<fieldset>
+<legend>Créer un groupe</legend>
+    
+
+    <div class="FormWrapper">
+        <div id="NameContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.GroupName)
+            </div>
+            <div>
+                @Html.EditorFor(model => model.GroupeName)
+                @Html.ValidationMessageFor(model => model.GroupName)
+            </div>
+        </div>
+
+        <div id="StyleContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Style)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("StyleId", (SelectList) ViewData["Style"])
+                @Html.ValidationMessageFor(model => model.Style)
+            </div>
+        </div>
+
+        <div id="MemberContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Membre)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("MemberId", (SelectList) ViewData["Member"])
+                @Html.ValidationMessageFor(model => model.Member)
+            </div>
+        </div>
+
+        <div id="RegionContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Region)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("RegionId", (SelectList) ViewData["Region"])
+                @Html.ValidationMessageFor(model => model.Region)
+            </div>
+        </div>
+
+        <div id="ExperienceContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Experience)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Experience)
+                @Html.ValidationMessageFor(model => model.Region)
+            </div>
+        </div>
+    </div>
+
+</fieldset>
