@@ -38,7 +38,7 @@ namespace TrouveUnBand.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "Users", "IDUser", "Nickname", autoCreateTables: false);
                 }
                 catch (Exception ex)
                 {
