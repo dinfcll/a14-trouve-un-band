@@ -3,3 +3,62 @@
 }
 
 <h2>ConfirmCreateGroup</h2>
+
+
+<fieldset>
+<legend>Créer un groupe</legend>
+    
+
+    <div class="FormWrapper">
+        <div id="NameContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.GroupName)
+            </div>
+            <div>
+                @Html.EditorFor(model => model.GroupeName)
+            </div>
+        </div>
+
+        <div id="StyleContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Style)
+            </div>
+            <div class="editor-field">
+                <div class="MultiValueContainer">
+                    @Html.DropDownList("StyleId", (SelectList) ViewData["Style"])
+                </div>
+            </div>
+        </div>
+
+        <div id="MemberContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Membre)
+            </div>
+            <div class="editor-field">
+                <div class="MultiValueContainer">
+                    @Html.DropDownList("MemberId", (SelectList) ViewData["Member"])
+                </div>
+            </div>
+        </div>
+
+        <div id="RegionContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Region)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("RegionId", (SelectList) ViewData["Region"])
+            </div>
+        </div>
+
+        <div id="ExperienceContainer" class="FormContainer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Experience)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Experience)
+            </div>
+        </div>
+        <input type="submit" value="Confirmer"/>
+    </div>
+
+</fieldset>

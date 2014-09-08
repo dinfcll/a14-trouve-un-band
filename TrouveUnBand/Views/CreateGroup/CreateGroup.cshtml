@@ -24,8 +24,10 @@
                 @Html.LabelFor(model => model.Style)
             </div>
             <div class="editor-field">
-                @Html.DropDownList("StyleId", (SelectList) ViewData["Style"])
-                @Html.ValidationMessageFor(model => model.Style)
+                <div class="MultiValueContainer">
+                    @Html.DropDownList("StyleId", (SelectList) ViewData["Style"])
+                    @Html.ValidationMessageFor(model => model.Style)
+                </div>
             </div>
         </div>
 
@@ -34,8 +36,10 @@
                 @Html.LabelFor(model => model.Membre)
             </div>
             <div class="editor-field">
-                @Html.DropDownList("MemberId", (SelectList) ViewData["Member"])
-                @Html.ValidationMessageFor(model => model.Member)
+                <div class="MultiValueContainer">
+                    @Html.DropDownList("MemberId", (SelectList) ViewData["Member"])
+                    @Html.ValidationMessageFor(model => model.Member)
+                </div>
             </div>
         </div>
 
@@ -58,6 +62,7 @@
                 @Html.ValidationMessageFor(model => model.Region)
             </div>
         </div>
+        <input type="Submit" value="Créer"/>
     </div>
 
 </fieldset>
