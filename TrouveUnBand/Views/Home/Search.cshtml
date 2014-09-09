@@ -2,10 +2,25 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
-@using (Html.BeginForm("Search", "Home", FormMethod.Get))
-{
-    @Html.TextBox("txtSearch")
-    <button type="submit">Go!</button>
-                         
-}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Groupes")
+        </th>
+        <th>
+            @Html.DisplayName("Styles")
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in (List<TrouveUnBand.Models.BandModels>)ViewData["bandList"])
+    {
+        <tr>
+            <td>
+                @Html.DisplayName(item.Name)
+            </td>
+            <td>
+                @Html.DisplayName(item.Style)
+            </td>
+        </tr>
+    }
+</table>

@@ -24,7 +24,12 @@
                             <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                             <li>@Html.ActionLink("À propos de", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            <li>@Html.ActionLink("Recherche", "Search", "Home")</li>
+                            <li>@using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                                {
+                                    @Html.TextBox("searchString");
+                                    <button type="submit">Go!</button>
+                                }
+                            </li>
                         </ul>
                     </nav>
                 </div>
