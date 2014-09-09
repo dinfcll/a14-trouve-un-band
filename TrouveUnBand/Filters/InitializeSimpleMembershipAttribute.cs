@@ -4,7 +4,6 @@ using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
-using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Filters
 {
@@ -23,7 +22,7 @@ namespace TrouveUnBand.Filters
 
         private class SimpleMembershipInitializer
         {
-            public SimpleMembershipInitializer()
+          /*  public SimpleMembershipInitializer()
             {
                 Database.SetInitializer<UsersContext>(null);
 
@@ -44,7 +43,7 @@ namespace TrouveUnBand.Filters
                 {
                     throw new InvalidOperationException("The ASP.NET Simple Membership database could not be initialized. For more information, please see http://go.microsoft.com/fwlink/?LinkId=256588", ex);
                 }
-            }
+            }*/
         }
     }
 }
