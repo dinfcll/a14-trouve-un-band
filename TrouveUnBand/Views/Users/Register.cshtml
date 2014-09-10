@@ -3,39 +3,41 @@
     ViewBag.Title = "Register";
 }
 
-<h2>Register Form</h2><br/><br/>
+<h2>Sign Up Form</h2><br/><br/>
 @using (Html.BeginForm())
 {
+    <div id="registerform">
     @Html.Label("First name:")
-    @Html.TextBoxFor(model => model.FirstName)<br/>
-    @Html.ValidationMessage("FirstName")<br/>
+    @Html.TextBoxFor(model => model.FirstName)
+    @Html.ValidationMessage("FirstName")<br/><br/>
 
     @Html.Label("Last name:")
-    @Html.TextBoxFor(model => model.LastName)<br/>
-    @Html.ValidationMessage("LastName")<br/>
+    @Html.TextBoxFor(model => model.LastName)
+    @Html.ValidationMessage("LastName")<br/><br/>
     
     @Html.Label("Nickname:")
-    @Html.TextBoxFor(model => model.Nickname)<br/>
-    @Html.ValidationMessage("Nickname")<br/>
+    @Html.TextBoxFor(model => model.Nickname)
+    @Html.ValidationMessage("Nickname")<br/><br/>
     
     @Html.Label("Birthdate:")
-    @Html.TextBoxFor(model => model.BirthDate)<br/>
-    @Html.ValidationMessage("BirthDate")<br/>
+    @Html.TextBoxFor(model => model.BirthDate)
+    @Html.ValidationMessage("BirthDate")<br/><br/>
     
     @Html.Label("City:")
-    @Html.TextBoxFor(model => model.City)<br/>
-    @Html.ValidationMessage("City")<br/>
+    @Html.TextBoxFor(model => model.City)
+    @Html.ValidationMessage("City")<br/><br/>
     
     @Html.Label("Email:")
-    @Html.TextBoxFor(model => model.Email)<br/>
-    @Html.ValidationMessage("Email")<br/>
+    @Html.TextBoxFor(model => model.Email)
+    @Html.ValidationMessage("Email")<br/><br/>
 
     @Html.Label("Password:")
-    @Html.PasswordFor(model => model.Password)<br/> 
-    @Html.ValidationMessage("Password")<br/>
+    @Html.PasswordFor(model => model.Password)
+    @Html.ValidationMessage("Password")<br/><br/>
     
     @Html.Label("ConfirmPassword:")
-    @Html.PasswordFor(model => model.ConfirmPassword)<br/>
-    @Html.ValidationMessage("ConfirmPassword")<br/>
+    @Html.PasswordFor(model => model.ConfirmPassword)
+    @Html.ValidationMessage("ConfirmPassword")<br/><br/>
     <input type="submit" value="Submit" />
+    </div>
 }
