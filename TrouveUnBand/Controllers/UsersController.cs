@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
 using System.Data.SqlClient;
+using System.Security;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace TrouveUnBand.Controllers
 {
@@ -28,8 +31,17 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
-                insertcontact(u);
-                return RedirectToAction("Index", "Home");
+                if (u.Password == u.ConfirmPassword)
+                { 
+                    insertcontact(u);
+                    TempData["notice"] = "Registration Confirmed"; 
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["PasswordNotEqual"] = "Both password fields must be identical";
+                    return View();
+                }
             }
             return View();
         }
@@ -47,8 +59,15 @@ namespace TrouveUnBand.Controllers
             {
                 Console.WriteLine(e.ToString());
             }
-            SqlCommand myCommand1 = new SqlCommand("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password) Values ('"+u.FirstName+"','"+u.LastName+"',convert(datetime,'"+u.BirthDate+"'),'"+u.Nickname+"','"+u.Email+"','"+u.Password+"')", myConnection);
+            SqlCommand myCommand1 = new SqlCommand("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('" + u.FirstName + "','" + u.LastName + "',convert(datetime,'" + u.BirthDate + "'),'" + u.Nickname + "','" + u.Email + "','" + u.Password + "','" + u.City + "')", myConnection);
             myCommand1.ExecuteNonQuery();
+        }
+
+        private string EncryptPassword(string password)
+        {
+            byte[] pass = Encoding.UTF8.GetBytes(password);
+            SHA256 encpwrd = new SHA256CryptoServiceProvider();
+            return Encoding.UTF8.GetString(encpwrd.ComputeHash(pass));
         }
     }
 }

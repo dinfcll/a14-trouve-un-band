@@ -9,17 +9,29 @@ namespace TrouveUnBand.Models
 {
     public class User
     {
-        [Required]
+        [Required(ErrorMessage="This field is required")]
         public string FirstName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "This field is required")]
         public string LastName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "This field is required")]
         public DateTime BirthDate { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "This field is required")]
         public string Nickname { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "This field is required")]
+        [RegularExpression(@".*@.*", ErrorMessage = "Must be a valid email address")]
         public string Email { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "This field is required")]
+        public string City { get; set; }
+
+        [Required(ErrorMessage = "This field is required")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "This field is required")]
+        public string ConfirmPassword { get; set; }
     }
 }
