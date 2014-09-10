@@ -54,19 +54,24 @@ namespace TrouveUnBand.Controllers
             try
             {
                 myConnection.Open();
+                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", u.FirstName, u.LastName, u.BirthDate, u.Nickname, u.Email, EncryptPassword(u.Password), u.City);
+                SqlCommand myCommand1 = new SqlCommand(query, myConnection);
+                myCommand1.ExecuteNonQuery();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-            SqlCommand myCommand1 = new SqlCommand("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('" + u.FirstName + "','" + u.LastName + "',convert(datetime,'" + u.BirthDate + "'),'" + u.Nickname + "','" + u.Email + "','" + EncryptPassword(u.Password) + "','" + u.City + "')", myConnection);
-            myCommand1.ExecuteNonQuery();
+            finally
+            {
+                myConnection.Close();
+            }
         }
 
         private string EncryptPassword(string password)
         {
             byte[] pass = Encoding.UTF8.GetBytes(password);
-            SHA256 encpwrd = new SHA256CryptoServiceProvider();
+            MD5 encpwrd = new MD5CryptoServiceProvider();
             return Encoding.UTF8.GetString(encpwrd.ComputeHash(pass));
         }
     }
