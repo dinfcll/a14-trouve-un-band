@@ -38,7 +38,7 @@ namespace TrouveUnBand.Models
         public string Password { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long")]
+        [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long and must not contain a space")]
         public string ConfirmPassword { get; set; }
     }
 }

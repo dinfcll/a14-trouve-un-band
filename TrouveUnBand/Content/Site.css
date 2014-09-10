@@ -332,6 +332,10 @@ aside {
     color: red;
 }
 
+#registerform{
+    
+}
+
 /* login page */
 #loginForm {
     border-right: solid 2px #c8c8c8;
@@ -607,6 +611,7 @@ tr.pager td {
     header .site-title {
         margin: 10px;
         text-align: center;
+        font-family: "Times New Roman", Times, serif;
     }
 
     /* login */
