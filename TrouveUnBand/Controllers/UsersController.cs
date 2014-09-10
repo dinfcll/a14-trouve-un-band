@@ -59,7 +59,7 @@ namespace TrouveUnBand.Controllers
             {
                 Console.WriteLine(e.ToString());
             }
-            SqlCommand myCommand1 = new SqlCommand("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('" + u.FirstName + "','" + u.LastName + "',convert(datetime,'" + u.BirthDate + "'),'" + u.Nickname + "','" + u.Email + "','" + u.Password + "','" + u.City + "')", myConnection);
+            SqlCommand myCommand1 = new SqlCommand("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('" + u.FirstName + "','" + u.LastName + "',convert(datetime,'" + u.BirthDate + "'),'" + u.Nickname + "','" + u.Email + "','" + EncryptPassword(u.Password) + "','" + u.City + "')", myConnection);
             myCommand1.ExecuteNonQuery();
         }
 
