@@ -26,11 +26,11 @@ namespace TrouveUnBand.Models
         public string Nickname { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", ErrorMessage = "Must be a valid email address")]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Must be a valid email address")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]{2,}$", ErrorMessage = "Must be at least 2 letters long")]
+        [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ ]{2,}$", ErrorMessage = "Must be at least 2 letters long")]
         public string City { get; set; }
 
         [Required(ErrorMessage = "This field is required")]

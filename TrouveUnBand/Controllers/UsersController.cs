@@ -32,10 +32,17 @@ namespace TrouveUnBand.Controllers
             if (ModelState.IsValid)
             {
                 if (u.Password == u.ConfirmPassword)
-                { 
-                    insertcontact(u);
-                    TempData["notice"] = "Registration Confirmed"; 
-                    return RedirectToAction("Index", "Home");
+                {
+                    if (insertcontact(u))
+                    {
+                        TempData["notice"] = "Registration Confirmed";
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["SQLERROR"] = "Erreur avec la base de donnée";
+                        return View();
+                    }
                 }
                 else
                 {
@@ -46,7 +53,7 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        private void insertcontact(User u)
+        private bool insertcontact(User u)
         {
             //TODO : Insertion BD
             SqlConnection myConnection = new SqlConnection();
@@ -57,10 +64,13 @@ namespace TrouveUnBand.Controllers
                 String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", u.FirstName, u.LastName, u.BirthDate, u.Nickname, u.Email, EncryptPassword(u.Password), u.City);
                 SqlCommand myCommand1 = new SqlCommand(query, myConnection);
                 myCommand1.ExecuteNonQuery();
+                return true;
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                return false;
             }
             finally
             {
