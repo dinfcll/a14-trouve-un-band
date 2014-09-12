@@ -53,16 +53,16 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        private bool insertcontact(User u)
+        private bool insertcontact(User user)
         {
             SqlConnection myConnection = new SqlConnection();
             myConnection.ConnectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=tempdb;Integrated Security=True";
             try
             {
                 myConnection.Open();
-                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", u.FirstName, u.LastName, u.BirthDate, u.Nickname, u.Email, EncryptPassword(u.Password), u.City);
-                SqlCommand myCommand1 = new SqlCommand(query, myConnection);
-                myCommand1.ExecuteNonQuery();
+                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, EncryptPassword(user.Password), user.City);
+                SqlCommand insert = new SqlCommand(query, myConnection);
+                insert.ExecuteNonQuery();
                 return true;
 
             }
