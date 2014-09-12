@@ -6,6 +6,8 @@
         <title>@ViewBag.Title - Mon application ASP.NET MVC</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
@@ -32,6 +34,18 @@
         <div id="body">
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
+                @if (TempData["SQLERROR"] != null)
+                {
+                    <h3 id="sqlerror">@TempData["SQLERROR"]</h3>
+                }
+                @if (TempData["notice"] != null)
+                {
+                    <h2>@TempData["notice"]</h2> 
+                }
+                @if (TempData["PasswordNotEqual"] != null)
+                {
+                    <h3 id="PasswordError">@TempData["PasswordNotEqual"]</h3>
+                }
                 @RenderBody()
             </section>
         </div>
