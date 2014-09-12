@@ -10,27 +10,27 @@ namespace TrouveUnBand.Models
     public class User
     {
         [Required(ErrorMessage="This field is required")]
-        [RegularExpression(@"^[a-zA-Z]{2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
+        [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^[a-zA-Z]{2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
+        [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$", ErrorMessage = "Must be a valid date")]
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^[a-zA-Z0-9]{3,}$", ErrorMessage = "Must be at least 3 characters long")]
+        [RegularExpression(@"^([0-9a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){3,}$", ErrorMessage = "Must be at least 3 characters long")]
         public string Nickname { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@".*@.*", ErrorMessage = "Must be a valid email address")]
+        [RegularExpression(@"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", ErrorMessage = "Must be a valid email address")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^[a-zA-Z]{2,}$", ErrorMessage = "Must be at least 2 letters long")]
+        [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]{2,}$", ErrorMessage = "Must be at least 2 letters long")]
         public string City { get; set; }
 
         [Required(ErrorMessage = "This field is required")]

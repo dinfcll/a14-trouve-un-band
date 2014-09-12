@@ -50,7 +50,7 @@ namespace TrouveUnBand.Controllers
         {
             //TODO : Insertion BD
             SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=localhost;Initial Catalog=tempdb;Integrated Security=True";
+            myConnection.ConnectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=tempdb;Integrated Security=True";
             try
             {
                 myConnection.Open();
