@@ -40,7 +40,7 @@ namespace TrouveUnBand.Controllers
                     }
                     else
                     {
-                        TempData["SQLERROR"] = "Erreur avec la base de donnée";
+                        TempData["sqlerror"] = "Database Error";
                         return View();
                     }
                 }
@@ -55,7 +55,6 @@ namespace TrouveUnBand.Controllers
 
         private bool insertcontact(User u)
         {
-            //TODO : Insertion BD
             SqlConnection myConnection = new SqlConnection();
             myConnection.ConnectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=tempdb;Integrated Security=True";
             try
