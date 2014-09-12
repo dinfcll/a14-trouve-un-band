@@ -1,4 +1,6 @@
-﻿@{
+﻿@model TrouveUnBand.Models.CreateGroupModel
+
+@{
     ViewBag.Title = "Créer un groupe";
 }
 
@@ -14,42 +16,39 @@
                 @Html.LabelFor(model => model.GroupName)
             </div>
             <div>
-                @Html.EditorFor(model => model.GroupeName)
+                @Html.EditorFor(model => model.GroupName)
                 @Html.ValidationMessageFor(model => model.GroupName)
             </div>
         </div>
 
         <div id="StyleContainer" class="FormContainer">
             <div class="editor-label">
-                @Html.LabelFor(model => model.Style)
+                @Html.LabelFor(model => model.MyStyleId)
             </div>
             <div class="editor-field">
                 <div class="MultiValueContainer">
-                    @Html.DropDownList("StyleId", (SelectList) ViewData["Style"])
-                    @Html.ValidationMessageFor(model => model.Style)
+                    @Html.DropDownListFor(model => model.MyStyleId, 
+                         new SelectList(Styles, "StyleId", "Name"))
+                    @Html.ValidationMessageFor(model => model.MyStyleId)
+                    <p>Bouton Rechercher</p><p>Bouton ajouter</p><p>Bouton supprimer</p>
                 </div>
             </div>
         </div>
 
         <div id="MemberContainer" class="FormContainer">
             <div class="editor-label">
-                @Html.LabelFor(model => model.Membre)
+                @Html.LabelFor(model => model.MyMemberId)
             </div>
             <div class="editor-field">
                 <div class="MultiValueContainer">
-                    @Html.DropDownList("MemberId", (SelectList) ViewData["Member"])
-                    @Html.ValidationMessageFor(model => model.Member)
+                    @Html.DropDownListFor(model => model.MyMemberId, 
+                         new SelectList(Members, "MemberId", "Name"))
+                    @Html.ValidationMessageFor(model => model.MyMemberId)
+                    <div>
+                        <h2>Recherche Member</h2>
+                    </div>
+                    <p>Bouton Rechercher</p><p>Bouton ajouter</p><p>Bouton supprimer</p>
                 </div>
-            </div>
-        </div>
-
-        <div id="RegionContainer" class="FormContainer">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Region)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("RegionId", (SelectList) ViewData["Region"])
-                @Html.ValidationMessageFor(model => model.Region)
             </div>
         </div>
 

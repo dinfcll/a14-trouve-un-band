@@ -13,10 +13,11 @@ namespace TrouveUnBand.Controllers
         //
         // GET: /CreateGroup/
 
-        public ActionResult CreateGroup(GroupModel model)
-        {
-            ArrayList al = new ArrayList();
+        private TUBBDContext db = new TUBBDContext();
 
+        public ActionResult CreateGroup(CreateGroupModel model)
+        {
+            
             //Boucle remplissant l'arraylist avec les style présent dans la table style
 
             //boucle remplissant l'arraylist membre avec les donnée présent dans la table membre
@@ -25,7 +26,7 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        public ActionResult ConfirmCreateGroup(GroupModel model)
+        public ActionResult ConfirmCreateGroup(CreateGroupModel model)
         {
             return View();
         }
