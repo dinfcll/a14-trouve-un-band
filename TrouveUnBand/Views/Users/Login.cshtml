@@ -1,0 +1,47 @@
+﻿@model TrouveUnBand.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<section id="loginForm">
+<h2>Use a local account to log on.</h2>
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Login Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(model => model.Nickname)
+                @Html.TextBoxFor(model => model.Nickname)
+                @Html.ValidationMessageFor(model => model.Nickname)
+            </li>
+            <li>
+                @Html.LabelFor(model => model.Password)
+                @Html.PasswordFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </li>
+            <li>
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+            </li>
+        </ol>
+        <input type="submit" value="Login" />
+    </fieldset>
+    <p>
+        Don't have an account? @Html.ActionLink("Register", "Register") (it's free)
+    </p>
+}
+</section>
+
+@*<section class="social" id="socialLoginForm">
+    <h2>Utilisez un autre service pour vous connecter.</h2>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

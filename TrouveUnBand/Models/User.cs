@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrouveUnBand.Models
 {
@@ -18,7 +19,7 @@ namespace TrouveUnBand.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$", ErrorMessage = "Must be a valid date")]
+        //[RegularExpression(@"^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$", ErrorMessage = "Must be a valid date")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
@@ -40,5 +41,19 @@ namespace TrouveUnBand.Models
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class LoginModel
+    {
+        [Required]
+        [Display(Name = "Nickname")]
+        public string Nickname { get; set; }
+
+        [Required]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Display(Name = "Remember password?")]
+        public bool RememberMe { get; set; }
     }
 }
