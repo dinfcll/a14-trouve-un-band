@@ -2,6 +2,7 @@ drop table Join_Musician_Band;
 drop table Band;
 drop table Musician;
 drop table Users;
+
 create table Users(
 IDUser int IDENTITY(1,1) Primary key,
 FirstName NVARCHAR(100) NOT NULL,
