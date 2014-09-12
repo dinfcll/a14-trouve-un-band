@@ -62,9 +62,9 @@ namespace TrouveUnBand.Controllers
             try
             {
                 myConnection.Open();
-                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " + 
+                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " +
                 "Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", 
-                user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, EncryptPassword(user.Password), user.City);
+                user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, user.Password, user.City);
                 SqlCommand insert = new SqlCommand(query, myConnection);
                 insert.ExecuteNonQuery();
 
@@ -83,6 +83,7 @@ namespace TrouveUnBand.Controllers
             }
         }
 
+        //TODO: Utiliser Une fonction de Hashage pour ne pas écrire le mots de passe en clair
         private string EncryptPassword(string password)
         {
             byte[] pass = Encoding.UTF8.GetBytes(password);
