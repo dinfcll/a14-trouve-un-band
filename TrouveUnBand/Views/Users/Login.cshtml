@@ -3,10 +3,10 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+<h2>Sign in</h2>
 
 <section id="loginForm">
-<h2>Use a local account to log on.</h2>
+<h2>Use a local account to sign in.</h2>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -29,7 +29,7 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <input type="submit" value="Login" />
+        <input type="submit" value="Sign in" />
     </fieldset>
     <p>
         Don't have an account? @Html.ActionLink("Register", "Register") (it's free)

@@ -58,11 +58,11 @@ namespace TrouveUnBand.Controllers
         {
             //TODO : Insertion BD
             SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=tempdb;Integrated Security=True";
+            myConnection.ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;MultipleActiveResultSets=True";
             try
             {
                 myConnection.Open();
-                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}',HASHBYTES('SHA1','{5}'),'{6}')", u.FirstName, u.LastName, u.BirthDate, u.Nickname, u.Email, u.Password, u.City);
+                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", u.FirstName, u.LastName, u.BirthDate, u.Nickname, u.Email, Encrypt(u.Password), u.City);
                 SqlCommand myCommand1 = new SqlCommand(query, myConnection);
                 myCommand1.ExecuteNonQuery();
             }
@@ -76,64 +76,56 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string EncryptPassword(string password) // note
+        private string Encrypt(string password)
         {
-            byte[] pass = Encoding.UTF8.GetBytes(password);
-            /*MD5 encpwrd = new MD5CryptoServiceProvider();
-            return Encoding.UTF8.GetString(encpwrd.ComputeHash(pass));*/
-            SHA1 sha = new SHA1CryptoServiceProvider();
-            byte[] finalpass=sha.ComputeHash(pass);
-            string test = Encoding.UTF8.GetString(finalpass);
-            return test;
+            var hash = System.Security.Cryptography.SHA1.Create();
+            var encoder = new System.Text.ASCIIEncoding();
+            var combined = encoder.GetBytes(password ?? "");
+            return BitConverter.ToString(hash.ComputeHash(combined)).ToLower().Replace("-", "");
         }
 
         [HttpPost]
-        public ActionResult Login(LoginModel model) //note
+        public ActionResult Login(LoginModel model)
         {
             if (LoginValid(model.Nickname, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                return View();
-                //code erreur
-            }
 
             return View();
         }
 
-        private bool LoginValid(string nickname,string password) // note
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        private bool LoginValid(string nickname,string password)
         {
             String query;
             SqlCommand myCommand;
             SqlConnection myConnection = new SqlConnection();
             SqlDataReader reader;
-            myConnection.ConnectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=tempdb;Integrated Security=True";
+            myConnection.ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;MultipleActiveResultSets=True";
             try
             {
                 myConnection.Open();
-                query = String.Format("SELECT [Nickname],[Password] FROM Users WHERE Nickname='{0}'",nickname);
+                query = String.Format("SELECT [Nickname],[Password] FROM Users WHERE Nickname='{0}'", nickname);
                 myCommand = new SqlCommand(query, myConnection);
                 reader = myCommand.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    //password = EncryptPassword(password); a encrypter
                     reader.Read();
-                    if (reader[1].ToString()==password)
+                    if (reader[1].ToString() == Encrypt(password))
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
             catch (Exception e)
             {
