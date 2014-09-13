@@ -46,7 +46,7 @@ namespace TrouveUnBand.Models
     public class LoginModel
     {
         [Required]
-        [Display(Name = "Nickname")]
+        [Display(Name = "Nickname or Email")]
         public string Nickname { get; set; }
 
         [Required]

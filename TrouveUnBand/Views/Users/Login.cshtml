@@ -3,8 +3,6 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Sign in</h2>
-
 <section id="loginForm">
 <h2>Use a local account to sign in.</h2>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
@@ -36,11 +34,6 @@
     </p>
 }
 </section>
-
-@*<section class="social" id="socialLoginForm">
-    <h2>Utilisez un autre service pour vous connecter.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

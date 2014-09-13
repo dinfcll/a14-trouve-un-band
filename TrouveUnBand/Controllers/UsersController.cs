@@ -87,12 +87,15 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            if (LoginValid(model.Nickname, model.Password))
+            string ReturnLoginValid = LoginValid(model.Nickname, model.Password);
+            if (ReturnLoginValid != "")
             {
+                model.Nickname = ReturnLoginValid;
                 FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                 return RedirectToAction("Index", "Home");
             }
 
+            TempData["LoginFail"] = "Your nickname/email or password is incorrect. Please try again.";
             return View();
         }
 
@@ -104,7 +107,7 @@ namespace TrouveUnBand.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private bool LoginValid(string nickname,string password)
+        private String LoginValid(string NicknameOrEmail,string Password)
         {
             String query;
             SqlCommand myCommand;
@@ -114,23 +117,23 @@ namespace TrouveUnBand.Controllers
             try
             {
                 myConnection.Open();
-                query = String.Format("SELECT [Nickname],[Password] FROM Users WHERE Nickname='{0}'", nickname);
+                query = String.Format("SELECT [Nickname],[Password] FROM Users WHERE Nickname='{0}' OR Email='{0}'", NicknameOrEmail);
                 myCommand = new SqlCommand(query, myConnection);
                 reader = myCommand.ExecuteReader();
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    if (reader[1].ToString() == Encrypt(password))
+                    if (reader[1].ToString() == Encrypt(Password))
                     {
-                        return true;
+                        return reader[0].ToString();
                     }
                 }
-                return false;
+                return "";
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return false;
+                return "";
             }
             finally
             {

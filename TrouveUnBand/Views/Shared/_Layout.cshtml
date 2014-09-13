@@ -42,7 +42,11 @@
                 }
                 @if (TempData["PasswordNotEqual"] != null)
                 {
-                    <h3 id="PasswordError">@TempData["PasswordNotEqual"]</h3>
+                    <h3 id="RedTextError">@TempData["PasswordNotEqual"]</h3>
+                }
+                                @if (TempData["LoginFail"] != null)
+                {
+                    <h3 id="RedTextError">@TempData["LoginFail"]</h3>
                 }
                 @RenderBody()
             </section>
