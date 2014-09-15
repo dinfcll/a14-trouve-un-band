@@ -37,6 +37,24 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ProfileModification(User user)
+        {
+            string RC = "";
+            RC = Updatecontact(user);
+                if (RC == "")
+                {
+                    TempData["notice"] = "Profil mis à jour";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    RC = "Une erreur interne s'est produite";
+                }
+            TempData["TempDataError"] = RC;
+            return View();
+        }
+
         private SqlConnection ConnectionDB()
         {
             SqlConnection myConnection = new SqlConnection();
@@ -47,7 +65,7 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Register(User user)
         {
-            string RC="";
+            string RC = "";
             if (ModelState.IsValid)
             {
                 if (user.Password == user.ConfirmPassword)
@@ -185,7 +203,7 @@ namespace TrouveUnBand.Controllers
                     reader.Read();
                     LoggedOnUser.FirstName = reader.GetString(0);
                     LoggedOnUser.LastName = reader.GetString(1);
-                    LoggedOnUser.BirthDate = reader.GetDateTime(2).ToString("yyyy/MM/dd");
+                    LoggedOnUser.BirthDate = reader.GetDateTime(2).ToString("yyyy/MM/dd").Replace('-','/');
                     LoggedOnUser.Nickname = reader.GetString(3);
                     LoggedOnUser.Email = reader.GetString(4);
                     LoggedOnUser.City = reader.GetString(5);
@@ -195,6 +213,30 @@ namespace TrouveUnBand.Controllers
             catch (Exception e)
             {
                 return LoggedOnUser;
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
+        private string Updatecontact(User user)
+        {
+            SqlConnection myConnection = ConnectionDB();
+            try
+            {
+                myConnection.Open();
+                String query = String.Format("UPDATE Users SET FirstName='{0}', LastName='{1}', BirthDate=convert(datetime,'{2}',111),"
+                + "Email='{3}', City='{4}' where Nickname = '{5}'",
+                user.FirstName, user.LastName, user.BirthDate, user.Email, user.City, User.Identity.Name);
+                SqlCommand myCommand = new SqlCommand(query, myConnection);
+                myCommand = new SqlCommand(query, myConnection);
+                myCommand.ExecuteNonQuery();
+                return "";
+            }
+            catch (Exception e)
+            {
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
             }
             finally
             {
