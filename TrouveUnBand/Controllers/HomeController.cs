@@ -28,5 +28,12 @@ namespace TrouveUnBand.Controllers
 
             return View();
         }
+
+        public ActionResult CreateGroup()
+        {
+            ViewBag.Message = "Votre page de contact.";
+
+            return View();
+        }
     }
 }

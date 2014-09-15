@@ -1,0 +1,69 @@
+﻿@model TrouveUnBand.Models.CreateGroupModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CreateGroupModel</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GroupName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GroupName)
+            @Html.ValidationMessageFor(model => model.GroupName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MyStyleId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MyStyleId)
+            @Html.ValidationMessageFor(model => model.MyStyleId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MyMemberId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MyMemberId)
+            @Html.ValidationMessageFor(model => model.MyMemberId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Region)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Region)
+            @Html.ValidationMessageFor(model => model.Region)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Experience)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Experience)
+            @Html.ValidationMessageFor(model => model.Experience)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

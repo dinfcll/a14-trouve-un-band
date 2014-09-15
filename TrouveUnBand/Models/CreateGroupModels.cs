@@ -16,6 +16,8 @@ namespace TrouveUnBand.Models
     public class CreateGroupModel
     {
         [Required]
+        public int ID { get; set; }
+        [Required]
         public string GroupName { get; set; }
         [Required]
         public int MyStyleId { get; set; }
@@ -25,43 +27,5 @@ namespace TrouveUnBand.Models
         public string Region { get; set; }
         [Required]
         public string Experience { get; set; }
-
-        public static IEnumerable<Style> Styles = new List<Style> 
-        { 
-            new Style 
-            {
-                StyleId = 1,
-                Name = "Rock"
-            },
-            new Style 
-            {
-                StyleId = 2,
-                Name = "Pop"
-            }
-        };
-
-        public static IEnumerable<Member> Members = new List<Member> 
-        { 
-            new Member 
-            {
-                MemberId = 1,
-                Name = "Renaud"
-            },
-            new Member
-            {
-                MemberId = 2,
-                Name = "Vince B"
-            },
-            new Member
-            {
-                MemberId = 2,
-                Name = "Vince D"
-            },
-            new Member
-            {
-                MemberId = 2,
-                Name = "Fred"
-            },
-        };
     }
 }
