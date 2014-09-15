@@ -328,11 +328,11 @@ aside {
     font-weight: 700;
 }
 
-#PasswordError{
+#RedTextError{
     color: red;
 }
 
-#sqlerror{
+#error{
     color: red;
 }
 
