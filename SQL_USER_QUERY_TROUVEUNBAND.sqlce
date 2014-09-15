@@ -2,7 +2,6 @@ drop table Join_Musician_Band;
 drop table Band;
 drop table Musician;
 drop table Users;
-
 create table Users(
 IDUser int IDENTITY(1,1) Primary key,
 FirstName NVARCHAR(100) NOT NULL,
@@ -10,8 +9,7 @@ LastName NVARCHAR(100) NOT NULL,
 BirthDate DATETIME NOT NULL,
 Nickname NVARCHAR(100) NOT NULL,
 Email NVARCHAR(100) NOT NULL,
-Password NVARCHAR(100) NOT NULL,
-City NVARCHAR(100) NOT NULL);
+Password NVARCHAR(100) NOT NULL);
 
 create table Musician(
 IDUser int REFERENCES Users(IDUser) not null,
@@ -33,11 +31,11 @@ constraint JoinMB_pk primary key(IDMusician,IDBand))
  
 
 
-insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,City)
-values('Steven','Seagel',convert(datetime,'10/04/1952'),'Stevy','stevenseagel@hotmail.com','12345','Lévis');
+insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password)
+values('Steven','Seagel',convert(datetime,'10/04/1952'),'Stevy','stevenseagel@hotmail.com','12345');
 
-insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,City)
-values('Steven','Seagull',convert(datetime,'10/04/1952'),'Stevie','stevie@hotmail.com','12345','Lévis');
+insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password)
+values('Steven','Seagull',convert(datetime,'10/04/1952'),'Stevie','stevie@hotmail.com','12345');
 
 insert into Musician(IDUser,Instrument) 
 values(1,'Flute de pan');

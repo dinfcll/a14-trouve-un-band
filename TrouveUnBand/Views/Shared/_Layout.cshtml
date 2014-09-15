@@ -26,8 +26,6 @@
                             <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                             <li>@Html.ActionLink("À propos de", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            <li>@Html.ActionLink("Register", "Register", "Users")</li>
-                            <li>@Html.ActionLink("Sign in", "Login", "Users")</li>
                         </ul>
                     </nav>
                 </div>
@@ -36,21 +34,13 @@
         <div id="body">
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
+                @if (TempData["TempDataError"] != null)
+                {
+                    <h3 id="error">@TempData["TempDataError"]</h3>
+                }
                 @if (TempData["notice"] != null)
                 {
                     <h2>@TempData["notice"]</h2> 
-                }
-                @if (TempData["PasswordNotEqual"] != null)
-                {
-                    <h3 id="RedTextError">@TempData["PasswordNotEqual"]</h3>
-                }
-                @if (TempData["LoginFail"] != null)
-                {
-                    <h3 id="RedTextError">@TempData["LoginFail"]</h3>
-                }
-                @if (TempData["UserAlreadyExists"] != null)
-                {
-                    <h3 id="RedTextError">@TempData["UserAlreadyExists"]</h3>
                 }
                 @RenderBody()
             </section>

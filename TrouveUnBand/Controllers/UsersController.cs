@@ -35,35 +35,31 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User u)
+        public ActionResult Register(User user)
         {
+            string RC="";
             if (ModelState.IsValid)
             {
-                if (u.Password == u.ConfirmPassword)
+                if (user.Password == user.ConfirmPassword)
                 {
-                    if (insertcontact(u))
+                    RC = Insertcontact(user);
+                    if (RC == "")
                     {
                         TempData["notice"] = "Registration Confirmed";
                         return RedirectToAction("Index", "Home");
                     }
-                    else
-                    {
-                        TempData["UserAlreadyExists"] = "Username already exists";
-                        return View();
-                    }
                 }
                 else
                 {
-                    TempData["PasswordNotEqual"] = "Both password fields must be identical";
-                    return View();
+                    RC = "Both password fields must be identical";
                 }
             }
+            TempData["TempDataError"] = RC;
             return View();
         }
 
-        private bool insertcontact(User user)
+        private string Insertcontact(User user)
         {
-            //TODO : Insertion BD
             SqlConnection myConnection = new SqlConnection();
             myConnection.ConnectionString = "Data Source=G264-07\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
             try
@@ -74,17 +70,24 @@ namespace TrouveUnBand.Controllers
                 SqlDataReader reader = myCommand.ExecuteReader();
                 if (!reader.HasRows)
                 {
-                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.City);
+                    reader.Close();
+                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " +
+                    "Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')",
+                    user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.City);
+
                     myCommand = new SqlCommand(query, myConnection);
                     myCommand.ExecuteNonQuery();
-                    return true;
+                    return "";
                 }
-                return false;
+                else
+                {
+                    reader.Close();
+                    return "L'utilisateur existe déjà";
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                return false;
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
             }
             finally
             {
@@ -148,7 +151,6 @@ namespace TrouveUnBand.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
                 return "";
             }
             finally
