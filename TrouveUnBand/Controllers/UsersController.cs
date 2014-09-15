@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using TrouveUnBand.Models;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Security;
+using TrouveUnBand.Models;
+using WebMatrix.WebData;
 
 namespace TrouveUnBand.Controllers
 {
@@ -15,6 +17,7 @@ namespace TrouveUnBand.Controllers
     {
         //
         // GET: /Users/
+
 
         public ActionResult Index()
         {
@@ -26,56 +29,65 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Register(User user)
         {
-            bool RC = false;
+            string RC="";
             if (ModelState.IsValid)
             {
                 if (user.Password == user.ConfirmPassword)
                 {
                     RC = Insertcontact(user);
-                    if (RC == true)
+                    if (RC == "")
                     {
                         TempData["notice"] = "Registration Confirmed";
                         return RedirectToAction("Index", "Home");
                     }
-                    else
-                    {
-                        TempData["sqlerror"] = "Database Error";
-                        return View();
-                    }
                 }
                 else
                 {
-                    TempData["PasswordNotEqual"] = "Both password fields must be identical";
-                    return View();
+                    RC = "Both password fields must be identical";
                 }
             }
+            TempData["TempDataError"] = RC;
             return View();
         }
 
-        private bool Insertcontact(User user)
+        private string Insertcontact(User user)
         {
             SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=tempdb;Integrated Security=True";
+            myConnection.ConnectionString = "Data Source=G264-07\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
             try
             {
                 myConnection.Open();
-                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " +
-                "Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", 
-                user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, user.Password, user.City);
-                SqlCommand insert = new SqlCommand(query, myConnection);
-                insert.ExecuteNonQuery();
+                String query = String.Format("SELECT [Nickname],[Email] FROM Users WHERE Nickname='{0}' OR Email='{1}'", user.Nickname, user.Email);
+                SqlCommand myCommand = new SqlCommand(query, myConnection);
+                SqlDataReader reader = myCommand.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    reader.Close();
+                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " +
+                    "Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')",
+                    user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.City);
 
-                return true;
-
+                    myCommand = new SqlCommand(query, myConnection);
+                    myCommand.ExecuteNonQuery();
+                    return "";
+                }
+                else
+                {
+                    reader.Close();
+                    return "L'utilisateur existe déjà";
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-
-                return false;
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
             }
             finally
             {
@@ -83,12 +95,68 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        //TODO: Utiliser Une fonction de Hashage pour ne pas écrire le mots de passe en clair
-        private string EncryptPassword(string password)
+        private string Encrypt(string password)
         {
-            byte[] pass = Encoding.UTF8.GetBytes(password);
-            MD5 encpwrd = new MD5CryptoServiceProvider();
-            return Encoding.UTF8.GetString(encpwrd.ComputeHash(pass));
+            var hash = System.Security.Cryptography.SHA1.Create();
+            var encoder = new System.Text.ASCIIEncoding();
+            var combined = encoder.GetBytes(password ?? "");
+            return BitConverter.ToString(hash.ComputeHash(combined)).ToLower().Replace("-", "");
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
+        {
+            string ReturnLoginValid = LoginValid(model.Nickname, model.Password);
+            if (ReturnLoginValid != "")
+            {
+                model.Nickname = ReturnLoginValid;
+                FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
+                return RedirectToAction("Index", "Home");
+            }
+
+            TempData["LoginFail"] = "Your nickname/email or password is incorrect. Please try again.";
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        private String LoginValid(string NicknameOrEmail,string Password)
+        {
+            String query;
+            SqlCommand myCommand;
+            SqlConnection myConnection = new SqlConnection();
+            SqlDataReader reader;
+            myConnection.ConnectionString = "Data Source=G264-07\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
+            try
+            {
+                myConnection.Open();
+                query = String.Format("SELECT [Nickname],[Password] FROM Users WHERE Nickname='{0}' OR Email='{0}'", NicknameOrEmail);
+                myCommand = new SqlCommand(query, myConnection);
+                reader = myCommand.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    if (reader[1].ToString() == Encrypt(Password))
+                    {
+                        return reader[0].ToString();
+                    }
+                }
+                return "";
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+            finally
+            {
+                myConnection.Close();
+            }
         }
     }
 }
