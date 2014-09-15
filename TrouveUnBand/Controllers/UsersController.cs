@@ -61,7 +61,7 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        private bool insertcontact(User u)
+        private bool insertcontact(User user)
         {
             //TODO : Insertion BD
             SqlConnection myConnection = new SqlConnection();
@@ -69,12 +69,12 @@ namespace TrouveUnBand.Controllers
             try
             {
                 myConnection.Open();
-                String query = String.Format("SELECT [Nickname],[Email] FROM Users WHERE Nickname='{0}' OR Email='{1}'", u.Nickname, u.Email);
+                String query = String.Format("SELECT [Nickname],[Email] FROM Users WHERE Nickname='{0}' OR Email='{1}'", user.Nickname, user.Email);
                 SqlCommand myCommand = new SqlCommand(query, myConnection);
                 SqlDataReader reader = myCommand.ExecuteReader();
                 if (!reader.HasRows)
                 {
-                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", u.FirstName, u.LastName, u.BirthDate, u.Nickname, u.Email, Encrypt(u.Password), u.City);
+                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.City);
                     myCommand = new SqlCommand(query, myConnection);
                     myCommand.ExecuteNonQuery();
                     return true;
