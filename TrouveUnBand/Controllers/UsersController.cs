@@ -15,10 +15,6 @@ namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
-        //
-        // GET: /Users/
-
-
         public ActionResult Index()
         {
             return View();
@@ -32,6 +28,13 @@ namespace TrouveUnBand.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        private SqlConnection ConnectionDB()
+        {
+            SqlConnection myConnection = new SqlConnection();
+            myConnection.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
+            return myConnection;
         }
 
         [HttpPost]
@@ -60,8 +63,7 @@ namespace TrouveUnBand.Controllers
 
         private string Insertcontact(User user)
         {
-            SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=G264-07\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
+            SqlConnection myConnection = ConnectionDB();
             try
             {
                 myConnection.Open();
@@ -130,9 +132,8 @@ namespace TrouveUnBand.Controllers
         {
             String query;
             SqlCommand myCommand;
-            SqlConnection myConnection = new SqlConnection();
+            SqlConnection myConnection = ConnectionDB();
             SqlDataReader reader;
-            myConnection.ConnectionString = "Data Source=G264-07\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
             try
             {
                 myConnection.Open();
