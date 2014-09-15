@@ -30,6 +30,13 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
+        public ActionResult ProfileModification()
+        {
+            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            ViewData["UserData"] = LoggedOnUser;
+            return View();
+        }
+
         private SqlConnection ConnectionDB()
         {
             SqlConnection myConnection = new SqlConnection();
@@ -74,7 +81,7 @@ namespace TrouveUnBand.Controllers
                 {
                     reader.Close();
                     query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " +
-                    "Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')",
+                    "Values ('{0}','{1}',convert(datetime,'{2}',111),'{3}','{4}','{5}','{6}')",
                     user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.City);
 
                     myCommand = new SqlCommand(query, myConnection);
@@ -153,6 +160,41 @@ namespace TrouveUnBand.Controllers
             catch (Exception e)
             {
                 return "";
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
+        private User GetUserInfo(string Nickname)
+        {
+            User LoggedOnUser = new User();
+            String query;
+            SqlCommand myCommand;
+            SqlConnection myConnection = ConnectionDB();
+            SqlDataReader reader;
+            try
+            {
+                myConnection.Open();
+                query = String.Format("SELECT FirstName, LastName, BirthDate, Nickname, Email, City FROM Users WHERE Nickname='{0}'", Nickname);
+                myCommand = new SqlCommand(query, myConnection);
+                reader = myCommand.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    LoggedOnUser.FirstName = reader.GetString(0);
+                    LoggedOnUser.LastName = reader.GetString(1);
+                    LoggedOnUser.BirthDate = reader.GetDateTime(2).ToString("yyyy/MM/dd");
+                    LoggedOnUser.Nickname = reader.GetString(3);
+                    LoggedOnUser.Email = reader.GetString(4);
+                    LoggedOnUser.City = reader.GetString(5);
+                }
+                return LoggedOnUser;
+            }
+            catch (Exception e)
+            {
+                return LoggedOnUser;
             }
             finally
             {

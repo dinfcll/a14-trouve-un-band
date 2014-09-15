@@ -1,5 +1,42 @@
-﻿@{
+﻿@model TrouveUnBand.Models.User
+@{
     ViewBag.Title = "ProfileModification";
 }
 
-<h2>ProfileModification</h2>
+@if (Request.IsAuthenticated)
+{
+    var prod = (TrouveUnBand.Models.User)ViewData["UserData"];
+    
+    @Html.Label(User.Identity.Name + " Profile's")
+
+    <div id="updateform">
+    @Html.Label("First name:")
+    @Html.TextBoxFor(model => model.FirstName, new {@Value = prod.FirstName})
+    @Html.ValidationMessage("FirstName")<br/><br/>
+
+    @Html.Label("Last name:")
+    @Html.TextBoxFor(model => model.LastName, new { @Value = prod.LastName })
+    @Html.ValidationMessage("LastName")<br/><br/>
+    
+    @Html.Label("Nickname:")
+    @Html.TextBoxFor(model => model.Nickname, new { @Value = prod.Nickname })
+    @Html.ValidationMessage("Nickname")<br/><br/>
+    
+    @Html.Label("Birthdate:")
+    @Html.EditorFor(model => model.BirthDate, new { @Value = prod.BirthDate })
+    @Html.ValidationMessage("BirthDate")<br/><br/>
+    
+    @Html.Label("City:")
+    @Html.TextBoxFor(model => model.City, new { @Value = prod.City })
+    @Html.ValidationMessage("City")<br/><br/>
+    
+    @Html.Label("Email:")
+    @Html.TextBoxFor(model => model.Email, new { @Value = prod.Email })
+    @Html.ValidationMessage("Email")<br/><br/>
+    <input type="submit" value="Submit" />
+    </div>
+}
+else
+{
+    <h2>@Html.ActionLink("Sign in", "Login", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</h2>
+}
