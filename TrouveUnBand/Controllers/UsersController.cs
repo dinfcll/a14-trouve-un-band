@@ -40,10 +40,17 @@ namespace TrouveUnBand.Controllers
             if (ModelState.IsValid)
             {
                 if (u.Password == u.ConfirmPassword)
-                { 
-                    insertcontact(u);
-                    TempData["notice"] = "Registration Confirmed"; 
-                    return RedirectToAction("Index", "Home");
+                {
+                    if (insertcontact(u))
+                    {
+                        TempData["notice"] = "Registration Confirmed";
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["UserAlreadyExists"] = "Username already exists";
+                        return View();
+                    }
                 }
                 else
                 {
@@ -54,21 +61,30 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        private void insertcontact(User u)
+        private bool insertcontact(User u)
         {
             //TODO : Insertion BD
             SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;MultipleActiveResultSets=True";
+            myConnection.ConnectionString = "Data Source=G264-07\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
             try
             {
                 myConnection.Open();
-                String query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", u.FirstName, u.LastName, u.BirthDate, u.Nickname, u.Email, Encrypt(u.Password), u.City);
-                SqlCommand myCommand1 = new SqlCommand(query, myConnection);
-                myCommand1.ExecuteNonQuery();
+                String query = String.Format("SELECT [Nickname],[Email] FROM Users WHERE Nickname='{0}' OR Email='{1}'", u.Nickname, u.Email);
+                SqlCommand myCommand = new SqlCommand(query, myConnection);
+                SqlDataReader reader = myCommand.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')", u.FirstName, u.LastName, u.BirthDate, u.Nickname, u.Email, Encrypt(u.Password), u.City);
+                    myCommand = new SqlCommand(query, myConnection);
+                    myCommand.ExecuteNonQuery();
+                    return true;
+                }
+                return false;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                return false;
             }
             finally
             {
@@ -113,7 +129,7 @@ namespace TrouveUnBand.Controllers
             SqlCommand myCommand;
             SqlConnection myConnection = new SqlConnection();
             SqlDataReader reader;
-            myConnection.ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True;MultipleActiveResultSets=True";
+            myConnection.ConnectionString = "Data Source=G264-07\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
             try
             {
                 myConnection.Open();

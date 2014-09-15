@@ -44,9 +44,13 @@
                 {
                     <h3 id="RedTextError">@TempData["PasswordNotEqual"]</h3>
                 }
-                                @if (TempData["LoginFail"] != null)
+                @if (TempData["LoginFail"] != null)
                 {
                     <h3 id="RedTextError">@TempData["LoginFail"]</h3>
+                }
+                @if (TempData["UserAlreadyExists"] != null)
+                {
+                    <h3 id="RedTextError">@TempData["UserAlreadyExists"]</h3>
                 }
                 @RenderBody()
             </section>
