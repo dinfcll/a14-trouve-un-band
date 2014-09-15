@@ -74,7 +74,7 @@ namespace TrouveUnBand.Controllers
                 {
                     reader.Close();
                     query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " +
-                    "Values ('{0}','{1}',convert(datetime,'{2}'),'{3}','{4}','{5}','{6}')",
+                    "Values ('{0}','{1}',convert(datetime,'{2}',111),'{3}','{4}','{5}','{6}')",
                     user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.City);
 
                     myCommand = new SqlCommand(query, myConnection);
