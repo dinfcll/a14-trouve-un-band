@@ -172,9 +172,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201409151759449_InitialMigrations.cs" />
+    <Compile Include="Migrations\201409151759449_InitialMigrations.Designer.cs">
+      <DependentUpon>201409151759449_InitialMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\BandModels.cs" />
-    <Compile Include="Models\MusicianModels.cs" />
+    <Compile Include="Models\DBModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +257,11 @@
     <Content Include="Content\Images\glyphicons-halflings-regular.eot" />
     <Content Include="Content\Images\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Images\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201409151759449_InitialMigrations.resx">
+      <DependentUpon>201409151759449_InitialMigrations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -16,31 +16,33 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="#">TrouveUnBand.com</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">@Html.ActionLink("Accueil", "Home", "Index")</li>
-                    <li>@Html.ActionLink("Test", "Test", "")</li>
+                    <li class="active">@Html.ActionLink("Accueil", "Index", "Home")</li>
+                    <li>@Html.ActionLink("À propos de", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li><button type="button" class="btn btn-default navbar-btn">Créer</button></li>                
                 </ul>
-                <ul class="nav navbar-right">
-                    <li>
-                        @using (Html.BeginForm("Search", "Home", FormMethod.Post))
-                        {
-                            @Html.TextBox("searchString");
-                            <button type="submit">Go!</button>
-                        }
-                    </li>
+                <ul class="nav navbar-nav navbar-right" >
                     <li>@Html.ActionLink("Se connecter", "")</li>
                 </ul>
+                @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class="navbar-form navbar-right", @role="search" }))
+                {
+                    @Html.TextBox("searchString", "", new { @class="form-control"});
+                    <button type="submit" class="btn btn-default" id="searchString">Go!</button>
+                }
             </div><!--/.nav-collapse -->
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="padding-top:100px">
         @RenderSection("featured", required: false)
+        @RenderBody()
     </div><!-- /.container -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrapjs")
 </body>
 </html>
+

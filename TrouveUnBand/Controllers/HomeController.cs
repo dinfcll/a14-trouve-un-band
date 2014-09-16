@@ -10,7 +10,7 @@ namespace TrouveUnBand.Controllers
     public class HomeController : Controller
     {
 
-        private TUBDBContext db = new TUBDBContext();
+        private DatabaseContext db = new DatabaseContext();
 
         public ActionResult Index()
         {
@@ -42,15 +42,23 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Search(string searchString)
         {
-            var queryResults = from band in db.Band
-                        where band.Name.Contains(searchString)
-                        select band;
+            var bandQuery = from band in db.Band where
+                            band.Name.Contains(searchString)
+                            select band;
 
-            List<BandModels> bandList = queryResults.ToList();
+            var userQuery = from user in db.User where
+                            user.FirstName.Contains(searchString) ||
+                            user.LastName.Contains(searchString)
+                            select user;
+                              
+            List<Band> bandList = bandQuery.ToList();
+            List<Users> userList = userQuery.ToList();
 
             ViewData["bandList"] = bandList;
-
+            ViewData["userList"] = userList;
+            
             return View();
         }
     }
 }
+

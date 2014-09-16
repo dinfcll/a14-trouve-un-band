@@ -2,25 +2,46 @@
     ViewBag.Title = "Search";
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Groupes")
-        </th>
-        <th>
-            @Html.DisplayName("Styles")
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in (List<TrouveUnBand.Models.BandModels>)ViewData["bandList"])
-    {
-        <tr>
-            <td>
-                @Html.DisplayName(item.Name)
-            </td>
-            <td>
-                @Html.DisplayName(item.Style)
-            </td>
-        </tr>
-    }
-</table>
+<div class="panel panel-default">
+    <div class="panel-heading">Résultats de recherche</div>
+    <div class="panel-collapse">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Groupe")
+                </th>
+                <th>
+                    @Html.DisplayName("Style")
+                </th>
+            </tr>
+            @foreach (var item in (List<TrouveUnBand.Models.Band>)ViewData["bandList"])
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayName(item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayName(item.Style)
+                    </td>
+                </tr>
+            }
+        </table>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Musicien")
+                </th>
+            </tr>
+            @foreach (var item in (List<TrouveUnBand.Models.Users>)ViewData["userList"])
+            {
+            <tr>                      
+                <td>
+                    @Html.DisplayName(item.FirstName + " " + item.LastName)
+                </td>
+            </tr>                         
+            }
+        </table>
+    </div>
+</div>
+
+
