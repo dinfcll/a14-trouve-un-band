@@ -1,26 +1,21 @@
 ﻿@{
     ViewBag.Title = "Search";
 }
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Groupes")
-        </th>
-        <th>
-            @Html.DisplayName("Styles")
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in (List<TrouveUnBand.Models.BandModels>)ViewData["bandList"])
+<div class="row">
+    @foreach (var item in (List<TrouveUnBand.Models.SearchResultModel>)ViewData["searchResults"])
     {
-        <tr>
-            <td>
-                @Html.DisplayName(item.Name)
-            </td>
-            <td>
-                @Html.DisplayName(item.Style)
-            </td>
-        </tr>
-    }
-</table>
+        <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="thumbnail">
+                <img data-src="holder.js/300x300" alt="Image">
+                <div class="caption">
+                    <h3>@Html.DisplayName(item.Name)</h3>
+                    <p>@Html.DisplayName(item.Description)</p>
+                    <p>@Html.DisplayName(item.Location)</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>            
+        </div>
+    }  
+</div>
+
+

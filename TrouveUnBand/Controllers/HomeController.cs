@@ -10,7 +10,7 @@ namespace TrouveUnBand.Controllers
     public class HomeController : Controller
     {
 
-        private TUBDBContext db = new TUBDBContext();
+        private DBTUBContext db = new DBTUBContext();
 
         public ActionResult Index()
         {
@@ -42,15 +42,36 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Search(string searchString)
         {
-            var queryResults = from band in db.Band
-                        where band.Name.Contains(searchString)
-                        select band;
+            var bandQuery = from band in db.Band
+                            where band.Name.Contains(searchString)
+                            select new SearchResultModel
+                            {
+                                Name = band.Name,
+                                Description = band.Description,
+                                Location = band.Location
+                            };
 
-            List<BandModels> bandList = queryResults.ToList();
+            var userQuery = from user in db.User
+                            join musician in db.Musician on user.IDUser equals musician.IDUser
+                            where
+                            user.FirstName.Contains(searchString) ||
+                            user.LastName.Contains(searchString)
+                            select new SearchResultModel
+                            {
+                                Name = user.FirstName + " " + user.LastName,
+                                Description = musician.Description,
+                                Location = musician.Location
+                            };
 
-            ViewData["bandList"] = bandList;
 
+            List<SearchResultModel> searchResults = new List<SearchResultModel>();
+            searchResults.AddRange(userQuery);
+            searchResults.AddRange(bandQuery);
+
+            ViewData["searchResults"] = searchResults;
+            ViewData["searchString"] = searchString;
             return View();
         }
     }
 }
+
