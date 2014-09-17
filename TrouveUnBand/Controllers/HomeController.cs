@@ -10,7 +10,7 @@ namespace TrouveUnBand.Controllers
     public class HomeController : Controller
     {
 
-        private DatabaseContext db = new DatabaseContext();
+        private DBTUBContext db = new DBTUBContext();
 
         public ActionResult Index()
         {
@@ -42,21 +42,34 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Search(string searchString)
         {
-            var bandQuery = from band in db.Band where
-                            band.Name.Contains(searchString)
-                            select band;
+            var bandQuery = from band in db.Band
+                            where band.Name.Contains(searchString)
+                            select new SearchResultModel
+                            {
+                                Name = band.Name,
+                                Description = band.Description,
+                                Location = band.Location
+                            };
 
-            var userQuery = from user in db.User where
+            var userQuery = from user in db.User
+                            join musician in db.Musician on user.IDUser equals musician.IDUser
+                            where
                             user.FirstName.Contains(searchString) ||
                             user.LastName.Contains(searchString)
-                            select user;
-                              
-            List<Band> bandList = bandQuery.ToList();
-            List<Users> userList = userQuery.ToList();
+                            select new SearchResultModel
+                            {
+                                Name = user.FirstName + " " + user.LastName,
+                                Description = musician.Description,
+                                Location = musician.Location
+                            };
 
-            ViewData["bandList"] = bandList;
-            ViewData["userList"] = userList;
-            
+
+            List<SearchResultModel> searchResults = new List<SearchResultModel>();
+            searchResults.AddRange(userQuery);
+            searchResults.AddRange(bandQuery);
+
+            ViewData["searchResults"] = searchResults;
+            ViewData["searchString"] = searchString;
             return View();
         }
     }

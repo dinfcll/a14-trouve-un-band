@@ -1,47 +1,21 @@
 ﻿@{
     ViewBag.Title = "Search";
 }
-
-<div class="panel panel-default">
-    <div class="panel-heading">Résultats de recherche</div>
-    <div class="panel-collapse">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("Groupe")
-                </th>
-                <th>
-                    @Html.DisplayName("Style")
-                </th>
-            </tr>
-            @foreach (var item in (List<TrouveUnBand.Models.Band>)ViewData["bandList"])
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayName(item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayName(item.Style)
-                    </td>
-                </tr>
-            }
-        </table>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("Musicien")
-                </th>
-            </tr>
-            @foreach (var item in (List<TrouveUnBand.Models.Users>)ViewData["userList"])
-            {
-            <tr>                      
-                <td>
-                    @Html.DisplayName(item.FirstName + " " + item.LastName)
-                </td>
-            </tr>                         
-            }
-        </table>
-    </div>
+<div class="row">
+    @foreach (var item in (List<TrouveUnBand.Models.SearchResultModel>)ViewData["searchResults"])
+    {
+        <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="thumbnail">
+                <img data-src="holder.js/300x300" alt="Image">
+                <div class="caption">
+                    <h3>@Html.DisplayName(item.Name)</h3>
+                    <p>@Html.DisplayName(item.Description)</p>
+                    <p>@Html.DisplayName(item.Location)</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>            
+        </div>
+    }  
 </div>
 
 

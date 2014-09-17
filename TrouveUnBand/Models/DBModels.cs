@@ -15,7 +15,7 @@ namespace TrouveUnBand.Models
         public string NickName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string City { get; set; }
+        public string Location { get; set; }
     }
     public class Band
     {
@@ -23,6 +23,8 @@ namespace TrouveUnBand.Models
         public int IDBand { get; set; }
         public string Name { get; set; }
         public string Style { get; set; }
+        public string Description { get; set; }
+        public string Location { get; set; }
     }
     
     public class Musician
@@ -30,6 +32,8 @@ namespace TrouveUnBand.Models
         [Key]
         public int IDMusician { get; set; }      
         public string Instrument { get; set; }
+        public string Description { get; set; }
+        public string Location { get; set; }
         [ForeignKey("Users")]
         public int IDUser { get; set; }
         public virtual Users Users { get; set; }
@@ -47,7 +51,7 @@ namespace TrouveUnBand.Models
         public virtual Band Band { get; set; }
     }
 
-    public class DatabaseContext : DbContext
+    public class DBTUBContext : DbContext
     {
         public DbSet<Users> User { get; set; }
         public DbSet<Band> Band { get; set; }
