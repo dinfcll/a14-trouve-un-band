@@ -3,41 +3,41 @@
     ViewBag.Title = "Register";
 }
 
-<h2>Sign Up Form</h2><br/><br/>
-@using (Html.BeginForm())
-{
-    <div id="registerform">
-    @Html.Label("First name:")
-    @Html.TextBoxFor(model => model.FirstName)
-    @Html.ValidationMessage("FirstName")<br/><br/>
+<div class="container">
+    @using (Html.BeginForm("Register", "Users", new { @class="form-signup", @role="form"}))
+    {
+        @Html.Label("First name:")
+        @Html.TextBoxFor(model => model.FirstName, new { @class="form-control"})
+        @Html.ValidationMessage("FirstName")<br /><br />
 
-    @Html.Label("Last name:")
-    @Html.TextBoxFor(model => model.LastName)
-    @Html.ValidationMessage("LastName")<br/><br/>
-    
-    @Html.Label("Nickname:")
-    @Html.TextBoxFor(model => model.Nickname)
-    @Html.ValidationMessage("Nickname")<br/><br/>
-    
-    @Html.Label("Birthdate:")
-    @Html.EditorFor(model => model.BirthDate, new { placeholder = "YYYY/MM/DD" })
-    @Html.ValidationMessage("BirthDate")<br/><br/>
-    
-    @Html.Label("City:")
-    @Html.TextBoxFor(model => model.City)
-    @Html.ValidationMessage("City")<br/><br/>
-    
-    @Html.Label("Email:")
-    @Html.TextBoxFor(model => model.Email)
-    @Html.ValidationMessage("Email")<br/><br/>
+        @Html.Label("Last name:")
+        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+        @Html.ValidationMessage("LastName")<br /><br />
 
-    @Html.Label("Password:")
-    @Html.PasswordFor(model => model.Password)
-    @Html.ValidationMessage("Password")<br/><br/>
-    
-    @Html.Label("ConfirmPassword:")
-    @Html.PasswordFor(model => model.ConfirmPassword)
-    @Html.ValidationMessage("ConfirmPassword")<br/><br/>
-    <input type="submit" value="Submit" />
-    </div>
-}
+        @Html.Label("Nickname:")
+        @Html.TextBoxFor(model => model.Nickname, new { @class = "form-control" })
+        @Html.ValidationMessage("Nickname")<br /><br />
+
+        @Html.Label("Birthdate:")
+        @Html.EditorFor(model => model.BirthDate, new { @class = "form-control", @placeholder = "YYYY/MM/DD" })
+        @Html.ValidationMessage("BirthDate")<br /><br />
+
+        @Html.Label("City:")
+        @Html.TextBoxFor(model => model.Location, new { @class = "form-control" })
+        @Html.ValidationMessage("City")<br /><br />
+
+        @Html.Label("Email:")
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessage("Email")<br /><br />
+
+        @Html.Label("Password:")
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+        @Html.ValidationMessage("Password")<br /><br />
+
+        @Html.Label("ConfirmPassword:")
+        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+        @Html.ValidationMessage("ConfirmPassword")<br /><br />
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+    }
+
+</div>

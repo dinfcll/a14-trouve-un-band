@@ -3,37 +3,25 @@
     ViewBag.Title = "Login";
 }
 
-<section id="loginForm">
-<h2>Use a local account to sign in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Login Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(model => model.Nickname)
-                @Html.TextBoxFor(model => model.Nickname)
-                @Html.ValidationMessageFor(model => model.Nickname)
-            </li>
-            <li>
-                @Html.LabelFor(model => model.Password)
-                @Html.PasswordFor(model => model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
-            </li>
-            <li>
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-            </li>
-        </ol>
-        <input type="submit" value="Sign in" />
-    </fieldset>
-    <p>
-        Don't have an account? @Html.ActionLink("Register", "Register") (it's free)
-    </p>
-}
-</section>
+<div class="container">
+    @using (Html.BeginForm("Login", "Users", new { @class="form-signup", @role="form"}))
+    {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.LabelFor(model => model.Nickname)
+            @Html.TextBoxFor(model => model.Nickname, new { @class="form-control"})
+            @Html.ValidationMessageFor(model => model.Nickname)
+            @Html.LabelFor(model => model.Password)
+            @Html.PasswordFor(model => model.Password, new { @class="form-control"})
+            @Html.ValidationMessageFor(model => model.Password)
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+        <p>
+            Vous n'avez pas de compte? @Html.ActionLink("inscrivez-vous", "Register") (C'est gratuit)
+        </p>
+    }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

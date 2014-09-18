@@ -33,7 +33,7 @@ namespace TrouveUnBand.Controllers
         private SqlConnection ConnectionDB()
         {
             SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
+            myConnection.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=TrouveUnBand;Integrated Security=True";
             return myConnection;
         }
 
@@ -73,9 +73,9 @@ namespace TrouveUnBand.Controllers
                 if (!reader.HasRows)
                 {
                     reader.Close();
-                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " +
+                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, Location) " +
                     "Values ('{0}','{1}',convert(datetime,'{2}',111),'{3}','{4}','{5}','{6}')",
-                    user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.City);
+                    user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.Location);
 
                     myCommand = new SqlCommand(query, myConnection);
                     myCommand.ExecuteNonQuery();
