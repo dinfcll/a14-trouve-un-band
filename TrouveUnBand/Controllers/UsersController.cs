@@ -140,33 +140,45 @@ namespace TrouveUnBand.Controllers
 
         private String LoginValid(string NicknameOrEmail,string Password)
         {
-            String query;
-            SqlCommand myCommand;
-            SqlConnection myConnection = ConnectionDB();
-            SqlDataReader reader;
             try
             {
-                myConnection.Open();
-                query = String.Format("SELECT [Nickname],[Password] FROM Users WHERE Nickname='{0}' OR Email='{0}'", NicknameOrEmail);
-                myCommand = new SqlCommand(query, myConnection);
-                reader = myCommand.ExecuteReader();
-                if (reader.HasRows)
+                string EncryptedPass = Encrypt(Password);
+                var LoginQuery = from User in db.User
+                                    where
+                                    (User.Email.Contains(NicknameOrEmail) ||
+                                    User.Nickname.Contains(NicknameOrEmail)) &&
+                                    User.Password.Contains(EncryptedPass)
+                                    select new Login
+                                    {
+                                        Nickname = User.Nickname,
+                                        Email = User.Email,
+                                        Password = User.Password
+                                    };
+                List<Login> ValidateLogin = new List<Login>();
+                ValidateLogin.AddRange(LoginQuery);
+                Predicate<Login> PredEmail = (x => x.Email == NicknameOrEmail);
+                Predicate<Login> PredNick = (x => x.Nickname == NicknameOrEmail);
+                Predicate<Login> PredPass = (x => x.Password == Encrypt(Password));
+
+                if ((ValidateLogin.Exists(PredEmail) == true || ValidateLogin.Exists(PredNick) == true) && ValidateLogin.Exists(PredPass) == true)
                 {
-                    reader.Read();
-                    if (reader[1].ToString() == Encrypt(Password))
+                    if (ValidateLogin.Exists(PredEmail) == true)
                     {
-                        return reader[0].ToString();
+                        return ValidateLogin.Find(PredEmail).Nickname.ToString();
+                    }
+                    else
+                    {
+                        return ValidateLogin.Find(PredNick).Nickname.ToString();
                     }
                 }
-                return "";
+                else
+                {
+                    return "";
+                }
             }
             catch (Exception e)
             {
                 return "";
-            }
-            finally
-            {
-                myConnection.Close();
             }
         }
 
