@@ -24,6 +24,7 @@ namespace TrouveUnBand.Models
         [RegularExpression(@"^(19|20)\d\d[/](0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])$", ErrorMessage = "Must be a valid date (YYYY/MM/DD)")]
         public string BirthDate { get; set; }
 
+        [Key]
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^([0-9a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){3,}$", ErrorMessage = "Must be at least 3 characters long")]
         public string Nickname { get; set; }
@@ -40,12 +41,16 @@ namespace TrouveUnBand.Models
         [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long")]
         public string Password { get; set; }
 
+        [NotMapped]
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long")]
         public string ConfirmPassword { get; set; }
 
+        [NotMapped]
         public string PhotoName { get; set; }
-        public byte[] PhotoByte { get; set; }
+
+        [NotMapped]
+        public byte[] Photo { get; set; }
     }
 
     public class LoginModel

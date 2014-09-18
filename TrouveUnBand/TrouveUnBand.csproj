@@ -166,6 +166,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DBModels.cs" />
+    <Compile Include="Models\InsertUserModel.cs" />
+    <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

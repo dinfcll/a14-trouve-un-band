@@ -13,11 +13,16 @@ using WebMatrix.WebData;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
+        //DbContext db = new DbContext("Data Source=localhost;Initial Catalog=tempdb;Integrated Security=True");
+        private TrouveUnBand.Models.DBModels.DBTUBContext db = new TrouveUnBand.Models.DBModels.DBTUBContext();
+        
         public ActionResult Index()
         {
             return View();
@@ -66,37 +71,39 @@ namespace TrouveUnBand.Controllers
 
         private string Insertcontact(User user)
         {
-            SqlConnection myConnection = ConnectionDB();
             try
             {
-                myConnection.Open();
-                String query = String.Format("SELECT [Nickname],[Email] FROM Users WHERE Nickname='{0}' OR Email='{1}'", user.Nickname, user.Email);
-                SqlCommand myCommand = new SqlCommand(query, myConnection);
-                SqlDataReader reader = myCommand.ExecuteReader();
-                if (!reader.HasRows)
-                {
-                    reader.Close();
-                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, City) " +
-                    "Values ('{0}','{1}',convert(datetime,'{2}',111),'{3}','{4}','{5}','{6}')",
-                    user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.City);
+                var ValidUserQuery = from User in db.User
+                                      where
+                                      User.Email.Contains(user.Email) ||
+                                      User.Nickname.Contains(user.Email)
+                                      select new SearchUserInfo
+                                      {
+                                          Nickname = User.Nickname,
+                                          Email = User.Email
+                                      };
 
-                    myCommand = new SqlCommand(query, myConnection);
-                    myCommand.ExecuteNonQuery();
+                List<SearchUserInfo> ValidateEmailNickName = new List<SearchUserInfo>();
+                ValidateEmailNickName.AddRange(ValidUserQuery);
+                Predicate<SearchUserInfo> PredEmail = (x => x.Email == user.Email);
+                Predicate<SearchUserInfo> PredNick = (x => x.Nickname == user.Nickname);
+                if (ValidateEmailNickName.Exists(PredEmail) == false && ValidateEmailNickName.Exists(PredNick) == false)
+                {
+                    db.Database.Connection.Open();
+                    user.Password = Encrypt(user.Password);
+                    db.User.Add(user);
+                    db.SaveChanges();
+                    db.Database.Connection.Close();
                     return "";
                 }
                 else
                 {
-                    reader.Close();
                     return "L'utilisateur existe déjà";
                 }
             }
             catch (Exception e)
             {
                 return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
-            }
-            finally
-            {
-                myConnection.Close();
             }
         }
 
@@ -184,7 +191,7 @@ namespace TrouveUnBand.Controllers
                     + "Email='{3}', City='{4}', Photo=CONVERT(VARBINARY(Max),@TEST) where Nickname = '{5}'",
                     user.FirstName, user.LastName, user.BirthDate, user.Email, user.City, User.Identity.Name);
                     myCommand = new SqlCommand(query, myConnection);
-                    myCommand.Parameters.AddWithValue("@TEST", user.PhotoByte);
+                    myCommand.Parameters.AddWithValue("@TEST", user.Photo);
                 }
                 myCommand.ExecuteNonQuery();
                 return "";
@@ -224,9 +231,9 @@ namespace TrouveUnBand.Controllers
         public ActionResult ProfileModification()
         {
             User LoggedOnUser = GetUserInfo(User.Identity.Name);
-            if (LoggedOnUser.PhotoByte != null)
+            if (LoggedOnUser.Photo != null)
             {
-                LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.PhotoByte);
+                LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             }
             ViewData["UserData"] = LoggedOnUser;
             return View();
@@ -246,7 +253,7 @@ namespace TrouveUnBand.Controllers
                 Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
                 byte[] bd = imageToByteArray(img);
                 user.PhotoName = PostedPhoto.FileName;
-                user.PhotoByte = bd;
+                user.Photo = bd;
                 RC = Updatecontact(user, true);
             }
 
@@ -289,7 +296,7 @@ namespace TrouveUnBand.Controllers
                     var t = reader.GetValue(6);
                     if (t != null)
                     {
-                        LoggedOnUser.PhotoByte = (byte[])reader.GetSqlBinary(6);
+                        LoggedOnUser.Photo = (byte[])reader.GetSqlBinary(6);
                     }
                 }
                 return LoggedOnUser;
