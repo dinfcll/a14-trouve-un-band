@@ -11,7 +11,8 @@ BirthDate DATETIME NOT NULL,
 Nickname NVARCHAR(100) NOT NULL,
 Email NVARCHAR(100) NOT NULL,
 Password NVARCHAR(100) NOT NULL,
-City NVARCHAR(100) NOT NULL);
+City NVARCHAR(100) NOT NULL,
+Photo varbinary(max));
 
 create table Musician(
 IDUser int REFERENCES Users(IDUser) not null,

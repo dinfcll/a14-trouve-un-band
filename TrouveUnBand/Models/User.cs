@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 
 namespace TrouveUnBand.Models
 {
@@ -42,6 +43,9 @@ namespace TrouveUnBand.Models
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long")]
         public string ConfirmPassword { get; set; }
+
+        public string PhotoName { get; set; }
+        public byte[] PhotoByte { get; set; }
     }
 
     public class LoginModel

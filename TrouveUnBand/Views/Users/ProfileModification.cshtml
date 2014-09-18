@@ -7,9 +7,14 @@
 {
     var user = (TrouveUnBand.Models.User)ViewData["UserData"];
     @Html.Label(User.Identity.Name + " Profile's")
-    using (Html.BeginForm())
+    using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { enctype = "multipart/form-data"} ))
     {
         <div id="updateform">
+        <input type="file" name="FileUpload" />
+
+        @Html.Label("Profile Picture:")<br/>
+        <img alt="" src="@user.PhotoName" height="150" width="150" class="photo" />
+
         @Html.Label("First name:")
         @Html.TextBoxFor(model => model.FirstName, new { @Value = user.FirstName })
         @Html.ValidationMessage("FirstName")<br/><br/>

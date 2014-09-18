@@ -10,6 +10,9 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TrouveUnBand.Models;
 using WebMatrix.WebData;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace TrouveUnBand.Controllers
 {
@@ -30,35 +33,10 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        public ActionResult ProfileModification()
-        {
-            User LoggedOnUser = GetUserInfo(User.Identity.Name);
-            ViewData["UserData"] = LoggedOnUser;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult ProfileModification(User user)
-        {
-            string RC = "";
-            RC = Updatecontact(user);
-                if (RC == "")
-                {
-                    TempData["notice"] = "Profil mis à jour";
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    RC = "Une erreur interne s'est produite";
-                }
-            TempData["TempDataError"] = RC;
-            return View();
-        }
-
         private SqlConnection ConnectionDB()
         {
             SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=tempdb;Integrated Security=True";
+            myConnection.ConnectionString = "Data Source=localhost;Initial Catalog=tempdb;Integrated Security=True";
             return myConnection;
         }
 
@@ -185,17 +163,118 @@ namespace TrouveUnBand.Controllers
             }
         }
 
+        private string Updatecontact(User user, bool image)
+        {
+            SqlConnection myConnection = ConnectionDB();
+            try
+            {
+                myConnection.Open();
+                String query;
+                SqlCommand myCommand;
+                if (image == false)
+                {
+                    query = String.Format("UPDATE Users SET FirstName='{0}', LastName='{1}', BirthDate=convert(datetime,'{2}',111),"
+                    + "Email='{3}', City='{4}' where Nickname = '{5}'",
+                    user.FirstName, user.LastName, user.BirthDate, user.Email, user.City, User.Identity.Name);
+                    myCommand = new SqlCommand(query, myConnection);
+                }
+                else
+                {
+                    query = String.Format("UPDATE Users SET FirstName='{0}', LastName='{1}', BirthDate=convert(datetime,'{2}',111),"
+                    + "Email='{3}', City='{4}', Photo=CONVERT(VARBINARY(Max),@TEST) where Nickname = '{5}'",
+                    user.FirstName, user.LastName, user.BirthDate, user.Email, user.City, User.Identity.Name);
+                    myCommand = new SqlCommand(query, myConnection);
+                    myCommand.Parameters.AddWithValue("@TEST", user.PhotoByte);
+                }
+                myCommand.ExecuteNonQuery();
+                return "";
+            }
+            catch (Exception e)
+            {
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
+        public ActionResult ProfilePic(string nickname)
+        {
+            SqlConnection myConnection = ConnectionDB();
+            try
+            {
+                myConnection.Open();
+                String query = String.Format("SELECT [Photo] FROM Users WHERE Nickname='{0}'", nickname);
+                SqlCommand myCommand = new SqlCommand(query, myConnection);
+                SqlDataReader reader = myCommand.ExecuteReader();
+                return File((byte[])reader.GetSqlBinary(0), "Image/jpeg");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return View();
+        }
+
+        public ActionResult ProfileModification()
+        {
+            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            if (LoggedOnUser.PhotoByte != null)
+            {
+                LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.PhotoByte);
+            }
+            ViewData["UserData"] = LoggedOnUser;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ProfileModification(User user)
+        {
+            string RC = "";
+            if (Request.Files.Count == 0)
+            {
+                RC = Updatecontact(user, false);
+            }
+            else
+            {
+                HttpPostedFileBase PostedPhoto = Request.Files[0];
+                Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                byte[] bd = imageToByteArray(img);
+                user.PhotoName = PostedPhoto.FileName;
+                user.PhotoByte = bd;
+                RC = Updatecontact(user, true);
+            }
+
+
+            if (RC == "")
+            {
+                TempData["notice"] = "Profil mis à jour";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                RC = "Une erreur interne s'est produite";
+            }
+            TempData["TempDataError"] = RC;
+            return View();
+        }
+
         private User GetUserInfo(string Nickname)
         {
             User LoggedOnUser = new User();
-            String query;
-            SqlCommand myCommand;
+            string query = "";
+            SqlCommand myCommand = new SqlCommand();
             SqlConnection myConnection = ConnectionDB();
             SqlDataReader reader;
             try
             {
                 myConnection.Open();
-                query = String.Format("SELECT FirstName, LastName, BirthDate, Nickname, Email, City FROM Users WHERE Nickname='{0}'", Nickname);
+                query = String.Format("SELECT FirstName, LastName, BirthDate, Nickname, Email, City, Photo FROM Users WHERE Nickname='{0}'", Nickname);
                 myCommand = new SqlCommand(query, myConnection);
                 reader = myCommand.ExecuteReader();
                 if (reader.HasRows)
@@ -203,10 +282,15 @@ namespace TrouveUnBand.Controllers
                     reader.Read();
                     LoggedOnUser.FirstName = reader.GetString(0);
                     LoggedOnUser.LastName = reader.GetString(1);
-                    LoggedOnUser.BirthDate = reader.GetDateTime(2).ToString("yyyy/MM/dd").Replace('-','/');
+                    LoggedOnUser.BirthDate = reader.GetDateTime(2).ToString("yyyy/MM/dd").Replace('-', '/');
                     LoggedOnUser.Nickname = reader.GetString(3);
                     LoggedOnUser.Email = reader.GetString(4);
                     LoggedOnUser.City = reader.GetString(5);
+                    var t = reader.GetValue(6);
+                    if (t != null)
+                    {
+                        LoggedOnUser.PhotoByte = (byte[])reader.GetSqlBinary(6);
+                    }
                 }
                 return LoggedOnUser;
             }
@@ -220,28 +304,11 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string Updatecontact(User user)
+        public byte[] imageToByteArray(System.Drawing.Image imageIn)
         {
-            SqlConnection myConnection = ConnectionDB();
-            try
-            {
-                myConnection.Open();
-                String query = String.Format("UPDATE Users SET FirstName='{0}', LastName='{1}', BirthDate=convert(datetime,'{2}',111),"
-                + "Email='{3}', City='{4}' where Nickname = '{5}'",
-                user.FirstName, user.LastName, user.BirthDate, user.Email, user.City, User.Identity.Name);
-                SqlCommand myCommand = new SqlCommand(query, myConnection);
-                myCommand = new SqlCommand(query, myConnection);
-                myCommand.ExecuteNonQuery();
-                return "";
-            }
-            catch (Exception e)
-            {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
-            }
-            finally
-            {
-                myConnection.Close();
-            }
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+            return ms.ToArray();
         }
     }
 }
