@@ -9,9 +9,15 @@ using System.Drawing;
 
 namespace TrouveUnBand.Models
 {
-    public class User
-    {
-        [Required(ErrorMessage="This field is required")]
+    public partial class User
+    {   
+        public User()
+        {
+            this.Musicians = new HashSet<Musician>();
+        }
+
+        public int UserId { get; set; }
+        [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
         public string FirstName { get; set; }
 
@@ -22,7 +28,7 @@ namespace TrouveUnBand.Models
         [Required(ErrorMessage = "This field is required")]
         public DateTime BirthDate { get; set; }
 
-        [Key]
+       // [Key]
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^([0-9a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){3,}$", ErrorMessage = "Must be at least 3 characters long")]
         public string Nickname { get; set; }
@@ -47,19 +53,7 @@ namespace TrouveUnBand.Models
         public string PhotoName { get; set; }
 
         public byte[] Photo { get; set; }
-    }
 
-    public class LoginModel
-    {
-        [Required]
-        [Display(Name = "Nickname or Email")]
-        public string Nickname { get; set; }
-
-        [Required]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [Display(Name = "Remember password?")]
-        public bool RememberMe { get; set; }
+        public virtual ICollection<Musician> Musicians { get; set; }
     }
 }
