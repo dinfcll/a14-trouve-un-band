@@ -24,7 +24,7 @@
         @Html.ValidationMessage("LastName")<br/><br/>
     
         @Html.Label("Birthdate:")
-        @Html.TextBoxFor(model => model.BirthDate, new { @Value = user.BirthDate })
+        @Html.TextBoxFor(model => model.BirthDate, new { @Value = user.BirthDate.ToString("yyyy/MM/dd") })
         @Html.ValidationMessage("BirthDate")<br/><br/>
     
         @Html.Label("City:")

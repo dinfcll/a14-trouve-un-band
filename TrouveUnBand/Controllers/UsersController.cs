@@ -90,7 +90,7 @@ namespace TrouveUnBand.Controllers
                     return "L'utilisateur existe déjà";
                 }
             }
-            catch (Exception e)
+            catch
             {
                 return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
             }
@@ -152,7 +152,7 @@ namespace TrouveUnBand.Controllers
                     return "";
                 }
             }
-            catch (Exception e)
+            catch
             {
                 return "";
             }
@@ -165,13 +165,14 @@ namespace TrouveUnBand.Controllers
                 User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
                 LoggedOnUser.LastName = user.LastName;
                 LoggedOnUser.City = user.City;
+                LoggedOnUser.BirthDate = user.BirthDate;
                 LoggedOnUser.Email = user.Email;
                 LoggedOnUser.FirstName = user.FirstName;
                 LoggedOnUser.Photo = user.Photo;
                 db.SaveChanges();
                 return "";
             }
-            catch (Exception e)
+            catch
             {
                 return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
             }
@@ -195,7 +196,7 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             if (Request.Files[0].ContentLength == 0)
             {
-                user.Photo = StockPhoto();
+                user.Photo = GetProfilePicByte(user.Nickname);
                 RC = Updatecontact(user);
             }
             else
@@ -208,13 +209,12 @@ namespace TrouveUnBand.Controllers
                     user.PhotoName = PostedPhoto.FileName;
                     user.Photo = bytephoto;
                 }
-                catch(Exception ex)
+                catch
                 {
                     user.Photo = StockPhoto();
                 }
                 RC = Updatecontact(user);
             }
-
 
             if (RC == "")
             {
@@ -235,31 +235,10 @@ namespace TrouveUnBand.Controllers
             return LoggedOnUser;
         }
 
-        public ActionResult ProfilePic(string nickname)
-        {
-            try
-            {
-                var PicQuery = (from User in db.User
-                                where
-                                User.Nickname.Equals(nickname)
-                                select new Photo
-                                {
-                                    ProfilePicture = User.Photo
-                                }).FirstOrDefault();
-
-                return File(PicQuery.ProfilePicture, "Image/jpeg");
-            }
-            catch (Exception ex)
-            {
-                TempData["TempDataError"] = "Erreur lors du chargement de la photo de profil";
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
         public byte[] imageToByteArray(System.Drawing.Image imageIn)
         {
             MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             return ms.ToArray();
         }
 
@@ -268,6 +247,18 @@ namespace TrouveUnBand.Controllers
             string path = HttpContext.Server.MapPath("~/Images/stock_user.jpg");
             Image stock = Image.FromFile(path);
             return imageToByteArray(stock);
+        }
+
+        public byte[] GetProfilePicByte(string nickname)
+        {
+            var PicQuery = (from User in db.User
+                            where
+                            User.Nickname.Equals(nickname)
+                            select new Photo
+                            {
+                                ProfilePicture = User.Photo
+                            }).FirstOrDefault();
+            return PicQuery.ProfilePicture;
         }
     }
 }
