@@ -10,20 +10,6 @@ namespace TrouveUnBand.Models
 {
     public class DBModels
     {
-        /*
-        public class Users
-        {
-            [Key]
-            public int IDUser { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public DateTime BirthDate { get; set; }
-            public string NickName { get; set; }
-            public string Email { get; set; }
-            public string Password { get; set; }
-            public string Location { get; set; }
-        }
-         */
         public class Band
         {
             [Key]
@@ -62,7 +48,8 @@ namespace TrouveUnBand.Models
         {
             public DBTUBContext() : base("name=DBTUBContext") {}
             public DbSet<User> User { get; set; }
-           /* public DbSet<Band> Band { get; set; }
+            
+            /*public DbSet<Band> Band { get; set; }
             public DbSet<Musician> Musician { get; set; }
             public DbSet<Join_Musician_Band> Join_Musician_Band { get; set; }*/
         }

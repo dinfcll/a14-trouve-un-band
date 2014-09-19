@@ -28,8 +28,8 @@
         @Html.ValidationMessage("BirthDate")<br/><br/>
     
         @Html.Label("City:")
-        @Html.TextBoxFor(model => model.City, new { @Value = user.City })
-        @Html.ValidationMessage("City")<br/><br/>
+        @Html.TextBoxFor(model => model.Location, new { @Value = user.Location })
+        @Html.ValidationMessage("Location")<br/><br/>
     
         @Html.Label("Email:")
         @Html.TextBoxFor(model => model.Email, new { @Value = user.Email })

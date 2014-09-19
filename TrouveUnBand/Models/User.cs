@@ -33,7 +33,7 @@ namespace TrouveUnBand.Models
 
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ ]{2,}$", ErrorMessage = "Must be at least 2 letters long")]
-        public string City { get; set; }
+        public string Location { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long")]

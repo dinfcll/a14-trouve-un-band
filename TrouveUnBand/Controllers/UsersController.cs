@@ -164,7 +164,7 @@ namespace TrouveUnBand.Controllers
             {
                 User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
                 LoggedOnUser.LastName = user.LastName;
-                LoggedOnUser.City = user.City;
+                LoggedOnUser.Location = user.Location;
                 LoggedOnUser.BirthDate = user.BirthDate;
                 LoggedOnUser.Email = user.Email;
                 LoggedOnUser.FirstName = user.FirstName;
