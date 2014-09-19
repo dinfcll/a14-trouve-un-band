@@ -13,7 +13,7 @@
         <input type="file" name="FileUpload" />
 
         @Html.Label("Profile Picture:")<br/>
-        <img alt="" src="@user.PhotoName" height="150" width="150" class="photo" />
+        <img alt="" src="@user.PhotoName" height="150" class="photo" />
 
         @Html.Label("First name:")
         @Html.TextBoxFor(model => model.FirstName, new { @Value = user.FirstName })

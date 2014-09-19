@@ -20,7 +20,6 @@ namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
-        //DbContext db = new DbContext("Data Source=localhost;Initial Catalog=tempdb;Integrated Security=True");
         private TrouveUnBand.Models.DBModels.DBTUBContext db = new TrouveUnBand.Models.DBModels.DBTUBContext();
         
         public ActionResult Index()
@@ -76,7 +75,6 @@ namespace TrouveUnBand.Controllers
                                           Nickname = User.Nickname,
                                           Email = User.Email
                                       }).FirstOrDefault();
-
 
                 if (ValidUserQuery == null)
                 {
@@ -203,10 +201,17 @@ namespace TrouveUnBand.Controllers
             else
             {
                 HttpPostedFileBase PostedPhoto = Request.Files[0];
-                Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                byte[] bd = imageToByteArray(img);
-                user.PhotoName = PostedPhoto.FileName;
-                user.Photo = bd;
+                try
+                {
+                    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                    byte[] bytephoto = imageToByteArray(img);
+                    user.PhotoName = PostedPhoto.FileName;
+                    user.Photo = bytephoto;
+                }
+                catch(Exception ex)
+                {
+                    user.Photo = StockPhoto();
+                }
                 RC = Updatecontact(user);
             }
 
