@@ -13,8 +13,7 @@ namespace TrouveUnBand.Models
     using System.Collections.Generic;
     
     public partial class User
-    {
-        public string ConfirmPassword;
+    {   
         public User()
         {
             this.Musicians = new HashSet<Musician>();
@@ -27,6 +26,7 @@ namespace TrouveUnBand.Models
         public string Nickname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
         public string Location { get; set; }
     
         public virtual ICollection<Musician> Musicians { get; set; }
