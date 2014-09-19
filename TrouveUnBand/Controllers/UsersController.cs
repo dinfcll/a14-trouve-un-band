@@ -38,13 +38,6 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        private SqlConnection ConnectionDB()
-        {
-            SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=localhost;Initial Catalog=tempdb;Integrated Security=True";
-            return myConnection;
-        }
-
         [HttpPost]
         public ActionResult Register(User user)
         {
@@ -53,6 +46,7 @@ namespace TrouveUnBand.Controllers
             {
                 if (user.Password == user.ConfirmPassword)
                 {
+                    user.Photo = StockPhoto();
                     RC = Insertcontact(user);
                     if (RC == "")
                     {
@@ -73,21 +67,18 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                var ValidUserQuery = from User in db.User
+                var ValidUserQuery = (from User in db.User
                                       where
-                                      User.Email.Contains(user.Email) ||
-                                      User.Nickname.Contains(user.Email)
+                                      User.Email.Equals(user.Email) ||
+                                      User.Nickname.Equals(user.Email)
                                       select new SearchUserInfo
                                       {
                                           Nickname = User.Nickname,
                                           Email = User.Email
-                                      };
+                                      }).FirstOrDefault();
 
-                List<SearchUserInfo> ValidateEmailNickName = new List<SearchUserInfo>();
-                ValidateEmailNickName.AddRange(ValidUserQuery);
-                Predicate<SearchUserInfo> PredEmail = (x => x.Email == user.Email);
-                Predicate<SearchUserInfo> PredNick = (x => x.Nickname == user.Nickname);
-                if (ValidateEmailNickName.Exists(PredEmail) == false && ValidateEmailNickName.Exists(PredNick) == false)
+
+                if (ValidUserQuery == null)
                 {
                     db.Database.Connection.Open();
                     user.Password = Encrypt(user.Password);
@@ -143,33 +134,20 @@ namespace TrouveUnBand.Controllers
             try
             {
                 string EncryptedPass = Encrypt(Password);
-                var LoginQuery = from User in db.User
+                var LoginQuery = (from User in db.User
                                     where
-                                    (User.Email.Contains(NicknameOrEmail) ||
-                                    User.Nickname.Contains(NicknameOrEmail)) &&
-                                    User.Password.Contains(EncryptedPass)
+                                    (User.Email.Equals(NicknameOrEmail) ||
+                                    User.Nickname.Equals(NicknameOrEmail)) &&
+                                    User.Password.Equals(EncryptedPass)
                                     select new Login
                                     {
                                         Nickname = User.Nickname,
                                         Email = User.Email,
                                         Password = User.Password
-                                    };
-                List<Login> ValidateLogin = new List<Login>();
-                ValidateLogin.AddRange(LoginQuery);
-                Predicate<Login> PredEmail = (x => x.Email == NicknameOrEmail);
-                Predicate<Login> PredNick = (x => x.Nickname == NicknameOrEmail);
-                Predicate<Login> PredPass = (x => x.Password == Encrypt(Password));
-
-                if ((ValidateLogin.Exists(PredEmail) == true || ValidateLogin.Exists(PredNick) == true) && ValidateLogin.Exists(PredPass) == true)
+                                    }).FirstOrDefault();
+                if (LoginQuery != null)
                 {
-                    if (ValidateLogin.Exists(PredEmail) == true)
-                    {
-                        return ValidateLogin.Find(PredEmail).Nickname.ToString();
-                    }
-                    else
-                    {
-                        return ValidateLogin.Find(PredNick).Nickname.ToString();
-                    }
+                    return LoginQuery.Nickname;
                 }
                 else
                 {
@@ -182,39 +160,22 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string Updatecontact(User user, bool image)
+        private string Updatecontact(User user)
         {
-            SqlConnection myConnection = ConnectionDB();
             try
             {
-                myConnection.Open();
-                String query;
-                SqlCommand myCommand;
-                if (image == false)
-                {
-                    query = String.Format("UPDATE Users SET FirstName='{0}', LastName='{1}', BirthDate=convert(datetime,'{2}',111),"
-                    + "Email='{3}', City='{4}' where Nickname = '{5}'",
-                    user.FirstName, user.LastName, user.BirthDate, user.Email, user.City, User.Identity.Name);
-                    myCommand = new SqlCommand(query, myConnection);
-                }
-                else
-                {
-                    query = String.Format("UPDATE Users SET FirstName='{0}', LastName='{1}', BirthDate=convert(datetime,'{2}',111),"
-                    + "Email='{3}', City='{4}', Photo=CONVERT(VARBINARY(Max),@TEST) where Nickname = '{5}'",
-                    user.FirstName, user.LastName, user.BirthDate, user.Email, user.City, User.Identity.Name);
-                    myCommand = new SqlCommand(query, myConnection);
-                    myCommand.Parameters.AddWithValue("@TEST", user.Photo);
-                }
-                myCommand.ExecuteNonQuery();
+                User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
+                LoggedOnUser.LastName = user.LastName;
+                LoggedOnUser.City = user.City;
+                LoggedOnUser.Email = user.Email;
+                LoggedOnUser.FirstName = user.FirstName;
+                LoggedOnUser.Photo = user.Photo;
+                db.SaveChanges();
                 return "";
             }
             catch (Exception e)
             {
                 return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
-            }
-            finally
-            {
-                myConnection.Close();
             }
         }
 
@@ -232,10 +193,12 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult ProfileModification(User user)
         {
+            user.Nickname = User.Identity.Name;
             string RC = "";
             if (Request.Files[0].ContentLength == 0)
             {
-                RC = Updatecontact(user, false);
+                user.Photo = StockPhoto();
+                RC = Updatecontact(user);
             }
             else
             {
@@ -244,7 +207,7 @@ namespace TrouveUnBand.Controllers
                 byte[] bd = imageToByteArray(img);
                 user.PhotoName = PostedPhoto.FileName;
                 user.Photo = bd;
-                RC = Updatecontact(user, true);
+                RC = Updatecontact(user);
             }
 
 
@@ -255,10 +218,10 @@ namespace TrouveUnBand.Controllers
             }
             else
             {
-                RC = "Une erreur interne s'est produite";
+                TempData["TempDataError"] = "Une erreur interne s'est produite";
+                return View();
             }
-            TempData["TempDataError"] = RC;
-            return View();
+
         }
 
         private User GetUserInfo(string Nickname)
@@ -269,7 +232,6 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult ProfilePic(string nickname)
         {
-            SqlConnection myConnection = ConnectionDB();
             try
             {
                 var PicQuery = (from User in db.User
@@ -294,6 +256,13 @@ namespace TrouveUnBand.Controllers
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
             return ms.ToArray();
+        }
+
+        public byte[] StockPhoto()
+        {
+            string path = HttpContext.Server.MapPath("~/Images/stock_user.jpg");
+            Image stock = Image.FromFile(path);
+            return imageToByteArray(stock);
         }
     }
 }
