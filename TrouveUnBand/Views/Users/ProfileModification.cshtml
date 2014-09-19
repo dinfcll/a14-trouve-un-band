@@ -10,9 +10,9 @@
     using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { enctype = "multipart/form-data"} ))
     {
         <div id="updateform">
-        <input type="file" name="FileUpload" />
-
-        @Html.Label("Profile Picture:")<br/>
+        <br/>
+        @Html.Label("Profile Picture:")
+        <input type="file" name="FileUpload" /> <br/><br/>
         <img alt="" src="@user.PhotoName" height="150" class="photo" />
 
         @Html.Label("First name:")
