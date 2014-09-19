@@ -218,28 +218,6 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        public ActionResult ProfilePic(string nickname)
-        {
-            SqlConnection myConnection = ConnectionDB();
-            try
-            {
-                myConnection.Open();
-                String query = String.Format("SELECT [Photo] FROM Users WHERE Nickname='{0}'", nickname);
-                SqlCommand myCommand = new SqlCommand(query, myConnection);
-                SqlDataReader reader = myCommand.ExecuteReader();
-                return File((byte[])reader.GetSqlBinary(0), "Image/jpeg");
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                myConnection.Close();
-            }
-            return View();
-        }
-
         public ActionResult ProfileModification()
         {
             User LoggedOnUser = GetUserInfo(User.Identity.Name);
@@ -255,7 +233,7 @@ namespace TrouveUnBand.Controllers
         public ActionResult ProfileModification(User user)
         {
             string RC = "";
-            if (Request.Files.Count == 0)
+            if (Request.Files[0].ContentLength == 0)
             {
                 RC = Updatecontact(user, false);
             }
@@ -285,41 +263,29 @@ namespace TrouveUnBand.Controllers
 
         private User GetUserInfo(string Nickname)
         {
-            User LoggedOnUser = new User();
-            string query = "";
-            SqlCommand myCommand = new SqlCommand();
+            User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == Nickname);
+            return LoggedOnUser;
+        }
+
+        public ActionResult ProfilePic(string nickname)
+        {
             SqlConnection myConnection = ConnectionDB();
-            SqlDataReader reader;
             try
             {
-                myConnection.Open();
-                query = String.Format("SELECT FirstName, LastName, BirthDate, Nickname, Email, City, Photo FROM Users WHERE Nickname='{0}'", Nickname);
-                myCommand = new SqlCommand(query, myConnection);
-                reader = myCommand.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    reader.Read();
-                    LoggedOnUser.FirstName = reader.GetString(0);
-                    LoggedOnUser.LastName = reader.GetString(1);
-                    LoggedOnUser.BirthDate = reader.GetDateTime(2).ToString("yyyy/MM/dd").Replace('-', '/');
-                    LoggedOnUser.Nickname = reader.GetString(3);
-                    LoggedOnUser.Email = reader.GetString(4);
-                    LoggedOnUser.City = reader.GetString(5);
-                    var t = reader.GetValue(6);
-                    if (t != null)
-                    {
-                        LoggedOnUser.Photo = (byte[])reader.GetSqlBinary(6);
-                    }
-                }
-                return LoggedOnUser;
+                var PicQuery = (from User in db.User
+                                where
+                                User.Nickname.Equals(nickname)
+                                select new Photo
+                                {
+                                    ProfilePicture = User.Photo
+                                }).FirstOrDefault();
+
+                return File(PicQuery.ProfilePicture, "Image/jpeg");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return LoggedOnUser;
-            }
-            finally
-            {
-                myConnection.Close();
+                TempData["TempDataError"] = "Erreur lors du chargement de la photo de profil";
+                return RedirectToAction("Index", "Home");
             }
         }
 

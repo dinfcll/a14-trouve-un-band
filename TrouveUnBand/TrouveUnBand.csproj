@@ -169,6 +169,7 @@
     <Compile Include="Models\DBModels.cs" />
     <Compile Include="Models\InsertUserModel.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

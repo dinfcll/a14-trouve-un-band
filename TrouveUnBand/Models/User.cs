@@ -20,9 +20,8 @@ namespace TrouveUnBand.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-
-        [RegularExpression(@"^(19|20)\d\d[/](0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])$", ErrorMessage = "Must be a valid date (YYYY/MM/DD)")]
-        public string BirthDate { get; set; }
+        //[RegularExpression(@"^(19|20)\d\d[/](0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])$", ErrorMessage = "Must be a valid date (YYYY/MM/DD)")]
+        public DateTime BirthDate { get; set; }
 
         [Key]
         [Required(ErrorMessage = "This field is required")]
@@ -49,7 +48,6 @@ namespace TrouveUnBand.Models
         [NotMapped]
         public string PhotoName { get; set; }
 
-        [NotMapped]
         public byte[] Photo { get; set; }
     }
 
