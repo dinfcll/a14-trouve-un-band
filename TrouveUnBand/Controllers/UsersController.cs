@@ -169,6 +169,7 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.Email = user.Email;
                 LoggedOnUser.FirstName = user.FirstName;
                 LoggedOnUser.Photo = user.Photo;
+                LoggedOnUser.Gender = user.Gender;
                 db.SaveChanges();
                 return "";
             }
