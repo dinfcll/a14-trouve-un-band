@@ -1,13 +1,17 @@
 ﻿@if (Request.IsAuthenticated)
 {
-    <p class="nav navbar-nav">
-        Hi, @Html.ActionLink(User.Identity.Name, "Manage", "Users", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("Logout", "Users", FormMethod.Post, new { id = "logoutForm" }))
-        {
-            @Html.AntiForgeryToken()
+    <ul class="nav navbar-nav">
+        <li>
+            @Html.ActionLink(User.Identity.Name, "ProfileModification", "Users", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+        </li>
+        <li>
             <a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a>
-        }
-    </p>
+        </li>
+    </ul>
+    using (Html.BeginForm("Logout", "Users", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
 }
 else
 {
@@ -15,4 +19,5 @@ else
         <li>@Html.ActionLink("Inscription", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Connexion", "Login", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
+
 }

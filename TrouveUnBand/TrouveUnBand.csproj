@@ -172,6 +172,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DBModels.cs" />
+    <Compile Include="Models\InsertUserModel.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\SearchUserInfo.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Band.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
@@ -199,9 +205,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TUBModels.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SearchResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -292,6 +295,7 @@
     <Content Include="Views\Users\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Users\ProfileModification.cshtml" />
     <EntityDeploy Include="Models\TUBModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TUBModels.Designer.cs</LastGenOutput>

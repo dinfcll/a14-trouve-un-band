@@ -10,11 +10,18 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TrouveUnBand.Models;
 using WebMatrix.WebData;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
+        private TrouveUnBand.Models.DBModels.DBTUBContext db = new TrouveUnBand.Models.DBModels.DBTUBContext();
+        
         public ActionResult Index()
         {
             return View();
@@ -30,21 +37,15 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        private SqlConnection ConnectionDB()
-        {
-            SqlConnection myConnection = new SqlConnection();
-            myConnection.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=TrouveUnBand;Integrated Security=True";
-            return myConnection;
-        }
-
         [HttpPost]
         public ActionResult Register(User user)
         {
-            string RC="";
+            string RC = "";
             if (ModelState.IsValid)
             {
                 if (user.Password == user.ConfirmPassword)
                 {
+                    user.Photo = StockPhoto();
                     RC = Insertcontact(user);
                     if (RC == "")
                     {
@@ -63,37 +64,35 @@ namespace TrouveUnBand.Controllers
 
         private string Insertcontact(User user)
         {
-            SqlConnection myConnection = ConnectionDB();
             try
             {
-                myConnection.Open();
-                String query = String.Format("SELECT [Nickname],[Email] FROM Users WHERE Nickname='{0}' OR Email='{1}'", user.Nickname, user.Email);
-                SqlCommand myCommand = new SqlCommand(query, myConnection);
-                SqlDataReader reader = myCommand.ExecuteReader();
-                if (!reader.HasRows)
-                {
-                    reader.Close();
-                    query = String.Format("INSERT INTO Users(FirstName, LastName, BirthDate, Nickname, Email, Password, Location) " +
-                    "Values ('{0}','{1}',convert(datetime,'{2}',111),'{3}','{4}','{5}','{6}')",
-                    user.FirstName, user.LastName, user.BirthDate, user.Nickname, user.Email, Encrypt(user.Password), user.Location);
+                var ValidUserQuery = (from User in db.User
+                                      where
+                                      User.Email.Equals(user.Email) ||
+                                      User.Nickname.Equals(user.Email)
+                                      select new SearchUserInfo
+                                      {
+                                          Nickname = User.Nickname,
+                                          Email = User.Email
+                                      }).FirstOrDefault();
 
-                    myCommand = new SqlCommand(query, myConnection);
-                    myCommand.ExecuteNonQuery();
+                if (ValidUserQuery == null)
+                {
+                    db.Database.Connection.Open();
+                    user.Password = Encrypt(user.Password);
+                    db.User.Add(user);
+                    db.SaveChanges();
+                    db.Database.Connection.Close();
                     return "";
                 }
                 else
                 {
-                    reader.Close();
                     return "L'utilisateur existe déjà";
                 }
             }
-            catch (Exception e)
+            catch
             {
                 return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
-            }
-            finally
-            {
-                myConnection.Close();
             }
         }
 
@@ -130,34 +129,137 @@ namespace TrouveUnBand.Controllers
 
         private String LoginValid(string NicknameOrEmail,string Password)
         {
-            String query;
-            SqlCommand myCommand;
-            SqlConnection myConnection = ConnectionDB();
-            SqlDataReader reader;
             try
             {
-                myConnection.Open();
-                query = String.Format("SELECT [Nickname],[Password] FROM Users WHERE Nickname='{0}' OR Email='{0}'", NicknameOrEmail);
-                myCommand = new SqlCommand(query, myConnection);
-                reader = myCommand.ExecuteReader();
-                if (reader.HasRows)
+                string EncryptedPass = Encrypt(Password);
+                var LoginQuery = (from User in db.User
+                                    where
+                                    (User.Email.Equals(NicknameOrEmail) ||
+                                    User.Nickname.Equals(NicknameOrEmail)) &&
+                                    User.Password.Equals(EncryptedPass)
+                                    select new Login
+                                    {
+                                        Nickname = User.Nickname,
+                                        Email = User.Email,
+                                        Password = User.Password
+                                    }).FirstOrDefault();
+                if (LoginQuery != null)
                 {
-                    reader.Read();
-                    if (reader[1].ToString() == Encrypt(Password))
-                    {
-                        return reader[0].ToString();
-                    }
+                    return LoginQuery.Nickname;
                 }
-                return "";
+                else
+                {
+                    return "";
+                }
             }
-            catch (Exception e)
+            catch
             {
                 return "";
             }
-            finally
+        }
+
+        private string Updatecontact(User user)
+        {
+            try
             {
-                myConnection.Close();
+                User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
+                LoggedOnUser.LastName = user.LastName;
+                LoggedOnUser.Location = user.Location;
+                LoggedOnUser.BirthDate = user.BirthDate;
+                LoggedOnUser.Email = user.Email;
+                LoggedOnUser.FirstName = user.FirstName;
+                LoggedOnUser.Photo = user.Photo;
+                LoggedOnUser.Gender = user.Gender;
+                db.SaveChanges();
+                return "";
             }
+            catch
+            {
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+            }
+        }
+
+        public ActionResult ProfileModification()
+        {
+            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            if (LoggedOnUser.Photo != null)
+            {
+                LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
+            }
+            ViewData["UserData"] = LoggedOnUser;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ProfileModification(User user)
+        {
+            user.Nickname = User.Identity.Name;
+            string RC = "";
+            if (Request.Files[0].ContentLength == 0)
+            {
+                user.Photo = GetProfilePicByte(user.Nickname);
+                RC = Updatecontact(user);
+            }
+            else
+            {
+                HttpPostedFileBase PostedPhoto = Request.Files[0];
+                try
+                {
+                    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                    byte[] bytephoto = imageToByteArray(img);
+                    user.PhotoName = PostedPhoto.FileName;
+                    user.Photo = bytephoto;
+                }
+                catch
+                {
+                    user.Photo = StockPhoto();
+                }
+                RC = Updatecontact(user);
+            }
+
+            if (RC == "")
+            {
+                TempData["notice"] = "Profil mis à jour";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["TempDataError"] = "Une erreur interne s'est produite";
+                return View();
+            }
+
+        }
+
+        private User GetUserInfo(string Nickname)
+        {
+            User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == Nickname);
+            return LoggedOnUser;
+        }
+
+        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
+        }
+
+        public byte[] StockPhoto()
+        {
+            string path = HttpContext.Server.MapPath("~/Images/stock_user.jpg");
+            Image stock = Image.FromFile(path);
+            return imageToByteArray(stock);
+        }
+
+        public byte[] GetProfilePicByte(string nickname)
+        {
+            var PicQuery = (from User in db.User
+                            where
+                            User.Nickname.Equals(nickname)
+                            select new Photo
+                            {
+                                ProfilePicture = User.Photo
+                            }).FirstOrDefault();
+            return PicQuery.ProfilePicture;
         }
     }
 }

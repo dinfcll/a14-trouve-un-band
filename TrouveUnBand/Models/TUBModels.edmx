@@ -458,6 +458,36 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
+    <Diagrams>
+      <Diagram Name="TUBModels">
+        <EntityTypeShape EntityType="TrouveUnBandModel.Band" Width="1.5" PointX="0.75" PointY="1" Height="2.1725878906250005" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Genre" Width="1.5" PointX="3" PointY="1.25" Height="1.7879850260416657" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Instrument" Width="1.5" PointX="3" PointY="4.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Musician" Width="1.5" PointX="5.25" PointY="1" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.User" Width="1.5" PointX="3" PointY="6.875" Height="2.7494921874999996" IsExpanded="true" />
+        <AssociationConnector Association="TrouveUnBandModel.fk_musicians_users" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="8.24974609375" />
+          <ConnectorPoint PointX="6" PointY="8.24974609375" />
+          <ConnectorPoint PointX="6" PointY="3.3648893229166656" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrouveUnBandModel.Join_Band_Genre" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.1439925130208328" />
+          <ConnectorPoint PointX="3" PointY="2.1439925130208328" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrouveUnBandModel.Join_Band_Musician" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.09375" />
+          <ConnectorPoint PointX="5.25" PointY="1.09375" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrouveUnBandModel.Join_Musician_Genre" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.1439925130208328" />
+          <ConnectorPoint PointX="5.25" PointY="2.1439925130208328" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrouveUnBandModel.Join_Musician_Instrument" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="5.297841796875" />
+          <ConnectorPoint PointX="5.5937475" PointY="5.297841796875" />
+          <ConnectorPoint PointX="5.5937475" PointY="3.3648893229166656" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
   </Designer>
 </edmx:Edmx>
