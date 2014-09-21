@@ -1,10 +1,10 @@
 ﻿@model TrouveUnBand.Models.GroupModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Confirmation";
 }
 
-<h2>Create</h2>
+<h2>Confirmation de la création</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -53,7 +53,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="ConfirmCreate" />
         </p>
     </fieldset>
 }

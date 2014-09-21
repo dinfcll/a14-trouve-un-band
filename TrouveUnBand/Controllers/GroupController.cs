@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
-using System.Data.Entity
+using System.Data.Entity;
 
 namespace TrouveUnBand.Controllers
 {
@@ -27,12 +27,12 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            CreateGroupModel creategroupmodel = db.Group.Find(id);
-            if (creategroupmodel == null)
+            GroupModel groupmodel = db.Group.Find(id);
+            if (groupmodel == null)
             {
                 return HttpNotFound();
             }
-            return View(creategroupmodel);
+            return View(groupmodel);
         }
 
         //
@@ -47,16 +47,22 @@ namespace TrouveUnBand.Controllers
         // POST: /Group/Create
 
         [HttpPost]
-        public ActionResult Create(CreateGroupModel creategroupmodel)
+        public ActionResult Create(GroupModel groupmodel)
+        {
+            return View("ConfirmCreate", groupmodel);
+        }
+
+        [HttpPost]
+        public ActionResult ConfirmCreate(GroupModel groupmodel)
         {
             if (ModelState.IsValid)
             {
-                db.Group.Add(creategroupmodel);
+                db.Group.Add(groupmodel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(creategroupmodel);
+            return View(groupmodel);
         }
 
         //
@@ -64,27 +70,27 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            CreateGroupModel creategroupmodel = db.Group.Find(id);
-            if (creategroupmodel == null)
+            GroupModel groupmodel = db.Group.Find(id);
+            if (groupmodel == null)
             {
                 return HttpNotFound();
             }
-            return View(creategroupmodel);
+            return View(groupmodel);
         }
 
         //
         // POST: /Group/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(CreateGroupModel creategroupmodel)
+        public ActionResult Edit(GroupModel groupmodel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(creategroupmodel).State = EntityState.Modified;
+                db.Entry(groupmodel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(creategroupmodel);
+            return View(groupmodel);
         }
 
         //
@@ -92,12 +98,12 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            CreateGroupModel creategroupmodel = db.Group.Find(id);
-            if (creategroupmodel == null)
+            GroupModel groupmodel = db.Group.Find(id);
+            if (groupmodel == null)
             {
                 return HttpNotFound();
             }
-            return View(creategroupmodel);
+            return View(groupmodel);
         }
 
         //
@@ -106,8 +112,8 @@ namespace TrouveUnBand.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            CreateGroupModel creategroupmodel = db.Group.Find(id);
-            db.Group.Remove(creategroupmodel);
+            GroupModel groupmodel = db.Group.Find(id);
+            db.Group.Remove(groupmodel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

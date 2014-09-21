@@ -10,10 +10,10 @@ namespace TrouveUnBand.Models
 {
     public class TUBBDContext : DbContext
     {
-        public DbSet<CreateGroupModel> Group { get; set; }
+        public DbSet<GroupModel> Group { get; set; }
     }
 
-    public class CreateGroupModel
+    public class GroupModel
     {
         [Required]
         public int ID { get; set; }
