@@ -9,14 +9,13 @@ namespace TrouveUnBand.Controllers
 {
     public class HomeController : Controller
     {
-
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index()
         {
-            ViewBag.Message = "Modifiez ce modèle pour dynamiser votre application ASP.NET MVC.";
 
-            return View();
+            ViewBag.Message = "Modifiez ce modèle pour dynamiser votre application ASP.NET MVC.";
+            return View(db.Bands.ToList());
         }
 
         public ActionResult About()

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<TrouveUnBand.Models.Band>
+
+@{
     ViewBag.Title = "Page d'accueil";
 }
 @section featured {
@@ -43,3 +45,38 @@
             <a href="http://go.microsoft.com/fwlink/?LinkId=245157">En savoir plus…</a>
     </li>
 </ol>
+
+<div id="Newsfeed">
+    <table>
+    <tr>
+        <th>
+            @Html.Label("Nom")
+        </th>
+        <th>
+            @Html.Label("Location")
+        </th>
+        <th>
+            @Html.Label("Description")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.BandId }) |
+        </td>
+    </tr>
+}
+
+</table>
+</div>
