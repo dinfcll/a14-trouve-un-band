@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Collections;
 
 namespace TrouveUnBand.Models
 {
-    public class Photo
+    public class Style
     {
-        public byte[] ProfilePicture { get; set; }
+        public int StyleId { get; set; }
+        public string Name { get; set; }
     }
 }
