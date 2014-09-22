@@ -5,8 +5,9 @@ using System.Web;
 
 namespace TrouveUnBand.Models
 {
-    public class Photo
+    public class Member
     {
-        public byte[] ProfilePicture { get; set; }
+        public int MemberId { get; set; }
+        public string Name { get; set; }
     }
 }
