@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Controllers
@@ -13,9 +14,10 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
-
+            Newsfeed();
             ViewBag.Message = "Modifiez ce modèle pour dynamiser votre application ASP.NET MVC.";
-            return View(db.Bands.ToList());
+            RedirectToAction("Newsfeed");
+            return View();
         }
 
         public ActionResult About()
@@ -76,16 +78,22 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Newsfeed()
         {
-            var NewsQuery = (from b in db.Bands
-                        orderby b.date_putin descending
-                        select b).Take(100); 
+            var NewsQuery = from band in db.Bands
+                            orderby band.date_putin
+                            select new NewsfeedModel
+                            {
+                                BandId = band.BandId,
+                                Name = band.Name,
+                                Description = band.Description,
+                                Location = band.Location,
+                                Initial = band.date_putin
+                            };
 
-            List<SearchResultModel> Newsfeed = new List<SearchResultModel>();
-            Newsfeed.AddRange(Newsfeed);
+            //var NewsQuery = db.Bands.OrderByDescending(u => u.date_putin).Take(10);
 
-            ViewData["Newsfeed"] = Newsfeed;
+            ViewData["Newsfeed"] = NewsQuery.ToList();
 
-            return View();
+            return View("index");
         }
     }
 }
