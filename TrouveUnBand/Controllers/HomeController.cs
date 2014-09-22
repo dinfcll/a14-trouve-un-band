@@ -72,15 +72,21 @@ namespace TrouveUnBand.Controllers
 
             return View();
 		}
-		
-		
-        public ActionResult CreateGroup()
+
+        [HttpPost]
+        public ActionResult Newsfeed()
         {
-            ViewBag.Message = "Votre page de contact.";
-			
+            var NewsQuery = (from b in db.Bands
+                        orderby b.date_putin descending
+                        select b).Take(100); 
+
+            List<SearchResultModel> Newsfeed = new List<SearchResultModel>();
+            Newsfeed.AddRange(Newsfeed);
+
+            ViewData["Newsfeed"] = Newsfeed;
+
             return View();
         }
-		
     }
 }
 

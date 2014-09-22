@@ -1,4 +1,15 @@
-﻿create table Users(
+﻿drop table Join_Band_Musician
+drop table Join_Band_Genre
+drop table Join_Musician_Instrument
+drop table Join_Musician_Genre
+drop table users;
+drop table musicians;
+drop table bands;
+drop table instruments;
+drop table genres;
+
+
+create table Users(
 	UserId int IDENTITY(1,1) Primary key,
 	FirstName NVARCHAR(100) NOT NULL,
 	LastName NVARCHAR(100) NOT NULL,
@@ -8,52 +19,57 @@
 	Password NVARCHAR(100) NOT NULL,
 	Location NVARCHAR(100) NOT NULL,
 	Photo varbinary(max),
-	Gender NVARCHAR(100)
+	Gender NVARCHAR(100),
+	date_putin datetime not null default getdate()
 );
 
 create table Musicians(
 	MusicianId int IDENTITY(1,1) Primary key,
 	UserId int constraint fk_musicians_users REFERENCES Users(UserId) not null,
-	Description text null
+	Description text null,
+	date_putin datetime not null default getdate()
 );
 
 create table Bands(
 	BandId int IDENTITY(1,1) Primary key,
 	Name NVARCHAR(50) not null,
 	Description text null,
-	Location NVARCHAR(100) NOT NULL
+	Location NVARCHAR(100) NOT NULL,
+	date_putin datetime not null default getdate()
 );
 
 create table Instruments(
 	InstrumentId int IDENTITY(1,1) Primary Key,
-	Name NVARCHAR(50) not null
+	Name NVARCHAR(50) not null,
+	date_putin datetime not null default getdate()
 );
 
 create table Genres(
 	GenreId int IDENTITY(1,1) Primary Key,
-	Name NVARCHAR(50) not null
+	Name NVARCHAR(50) not null,
+	date_putin datetime not null default getdate()
 );
 
 create table Join_Musician_Genre(
 	MusicianId int REFERENCES Musicians(MusicianId) not null,
 	GenreId int REFERENCES Genres(GenreId) not null,
-	constraint pk_join_musician_genre Primary Key (MusicianId, GenreId)
+	constraint pk_join_musician_genre Primary Key (MusicianId, GenreId),
 );
 
 create table Join_Musician_Instrument(
 	MusicianId int REFERENCES Musicians(MusicianId) not null,
 	InstrumentId int REFERENCES Instruments(InstrumentId) not null,
-	constraint pk_join_musician_instrument primary key (MusicianId, InstrumentId)
+	constraint pk_join_musician_instrument primary key (MusicianId, InstrumentId),
 );
 
 create table Join_Band_Genre(
 	BandId int REFERENCES Bands(BandId) not null,
 	GenreId int REFERENCES Genres(GenreId) not null,
-	constraint pk_join_band_genre Primary Key (BandId, GenreId)
+	constraint pk_join_band_genre Primary Key (BandId, GenreId),
 );
 
 create table Join_Band_Musician(
 	BandId int REFERENCES Bands(BandId) not null,
 	MusicianId int REFERENCES Musicians(MusicianId) not null,
-	constraint pk_join_band_musician Primary Key (BandId, MusicianId)
+	constraint pk_join_band_musician Primary Key (BandId, MusicianId),
 );

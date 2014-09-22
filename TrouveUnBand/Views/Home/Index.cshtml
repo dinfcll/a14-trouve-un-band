@@ -60,8 +60,8 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
+@foreach (var item in (List<TrouveUnBand.Models.SearchResultModel>)ViewData["Newsfeed"])
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
