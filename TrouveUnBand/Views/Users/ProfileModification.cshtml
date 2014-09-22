@@ -4,54 +4,100 @@
 }
 
 @if (Request.IsAuthenticated)
-{
+{  
     var user = (TrouveUnBand.Models.User)ViewData["UserData"];
-    
-    using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { @class = "row", @role="form", enctype = "multipart/form-data"} ))
+
+    using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form", enctype = "multipart/form-data" }))
     {
-        <div class="row">
-            <div class="col-md-5 col-md-offset-1">
-                @Html.Label("Profile Picture:")<br/>
-                <img alt="" src="@user.PhotoName" height="250" class="photo" /><br/><br/>
-                <input type="file" name="FileUpload" /><br/>
+        <div class="row margin-top-50">
+            <div class="bs-example">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#sectionUtil">Profil Utilisateur</a></li>
+                    <li><a data-toggle="tab" href="#sectionMusician">Profil Musicien</a></li>
+                    <li><a data-toggle="tab" href="#sectionBand">Profil Band</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="sectionUtil" class="tab-pane fade in active">
+                        <div class="row pad-top-30">
+                            <div class="col-md-4">
+                                <div class="row col-md-offset-2">
+                                    @Html.Label("Profile Picture:")
+                                </div>
+                                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><img alt="" src="@user.PhotoName" width="350" class="photo" /></a>
+                                <input class="btn" type="file" name="FileUpload" />
+
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="row padding-right-20">
+                                            <button type="button" class="close" data-dismiss="modal">X</button>
+                                        </div>
+                                      </div>
+                                      <div class="modal-body centrer-image">
+                                        <img alt="" src="@user.PhotoName" width="600" class="photo"/>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="pad-top-10">
+                                <div class="form-group col-md-3 col-md-push-1">
+                                    @Html.Label("First name:")
+                                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @Value = user.FirstName })
+                                    @Html.ValidationMessage("FirstName")
+                                </div>
+                                <div class="form-group col-md-3 col-md-push-1">         
+                                    @Html.Label("Last name:")
+                                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @Value = user.LastName })
+                                    @Html.ValidationMessage("LastName")
+                                </div>
+                                <div class="form-group col-md-3 col-md-push-1">                
+                                    @Html.Label("Birthdate:")
+                                    @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @Value = user.BirthDate.ToString("yyyy/MM/dd") })
+                                    @Html.ValidationMessage("BirthDate")
+                                </div>
+                                <div class="form-group col-md-3 col-md-push-1">                
+                                    @Html.Label("Gender:")
+                                    @Html.DropDownListFor(model => model.Gender, new SelectList(
+                                          new List<Object>{ 
+                                               new { value = "Homme" , text = "Homme"  },
+                                               new { value = "Femme" , text = "Femme" },
+                                            },
+                                          "value",
+                                          "text", user.Gender), new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-md-3 col-md-push-1">           
+                                    @Html.Label("City:")
+                                    @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @Value = user.Location })
+                                    @Html.ValidationMessage("Location")
+                                </div>
+        
+                                <div class="form-group col-md-3 col-md-push-1">                
+                                    @Html.Label("Email:")
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @Value = user.Email })
+                                    @Html.ValidationMessage("Email")
+                                </div> 
+                                <div class="row form-group col-md-3 margin-left-0 col-md-push-1">
+                                    <input type="submit" class="btn btn-primary" value="Modifier"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sectionMusician" class="tab-pane fade">
+                        <h3>Section B</h3>
+                        <p>Vestibulum nec erat eu nulla rhoncus fringilla ut non neque. Vivamus nibh urna, ornare id gravida ut, mollis a magna. Aliquam porttitor condimentum nisi, eu viverra ipsum porta ut. Nam hendrerit bibendum turpis, sed molestie mi fermentum id. Aenean volutpat velit sem. Sed consequat ante in rutrum convallis. Nunc facilisis leo at faucibus adipiscing.</p>
+                    </div>
+                    <div id="sectionBand" class="tab-pane fade">
+                        <h3>Dropdown 1</h3>
+                        <p>WInteger convallis, nulla in sollicitudin placerat, ligula enim auctor lectus, in mollis diam dolor at lorem. Sed bibendum nibh sit amet dictum feugiat. Vivamus arcu sem, cursus a feugiat ut, iaculis at erat. Donec vehicula at ligula vitae venenatis. Sed nunc nulla, vehicula non porttitor in, pharetra et dolor. Fusce nec velit velit. Pellentesque consectetur eros.</p>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                @Html.Label("First name:")
-                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @Value = user.FirstName })
-                @Html.ValidationMessage("FirstName")
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3">         
-                @Html.Label("Last name:")
-                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @Value = user.LastName })
-                @Html.ValidationMessage("LastName")
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3">                
-                @Html.Label("Birthdate:")
-                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @Value = user.BirthDate.ToString("yyyy/MM/dd") })
-                @Html.ValidationMessage("BirthDate")
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3">                
-                @Html.Label("Gender:")<br/>
-                @Html.DropDownListFor(model => model.Gender, new SelectList(
-                      new List<Object>{ 
-                           new { value = "Homme" , text = "Homme"  },
-                           new { value = "Femme" , text = "Femme" },
-                        },
-                      "value",
-                      "text",user.Gender), new { @class = "form-control" })
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3">           
-                @Html.Label("City:")
-                @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @Value = user.Location })
-                @Html.ValidationMessage("Location")
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3 col-xs-push-6">                
-                @Html.Label("Email:")
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @Value = user.Email })
-                @Html.ValidationMessage("Email")<br/>
-                <input type="submit" value="Modifier" />
-            </div>
-        </div>             
+        </div>     
     }
 }
 else
