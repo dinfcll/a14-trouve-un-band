@@ -5,7 +5,7 @@
             @Html.ActionLink(User.Identity.Name, "ProfileModification", "Users", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
         </li>
         <li>
-            <a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a>
+            <a href="javascript:document.getElementById('logoutForm').submit()">Déconnexion</a>
         </li>
     </ul>
     using (Html.BeginForm("Logout", "Users", FormMethod.Post, new { id = "logoutForm" }))

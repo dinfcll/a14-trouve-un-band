@@ -23,15 +23,20 @@
     </div>
     <div class="row">
         <div class="form-group col-md-4 col-md-offset-4">               
-            <button type="submit" class="btn btn-primary">Se connecter</button>
             @Html.LabelFor(m => m.RememberMe)
             @Html.CheckBoxFor(m => m.RememberMe)    
         </div>
     </div>
+    <div class="row">              
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+            <input type="submit" value="Inscription" class="btn btn-primary btn-block "></input>
+        </div>
+    </div>
     
+    <hr class="colorgraph">
     <div class="row">
         <div class="form-group col-md-4 col-md-offset-4">
-            <p>Vous n'avez pas de compte? @Html.ActionLink("inscrivez-vous", "Register") (C'est gratuit)</p>
+            <p>Pas de compte? @Html.ActionLink("inscrivez-vous", "Register") (C'est gratuit)</p>
         </div>
     </div>  
 }

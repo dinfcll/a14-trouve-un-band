@@ -234,6 +234,7 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\navbaractive.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -315,6 +316,9 @@
       <DependentUpon>TUBModels.edmx</DependentUpon>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Users\TermsAndConditionsDialog.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

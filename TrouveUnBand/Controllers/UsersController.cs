@@ -49,13 +49,14 @@ namespace TrouveUnBand.Controllers
                     RC = Insertcontact(user);
                     if (RC == "")
                     {
-                        TempData["notice"] = "Registration Confirmed";
+                        TempData["notice"] = "Inscription confirmé";
+                        FormsAuthentication.SetAuthCookie(user.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    RC = "Both password fields must be identical";
+                    RC = "Oops! Le mot de passe et sa confirmation ne sont pas identiques";
                 }
             }
             TempData["TempDataError"] = RC;
@@ -115,7 +116,7 @@ namespace TrouveUnBand.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["LoginFail"] = "Your nickname/email or password is incorrect. Please try again.";
+            TempData["LoginFail"] = "Votre nickname/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
             return View();
         }
 
