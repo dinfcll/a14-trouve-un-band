@@ -328,6 +328,14 @@ aside {
     font-weight: 700;
 }
 
+#RedTextError{
+    color: red;
+}
+
+#error{
+    color: red;
+}
+
 /* login page */
 #loginForm {
     border-right: solid 2px #c8c8c8;

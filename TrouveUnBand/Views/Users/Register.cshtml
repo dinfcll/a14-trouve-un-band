@@ -1,0 +1,90 @@
+﻿@model TrouveUnBand.Models.User
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm("Register", "Users", new { @class="row", @role="form"}))
+{      
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("First name:")
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessage("FirstName")
+        </div>
+    </div>
+ 
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("Last name:")
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+            @Html.ValidationMessage("LastName")
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("Nickname:")
+            @Html.TextBoxFor(model => model.Nickname, new { @class = "form-control" })
+            @Html.ValidationMessage("Nickname")
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("Birthdate:")
+            @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @placeholder = "YYYY/MM/DD" })
+            @Html.ValidationMessage("BirthDate")
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("Gender:")<br/>
+            @Html.DropDownListFor(model => model.Gender, new SelectList(
+                  new List<Object>{ 
+                       new { value = "Homme" , text = "Homme"  },
+                       new { value = "Femme" , text = "Femme" },
+                    },
+                  "value",
+                  "text",
+                   2))
+            @Html.ValidationMessage("Gender")
+        </div>
+    </div> 
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("City:")
+            @Html.TextBoxFor(model => model.Location, new { @class = "form-control" })
+            @Html.ValidationMessage("City")
+        </div>
+    </div>    
+     <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("Email:")
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessage("Email")
+        </div>
+    </div>
+    
+     <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("Password:")
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+            @Html.ValidationMessage("Password")
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            @Html.Label("ConfirmPassword:")
+            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessage("ConfirmPassword")
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group col-md-4 col-md-offset-4">
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
+        </div>
+    </div>
+}
+
