@@ -70,6 +70,8 @@ namespace TrouveUnBand.Controllers
 
             ViewData["searchResults"] = searchResults;
             ViewData["searchString"] = searchString;
+
+            return View();
 		}
 		
 		

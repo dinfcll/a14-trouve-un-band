@@ -16,16 +16,12 @@ namespace TrouveUnBand.Models
     public class GroupModel
     {
         [Required]
-        public int ID { get; set; }
+        public int BandID { get; set; }
         [Required]
-        public string GroupName { get; set; }
+        public string Name { get; set; }
         [Required]
-        public int MyStyleId { get; set; }
+        public string Location { get; set; }
         [Required]
-        public int MyMemberId { get; set; }
-        [Required]
-        public string Region { get; set; }
-        [Required]
-        public string Experience { get; set; }
+        public string Description { get; set; }
     }
 }

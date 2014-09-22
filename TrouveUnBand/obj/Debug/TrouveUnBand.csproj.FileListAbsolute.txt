@@ -67,4 +67,3 @@ Z:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.WebPages.Razor.resources.dl
 Z:\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.Data.resources.dll
 Z:\a14-trouve-un-band\TrouveUnBand\bin\fr\Microsoft.Web.WebPages.OAuth.resources.dll
 Z:\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.WebData.resources.dll
-

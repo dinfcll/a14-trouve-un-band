@@ -12,14 +12,14 @@ namespace TrouveUnBand.Controllers
 {
     public class GroupController : Controller
     {
-        private TUBBDContext db = new TUBBDContext();
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         //
         // GET: /Group/
 
         public ActionResult Index()
         {
-            return View(db.Group.ToList());
+            return View(db.Bands.ToList());
         }
 
         //
@@ -27,12 +27,12 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            GroupModel groupmodel = db.Group.Find(id);
-            if (groupmodel == null)
+            Band band = db.Bands.Find(id);
+            if (band == null)
             {
                 return HttpNotFound();
             }
-            return View(groupmodel);
+            return View(band);
         }
 
         //
@@ -44,25 +44,37 @@ namespace TrouveUnBand.Controllers
         }
 
         //
+        // GET: /Group/Create
+
+        public ActionResult ConfirmCreate()
+        {
+            return View();
+        }
+
+        //
         // POST: /Group/Create
 
         [HttpPost]
-        public ActionResult Create(GroupModel groupmodel)
+        public ActionResult Create(Band band)
         {
-            return View("ConfirmCreate", groupmodel);
+            return RedirectToAction("ConfirmCreate", band);
         }
 
         [HttpPost]
-        public ActionResult ConfirmCreate(GroupModel groupmodel)
+        public ActionResult ConfirmCreate(Band band)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Group.Add(groupmodel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    db.Bands.Add(band);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
-            return View(groupmodel);
+            return View(band);
         }
 
         //
@@ -70,27 +82,27 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            GroupModel groupmodel = db.Group.Find(id);
-            if (groupmodel == null)
+            Band band = db.Bands.Find(id);
+            if (band == null)
             {
                 return HttpNotFound();
             }
-            return View(groupmodel);
+            return View(band);
         }
 
         //
         // POST: /Group/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(GroupModel groupmodel)
+        public ActionResult Edit(Band band)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(groupmodel).State = EntityState.Modified;
+                db.Entry(band).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(groupmodel);
+            return View(band);
         }
 
         //
@@ -98,12 +110,12 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            GroupModel groupmodel = db.Group.Find(id);
-            if (groupmodel == null)
+            Band band = db.Bands.Find(id);
+            if (band == null)
             {
                 return HttpNotFound();
             }
-            return View(groupmodel);
+            return View(band);
         }
 
         //
@@ -112,8 +124,8 @@ namespace TrouveUnBand.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            GroupModel groupmodel = db.Group.Find(id);
-            db.Group.Remove(groupmodel);
+            Band band = db.Bands.Find(id);
+            db.Bands.Remove(band);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
