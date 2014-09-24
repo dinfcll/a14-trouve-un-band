@@ -20,8 +20,8 @@ namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
-        private TrouveUnBand.Models.DBModels.DBTUBContext db = new TrouveUnBand.Models.DBModels.DBTUBContext();
-        
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
+
         public ActionResult Index()
         {
             return View();
@@ -66,7 +66,7 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                var ValidUserQuery = (from User in db.User
+                var ValidUserQuery = (from User in db.Users
                                       where
                                       User.Email.Equals(user.Email) ||
                                       User.Nickname.Equals(user.Email)
@@ -80,7 +80,7 @@ namespace TrouveUnBand.Controllers
                 {
                     db.Database.Connection.Open();
                     user.Password = Encrypt(user.Password);
-                    db.User.Add(user);
+                    db.Users.Add(user);
                     db.SaveChanges();
                     db.Database.Connection.Close();
                     return "";
@@ -132,7 +132,7 @@ namespace TrouveUnBand.Controllers
             try
             {
                 string EncryptedPass = Encrypt(Password);
-                var LoginQuery = (from User in db.User
+                var LoginQuery = (from User in db.Users
                                     where
                                     (User.Email.Equals(NicknameOrEmail) ||
                                     User.Nickname.Equals(NicknameOrEmail)) &&
@@ -162,7 +162,8 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
+                Musician Musi =  new Musician();
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
                 LoggedOnUser.LastName = user.LastName;
                 LoggedOnUser.Location = user.Location;
                 LoggedOnUser.BirthDate = user.BirthDate;
@@ -171,6 +172,17 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.Photo = user.Photo;
                 LoggedOnUser.Gender = user.Gender;
                 db.SaveChanges();
+
+                Instrument i = db.Instruments.FirstOrDefault(x => x.InstrumentId == 1);
+
+                Musi.UserId = LoggedOnUser.UserId;
+                Musi.Instruments.Add(i);
+
+                db.Database.Connection.Open();
+                db.Musicians.Add(Musi);
+                db.SaveChanges();
+                db.Database.Connection.Close();
+
                 return "";
             }
             catch
@@ -181,6 +193,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult ProfileModification()
         {
+            ViewBag.InstrumentList = new SelectList(db.Instruments, "InstrumentId", "Name");
             User LoggedOnUser = GetUserInfo(User.Identity.Name);
             if (LoggedOnUser.Photo != null)
             {
@@ -232,7 +245,7 @@ namespace TrouveUnBand.Controllers
 
         private User GetUserInfo(string Nickname)
         {
-            User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == Nickname);
+            User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
             return LoggedOnUser;
         }
 
@@ -252,7 +265,7 @@ namespace TrouveUnBand.Controllers
 
         public byte[] GetProfilePicByte(string nickname)
         {
-            var PicQuery = (from User in db.User
+            var PicQuery = (from User in db.Users
                             where
                             User.Nickname.Equals(nickname)
                             select new Photo

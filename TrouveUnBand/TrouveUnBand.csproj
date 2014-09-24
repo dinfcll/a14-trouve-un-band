@@ -233,8 +233,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Compile Include="Models\DBModels.cs" />
-    <Compile Include="Models\InsertUserModel.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />

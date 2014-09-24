@@ -28,7 +28,6 @@ namespace TrouveUnBand.Models
         [Required(ErrorMessage = "This field is required")]
         public DateTime BirthDate { get; set; }
 
-       // [Key]
         [Required(ErrorMessage = "This field is required")]
         [RegularExpression(@"^([0-9a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){3,}$", ErrorMessage = "Must be at least 3 characters long")]
         public string Nickname { get; set; }

@@ -1,4 +1,4 @@
-﻿@model TrouveUnBand.Models.User
+﻿@model TrouveUnBand.Models.Musician
 @{
     ViewBag.Title = "ProfileModification";
 }
@@ -47,22 +47,22 @@
                             <div class="pad-top-10">
                                 <div class="form-group col-md-3 col-md-push-1">
                                     @Html.Label("First name:")
-                                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @Value = user.FirstName })
+                                    @Html.TextBoxFor(model => model.User.FirstName, new { @class = "form-control", @Value = user.FirstName })
                                     @Html.ValidationMessage("FirstName")
                                 </div>
                                 <div class="form-group col-md-3 col-md-push-1">         
                                     @Html.Label("Last name:")
-                                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @Value = user.LastName })
+                                    @Html.TextBoxFor(model => model.User.LastName, new { @class = "form-control", @Value = user.LastName })
                                     @Html.ValidationMessage("LastName")
                                 </div>
                                 <div class="form-group col-md-3 col-md-push-1">                
                                     @Html.Label("Birthdate:")
-                                    @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @Value = user.BirthDate.ToString("yyyy/MM/dd") })
+                                    @Html.TextBoxFor(model => model.User.BirthDate, new { @class = "form-control", @Value = user.BirthDate.ToString("yyyy/MM/dd") })
                                     @Html.ValidationMessage("BirthDate")
                                 </div>
                                 <div class="form-group col-md-3 col-md-push-1">                
                                     @Html.Label("Gender:")
-                                    @Html.DropDownListFor(model => model.Gender, new SelectList(
+                                    @Html.DropDownListFor(model => model.User.Gender, new SelectList(
                                           new List<Object>{ 
                                                new { value = "Homme" , text = "Homme"  },
                                                new { value = "Femme" , text = "Femme" },
@@ -72,13 +72,13 @@
                                 </div>
                                 <div class="form-group col-md-3 col-md-push-1">           
                                     @Html.Label("City:")
-                                    @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @Value = user.Location })
+                                    @Html.TextBoxFor(model => model.User.Location, new { @class = "form-control", @Value = user.Location })
                                     @Html.ValidationMessage("Location")
                                 </div>
         
                                 <div class="form-group col-md-3 col-md-push-1">                
                                     @Html.Label("Email:")
-                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @Value = user.Email })
+                                    @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control", @Value = user.Email })
                                     @Html.ValidationMessage("Email")
                                 </div> 
                                 <div class="row form-group col-md-3 margin-left-0 col-md-push-1">
@@ -88,9 +88,17 @@
                         </div>
                     </div>
                     <div id="sectionMusician" class="tab-pane fade">
-                        <h3>Section B</h3>
-                        <p>Vestibulum nec erat eu nulla rhoncus fringilla ut non neque. Vivamus nibh urna, ornare id gravida ut, mollis a magna. Aliquam porttitor condimentum nisi, eu viverra ipsum porta ut. Nam hendrerit bibendum turpis, sed molestie mi fermentum id. Aenean volutpat velit sem. Sed consequat ante in rutrum convallis. Nunc facilisis leo at faucibus adipiscing.</p>
+                    <div class="pad-top-30">
+                        <div class="form-group col-md-3 col-md-push-1">                
+                            @Html.Label("Instrument:") 
+                            @Html.DropDownListFor(model => model.Instruments, new SelectList(ViewBag.InstrumentList, "Value", "Text"), new { @class = "form-control" })
+                            @Html.ValidationMessage("Email")
+                        </div> 
+                        <div class="row form-group col-md-3 margin-left-0 col-md-push-1">
+                            <input type="submit" class="btn btn-primary" value="Modifier"/>
+                        </div>
                     </div>
+                    </div> 
                     <div id="sectionBand" class="tab-pane fade">
                         <h3>Dropdown 1</h3>
                         <p>WInteger convallis, nulla in sollicitudin placerat, ligula enim auctor lectus, in mollis diam dolor at lorem. Sed bibendum nibh sit amet dictum feugiat. Vivamus arcu sem, cursus a feugiat ut, iaculis at erat. Donec vehicula at ligula vitae venenatis. Sed nunc nulla, vehicula non porttitor in, pharetra et dolor. Fusce nec velit velit. Pellentesque consectetur eros.</p>
