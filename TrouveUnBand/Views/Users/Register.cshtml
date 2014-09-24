@@ -5,22 +5,13 @@
 
 @using (Html.BeginForm("Register", "Users", new { @class = "row", @role = "form" }))
 {
-    <script>
-        $(function () {
-
-            $(".dropdown-menu li a").click(function () {
-
-                $(".btn:first-child").text($(this).text());
-                $(".btn:first-child").val($(this).text());
-            });
-
-        });
-    </script>
+<html>
+<body>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 container">
                 <form role="form">
-                    <h2>Inscrivez-vous <small>et trouver votre band</small></h2>
+                    <h2>Inscrivez-vous <small>et trouvez votre band</small></h2>
                     <hr class="colorgraph">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -86,24 +77,32 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-8 col-sm-9 col-md-12">
-                            En cliquant sur «Inscription», vous acceptez les <a href="#" data-toggle="modal" data-target="#t_and_c_m">Conditions générales d'utilisation</a>.
+                            En cliquant sur «Inscription», vous acceptez les <a href="#" data-toggle="modal" data-target="#TermsAndConditions">Conditions générales d'utilisation</a>.
                         </div>
                     </div>
                     <hr class="colorgraph">
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <input type="submit" value="Inscription" class="btn btn-primary btn-block "></input>
+                            <input type="submit" value="Inscription" class="btn btn-primary btn-block ">
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <input type="reset" value="Réinitialiser" class="btn btn-default btn-block "></input>
+                            <input type="Button" value="Réinitialiser" class="btn btn-default btn-block " onclick="window.location.href='@Url.Action("Register")'" />
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         @RenderPage("TermsAndConditionsDialog.cshtml")
+    <div class="modal fade" id="TermsAndConditions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        @RenderPage("TermsAndConditionsDialog.cshtml")
     </div>
+</body>
+</html>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/Scripts/bootstrap-validation.js")
 }
 

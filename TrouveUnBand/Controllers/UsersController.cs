@@ -49,14 +49,14 @@ namespace TrouveUnBand.Controllers
                     RC = Insertcontact(user);
                     if (RC == "")
                     {
-                        TempData["notice"] = "Inscription confirmé";
+                        TempData["notice"] = "Inscription confirmée!";
                         FormsAuthentication.SetAuthCookie(user.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    RC = "Oops! Le mot de passe et sa confirmation ne sont pas identiques";
+                    RC = "Oops! Le mot de passe et sa confirmation ne sont pas identiques.";
                 }
             }
             TempData["TempDataError"] = RC;
@@ -93,7 +93,7 @@ namespace TrouveUnBand.Controllers
             }
             catch
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard.";
             }
         }
 

@@ -6202,4 +6202,12 @@ button.close {
     display: none !important;
   }
 }
+
+.field-validation-error
+{
+    /*returned text when an error occured*/
+  font-size: 75%;
+  font-weight: bold;
+  color: #a94442;
+}
 /*# sourceMappingURL=bootstrap.css.map */

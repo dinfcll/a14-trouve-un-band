@@ -46,6 +46,7 @@ namespace TrouveUnBand.Models
         public string Password { get; set; }
 
         [NotMapped]
+        [Required(ErrorMessage = "Ce champ est requis")]
         [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Doit avoir 4 caractères minimum")]
         public string ConfirmPassword { get; set; }
 

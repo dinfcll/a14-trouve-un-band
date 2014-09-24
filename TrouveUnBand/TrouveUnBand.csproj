@@ -218,6 +218,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
+    <Content Include="Scripts\bootstrap-validation.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\holder.js" />
@@ -319,6 +320,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Users\TermsAndConditionsDialog.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Users\ForgottenPassword.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -44,11 +44,15 @@
         <section class="content-wrapper main-content clear-fix">
             @if (TempData["TempDataError"] != null)
             {
-                <h3 id="error">@TempData["TempDataError"]</h3>
+                <h4 id="error" class="text-danger col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                    @TempData["TempDataError"]
+                </h4>
             }
             @if (TempData["notice"] != null)
             {
-                <h2>@TempData["notice"]</h2>
+                <h4 id="error" class="text-danger col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                    @TempData["notice"]
+                </h4>
             }
         </section>
 
@@ -60,7 +64,6 @@
     </div><!-- /.container -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrapjs")
-    @Scripts.Render("~/Scripts/navbaractive.js")
 </body>
 </html>
 
