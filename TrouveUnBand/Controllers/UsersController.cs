@@ -158,11 +158,10 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string Updatecontact(User user)
+        private string Updatecontact(User user, ICollection<Instrument> InstrumentListe)
         {
             try
             {
-                Musician Musi =  new Musician();
                 User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
                 LoggedOnUser.LastName = user.LastName;
                 LoggedOnUser.Location = user.Location;
@@ -173,15 +172,24 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.Gender = user.Gender;
                 db.SaveChanges();
 
-                Instrument i = db.Instruments.FirstOrDefault(x => x.InstrumentId == 1);
+                Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
 
-                Musi.UserId = LoggedOnUser.UserId;
-                Musi.Instruments.Add(i);
-
-                db.Database.Connection.Open();
-                db.Musicians.Add(Musi);
-                db.SaveChanges();
-                db.Database.Connection.Close();
+                if (MusicianQuery == null)
+                {
+                    Musician Musicien = new Musician();
+                    Instrument i = InstrumentListe.FirstOrDefault();
+                    Musicien.Instruments.Add(i);
+                    Musicien.UserId = LoggedOnUser.UserId;
+                    db.Database.Connection.Open();
+                    db.Musicians.Add(Musicien);
+                    db.Database.Connection.Close();
+                }
+                else
+                {
+                    Instrument i = InstrumentListe.FirstOrDefault();
+                    MusicianQuery.Instruments.Add(i);
+                    db.SaveChanges();
+                }
 
                 return "";
             }
@@ -204,14 +212,16 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult ProfileModification(User user)
+        public ActionResult ProfileModification(Musician music)
         {
+
+            User user = music.User;
             user.Nickname = User.Identity.Name;
             string RC = "";
             if (Request.Files[0].ContentLength == 0)
             {
                 user.Photo = GetProfilePicByte(user.Nickname);
-                RC = Updatecontact(user);
+                RC = Updatecontact(user, music.Instruments);
             }
             else
             {
@@ -227,7 +237,7 @@ namespace TrouveUnBand.Controllers
                 {
                     user.Photo = StockPhoto();
                 }
-                RC = Updatecontact(user);
+                RC = Updatecontact(user, music.Instruments);
             }
 
             if (RC == "")
