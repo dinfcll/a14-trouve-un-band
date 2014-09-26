@@ -169,6 +169,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -267,7 +268,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TUBModels.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\SearchResultModel.cs" />
+    <Compile Include="Models\SearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -353,7 +354,7 @@
     <Content Include="Views\Group\ConfirmCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\glyphicons-halflings-regular.eot" />
@@ -393,6 +394,12 @@
       <DependentUpon>TUBModels.edmx</DependentUpon>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Search\_SearchResults.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Search\Filter.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

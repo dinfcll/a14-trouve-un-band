@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+<div class="form-horizontal">
+    @using (Html.BeginForm("Filter", "Search", FormMethod.Get, new { @class="btn-group"}))
+    {
+        @Html.DropDownList("musicalGenres", (SelectList)ViewData["musicalGenres"], new { @class="form-control"})
+        @Html.DropDownList("searchCategories", (SelectList)ViewData["searchCategories"], new { @class="form-control"});
+        @Html.TextBox("SearchString", new { @class="form-control", @placeholder = "Recherche" })
+    <button type="submit" class="btn btn-default">Filtrer</button>
+    }
+</div>
+
+@Html.Partial("_SearchResults");

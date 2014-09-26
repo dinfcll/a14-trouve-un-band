@@ -232,7 +232,15 @@ namespace TrouveUnBand.Controllers
 
         private User GetUserInfo(string Nickname)
         {
-            User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == Nickname);
+            User LoggedOnUser = new User();
+            try
+            {
+                LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == Nickname);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return LoggedOnUser;
         }
 
