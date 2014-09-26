@@ -174,22 +174,22 @@ namespace TrouveUnBand.Controllers
 
                 Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
 
-                if (MusicianQuery == null)
-                {
+                /*if (MusicianQuery == null)
+                {*/
                     Musician Musicien = new Musician();
                     Instrument i = InstrumentListe.FirstOrDefault();
                     Musicien.Instruments.Add(i);
                     Musicien.UserId = LoggedOnUser.UserId;
-                    db.Database.Connection.Open();
-                    db.Musicians.Add(Musicien);
-                    db.Database.Connection.Close();
-                }
+                    //Musicien.Description = 
+                    //db.Musicians.Add(Musicien);
+                    db.SaveChanges();
+                /*}
                 else
                 {
                     Instrument i = InstrumentListe.FirstOrDefault();
                     MusicianQuery.Instruments.Add(i);
                     db.SaveChanges();
-                }
+                }*/
 
                 return "";
             }
@@ -207,7 +207,9 @@ namespace TrouveUnBand.Controllers
             {
                 LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             }
-            ViewData["UserData"] = LoggedOnUser;
+            Musician music = new Musician();
+            music.User = LoggedOnUser;
+            ViewData["UserData"] = music;
             return View();
         }
 
