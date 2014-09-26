@@ -25,10 +25,13 @@
                     @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Password)
 				</div>
-				<span class="button-checkbox">
-                    @Html.CheckBoxFor(m => m.RememberMe) Se souvenir de moi?
-                    <a href="" class="btn btn-link pull-right" data-toggle="modal" data-target="#ForgotPassword">Mot de passe oublié?</a>
-				</span>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.RememberMe)
+                        @Html.LabelFor(model => model.RememberMe, new { @style = "font-weight: normal" })
+                    </div>
+                    <span>
+                        <a href="#ForgotPassword" class="btn-link pull-right" data-toggle="modal">Mot de passe oublié?</a>
+                    </span>
 				<hr class="colorgraph">
 				<div class="row">
 					<div class="form-group col-md-12">
