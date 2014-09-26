@@ -117,6 +117,7 @@ namespace TrouveUnBand.Controllers
             }
 
             TempData["LoginFail"] = "Votre nickname/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+            ViewBag.Nom = "test";
             return View();
         }
 
@@ -261,6 +262,20 @@ namespace TrouveUnBand.Controllers
                                 ProfilePicture = User.Photo
                             }).FirstOrDefault();
             return PicQuery.ProfilePicture;
+        }
+
+        public string GetUserFullName()
+        {
+            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            return LoggedOnUser.FirstName + " " + LoggedOnUser.LastName;
+        }
+
+        public string GetPhotoName()
+        {
+            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
+            return PhotoName;
+
         }
     }
 }
