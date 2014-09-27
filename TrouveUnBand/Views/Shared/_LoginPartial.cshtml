@@ -3,9 +3,8 @@
     <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-user"></span>
-                            <strong>@Html.Name(User.Identity.Name)</strong>
-                            <span class="glyphicon glyphicon-chevron-down"></span>
+                            <span>Bonjour, <strong>@Html.Name(User.Identity.Name)</strong></span>
+                            <span class="glyphicon glyphicon-chevron-down small-glyphicon"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -20,9 +19,9 @@
                                             <p class="text-left"><strong>
                                             @Html.Action("GetUserFullName", "Users")
                                             </strong></p>
-                                            <p class="text-left small">info pratique a mettre</p>
+                                            <p class="text-left small">Info pratique à mettre</p>
                                             <p class="text-left">
-                                                @Html.ActionLink("Modifier le profil", "ProfileModification", "Users", routeValues: null, htmlAttributes: new { @class = "username btn btn-primary btn-block btn-sm", title = "Manage" })
+                                                @Html.ActionLink("Gestion de compte", "ProfileModification", "Users", routeValues: null, htmlAttributes: new { @class = "username btn btn-primary btn-block btn-sm", title = "Manage" })
                                             </p>
                                         </div>
                                     </div>
