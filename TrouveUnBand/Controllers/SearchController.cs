@@ -22,10 +22,6 @@ namespace TrouveUnBand.Controllers
                 new { value=3, text="Utilisateurs" }
             }, "value", "text");
        
-            ViewBag.musicalGenres = genresDDL;
-            ViewBag.searchCategories = categoriesDDL;
-            ViewBag.searchString = SearchString;
-
             var bandQuery = from band in db.Bands
                         where band.Name.Contains(SearchString)
                         select new SearchResult
@@ -52,6 +48,10 @@ namespace TrouveUnBand.Controllers
 
             searchResults.AddRange(bandQuery);
             searchResults.AddRange(userQuery);
+
+            ViewBag.musicalGenres = genresDDL;
+            ViewBag.searchCategories = categoriesDDL;
+            ViewBag.searchString = SearchString;
             ViewBag.searchResults = searchResults;
 
             return View();
@@ -148,14 +148,7 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.searchResults = searchResults;
-            return View();
+            return PartialView("_SearchResults");
         }
-
-        [HttpPost]
-        public ActionResult Filter()
-        {
-            return View();
-        }
-
     }
 }
