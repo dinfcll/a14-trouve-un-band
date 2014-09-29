@@ -45,7 +45,6 @@
     </li>
 </ol>
 
-<br />
 <div>
 
 <div id="NewsfeedUser" class="row">
@@ -62,8 +61,6 @@
 </div>
 </div>
 
-<br />
-
 <div id="NewsfeedBand" class="row">
 @foreach (var item in (List<TrouveUnBand.Models.NewsfeedBandModel>)ViewData["NewsfeedBand"])
 {
@@ -71,27 +68,24 @@
             <div class="thumbnail">
                 <img data-src="holder.js/300x300" alt="BandImage">
                 <div class="caption">
-                <div>
-                @Html.Label("Nom")
-                <br>
-                @Html.DisplayFor(modelItem => item.Name)
+                    <div class="row">
+                    @Html.Label("Nom")
+                    @Html.DisplayFor(modelItem => item.Name)
+                    </div>
+                    <div class="row">
+                    @Html.Label("Location")
+                    @Html.DisplayFor(modelItem => item.Location)
+                    </div>
+                    <div class="row">
+                    @Html.Label("Description")
+                    @Html.DisplayFor(modelItem => item.Description)
+                    </div>
+                    <div class="row">
+                    @Html.ActionLink("Details", "Details", new { id = item.BandId })
+                    </div>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                 </div>
-                <div>
-                @Html.Label("Location")
-                <br>
-                @Html.DisplayFor(modelItem => item.Location)
-                </div>
-                <div>
-                @Html.Label("Description")
-                <br>
-                @Html.DisplayFor(modelItem => item.Description)
-                </div>
-                <div>
-                @Html.ActionLink("Details", "Details", new { id = item.BandId })
-                </div>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-                </div>
+            </div>
      </div>      
 }
 </div>
