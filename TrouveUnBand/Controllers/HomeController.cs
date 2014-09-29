@@ -79,7 +79,7 @@ namespace TrouveUnBand.Controllers
         public ActionResult Newsfeed()
         {
             var NewsQuery = from band in db.Bands
-                            orderby band.BandId
+                            orderby band.BandId descending
                             select new NewsfeedModel
                             {
                                 BandId = band.BandId,
@@ -88,7 +88,7 @@ namespace TrouveUnBand.Controllers
                                 Location = band.Location,
                             };
 
-            NewsQuery = NewsQuery.Take(10);
+            NewsQuery = NewsQuery.Take(8);
 
             ViewData["Newsfeed"] = NewsQuery.ToList();
 

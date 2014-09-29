@@ -44,37 +44,34 @@
     </li>
 </ol>
 
-<div id="Newsfeed">
-    <table>
-    <tr>
-        <th>
-            @Html.Label("Nom")
-        </th>
-        <th>
-            @Html.Label("Location")
-        </th>
-        <th>
-            @Html.Label("Description")
-        </th>
-        <th></th>
-    </tr>
+<div id="Newsfeed row">
 @foreach (var item in (List<TrouveUnBand.Models.NewsfeedModel>)ViewData["Newsfeed"])
 {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.BandId }) |
-        </td>
-    </tr>
+    <div class="col-md-3 NewsfeedItems">
+            <div class="thumbnail">
+                <img data-src="holder.js/300x300" alt="Image">
+                <div class="caption">
+                <div>
+                @Html.Label("Nom")
+                <br>
+                @Html.DisplayFor(modelItem => item.Name)
+                </div>
+                <div>
+                @Html.Label("Location")
+                <br>
+                @Html.DisplayFor(modelItem => item.Location)
+                </div>
+                <div>
+                @Html.Label("Description")
+                <br>
+                @Html.DisplayFor(modelItem => item.Description)
+                </div>
+                <div>
+                @Html.ActionLink("Details", "Details", new { id = item.BandId })
+                </div>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+                </div>
+     </div>      
 }
-
-</table>
 </div>

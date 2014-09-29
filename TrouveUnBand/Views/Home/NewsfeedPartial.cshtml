@@ -1,0 +1,25 @@
+﻿<div id="Content-Wrapper">
+@foreach (var item in (List<TrouveUnBand.Models.NewsfeedModel>)ViewData["Newsfeed"])
+{
+    <div class="col-lg-6" class="NewsfeedItems">
+            <div>
+            @Html.Label("Nom")
+            <br>
+            @Html.DisplayFor(modelItem => item.Name)
+            </div>
+            <div>
+            @Html.Label("Location")
+            <br>
+            @Html.DisplayFor(modelItem => item.Location)
+            </div>
+            <div>
+            @Html.Label("Description")
+            <br>
+            @Html.DisplayFor(modelItem => item.Description)
+            </div>
+            <div>
+            @Html.ActionLink("Details", "Details", new { id = item.BandId })
+            </div>
+    </div>
+}
+</div>
