@@ -39,31 +39,30 @@
     </div><!--END NAVBAR-->
 
     <!--MAIN CONTENT-->
-    <div class="container" style="padding-top:100px">      
-
-        <section class="content-wrapper main-content clear-fix">
-            @if (TempData["TempDataError"] != null)
+        <div class="page-alerts">
+            @if (TempData["TempDataError"] != null && TempData["TempDataError"] != "")
             {
-                <h4 id="error" class="text-danger col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                    @TempData["TempDataError"]
-                </h4>
+                <div class="alert alert-danger page-alert">
+                    <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <span class="glyphicon glyphicon-remove"></span><strong> Oops! </strong><span>@TempData["TempDataError"]</span>
+                </div>
             }
-            @if (TempData["notice"] != null)
+            @if (TempData["success"] != null && TempData["success"] != "")
             {
-                <h4 id="error" class="text-danger col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                    @TempData["notice"]
-                </h4>
+                <div class="alert alert-success page-alert" id="alert-1">
+                    <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <span class="glyphicon glyphicon-ok"></span><strong> Bravo! </strong><span>@TempData["success"]</span>
+                </div>
             }
-        </section>
-
-        @RenderSection("featured", required: false)
-        @RenderSection("scripts", required: false)
-        @RenderBody()
-
+        </div>
+        <div class="container" style="padding-top:100px">
+            @RenderSection("featured", required: false)
+            @RenderSection("scripts", required: false)
+            @RenderBody()
+        </div><!-- /.container -->
         @Scripts.Render("~/bundles/jquery")
-    </div><!-- /.container -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrapjs")
+        @Scripts.Render("~/bundles/bootstrapjs")
+        @Scripts.Render("~/Scripts/alert.js")
 </body>
 </html>
 
