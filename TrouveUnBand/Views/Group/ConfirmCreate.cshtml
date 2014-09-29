@@ -1,0 +1,48 @@
+﻿@model TrouveUnBand.Models.Band
+
+@{
+    ViewBag.Title = "Confirmation";
+}
+
+<h2>Confirmation de la création</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CreateGroupModel</legend>
+
+        <div class="editor-label">
+            @Html.Label("Nom")
+        </div>
+        <div class="editor-field">
+            @Html.DisplayTextFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Location")
+        </div>
+        <div class="editor-field">
+            @Html.DisplayTextFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Description")
+        </div>
+        <div class="editor-field">
+            @Html.DisplayTextFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <p>
+            <input type="submit" value="ConfirmCreate"/>
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

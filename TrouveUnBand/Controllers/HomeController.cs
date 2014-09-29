@@ -33,7 +33,7 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        [HttpGet]
+		[HttpGet]
         public ActionResult Search()
         {
             return View();
@@ -70,8 +70,19 @@ namespace TrouveUnBand.Controllers
 
             ViewData["searchResults"] = searchResults;
             ViewData["searchString"] = searchString;
+
+            return View();
+		}
+		
+		
+        public ActionResult CreateGroup()
+        {
+            ViewBag.Message = "Votre page de contact.";
+			
             return View();
         }
+		
     }
 }
+
 

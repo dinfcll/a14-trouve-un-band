@@ -60,3 +60,4 @@ namespace TrouveUnBand.Models
         public virtual ICollection<Musician> Musicians { get; set; }
     }
 }
+
