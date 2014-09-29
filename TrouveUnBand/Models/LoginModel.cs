@@ -8,13 +8,15 @@ namespace TrouveUnBand.Models
 {
     public class LoginModel
     {
-        [Required]
-        [Display(Name = "Nickname or Email")]
+        [Required(ErrorMessage = "L'identifiant est requis")]
+        [Display(Name = "Identifiant ou Courriel")]
         public string Nickname { get; set; }
-        [Required]
-        [Display(Name = "Password")]
+
+        [Required(ErrorMessage = "Le mot de passe est requis")]
+        [Display(Name = "Mot de passe")]
         public string Password { get; set; }
-        [Display(Name = "Remember password?")]
+
+        [Display(Name = "Se souvenir de moi?")]
         public bool RememberMe { get; set; }
     }
 }
