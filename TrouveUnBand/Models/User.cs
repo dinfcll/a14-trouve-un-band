@@ -17,36 +17,36 @@ namespace TrouveUnBand.Models
         }
 
         public int UserId { get; set; }
-        [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
+
+        [Required(ErrorMessage = "Ce champ est requis")]
+        [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
+        [Required(ErrorMessage = "Ce champ est requis")]
+        [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "Ce champ est requis")]
         public DateTime BirthDate { get; set; }
 
-       // [Key]
-        [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^([0-9a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){3,}$", ErrorMessage = "Must be at least 3 characters long")]
+        [Required(ErrorMessage = "Ce champ est requis")]
+        [RegularExpression(@"^([0-9a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){3,}$", ErrorMessage = "Doit avoir 3 caractères minimum")]
         public string Nickname { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Must be a valid email address")]
+        [Required(ErrorMessage = "Ce champ est requis")]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Le courriel doit être valide")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ ]{2,}$", ErrorMessage = "Must be at least 2 letters long")]
+        [Required(ErrorMessage = "Ce champ est requis")]
+        [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ ]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum")]
         public string Location { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long")]
+        [Required(ErrorMessage = "Ce champ est requis")]
+        [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Doit avoir 4 caractères minimum")]
         public string Password { get; set; }
 
         [NotMapped]
-        [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Must be at least 4 letters long")]
+        [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Doit avoir 4 caractères minimum")]
         public string ConfirmPassword { get; set; }
 
         [NotMapped]
@@ -54,6 +54,7 @@ namespace TrouveUnBand.Models
 
         public byte[] Photo { get; set; }
 
+        [Required(ErrorMessage = "Ce champ est requis")]
         public string Gender { get; set; }
 
         public virtual ICollection<Musician> Musicians { get; set; }
