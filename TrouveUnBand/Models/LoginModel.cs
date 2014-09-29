@@ -9,7 +9,7 @@ namespace TrouveUnBand.Models
     public class LoginModel
     {
         [Required(ErrorMessage = "L'identifiant est requis")]
-        [Display(Name = "Nickname ou Courriel")]
+        [Display(Name = "Identifiant ou Courriel")]
         public string Nickname { get; set; }
 
         [Required(ErrorMessage = "Le mot de passe est requis")]

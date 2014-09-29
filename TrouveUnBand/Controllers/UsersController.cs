@@ -116,7 +116,7 @@ namespace TrouveUnBand.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["TempDataError"] = "Votre nickname/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+            TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
             return View();
         }
 
