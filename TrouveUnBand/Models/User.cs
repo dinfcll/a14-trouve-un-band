@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +10,7 @@ using System.Drawing;
 namespace TrouveUnBand.Models
 {
     public partial class User
-    {   
+    {
         public User()
         {
             this.Musicians = new HashSet<Musician>();
@@ -18,18 +18,18 @@ namespace TrouveUnBand.Models
 
         public int UserId { get; set; }
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^([a-zÃ¤Ã¡Ã Ã«Ã©Ã¨Ã­Ã¬Ã¶Ã³Ã²ÃºÃ¹Ã±Ã§A-ZÃ„Ã€Ã‹ÃˆÃ‰ÃŒÃ”Ã’Ã™Ã‡]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
+        [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^([a-zÃ¤Ã¡Ã Ã«Ã©Ã¨Ã­Ã¬Ã¶Ã³Ã²ÃºÃ¹Ã±Ã§A-ZÃ„Ã€Ã‹ÃˆÃ‰ÃŒÃ”Ã’Ã™Ã‡]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
+        [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Must be at least 2 characters long, letters only")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^([0-9a-zÃ¤Ã¡Ã Ã«Ã©Ã¨Ã­Ã¬Ã¶Ã³Ã²ÃºÃ¹Ã±Ã§A-ZÃ„Ã€Ã‹ÃˆÃ‰ÃŒÃ”Ã’Ã™Ã‡]){3,}$", ErrorMessage = "Must be at least 3 characters long")]
+        [RegularExpression(@"^([0-9a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){3,}$", ErrorMessage = "Must be at least 3 characters long")]
         public string Nickname { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
@@ -37,7 +37,7 @@ namespace TrouveUnBand.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^[a-zÃ¤Ã¡Ã Ã«Ã©Ã¨Ã­Ã¬Ã¶Ã³Ã²ÃºÃ¹Ã±Ã§A-ZÃ„Ã€Ã‹ÃˆÃ‰ÃŒÃ”Ã’Ã™Ã‡ ]{2,}$", ErrorMessage = "Must be at least 2 letters long")]
+        [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ ]{2,}$", ErrorMessage = "Must be at least 2 letters long")]
         public string Location { get; set; }
 
         [Required(ErrorMessage = "This field is required")]

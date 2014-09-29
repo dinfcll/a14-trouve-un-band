@@ -9,24 +9,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrouveUnBand.Models
 {
-    public partial class Band
+    public partial class Join_Musician_Instrument
     {
-        public Band()
-        {
-            this.Genres = new HashSet<Genre>();
-            this.Musicians = new HashSet<Musician>();
-        }
-    
-        public int BandId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Location { get; set; }
-    
-        public virtual ICollection<Genre> Genres { get; set; }
-        public virtual ICollection<Musician> Musicians { get; set; }
+        public int MusicianId { get; set; }
+        public int InstrumentId { get; set; }
+        public int Skills { get; set; }
+ 
+        public virtual Instrument Instrument { get; set; }
+        public virtual Musician Musician { get; set; }
     }
     
 }

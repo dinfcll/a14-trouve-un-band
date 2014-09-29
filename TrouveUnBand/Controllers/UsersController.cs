@@ -20,7 +20,7 @@ namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
+        private TrouveUnBandEntities1 db = new TrouveUnBandEntities1();
 
         public ActionResult Index()
         {
@@ -174,22 +174,22 @@ namespace TrouveUnBand.Controllers
 
                 Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
 
-                /*if (MusicianQuery == null)
-                {*/
+                if (MusicianQuery == null)
+                {
                     Musician Musicien = new Musician();
                     Instrument i = InstrumentListe.FirstOrDefault();
-                    Musicien.Instruments.Add(i);
+                    //Musicien.Instruments.Add(i);
                     Musicien.UserId = LoggedOnUser.UserId;
                     //Musicien.Description = 
                     //db.Musicians.Add(Musicien);
                     db.SaveChanges();
-                /*}
+                }
                 else
                 {
                     Instrument i = InstrumentListe.FirstOrDefault();
-                    MusicianQuery.Instruments.Add(i);
+                    //MusicianQuery.Instruments.Add(i);
                     db.SaveChanges();
-                }*/
+                }
 
                 return "";
             }
@@ -223,7 +223,7 @@ namespace TrouveUnBand.Controllers
             if (Request.Files[0].ContentLength == 0)
             {
                 user.Photo = GetProfilePicByte(user.Nickname);
-                RC = Updatecontact(user, music.Instruments);
+               // RC = Updatecontact(user, music.Join_Musician_InInstruments);
             }
             else
             {
@@ -239,7 +239,7 @@ namespace TrouveUnBand.Controllers
                 {
                     user.Photo = StockPhoto();
                 }
-                RC = Updatecontact(user, music.Instruments);
+                //RC = Updatecontact(user, music.Instruments);
             }
 
             if (RC == "")

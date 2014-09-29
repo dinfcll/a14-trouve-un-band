@@ -43,6 +43,7 @@ create table Join_Musician_Genre(
 create table Join_Musician_Instrument(
 	MusicianId int REFERENCES Musicians(MusicianId) not null,
 	InstrumentId int REFERENCES Instruments(InstrumentId) not null,
+	Skills int not null,
 	constraint pk_join_musician_instrument primary key (MusicianId, InstrumentId)
 );
 
