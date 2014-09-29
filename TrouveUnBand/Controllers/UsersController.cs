@@ -69,7 +69,7 @@ namespace TrouveUnBand.Controllers
                 var ValidUserQuery = (from User in db.Users
                                       where
                                       User.Email.Equals(user.Email) ||
-                                      User.Nickname.Equals(user.Email)
+                                      User.Nickname.Equals(user.Nickname)
                                       select new SearchUserInfo
                                       {
                                           Nickname = User.Nickname,
@@ -114,7 +114,6 @@ namespace TrouveUnBand.Controllers
                 FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                 return RedirectToAction("Index", "Home");
             }
-
             TempData["LoginFail"] = "Your nickname/email or password is incorrect. Please try again.";
             return View();
         }
@@ -158,36 +157,33 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string Updatecontact(User user, ICollection<Instrument> InstrumentListe)
+        private string Updatecontact(Musician user)
         {
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
-                LoggedOnUser.LastName = user.LastName;
-                LoggedOnUser.Location = user.Location;
-                LoggedOnUser.BirthDate = user.BirthDate;
-                LoggedOnUser.Email = user.Email;
-                LoggedOnUser.FirstName = user.FirstName;
-                LoggedOnUser.Photo = user.Photo;
-                LoggedOnUser.Gender = user.Gender;
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.User.Nickname);
+                LoggedOnUser.LastName = user.User.LastName;
+                LoggedOnUser.Location = user.User.Location;
+                LoggedOnUser.BirthDate = user.User.BirthDate;
+                LoggedOnUser.Email = user.User.Email;
+                LoggedOnUser.FirstName = user.User.FirstName;
+                LoggedOnUser.Photo = user.User.Photo;
+                LoggedOnUser.Gender = user.User.Gender;
                 db.SaveChanges();
 
                 Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
 
                 if (MusicianQuery == null)
                 {
-                    Musician Musicien = new Musician();
-                    Instrument i = InstrumentListe.FirstOrDefault();
-                    //Musicien.Instruments.Add(i);
-                    Musicien.UserId = LoggedOnUser.UserId;
-                    //Musicien.Description = 
-                    //db.Musicians.Add(Musicien);
+                    MusicianQuery = new Musician();
+                    MusicianQuery.UserId = user.User.UserId;
+                    MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
+                    db.Musicians.Add(MusicianQuery);
                     db.SaveChanges();
                 }
                 else
                 {
-                    Instrument i = InstrumentListe.FirstOrDefault();
-                    //MusicianQuery.Instruments.Add(i);
+                    MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
                     db.SaveChanges();
                 }
 
@@ -201,29 +197,49 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult ProfileModification()
         {
-            ViewBag.InstrumentList = new SelectList(db.Instruments, "InstrumentId", "Name");
+            ViewBag.InstrumentList = new List<Instrument>(db.Instruments);
+
             User LoggedOnUser = GetUserInfo(User.Identity.Name);
             if (LoggedOnUser.Photo != null)
             {
                 LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             }
-            Musician music = new Musician();
-            music.User = LoggedOnUser;
-            ViewData["UserData"] = music;
+
+            Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
+            if (MusicianQuery == null)
+            {
+                MusicianQuery = new Musician();
+            }
+            MusicianQuery.User = LoggedOnUser;
+            ViewData["UserData"] = MusicianQuery;
             return View();
         }
 
         [HttpPost]
         public ActionResult ProfileModification(Musician music)
         {
+            string InstrumentList = Request["InstrumentListDD"];
+            string[] InstrumentArray = InstrumentList.Split(',');
 
-            User user = music.User;
-            user.Nickname = User.Identity.Name;
+            string SkillList = Request["SkillsList"];
+            string[] SkillArray = SkillList.Split(',');
+
+            
+            for (int i = 0; i < InstrumentArray.Length; i++)
+            {
+                Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
+                InstrumentsMusician.InstrumentId = Convert.ToInt32(InstrumentArray[i]);
+                InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
+                InstrumentsMusician.MusicianId = music.MusicianId;
+                music.Join_Musician_Instrument.Add(InstrumentsMusician);
+            }
+
+            music.User.Nickname = User.Identity.Name;
             string RC = "";
             if (Request.Files[0].ContentLength == 0)
             {
-                user.Photo = GetProfilePicByte(user.Nickname);
-               // RC = Updatecontact(user, music.Join_Musician_InInstruments);
+                music.User.Photo = GetProfilePicByte(music.User.Nickname);
+                RC = Updatecontact(music);
             }
             else
             {
@@ -232,14 +248,14 @@ namespace TrouveUnBand.Controllers
                 {
                     Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
                     byte[] bytephoto = imageToByteArray(img);
-                    user.PhotoName = PostedPhoto.FileName;
-                    user.Photo = bytephoto;
+                    music.User.PhotoName = PostedPhoto.FileName;
+                    music.User.Photo = bytephoto;
                 }
                 catch
                 {
-                    user.Photo = StockPhoto();
+                    music.User.Photo = StockPhoto();
                 }
-                //RC = Updatecontact(user, music.Instruments);
+                RC = Updatecontact(music);
             }
 
             if (RC == "")

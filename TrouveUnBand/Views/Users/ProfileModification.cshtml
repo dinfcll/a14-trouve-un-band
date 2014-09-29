@@ -3,6 +3,69 @@
     ViewBag.Title = "ProfileModification";
 }
 
+<script type="text/javascript">
+     $(function () {
+
+         var values = new Array();
+
+         $(document).on('change', '.form-group-multiple-selects .input-group-multiple-select:last-child select', function () {
+             var selectsLength = $('.form-group-multiple-selects .input-group-multiple-select select').length;
+             var optionsLength = ($(this).find('option').length) - 1;
+
+             if (selectsLength < optionsLength) {
+                 var sInputGroupHtml = $(this).parent().html();
+                 var sInputGroupClasses = $(this).parent().attr('class');
+                 $(this).parent().parent().append('<div class="' + sInputGroupClasses + '">' + sInputGroupHtml + '</div>');
+             }
+
+             updateValues();
+
+         });
+
+         $(document).on('change', '.form-group-multiple-selects .input-group-multiple-select:not(:last-child) select', function () {
+
+             updateValues();
+
+         });
+
+         $(document).on('click', '.input-group-addon-remove', function () {
+             $(this).parent().remove();
+             updateValues();
+         });
+
+         function updateValues() {
+             values = new Array();
+             $('.form-group-multiple-selects .input-group-multiple-select select').each(function () {
+                 var value = $(this).val();
+                 if (value != 0 && value != "") {
+                     values.push(value);
+                 }
+             });
+
+             $('.form-group-multiple-selects .input-group-multiple-select select').find('option').each(function () {
+                 var optionValue = $(this).val();
+                 var selectValue = $(this).parent().val();
+                 if (in_array(optionValue, values) != -1 && selectValue != optionValue) {
+                     $(this).attr('disabled', 'disabled');
+                 }
+                 else {
+                     $(this).removeAttr('disabled');
+                 }
+             });
+         }
+
+         function in_array(needle, haystack) {
+             var found = 0;
+             for (var i = 0, length = haystack.length; i < length; i++) {
+                 if (haystack[i] == needle) return i;
+                 found++;
+             }
+             return -1;
+         }
+     });
+</script> 
+
+
 @if (Request.IsAuthenticated)
 {  
     var user = (TrouveUnBand.Models.Musician)ViewData["UserData"];
@@ -45,6 +108,7 @@
                                 </div>
                             </div>
                             <div class="pad-top-10">
+                            @Html.HiddenFor(model => model.User.UserId, new { @class = "form-control", @Value = user.User.UserId })
                                 <div class="form-group col-md-3 col-md-push-1">
                                     @Html.Label("First name:")
                                     @Html.TextBoxFor(model => model.User.FirstName, new { @class = "form-control", @Value = user.User.FirstName })
@@ -89,13 +153,13 @@
                     </div>
                     <div id="sectionMusician" class="tab-pane fade">
                     <div class="pad-top-30">
-                        <div class="form-group col-md-3 col-md-push-1">                
+                        <div class="form-group input-group-multiple-select col-md-4 col-md-push-1">   
                             @Html.Label("Instrument:") 
-                            @Html.DropDownListFor(model => model.Join_Musician_Instrument, new SelectList(ViewBag.InstrumentList, "Value", "Text", user.Join_Musician_Instrument), new { @class = "form-control" })
+                            @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name"), new { @class = "form-control"})
                         </div> 
-                        <div class="form-group col-md-3 col-md-push-1">  
+                        <div class="form-group col-md-4 col-md-push-1">  
                             @Html.Label("Expérience:") 
-                            @Html.DropDownListFor(model => model.Description, new SelectList(
+                            @Html.DropDownList("SkillsList", new SelectList(
                                           new List<Object>{ 
                                                new { value = "1" , text = "*"  },
                                                new { value = "2" , text = "**" },
@@ -104,16 +168,41 @@
                                                new { value = "5" , text = "*****"  },
                                             },
                                           "value",
-                            "text", user.Join_Musician_Instrument), new { @class = "form-control" })
+                            "text"), new { @class = "form-control" })
                         </div> 
+                        <div class="form-group col-md-10 col-md-push-1"> 
+                        @Html.Label("Instrument(s) joué(s)");
+                                    <table>
+                                        @foreach (TrouveUnBand.Models.Join_Musician_Instrument InstrumentsUser in user.Join_Musician_Instrument)
+                                         {
+                                           <tr>
+                                                <td>
+                                                    @Html.DropDownList("InstrumentListDD", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name",
+                                                    @Convert.ToInt32(InstrumentsUser.InstrumentId)), new { @class = "form-control" })
+                                                </td>   
+                                                <td>
+                                                    @Html.DropDownList("SkillsList", new SelectList(
+                                                    new List<Object>{ 
+                                                    new { value = "1" , text = "*"  },
+                                                    new { value = "2" , text = "**" },
+                                                    new { value = "3" , text = "***"  },
+                                                    new { value = "4" , text = "****" },
+                                                    new { value = "5" , text = "*****"  },
+                                                    },
+                                                    "value", "text", @InstrumentsUser.Skills),
+                                                    new { @class = "form-control" })
+                                                </td>
+                                           </tr>
+                                         }
+                                    </table>
+                                </div>
                         <div class="row form-group col-md-3 margin-left-0 col-md-push-1">
                             <input type="submit" class="btn btn-primary" value="Modifier"/>
                         </div>
                     </div>
                     </div> 
                     <div id="sectionBand" class="tab-pane fade">
-                        <h3>Dropdown 1</h3>
-                        <p>WInteger convallis, nulla in sollicitudin placerat, ligula enim auctor lectus, in mollis diam dolor at lorem. Sed bibendum nibh sit amet dictum feugiat. Vivamus arcu sem, cursus a feugiat ut, iaculis at erat. Donec vehicula at ligula vitae venenatis. Sed nunc nulla, vehicula non porttitor in, pharetra et dolor. Fusce nec velit velit. Pellentesque consectetur eros.</p>
+
                     </div>
                 </div>
             </div>
