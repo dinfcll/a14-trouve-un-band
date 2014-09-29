@@ -78,9 +78,9 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Newsfeed()
         {
-            var NewsQuery = from band in db.Bands
+            var BandQuery = from band in db.Bands
                             orderby band.BandId descending
-                            select new NewsfeedModel
+                            select new NewsfeedBandModel
                             {
                                 BandId = band.BandId,
                                 Name = band.Name,
@@ -88,9 +88,21 @@ namespace TrouveUnBand.Controllers
                                 Location = band.Location,
                             };
 
-            NewsQuery = NewsQuery.Take(8);
+            var UserQuery = from user in db.Users
+                            orderby user.UserId descending
+                            select new NewsfeedUserModel
+                            {
+                                UserId = user.UserId,
+                                FirstName = user.FirstName,
+                                LastName = user.LastName,
+                                Nickname = user.Nickname,
+                            };
 
-            ViewData["Newsfeed"] = NewsQuery.ToList();
+            BandQuery = BandQuery.Take(8);
+            UserQuery = UserQuery.Take(12);
+
+            ViewData["NewsfeedBand"] = BandQuery.ToList();
+            ViewData["NewsfeedUser"] = UserQuery.ToList();
 
             return View("index");
         }

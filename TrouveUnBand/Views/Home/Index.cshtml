@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Page d'accueil";
 }
+
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
@@ -44,12 +45,31 @@
     </li>
 </ol>
 
-<div id="Newsfeed row">
-@foreach (var item in (List<TrouveUnBand.Models.NewsfeedModel>)ViewData["Newsfeed"])
+<br />
+<div>
+
+<div id="NewsfeedUser" class="row">
+@foreach (var item in (List<TrouveUnBand.Models.NewsfeedUserModel>)ViewData["NewsfeedUser"])
+{  
+    <div class="col-sm-6 col-md-1 NewsfeedItems">
+        <div class="thumbnail">
+            <img data-src="holder.js/300x300" alt="none">
+            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.LastName)
+        </div>  
+    </div>
+}
+</div>
+</div>
+
+<br />
+
+<div id="NewsfeedBand" class="row">
+@foreach (var item in (List<TrouveUnBand.Models.NewsfeedBandModel>)ViewData["NewsfeedBand"])
 {
     <div class="col-md-3 NewsfeedItems">
             <div class="thumbnail">
-                <img data-src="holder.js/300x300" alt="Image">
+                <img data-src="holder.js/300x300" alt="BandImage">
                 <div class="caption">
                 <div>
                 @Html.Label("Nom")

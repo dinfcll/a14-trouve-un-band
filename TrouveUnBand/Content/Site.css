@@ -1,4 +1,6 @@
-﻿html {
+﻿@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+
+html {
     background-color: #e2e2e2;
     margin: 0;
     padding: 0;
@@ -761,4 +763,14 @@ tr.pager td {
         footer p {
             margin: 0;
         }
+}
+
+.myDiv{
+border: 1px #888888 solid;
+
+-moz-box-shadow: 4px 4px 0px 4px #888888;
+-webkit-box-shadow: 4px 4px 0px 4px #888888;
+box-shadow: 4px 4px 0px 4px #888888;
+
+transform:rotate(6deg);
 }
