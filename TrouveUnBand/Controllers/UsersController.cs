@@ -15,6 +15,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Web.Script.Serialization;
+using System.Net.Http;
 
 namespace TrouveUnBand.Controllers
 {
@@ -23,6 +25,10 @@ namespace TrouveUnBand.Controllers
         private TrouveUnBand.Models.DBModels.DBTUBContext db = new TrouveUnBand.Models.DBModels.DBTUBContext();
         
         public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult CalculLocation()
         {
             return View();
         }
@@ -275,6 +281,24 @@ namespace TrouveUnBand.Controllers
             string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             return PhotoName;
 
+        }
+
+        [HttpPost]
+        public ActionResult CalculLocation()
+        {
+            var client = new HttpClient();
+
+            client.BaseAddress = new Uri("https://maps.googleapis.com");
+
+            var response = client.GetAsync("/maps/api/geocode/json?address=G6Z2W6,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+
+                var location = new JavaScriptSerializer().Deserialize<geometry>(responseBody);
+                var test=  location.coord.lat;
+            }
         }
     }
 }
