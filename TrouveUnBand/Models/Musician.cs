@@ -24,7 +24,6 @@ namespace TrouveUnBand.Models
         public int MusicianId { get; set; }
         public int UserId { get; set; }
         public string Description { get; set; }
-        public DateTime date_putin { get; set; }
     
         public virtual User User { get; set; }
         public virtual ICollection<Band> Bands { get; set; }
