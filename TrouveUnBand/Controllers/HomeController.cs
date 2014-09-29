@@ -79,17 +79,16 @@ namespace TrouveUnBand.Controllers
         public ActionResult Newsfeed()
         {
             var NewsQuery = from band in db.Bands
-                            orderby band.date_putin
+                            orderby band.BandId
                             select new NewsfeedModel
                             {
                                 BandId = band.BandId,
                                 Name = band.Name,
                                 Description = band.Description,
                                 Location = band.Location,
-                                Initial = band.date_putin
                             };
 
-            //var NewsQuery = db.Bands.OrderByDescending(u => u.date_putin).Take(10);
+            NewsQuery = NewsQuery.Take(10);
 
             ViewData["Newsfeed"] = NewsQuery.ToList();
 

@@ -173,7 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\NewsfeedResultModel.cs" />
+    <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Style.cs" />
