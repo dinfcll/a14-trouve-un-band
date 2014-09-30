@@ -1,3 +1,13 @@
 ﻿@{
     ViewBag.Title = "CalculLocation";
 }
+
+@Html.Action("GetDistance", "Users", new { LatitudeP1 = "46,7076888", LongitudeP1 = "-71,20493239999999", LatitudeP2 = "46,8177131", LongitudeP2 = "-71,1524148" })
+<br/>
+@Html.Action("GetDistance", "Users", new { LatitudeP1 = "52,9399159", LongitudeP1 = "-73,5491361", LatitudeP2 = "46,7382265", LongitudeP2 = "-71,2464592" })
+
+
+
+
+@Html.Action("GetLocation", "Users", new { Location = "Lévis" })
+@Html.Action("GetLocation", "Users", new { Location = "Québec" })

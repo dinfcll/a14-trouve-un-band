@@ -283,22 +283,60 @@ namespace TrouveUnBand.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult CalculLocation()
+        public string GetLocation(string Location)
         {
             var client = new HttpClient();
 
             client.BaseAddress = new Uri("https://maps.googleapis.com");
 
-            var response = client.GetAsync("/maps/api/geocode/json?address=G6Z2W6,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds").Result;
+            var response = client.GetAsync("/maps/api/geocode/json?address=" + Location + ",+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds").Result;
 
             if (response.IsSuccessStatusCode)
             {
                 string responseBody = response.Content.ReadAsStringAsync().Result;
 
-                var location = new JavaScriptSerializer().Deserialize<geometry>(responseBody);
-                var test=  location.coord.lat;
+                var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
+                return location.results[0].geometry.location.lat.ToString()+location.results[0].geometry.location.lng;
             }
+            return "Erreur";
+        }
+
+        public string GetDistance(string LatitudeP1,string LongitudeP1, string LatitudeP2, string LongitudeP2)
+        {
+            bool IsDouble;
+            double LatP1=0.0, LngP1=0.0, LatP2=0.0, LngP2=0.0;
+
+            IsDouble = double.TryParse(LatitudeP1,out LatP1);
+            if(IsDouble == true)
+            {
+                IsDouble = double.TryParse(LongitudeP1, out LngP1);
+            }
+            if (IsDouble == true)
+            {
+                IsDouble = double.TryParse(LatitudeP2, out LatP2);
+            }
+            if (IsDouble == true)
+            {
+                IsDouble = double.TryParse(LongitudeP2, out LngP2);
+            }
+            if (IsDouble == true)
+            {
+                double R = 6378.137; // Earth’s mean radius in kilometer
+                var lat = ToRadians(LatP2 - LatP1);
+                var lng = ToRadians(LngP2 - LngP1);
+                var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
+                              Math.Cos(ToRadians(LatP1)) * Math.Cos(ToRadians(LatP2)) *
+                              Math.Sin(lng / 2) * Math.Sin(lng / 2);
+                var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
+                int d=  (int)(R * h2);
+                return d.ToString() + " kilomètres";
+            }
+            return "Erreur";
+        }
+
+        public static double ToRadians(double val)
+        {
+            return (Math.PI / 180) * val;
         }
     }
 }
