@@ -16,6 +16,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.v12.suo
 
 # SQL Server files
 *.mdf
