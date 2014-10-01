@@ -7,9 +7,9 @@
         @using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
         {
             <span>Je cherche</span>         
-            @Html.DropDownList("searchCategories", (SelectList)ViewData["searchCategories"], new { @class = "form-control" });
+            @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" });
             <span>dans</span>                                                                                                                               
-            @Html.DropDownList("musicalGenres", (SelectList)ViewData["musicalGenres"],"Tout les genres", new { @class = "form-control" })     
+            @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"],"Tout les genres", new { @class = "form-control" })     
             <span>correspondant à</span>
             @Html.TextBox("SearchString", new { @class = "form-control", @placeholder = "Recherche" })
             <button type="submit" class="btn btn-primary">Filtrer</button>

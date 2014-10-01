@@ -13,7 +13,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index(string SearchString)
         {
-            List<SearchResult> searchResults = new List<SearchResult>();
+            List<SearchResult> ResultsList = new List<SearchResult>();
 
             SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
             SelectList categoriesDDL = new SelectList(new List<Object>{
@@ -47,152 +47,193 @@ namespace TrouveUnBand.Controllers
                                 Type = "Musicien"
                             };
 
-            searchResults.AddRange(bandQuery);
-            searchResults.AddRange(userQuery);
+            ResultsList.AddRange(bandQuery);
+            ResultsList.AddRange(userQuery);
 
-            ViewBag.musicalGenres = genresDDL;
-            ViewBag.searchCategories = categoriesDDL;
-            ViewBag.searchString = SearchString;
-            ViewBag.searchResults = searchResults;
+            ViewBag.GenresList = genresDDL;
+            ViewBag.CategoriesList = categoriesDDL;
+            ViewBag.SearchString = SearchString;
+            ViewBag.ResultsList = ResultsList;
 
             return View();
         }
 
         [HttpGet]
-        public ActionResult Filter(int? musicalGenres, int searchCategories, string SearchString)
+        public ActionResult Filter(int DDLCategories, int? DDLGenres, string SearchString)
         {
-            try
+            const int RESULTS_PER_PAGES = 25;
+            List<SearchResult> ResultsList = new List<SearchResult>();
+
+            switch (DDLCategories)
             {
-                List<SearchResult> searchResults = new List<SearchResult>();
+                case 1: //All categories dropdown list option
 
-                switch (searchCategories)
-                {
-                    case 1: //All categories
-                        if (musicalGenres != null)
+                    List<Band> bandsList = GetBands(DDLGenres, SearchString, RESULTS_PER_PAGES);
+                    List<Musician> musiciansList = GetMusicians(DDLGenres, SearchString, RESULTS_PER_PAGES);
+
+                    foreach (Band band in bandsList)
+                    {
+                        ResultsList.Add(new SearchResult 
+                        { 
+                            Name = band.Name, 
+                            Description = band.Description, 
+                            Location = band.Location, 
+                            Type = "Band" 
+                        });
+                    }
+
+                    foreach (Musician musician in musiciansList)
+                    {
+                        User user = db.Users.Find(musician.UserId);
+
+                        ResultsList.Add(new SearchResult
                         {
-                            var bandQuery = from band in db.Bands
-                                            where
-                                            band.Name.Contains(SearchString)
-                                            && band.Genres.Any(x => x.GenreId == musicalGenres)
-                                            select new SearchResult
-                                            {
-                                                Name = band.Name,
-                                                Location = band.Location,
-                                                Description = band.Description,
-                                                Type = "Groupe"
-                                            };
+                            Name = user.FirstName + " " + user.LastName,
+                            Description = musician.Description,
+                            Location = user.Location,
+                            Type = "Musicien"
+                        });
+                    }
 
-                            var userQuery = from user in db.Users
-                                            join musician in db.Musicians on user.UserId equals musician.UserId
-                                            where
-                                            user.FirstName.Contains(SearchString) ||
-                                            user.LastName.Contains(SearchString) ||
-                                            user.Nickname.Contains(SearchString)
-                                            && musician.Genres.Any(x => x.GenreId == musicalGenres)
-                                            select new SearchResult
-                                            {
-                                                Name = user.FirstName + " " + user.LastName,
-                                                Location = user.Location,
-                                                Description = musician.Description,
-                                                Type = "Musicien"
-                                            };
-                        }
-                        else
+                    break;
+
+                case 2: //Band dropdown list option
+
+                    bandsList = GetBands(DDLGenres, SearchString, RESULTS_PER_PAGES);
+
+                    foreach (Band band in bandsList)
+                    {
+                        ResultsList.Add(new SearchResult
                         {
-                            var bandQuery = from band in db.Bands
-                                            where
-                                            band.Name.Contains(SearchString)
-                                            select new SearchResult
-                                            {
-                                                Name = band.Name,
-                                                Location = band.Location,
-                                                Description = band.Description,
-                                                Type = "Groupe"
-                                            };
+                            Name = band.Name,
+                            Description = band.Description,
+                            Location = band.Location,
+                            Type = "Band"
+                        });
+                    }
 
-                            var userQuery = from user in db.Users
-                                            join musician in db.Musicians on user.UserId equals musician.UserId
-                                            where
-                                            user.FirstName.Contains(SearchString) ||
-                                            user.LastName.Contains(SearchString) ||
-                                            user.Nickname.Contains(SearchString)
-                                            select new SearchResult
-                                            {
-                                                Name = user.FirstName + " " + user.LastName,
-                                                Location = user.Location,
-                                                Description = musician.Description,
-                                                Type = "Musicien"
-                                            };
-                        }
+                    break;
 
-                        searchResults.AddRange(bandQuery);
-                        searchResults.AddRange(userQuery);
-                        ViewBag.searchResults = searchResults;
-                        break;
+                case 3: //Musician dropdown list option
 
-                    case 2: //Bands
-                        var searchedGenre = db.Genres.Find(musicalGenres);
+                    musiciansList = GetMusicians(DDLGenres, SearchString, RESULTS_PER_PAGES);
 
-                        var query = from band in db.Bands
-                                    where
-                                    band.Name.Contains(SearchString) &&
-                                    band.Genres.Any(x => x.GenreId == musicalGenres) ||
-                                    band.Name.Contains(SearchString)
-                                    select new SearchResult
-                                    {
-                                        Name = band.Name,
-                                        Location = band.Location,
-                                        Description = band.Description,
-                                        Type = "Groupe"
-                                    };
+                    foreach (Musician musician in musiciansList)
+                    {
+                        User user = db.Users.Find(musician.UserId);
 
-                        searchResults.AddRange(query);
-                        break;
+                        ResultsList.Add(new SearchResult
+                        {
+                            Name = user.FirstName + " " + user.LastName,
+                            Description = musician.Description,
+                            Location = user.Location,
+                            Type = "Musicien"
+                        });
+                    }
 
-                    case 3: //Musicians
-                        query = from user in db.Users
-                                join musician in db.Musicians on user.UserId equals musician.UserId
-                                where
-                                    musician.Genres.Any(x => x.GenreId == musicalGenres) ||
-                                    user.FirstName.Contains(SearchString) ||
-                                    user.LastName.Contains(SearchString) ||
-                                    user.Nickname.Contains(SearchString)
+                    break;
 
-                                select new SearchResult
-                                {
-                                    Name = user.FirstName + " " + user.LastName,
-                                    Location = user.Location,
-                                    Description = musician.Description,
-                                    Type = "Musicien"
-                                };
-                        searchResults.AddRange(query);
-                        break;
+                case 4: //User dropdown list option
 
-                    case 4: //Users
-                        query = from user in db.Users
-                                where
-                                    user.FirstName.Contains(SearchString) ||
-                                    user.LastName.Contains(SearchString) ||
-                                    user.Nickname.Contains(SearchString)
-                                select new SearchResult
-                                {
-                                    Name = user.FirstName + " " + user.LastName,
-                                    Location = user.Location,
-                                    Description = String.Empty,
-                                    Type = "Utilisateur"
-                                };
+                    List<User> usersList = GetUsers(SearchString, RESULTS_PER_PAGES);
 
-                        searchResults.AddRange(query);
-                        break;
-                }
+                    foreach (User user in usersList)
+                    {
+                        ResultsList.Add(new SearchResult
+                        {
+                            Name = user.FirstName + " " + user.LastName,
+                            Description = "",
+                            Location = user.Location,
+                            Type = "Utilisateur"
+                        });
+                    }
 
-                ViewBag.searchResults = searchResults;
-                return PartialView("_SearchResults");
+                    break;
             }
-            catch (ArgumentException)
+
+            ViewBag.ResultsList = ResultsList;
+
+            return PartialView("_SearchResults");
+        }
+
+        public List<Band> GetBands(int? GenreID, string BandName, int Number)
+        {
+            List<Band> lstResults = new List<Band>();
+
+            if (GenreID != null)
             {
+                var bands = from band in db.Bands
+                            where
+                                band.Name.Contains(BandName) &&
+                                band.Genres.Any(genre => genre.GenreId == GenreID)
+                            select band;
+
+                bands.Take(Number);
+                lstResults.AddRange(bands);
             }
-            return View("Index");
+            else
+            {
+                var bands = from band in db.Bands
+                            where
+                                band.Name.Contains(BandName)
+                            select band;
+
+                bands.Take(Number);
+                lstResults.AddRange(bands);
+            }
+            return lstResults;
+        }
+
+        public List<Musician> GetMusicians(int? GenreID, string UserName, int Number)
+        {
+            List<Musician> lstResults = new List<Musician>();
+
+            if (GenreID != null)
+            {
+                var musicians = from user in db.Users
+                                join musician in db.Musicians
+                                on user.UserId equals musician.MusicianId
+                                where
+                                    (user.FirstName.Contains(UserName) ||
+                                    user.LastName.Contains(UserName) ||
+                                    user.Nickname.Contains(UserName)) &&
+                                    musician.Genres.Any(genre => genre.GenreId == GenreID)
+                                select musician;
+
+                musicians.Take(Number);
+                lstResults.AddRange(musicians);
+            }
+            else
+            {
+                var musicians = from user in db.Users
+                                join musician in db.Musicians
+                                on user.UserId equals musician.MusicianId
+                                where
+                                    (user.FirstName.Contains(UserName) ||
+                                    user.LastName.Contains(UserName) ||
+                                    user.Nickname.Contains(UserName))
+                                select musician;
+
+                musicians.Take(Number);
+                lstResults.AddRange(musicians);
+            }
+            return lstResults;
+        }
+
+        public List<User> GetUsers(string UserName, int Number)
+        {
+            List<User> lstResults = new List<User>();
+
+            var users = from user in db.Users
+                        where
+                            (user.FirstName.Contains(UserName) ||
+                            user.LastName.Contains(UserName) ||
+                            user.Nickname.Contains(UserName))
+                        select user;
+
+            users.Take(Number);
+            lstResults.AddRange(users);
+            return lstResults;
         }
     }
 }
