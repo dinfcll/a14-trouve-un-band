@@ -183,7 +183,9 @@ namespace TrouveUnBand.Controllers
                 }
                 else
                 {
+                    MusicianQuery.Join_Musician_Instrument.Clear();
                     MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
+                    MusicianQuery.User.ConfirmPassword = MusicianQuery.User.Password;
                     db.SaveChanges();
                 }
 
@@ -221,7 +223,7 @@ namespace TrouveUnBand.Controllers
             string InstrumentList = Request["InstrumentListDD"];
             string[] InstrumentArray = InstrumentList.Split(',');
 
-            string SkillList = Request["SkillsList"];
+            string SkillList = Request["SkillsListDD"];
             string[] SkillArray = SkillList.Split(',');
 
             

@@ -3,71 +3,33 @@
     ViewBag.Title = "ProfileModification";
 }
 
-<script type="text/javascript">
-     $(function () {
+<script>
+    function AddTable(row, cellid, position) {
+        var cell = row.insertCell(0);
+        var instcell = document.getElementById(cellid);
+        cell.innerHTML = instcell.outerHTML;
+        cell.className = document.getElementById("tablecell").className.toString();
+    }
+    
+    function AddInstrument() {
+        var table = document.getElementById("InstrumentTable");
+        var row = table.insertRow();
+        row.id = "tablerow";
+        row.className = document.getElementById("tablerow").className.toString();
+        AddTable(row, "Xfermer", 2);
+        AddTable(row, "SkillsListDD", 1);
+        AddTable(row, "InstrumentListDD", 0);
+    }
 
-         var values = new Array();
-
-         $(document).on('change', '.form-group-multiple-selects .input-group-multiple-select:last-child select', function () {
-             var selectsLength = $('.form-group-multiple-selects .input-group-multiple-select select').length;
-             var optionsLength = ($(this).find('option').length) - 1;
-
-             if (selectsLength < optionsLength) {
-                 var sInputGroupHtml = $(this).parent().html();
-                 var sInputGroupClasses = $(this).parent().attr('class');
-                 $(this).parent().parent().append('<div class="' + sInputGroupClasses + '">' + sInputGroupHtml + '</div>');
-             }
-
-             updateValues();
-
-         });
-
-         $(document).on('change', '.form-group-multiple-selects .input-group-multiple-select:not(:last-child) select', function () {
-
-             updateValues();
-
-         });
-
-         $(document).on('click', '.input-group-addon-remove', function () {
-             $(this).parent().remove();
-             updateValues();
-         });
-
-         function updateValues() {
-             values = new Array();
-             $('.form-group-multiple-selects .input-group-multiple-select select').each(function () {
-                 var value = $(this).val();
-                 if (value != 0 && value != "") {
-                     values.push(value);
-                 }
-             });
-
-             $('.form-group-multiple-selects .input-group-multiple-select select').find('option').each(function () {
-                 var optionValue = $(this).val();
-                 var selectValue = $(this).parent().val();
-                 if (in_array(optionValue, values) != -1 && selectValue != optionValue) {
-                     $(this).attr('disabled', 'disabled');
-                 }
-                 else {
-                     $(this).removeAttr('disabled');
-                 }
-             });
-         }
-
-         function in_array(needle, haystack) {
-             var found = 0;
-             for (var i = 0, length = haystack.length; i < length; i++) {
-                 if (haystack[i] == needle) return i;
-                 found++;
-             }
-             return -1;
-         }
-     });
-</script> 
-
+    function DeleteInstrument(name) {
+        var table = document.getElementById("InstrumentTable");
+        var row = document.getElementsByName(name).item(0);
+        table.deleteRow(row.rowIndex);
+    }
+</script>
 
 @if (Request.IsAuthenticated)
-{  
+{
     var user = (TrouveUnBand.Models.Musician)ViewData["UserData"];
 
     using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form", enctype = "multipart/form-data" }))
@@ -152,57 +114,72 @@
                         </div>
                     </div>
                     <div id="sectionMusician" class="tab-pane fade">
-                    <div class="pad-top-30">
-                        <div class="form-group input-group-multiple-select col-md-4 col-md-push-1">   
-                            @Html.Label("Instrument:") 
-                            @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name"), new { @class = "form-control"})
-                        </div> 
-                        <div class="form-group col-md-4 col-md-push-1">  
-                            @Html.Label("Expérience:") 
-                            @Html.DropDownList("SkillsList", new SelectList(
-                                          new List<Object>{ 
-                                               new { value = "1" , text = "*"  },
-                                               new { value = "2" , text = "**" },
-                                               new { value = "3" , text = "***"  },
-                                               new { value = "4" , text = "****" },
-                                               new { value = "5" , text = "*****"  },
-                                            },
-                                          "value",
-                            "text"), new { @class = "form-control" })
-                        </div> 
-                        <div class="form-group col-md-10 col-md-push-1"> 
-                        @Html.Label("Instrument(s) joué(s)");
-                                    <table>
-                                        @foreach (TrouveUnBand.Models.Join_Musician_Instrument InstrumentsUser in user.Join_Musician_Instrument)
-                                         {
-                                           <tr>
-                                                <td>
-                                                    @Html.DropDownList("InstrumentListDD", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name",
-                                                    @Convert.ToInt32(InstrumentsUser.InstrumentId)), new { @class = "form-control" })
-                                                </td>   
-                                                <td>
-                                                    @Html.DropDownList("SkillsList", new SelectList(
-                                                    new List<Object>{ 
-                                                    new { value = "1" , text = "*"  },
-                                                    new { value = "2" , text = "**" },
-                                                    new { value = "3" , text = "***"  },
-                                                    new { value = "4" , text = "****" },
-                                                    new { value = "5" , text = "*****"  },
-                                                    },
-                                                    "value", "text", @InstrumentsUser.Skills),
-                                                    new { @class = "form-control" })
-                                                </td>
-                                           </tr>
-                                         }
-                                    </table>
-                                </div>
-                        <div class="row form-group col-md-3 margin-left-0 col-md-push-1">
-                            <input type="submit" class="btn btn-primary" value="Modifier"/>
+                        <div class="pad-top-30">
+                            <div class="form-group col-md-10 col-md-push-1"> 
+                            @Html.Label("Instrument(s) joué(s)");
+                                        <table id="InstrumentTable">
+                                        @if (user.Join_Musician_Instrument.FirstOrDefault() == null)
+                                        {
+                                            <tr name="1" id="tablerow" class="form-group col-md-12 row col-md-pull-1custom">
+                                                    <td id="tablecell" class="col-md-3">
+                                                        @Html.DropDownList("InstrumentListDD", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name"), new { @class = "form-control" })
+                                                    </td>   
+                                                    <td id="tablecell" class="col-md-3">
+                                                        @Html.DropDownList("SkillsListDD", new SelectList(
+                                                        new List<Object>{ 
+                                                        new { value = "1" , text = "*"  },
+                                                        new { value = "2" , text = "**" },
+                                                        new { value = "3" , text = "***"  },
+                                                        new { value = "4" , text = "****" },
+                                                        new { value = "5" , text = "*****"  },
+                                                        },
+                                                        "value", "text"),
+                                                        new { @class = "form-control" })
+                                                    </td>
+                                                    <td id="tablecell" class="col-md-3">
+                                                        <a id="Xfermer" href="#" onclick='DeleteInstrument(0)'>X</a>
+                                                    </td>
+                                               </tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (TrouveUnBand.Models.Join_Musician_Instrument InstrumentsUser in user.Join_Musician_Instrument)
+                                            {
+                                               <tr name="@InstrumentsUser.Instrument.Name" id="tablerow" class="form-group col-md-12 row col-md-pull-1custom">
+                                                    <td id="tablecell" class="col-md-3">
+                                                        @Html.DropDownList("InstrumentListDD", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name",
+                                                        Convert.ToInt32(InstrumentsUser.InstrumentId)), new { @class = "form-control" })
+                                                    </td>   
+                                                    <td id="tablecell" class="col-md-3">
+                                                        @Html.DropDownList("SkillsListDD", new SelectList(
+                                                        new List<Object>{ 
+                                                        new { value = "1" , text = "*"  },
+                                                        new { value = "2" , text = "**" },
+                                                        new { value = "3" , text = "***"  },
+                                                        new { value = "4" , text = "****" },
+                                                        new { value = "5" , text = "*****"  },
+                                                        },
+                                                        "value", "text", @InstrumentsUser.Skills),
+                                                        new { @class = "form-control" })
+                                                    </td>
+                                                    <td id="tablecell" class="col-md-3">
+                                                        <a id="Xfermer" href="#" onclick='DeleteInstrument("@InstrumentsUser.Instrument.Name")'>X</a>
+                                                    </td>
+                                               </tr>
+                                            }
+                                        }
+                                        </table>
+                                    </div>
+                                    <div class="form-group col-md-4 col-md-push-1">
+                                <input type="button" onclick="AddInstrument()" class="btn btn-primary" value="Ajouter"/>
+                            </div> 
+                            <div class="row form-group col-md-3 margin-left-0 col-md-push-1">
+                                <input type="submit" class="btn btn-primary" value="Modifier"/>
+                            </div>
                         </div>
-                    </div>
                     </div> 
                     <div id="sectionBand" class="tab-pane fade">
-
+                    
                     </div>
                 </div>
             </div>
@@ -214,6 +191,4 @@ else
     <h2>@Html.ActionLink("Sign in", "Login", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</h2>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
