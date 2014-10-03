@@ -296,7 +296,8 @@ namespace TrouveUnBand.Controllers
                 string responseBody = response.Content.ReadAsStringAsync().Result;
 
                 var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
-                return location.results[0].geometry.location.lat.ToString()+location.results[0].geometry.location.lng;
+                return location.results[location.results.Count - 1].geometry.location.lat.ToString() + 
+                       location.results[location.results.Count - 1].geometry.location.lng;
             }
             return "Erreur";
         }

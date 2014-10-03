@@ -6247,3 +6247,16 @@ button.close {
     font-weight: normal
 }
 /*# sourceMappingURL=bootstrap.css.map */
+ .animated {
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
+
+.starrr {
+  display: inline-block; }
+  .starrr i {
+    font-size: 16px;
+    padding: 0 1px;
+    cursor: pointer;
+    color: #ffd119; }

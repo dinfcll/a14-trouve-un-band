@@ -57,6 +57,10 @@ namespace TrouveUnBand.Models
         [Required(ErrorMessage = "Ce champ est requis")]
         public string Gender { get; set; }
 
+        public string Latitude { get; set; }
+
+        public string Longitude { get; set; }
+
         public virtual ICollection<Musician> Musicians { get; set; }
     }
 }
