@@ -176,6 +176,7 @@ namespace TrouveUnBand.Controllers
                 if (MusicianQuery == null)
                 {
                     MusicianQuery = new Musician();
+                    MusicianQuery.Description = user.Description;
                     MusicianQuery.UserId = user.User.UserId;
                     MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
                     db.Musicians.Add(MusicianQuery);
@@ -183,6 +184,7 @@ namespace TrouveUnBand.Controllers
                 }
                 else
                 {
+                    MusicianQuery.Description = user.Description;
                     MusicianQuery.Join_Musician_Instrument.Clear();
                     MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
                     MusicianQuery.User.ConfirmPassword = MusicianQuery.User.Password;
@@ -223,52 +225,62 @@ namespace TrouveUnBand.Controllers
             string InstrumentList = Request["InstrumentListDD"];
             string[] InstrumentArray = InstrumentList.Split(',');
 
-            string SkillList = Request["SkillsListDD"];
-            string[] SkillArray = SkillList.Split(',');
+            bool allUnique = InstrumentArray.Distinct().Count() == InstrumentArray.Length;
 
-            
-            for (int i = 0; i < InstrumentArray.Length; i++)
+            if (allUnique == true)
             {
-                Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
-                InstrumentsMusician.InstrumentId = Convert.ToInt32(InstrumentArray[i]);
-                InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
-                InstrumentsMusician.MusicianId = music.MusicianId;
-                music.Join_Musician_Instrument.Add(InstrumentsMusician);
-            }
+                string SkillList = Request["SkillsListDD"];
+                string[] SkillArray = SkillList.Split(',');
 
-            music.User.Nickname = User.Identity.Name;
-            string RC = "";
-            if (Request.Files[0].ContentLength == 0)
-            {
-                music.User.Photo = GetProfilePicByte(music.User.Nickname);
-                RC = Updatecontact(music);
+
+                for (int i = 0; i < InstrumentArray.Length; i++)
+                {
+                    Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
+                    InstrumentsMusician.InstrumentId = Convert.ToInt32(InstrumentArray[i]);
+                    InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
+                    InstrumentsMusician.MusicianId = music.MusicianId;
+                    music.Join_Musician_Instrument.Add(InstrumentsMusician);
+                }
+
+                music.User.Nickname = User.Identity.Name;
+                string RC = "";
+                if (Request.Files[0].ContentLength == 0)
+                {
+                    music.User.Photo = GetProfilePicByte(music.User.Nickname);
+                    RC = Updatecontact(music);
+                }
+                else
+                {
+                    HttpPostedFileBase PostedPhoto = Request.Files[0];
+                    try
+                    {
+                        Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                        byte[] bytephoto = imageToByteArray(img);
+                        music.User.PhotoName = PostedPhoto.FileName;
+                        music.User.Photo = bytephoto;
+                    }
+                    catch
+                    {
+                        music.User.Photo = StockPhoto();
+                    }
+                    RC = Updatecontact(music);
+                }
+
+                if (RC == "")
+                {
+                    TempData["notice"] = "Profil mis à jour";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["TempDataError"] = "Une erreur interne s'est produite";
+                    return RedirectToAction("ProfileModification", "Users");
+                }
             }
             else
             {
-                HttpPostedFileBase PostedPhoto = Request.Files[0];
-                try
-                {
-                    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                    byte[] bytephoto = imageToByteArray(img);
-                    music.User.PhotoName = PostedPhoto.FileName;
-                    music.User.Photo = bytephoto;
-                }
-                catch
-                {
-                    music.User.Photo = StockPhoto();
-                }
-                RC = Updatecontact(music);
-            }
-
-            if (RC == "")
-            {
-                TempData["notice"] = "Profil mis à jour";
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                TempData["TempDataError"] = "Une erreur interne s'est produite";
-                return View();
+                TempData["TempDataError"] = "Vous ne pouvez pas entrer deux fois le même instrument";
+                return RedirectToAction("ProfileModification", "Users");
             }
 
         }

@@ -4,10 +4,17 @@
 }
 
 <script>
-    function AddTable(row, cellid, position) {
+    function AddTable(row, cellid) {
         var cell = row.insertCell(0);
         var instcell = document.getElementById(cellid);
         cell.innerHTML = instcell.outerHTML;
+        cell.className = document.getElementById("tablecell").className.toString();
+    }
+
+    function AddTableX(row, cellid, randomname) {
+        var cell = row.insertCell(0);
+        var newX = "<a id=\"Xfermer\" href=\"#\" onclick=\"DeleteInstrument('" + randomname + "')\">X</a>";
+        cell.innerHTML = newX;
         cell.className = document.getElementById("tablecell").className.toString();
     }
     
@@ -16,15 +23,27 @@
         var row = table.insertRow();
         row.id = "tablerow";
         row.className = document.getElementById("tablerow").className.toString();
-        AddTable(row, "Xfermer", 2);
-        AddTable(row, "SkillsListDD", 1);
-        AddTable(row, "InstrumentListDD", 0);
+        var randomname = makeid();
+        row.setAttribute("name", randomname);
+        AddTableX(row, "Xfermer", randomname);
+        AddTable(row, "SkillsListDD");
+        AddTable(row, "InstrumentListDD");
     }
 
     function DeleteInstrument(name) {
         var table = document.getElementById("InstrumentTable");
         var row = document.getElementsByName(name).item(0);
         table.deleteRow(row.rowIndex);
+    }
+
+    function makeid() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 5; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
     }
 </script>
 
@@ -115,37 +134,43 @@
                     </div>
                     <div id="sectionMusician" class="tab-pane fade">
                         <div class="pad-top-30">
-                            <div class="form-group col-md-10 col-md-push-1"> 
+                            <div class="form-group col-md-10 col-md-push-1">
+                                 @Html.Label("Expériences")
+                                 @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @Value = user.Description })
+
                             @Html.Label("Instrument(s) joué(s)");
-                                        <table id="InstrumentTable">
+                                        <table id="InstrumentTable" class="form-group col-md-12">
                                         @if (user.Join_Musician_Instrument.FirstOrDefault() == null)
                                         {
-                                            <tr name="1" id="tablerow" class="form-group col-md-12 row col-md-pull-1custom">
+                                            <tr name="1" id="tablerow" class="form-group col-md-10 row col-md-pull-1custom">
                                                     <td id="tablecell" class="col-md-3">
-                                                        @Html.DropDownList("InstrumentListDD", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name"), new { @class = "form-control" })
+                                                        @Html.DropDownList("InstrumentListDD", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name", 0), new { @class = "form-control" })
                                                     </td>   
                                                     <td id="tablecell" class="col-md-3">
                                                         @Html.DropDownList("SkillsListDD", new SelectList(
                                                         new List<Object>{ 
-                                                        new { value = "1" , text = "*"  },
-                                                        new { value = "2" , text = "**" },
-                                                        new { value = "3" , text = "***"  },
-                                                        new { value = "4" , text = "****" },
-                                                        new { value = "5" , text = "*****"  },
+                                                        new { value = "0" , text = "Aucun"  },
+                                                        new { value = "1" , text = "Débutant"  },
+                                                        new { value = "2" , text = "Initié" },
+                                                        new { value = "3" , text = "Intermédiaire"  },
+                                                        new { value = "4" , text = "Avancé" },
+                                                        new { value = "5" , text = "Légende"  },
                                                         },
-                                                        "value", "text"),
+                                                        "value", "text", 0),
                                                         new { @class = "form-control" })
                                                     </td>
                                                     <td id="tablecell" class="col-md-3">
-                                                        <a id="Xfermer" href="#" onclick='DeleteInstrument(0)'>X</a>
+                                                        
                                                     </td>
                                                </tr>
                                         }
                                         else
                                         {
+                                            int i = 0;
                                             foreach (TrouveUnBand.Models.Join_Musician_Instrument InstrumentsUser in user.Join_Musician_Instrument)
                                             {
-                                               <tr name="@InstrumentsUser.Instrument.Name" id="tablerow" class="form-group col-md-12 row col-md-pull-1custom">
+                                                i++;
+                                                <tr name="@i" id="tablerow" class="form-group col-md-12 row col-md-pull-1custom">
                                                     <td id="tablecell" class="col-md-3">
                                                         @Html.DropDownList("InstrumentListDD", new SelectList(ViewBag.InstrumentList, "InstrumentId", "Name",
                                                         Convert.ToInt32(InstrumentsUser.InstrumentId)), new { @class = "form-control" })
@@ -153,17 +178,22 @@
                                                     <td id="tablecell" class="col-md-3">
                                                         @Html.DropDownList("SkillsListDD", new SelectList(
                                                         new List<Object>{ 
-                                                        new { value = "1" , text = "*"  },
-                                                        new { value = "2" , text = "**" },
-                                                        new { value = "3" , text = "***"  },
-                                                        new { value = "4" , text = "****" },
-                                                        new { value = "5" , text = "*****"  },
+                                                        new { value = "0" , text = "Aucun"  },
+                                                        new { value = "1" , text = "Débutant"  },
+                                                        new { value = "2" , text = "Initié" },
+                                                        new { value = "3" , text = "Intermédiaire"  },
+                                                        new { value = "4" , text = "Avancé" },
+                                                        new { value = "5" , text = "Légende"  },
                                                         },
                                                         "value", "text", @InstrumentsUser.Skills),
                                                         new { @class = "form-control" })
+                                                    
                                                     </td>
                                                     <td id="tablecell" class="col-md-3">
-                                                        <a id="Xfermer" href="#" onclick='DeleteInstrument("@InstrumentsUser.Instrument.Name")'>X</a>
+                                                    @if(i > 1)
+                                                    {
+                                                        <a id="Xfermer" href="#" onclick='DeleteInstrument("@i")'>X</a>
+                                                    }
                                                     </td>
                                                </tr>
                                             }
@@ -190,5 +220,3 @@ else
 {
     <h2>@Html.ActionLink("Sign in", "Login", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</h2>
 }
-
-
