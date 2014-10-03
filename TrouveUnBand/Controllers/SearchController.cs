@@ -59,7 +59,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult Filter(int DDLCategories, int? DDLGenres, string SearchString)
+        public ActionResult Filter(int DDLCategories, int? DDLGenres, string SearchString, string Location)
         {
             const int RESULTS_PER_PAGES = 25;
             List<SearchResult> ResultsList = new List<SearchResult>();
@@ -68,7 +68,7 @@ namespace TrouveUnBand.Controllers
             {
                 case 1: //All categories dropdown list option
 
-                    List<Band> bandsList = GetBands(DDLGenres, SearchString, RESULTS_PER_PAGES);
+                    List<Band> bandsList = GetBands(DDLGenres, SearchString, Location, RESULTS_PER_PAGES);
                     List<Musician> musiciansList = GetMusicians(DDLGenres, SearchString, RESULTS_PER_PAGES);
 
                     foreach (Band band in bandsList)
@@ -99,7 +99,7 @@ namespace TrouveUnBand.Controllers
 
                 case 2: //Band dropdown list option
 
-                    bandsList = GetBands(DDLGenres, SearchString, RESULTS_PER_PAGES);
+                    bandsList = GetBands(DDLGenres, SearchString, Location, RESULTS_PER_PAGES);
 
                     foreach (Band band in bandsList)
                     {
@@ -156,7 +156,7 @@ namespace TrouveUnBand.Controllers
             return PartialView("_SearchResults");
         }
 
-        public List<Band> GetBands(int? GenreID, string BandName, int Number)
+        public List<Band> GetBands(int? GenreID, string BandName, string Location, int Number)
         {
             List<Band> lstResults = new List<Band>();
 
@@ -193,10 +193,10 @@ namespace TrouveUnBand.Controllers
                 var musicians = from user in db.Users
                                 join musician in db.Musicians
                                 on user.UserId equals musician.MusicianId
-                                where
-                                    (user.FirstName.Contains(UserName) ||
-                                    user.LastName.Contains(UserName) ||
-                                    user.Nickname.Contains(UserName)) &&
+                                where(
+                                    user.FirstName.Contains(UserName)  ||
+                                    user.LastName.Contains(UserName)   ||
+                                    user.Nickname.Contains(UserName))  &&
                                     musician.Genres.Any(genre => genre.GenreId == GenreID)
                                 select musician;
 
@@ -208,10 +208,11 @@ namespace TrouveUnBand.Controllers
                 var musicians = from user in db.Users
                                 join musician in db.Musicians
                                 on user.UserId equals musician.MusicianId
-                                where
-                                    (user.FirstName.Contains(UserName) ||
-                                    user.LastName.Contains(UserName) ||
-                                    user.Nickname.Contains(UserName))
+                                where(
+                                    user.FirstName.Contains(UserName)  ||
+                                    user.LastName.Contains(UserName)   ||
+                                    user.Nickname.Contains(UserName)
+                                    )
                                 select musician;
 
                 musicians.Take(Number);
@@ -225,10 +226,11 @@ namespace TrouveUnBand.Controllers
             List<User> lstResults = new List<User>();
 
             var users = from user in db.Users
-                        where
-                            (user.FirstName.Contains(UserName) ||
-                            user.LastName.Contains(UserName) ||
-                            user.Nickname.Contains(UserName))
+                        where(
+                            user.FirstName.Contains(UserName)  ||
+                            user.LastName.Contains(UserName)   ||
+                            user.Nickname.Contains(UserName)
+                            )
                         select user;
 
             users.Take(Number);

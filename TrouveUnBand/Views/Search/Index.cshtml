@@ -5,13 +5,11 @@
 <div class="row">
     <div class="form-group form-inline">
         @using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
-        {
-            <span>Je cherche</span>         
-            @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" });
-            <span>dans</span>                                                                                                                               
+        {       
+            @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" });                                                                                                                              
             @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"],"Tout les genres", new { @class = "form-control" })     
-            <span>correspondant à</span>
-            @Html.TextBox("SearchString", new { @class = "form-control", @placeholder = "Recherche" })
+            @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche" })
+            @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "Ville" })
             <button type="submit" class="btn btn-primary">Filtrer</button>
         }
     </div>

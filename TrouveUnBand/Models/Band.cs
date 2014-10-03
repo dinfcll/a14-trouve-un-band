@@ -27,5 +27,33 @@ namespace TrouveUnBand.Models
     
         public virtual ICollection<Genre> Genres { get; set; }
         public virtual ICollection<Musician> Musicians { get; set; }
+
+        public List<Band> GetBands(int? GenreID, string BandName, int Number)
+        {
+            List<Band> lstResults = new List<Band>();
+
+            if (GenreID != null)
+            {
+                var bands = from band in db.Bands
+                            where
+                                band.Name.Contains(BandName) &&
+                                band.Genres.Any(genre => genre.GenreId == GenreID)
+                            select band;
+
+                bands.Take(Number);
+                lstResults.AddRange(bands);
+            }
+            else
+            {
+                var bands = from band in db.Bands
+                            where
+                                band.Name.Contains(BandName)
+                            select band;
+
+                bands.Take(Number);
+                lstResults.AddRange(bands);
+            }
+            return lstResults;
+        }
     }
 }
