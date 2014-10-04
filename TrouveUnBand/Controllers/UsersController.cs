@@ -51,6 +51,7 @@ namespace TrouveUnBand.Controllers
             {
                 if (user.Password == user.ConfirmPassword)
                 {
+                    SetUserLocation(user);
                     user.Photo = StockPhoto();
                     RC = Insertcontact(user);
                     if (RC == "")
@@ -170,6 +171,12 @@ namespace TrouveUnBand.Controllers
             try
             {
                 User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
+
+                if ((LoggedOnUser.Latitude == "" || LoggedOnUser.Longitude == "") || LoggedOnUser.Location != user.Location)
+                {
+                    user = SetUserLocation(user);
+                }
+
                 LoggedOnUser.LastName = user.LastName;
                 LoggedOnUser.Location = user.Location;
                 LoggedOnUser.BirthDate = user.BirthDate;
@@ -177,6 +184,8 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.FirstName = user.FirstName;
                 LoggedOnUser.Photo = user.Photo;
                 LoggedOnUser.Gender = user.Gender;
+                LoggedOnUser.Latitude = user.Latitude;
+                LoggedOnUser.Longitude = user.Longitude;
                 db.SaveChanges();
                 return "";
             }
@@ -300,6 +309,28 @@ namespace TrouveUnBand.Controllers
                        location.results[location.results.Count - 1].geometry.location.lng;
             }
             return "Erreur";
+        }
+
+        public User SetUserLocation(User user)
+        {
+            var client = new HttpClient();
+
+            client.BaseAddress = new Uri("https://maps.googleapis.com");
+
+            var response = client.GetAsync("/maps/api/geocode/json?address=" + user.Location + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+
+                var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
+                user.Latitude = location.results[location.results.Count - 1].geometry.location.lat.ToString();
+                user.Longitude = location.results[location.results.Count - 1].geometry.location.lng.ToString();
+                return user;
+            }
+            user.Latitude = "";
+            user.Longitude = "";
+            return user;
         }
 
         public string GetDistance(string LatitudeP1,string LongitudeP1, string LatitudeP2, string LongitudeP2)
