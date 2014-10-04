@@ -108,11 +108,11 @@
                                         <div class="col-md-3">
                                             @Html.Label("Instruments")
                                         </div>
-                                        <div class="col-md-9 col-md-pull-2custom">
+                                        <div class="col-md-9 col-md-pull-3custom">
                                             @Html.Label("Niveau")
                                             <div id="skillquestion" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" data-original-title="Légendaire = Hendrix" onmouseover="hovertooltip()" onmouseout="outtooltip()"></div>
                                             </div>
-                                        <table id="InstrumentTable" class="form-group col-md-12">
+                                        <table id="InstrumentTable" class="form-group col-md-9">
                                             @if (user.Join_Musician_Instrument.FirstOrDefault() == null)
                                             {
                                                 <tr name="1" id="tablerow" class="form-group col-md-12 row col-md-pull-1custom">
@@ -132,7 +132,7 @@
                                                             "value", "text", 0),
                                                             new { @class = "form-control" })
                                                         </td>
-                                                        <td id="tablecell" class="col-md-6">
+                                                        <td id="tablecell" class="col-md-3">
                                                         </td>
                                                    </tr>
                                             }
@@ -161,7 +161,7 @@
                                                             new { @class = "form-control" })
                                                     
                                                         </td>
-                                                        <td id="tablecell" class="col-md-6">
+                                                        <td id="tablecell" class="col-md-3">
                                                         @if(i > 1)
                                                         {
                                                             <a id="Xfermer" href="#" onclick='DeleteInstrument("@i")'>X</a>

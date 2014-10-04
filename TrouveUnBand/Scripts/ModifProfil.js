@@ -9,7 +9,7 @@ function AddTableX(row, cellid, randomname) {
     var cell = row.insertCell(0);
     var newX = "<a id=\"Xfermer\" href=\"#\" onclick=\"DeleteInstrument('" + randomname + "')\">X</a>";
     cell.innerHTML = newX;
-    cell.className = "col-md-6";
+    cell.className = document.getElementById("tablecell").className.toString();
 }
 
 function AddInstrument() {
