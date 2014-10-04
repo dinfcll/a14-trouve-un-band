@@ -224,14 +224,14 @@ namespace TrouveUnBand.Controllers
         {
             string InstrumentList = Request["InstrumentListDD"];
             string[] InstrumentArray = InstrumentList.Split(',');
-
             bool allUnique = InstrumentArray.Distinct().Count() == InstrumentArray.Length;
-
+            
             if (allUnique == true)
             {
                 string SkillList = Request["SkillsListDD"];
                 string[] SkillArray = SkillList.Split(',');
-
+                string DescriptionMusician = Request["TextArea"];
+                music.Description = DescriptionMusician;
 
                 for (int i = 0; i < InstrumentArray.Length; i++)
                 {

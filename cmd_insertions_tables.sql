@@ -36,6 +36,6 @@ insert into Join_Band_Genre values(1, 1);
 insert into Join_Band_Genre values(2, 2);
 insert into Join_Band_Genre values(2, 4);
 
-insert into Join_Musician_Instrument values(1,1);
-insert into Join_Musician_Instrument values(1,2);
-insert into Join_Musician_Instrument values(2,3);
+insert into Join_Musician_Instrument values(1,1,2);
+insert into Join_Musician_Instrument values(1,2,3);
+insert into Join_Musician_Instrument values(2,3,5);

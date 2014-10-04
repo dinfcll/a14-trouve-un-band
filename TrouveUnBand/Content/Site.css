@@ -26,6 +26,10 @@
     margin-left:20px;
 }
 
+.margin-bottom-10{
+    margin-bottom:10px;
+}
+
 .centrer{
     right:0px;
 }
@@ -41,6 +45,10 @@ tr.instTable > td{
 
 .col-md-pull-1custom{
     right: 1.35%;
+  }
+  
+  .col-md-push-1custom{
+    left: 9.65%;
   }
   
 #Xfermer{
