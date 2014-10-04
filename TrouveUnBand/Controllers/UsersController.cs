@@ -201,7 +201,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult ProfileModification()
         {
-            ViewBag.InstrumentList = new List<Instrument>(db.Instruments);
+            ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
 
             User LoggedOnUser = GetUserInfo(User.Identity.Name);
             if (LoggedOnUser.Photo != null)
@@ -222,13 +222,13 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult ProfileModification(Musician music)
         {
-            string InstrumentList = Request["InstrumentListDD"];
+            string InstrumentList = Request["InstrumentList"];
             string[] InstrumentArray = InstrumentList.Split(',');
             bool allUnique = InstrumentArray.Distinct().Count() == InstrumentArray.Length;
             
             if (allUnique == true)
             {
-                string SkillList = Request["SkillsListDD"];
+                string SkillList = Request["SkillsList"];
                 string[] SkillArray = SkillList.Split(',');
                 string DescriptionMusician = Request["TextArea"];
                 music.Description = DescriptionMusician;

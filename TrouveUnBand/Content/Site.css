@@ -46,6 +46,11 @@ tr.instTable > td{
 .col-md-pull-1custom{
     right: 1.35%;
   }
+ 
+ .col-md-pull-2custom{
+    right: 6.90%;
+  }
+   
   
   .col-md-push-1custom{
     left: 9.65%;
