@@ -12,46 +12,46 @@
     <fieldset>
         <legend>CreateGroupModel</legend>
 
-        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.BandId)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.GroupName)
+            @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.GroupName)
-            @Html.ValidationMessageFor(model => model.GroupName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MyStyleId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MyStyleId)
-            @Html.ValidationMessageFor(model => model.MyStyleId)
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.MyMemberId)
+            @Html.LabelFor(model => model.Genres)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MyMemberId)
-            @Html.ValidationMessageFor(model => model.MyMemberId)
+            @Html.EditorFor(model => model.Genres)
+            @Html.ValidationMessageFor(model => model.Genres)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Region)
+            @Html.LabelFor(model => model.Musicians)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Region)
-            @Html.ValidationMessageFor(model => model.Region)
+            @Html.EditorFor(model => model.Musicians)
+            @Html.ValidationMessageFor(model => model.Musicians)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Experience)
+            @Html.LabelFor(model => model.Location)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Experience)
-            @Html.ValidationMessageFor(model => model.Experience)
+            @Html.EditorFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
         </div>
 
         <p>
