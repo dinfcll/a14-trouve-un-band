@@ -115,7 +115,7 @@
                                         <table id="InstrumentTable" class="form-group col-md-9">
                                             @if (user.Join_Musician_Instrument.FirstOrDefault() == null)
                                             {
-                                                <tr name="1" id="tablerow" class="form-group col-md-12 row col-md-pull-1custom">
+                                                <tr name="1" id="tablerow" class="form-group col-md-12 row">
                                                         <td id="tablecell" class="col-md-3">
                                                             @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name", 0), new { @class = "form-control" })
                                                         </td>   
