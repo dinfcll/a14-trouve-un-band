@@ -19,14 +19,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/Home">TrouveUnBand.com</a>
+                <a class="navbar-brand" href="#">TrouveUnBand.com</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">@Html.ActionLink("Accueil", "Index", "Home")</li>
                     <li>@Html.ActionLink("À propos de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>   
-                    <li>@Html.ActionLink("Groupe", "Index", "Group")</li>          
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li> 
+                    <li>@Html.ActionLink("Groupe", "Index", "Group")</li>            
                 </ul>
                 <ul class="nav navbar-nav navbar-right" >
                     <li>@Html.Partial("_LoginPartial")</li>
@@ -41,27 +41,31 @@
     </div><!--END NAVBAR-->
 
     <!--MAIN CONTENT-->
-    <div class="container" style="padding-top:100px">      
-
-        <section class="content-wrapper main-content clear-fix">
-            @if (TempData["TempDataError"] != null)
+        <div class="page-alerts">
+            @if (TempData["TempDataError"] != null && TempData["TempDataError"] != "")
             {
-                <h3 id="error">@TempData["TempDataError"]</h3>
+                <div class="alert alert-danger page-alert">
+                    <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <span class="glyphicon glyphicon-ban-circle"></span><strong> Oops! </strong><span>@TempData["TempDataError"]</span>
+                </div>
             }
-            @if (TempData["notice"] != null)
+            @if (TempData["success"] != null && TempData["success"] != "")
             {
-                <h2>@TempData["notice"]</h2>
+                <div class="alert alert-success page-alert" id="alert-1">
+                    <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <span class="glyphicon glyphicon-ok"></span><strong> Bravo! </strong><span>@TempData["success"]</span>
+                </div>
             }
-        </section>
-
-        @RenderSection("featured", required: false)
-        @RenderSection("scripts", required: false)
-        @RenderBody()
-    </div><!-- /.container -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrapjs")
-    @Scripts.Render("~/Scripts/ModifProfil.js")
+        </div>
+        <div class="container" style="padding-top:100px">
+            @RenderSection("featured", required: false)
+            @RenderSection("scripts", required: false)
+            @RenderBody()
+        </div><!-- /.container -->
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrapjs")
+        @Scripts.Render("~/Scripts/alert.js")
+        @Styles.Render("~/Content/Site.css")
 </body>
 </html>
-
 

@@ -49,13 +49,14 @@ namespace TrouveUnBand.Controllers
                     RC = Insertcontact(user);
                     if (RC == "")
                     {
-                        TempData["notice"] = "Registration Confirmed";
+                        TempData["success"] = "L'inscription est confirmée!";
+                        FormsAuthentication.SetAuthCookie(user.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    RC = "Both password fields must be identical";
+                    RC = "Le mot de passe et sa confirmation ne sont pas identiques.";
                 }
             }
             TempData["TempDataError"] = RC;
@@ -92,7 +93,7 @@ namespace TrouveUnBand.Controllers
             }
             catch
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard.";
             }
         }
 
@@ -114,7 +115,7 @@ namespace TrouveUnBand.Controllers
                 FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                 return RedirectToAction("Index", "Home");
             }
-            TempData["LoginFail"] = "Your nickname/email or password is incorrect. Please try again.";
+            TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
             return View();
         }
 
@@ -267,7 +268,7 @@ namespace TrouveUnBand.Controllers
 
                 if (RC == "")
                 {
-                    TempData["notice"] = "Profil mis à jour";
+                    TempData["success"] = "Le profil a été mis à jour.";
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -320,6 +321,20 @@ namespace TrouveUnBand.Controllers
                                 ProfilePicture = User.Photo
                             }).FirstOrDefault();
             return PicQuery.ProfilePicture;
+        }
+
+        public string GetUserFullName()
+        {
+            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            return LoggedOnUser.FirstName + " " + LoggedOnUser.LastName;
+        }
+
+        public string GetPhotoName()
+        {
+            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
+            return PhotoName;
+
         }
     }
 }

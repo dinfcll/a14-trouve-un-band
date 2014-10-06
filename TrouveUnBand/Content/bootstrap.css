@@ -279,6 +279,10 @@ th {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.small-glyphicon
+{
+    font-size: 0.8em
+}
 .glyphicon-asterisk:before {
   content: "\2a";
 }
@@ -4613,6 +4617,7 @@ a.thumbnail.active {
 .alert {
   padding: 15px;
   margin-bottom: 20px;
+  margin-top: 10px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
@@ -4684,6 +4689,13 @@ a.thumbnail.active {
 }
 .alert-danger .alert-link {
   color: #843534;
+}
+.page-alerts {
+    margin-bottom: 20px;
+}
+.page-alerts .page-alert {
+    border-radius: 0;
+    margin-bottom: 0;
 }
 @-webkit-keyframes progress-bar-stripes {
   from {
@@ -6202,5 +6214,36 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
+
+.field-validation-error
+{
+    /*returned text when an error occured*/
+  font-size: 75%;
+  font-weight: bold;
+  color: #a94442;
+}
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
+
+.normal-font
+{
+    font-weight: normal
+}
 

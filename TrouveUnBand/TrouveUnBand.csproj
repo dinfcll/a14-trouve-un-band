@@ -179,6 +179,7 @@
     <Compile Include="Models\Genre.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
@@ -430,5 +431,6 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+
   </Target> -->
 </Project>
