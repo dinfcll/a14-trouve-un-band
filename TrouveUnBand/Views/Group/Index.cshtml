@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-        
+            
         </th>
     </tr>
 
@@ -37,9 +37,15 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BandId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BandId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BandId })
+            <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Edit", "Group", new { id = item.BandId })'">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Details", "Group", new { id = item.BandId })'">
+                <span class="glyphicon glyphicon-list-alt"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Delete", "Group", new { id = item.BandId })'">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
         </td>
     </tr>
 }
