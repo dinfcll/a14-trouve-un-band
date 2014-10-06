@@ -20,8 +20,8 @@ namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
-        private TrouveUnBand.Models.DBModels.DBTUBContext db = new TrouveUnBand.Models.DBModels.DBTUBContext();
-        
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
+
         public ActionResult Index()
         {
             return View();
@@ -67,7 +67,7 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                var ValidUserQuery = (from User in db.User
+                var ValidUserQuery = (from User in db.Users
                                       where
                                       User.Email.Equals(user.Email) ||
                                       User.Nickname.Equals(user.Nickname)
@@ -81,7 +81,7 @@ namespace TrouveUnBand.Controllers
                 {
                     db.Database.Connection.Open();
                     user.Password = Encrypt(user.Password);
-                    db.User.Add(user);
+                    db.Users.Add(user);
                     db.SaveChanges();
                     db.Database.Connection.Close();
                     return "";
@@ -115,7 +115,6 @@ namespace TrouveUnBand.Controllers
                 FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                 return RedirectToAction("Index", "Home");
             }
-
             TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
             return View();
         }
@@ -133,7 +132,7 @@ namespace TrouveUnBand.Controllers
             try
             {
                 string EncryptedPass = Encrypt(Password);
-                var LoginQuery = (from User in db.User
+                var LoginQuery = (from User in db.Users
                                     where
                                     (User.Email.Equals(NicknameOrEmail) ||
                                     User.Nickname.Equals(NicknameOrEmail)) &&
@@ -159,19 +158,40 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string Updatecontact(User user)
+        private string Updatecontact(Musician user)
         {
             try
             {
-                User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
-                LoggedOnUser.LastName = user.LastName;
-                LoggedOnUser.Location = user.Location;
-                LoggedOnUser.BirthDate = user.BirthDate;
-                LoggedOnUser.Email = user.Email;
-                LoggedOnUser.FirstName = user.FirstName;
-                LoggedOnUser.Photo = user.Photo;
-                LoggedOnUser.Gender = user.Gender;
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.User.Nickname);
+                LoggedOnUser.LastName = user.User.LastName;
+                LoggedOnUser.Location = user.User.Location;
+                LoggedOnUser.BirthDate = user.User.BirthDate;
+                LoggedOnUser.Email = user.User.Email;
+                LoggedOnUser.FirstName = user.User.FirstName;
+                LoggedOnUser.Photo = user.User.Photo;
+                LoggedOnUser.Gender = user.User.Gender;
                 db.SaveChanges();
+
+                Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
+
+                if (MusicianQuery == null)
+                {
+                    MusicianQuery = new Musician();
+                    MusicianQuery.Description = user.Description;
+                    MusicianQuery.UserId = user.User.UserId;
+                    MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
+                    db.Musicians.Add(MusicianQuery);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    MusicianQuery.Description = user.Description;
+                    MusicianQuery.Join_Musician_Instrument.Clear();
+                    MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
+                    MusicianQuery.User.ConfirmPassword = MusicianQuery.User.Password;
+                    db.SaveChanges();
+                }
+
                 return "";
             }
             catch
@@ -182,58 +202,98 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult ProfileModification()
         {
+            ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
+
             User LoggedOnUser = GetUserInfo(User.Identity.Name);
             if (LoggedOnUser.Photo != null)
             {
                 LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             }
-            ViewData["UserData"] = LoggedOnUser;
+
+            Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
+            if (MusicianQuery == null)
+            {
+                MusicianQuery = new Musician();
+            }
+            MusicianQuery.User = LoggedOnUser;
+            ViewData["UserData"] = MusicianQuery;
             return View();
         }
 
         [HttpPost]
-        public ActionResult ProfileModification(User user)
+        public ActionResult ProfileModification(Musician music)
         {
-            user.Nickname = User.Identity.Name;
-            string RC = "";
-            if (Request.Files[0].ContentLength == 0)
-            {
-                user.Photo = GetProfilePicByte(user.Nickname);
-                RC = Updatecontact(user);
-            }
-            else
-            {
-                HttpPostedFileBase PostedPhoto = Request.Files[0];
-                try
-                {
-                    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                    byte[] bytephoto = imageToByteArray(img);
-                    user.PhotoName = PostedPhoto.FileName;
-                    user.Photo = bytephoto;
-                }
-                catch
-                {
-                    user.Photo = StockPhoto();
-                }
-                RC = Updatecontact(user);
-            }
+            string InstrumentList = Request["InstrumentList"];
+            string[] InstrumentArray = InstrumentList.Split(',');
 
-            if (RC == "")
+            if (AllUnique(InstrumentArray))
             {
-                TempData["success"] = "Le profil a été mis à jour.";
-                return RedirectToAction("Index", "Home");
+                string SkillList = Request["SkillsList"];
+                string[] SkillArray = SkillList.Split(',');
+                string DescriptionMusician = Request["TextArea"];
+                music.Description = DescriptionMusician;
+
+                for (int i = 0; i < InstrumentArray.Length; i++)
+                {
+                    Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
+                    InstrumentsMusician.InstrumentId = Convert.ToInt32(InstrumentArray[i]);
+                    InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
+                    InstrumentsMusician.MusicianId = music.MusicianId;
+                    music.Join_Musician_Instrument.Add(InstrumentsMusician);
+                }
+
+                music.User.Nickname = User.Identity.Name;
+                string RC = "";
+                if (Request.Files[0].ContentLength == 0)
+                {
+                    music.User.Photo = GetProfilePicByte(music.User.Nickname);
+                    RC = Updatecontact(music);
+                }
+                else
+                {
+                    HttpPostedFileBase PostedPhoto = Request.Files[0];
+                    try
+                    {
+                        Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                        byte[] bytephoto = imageToByteArray(img);
+                        music.User.PhotoName = PostedPhoto.FileName;
+                        music.User.Photo = bytephoto;
+                    }
+                    catch
+                    {
+                        music.User.Photo = StockPhoto();
+                    }
+                    RC = Updatecontact(music);
+                }
+
+                if (RC == "")
+                {
+                    TempData["success"] = "Le profil a été mis à jour.";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["TempDataError"] = "Une erreur interne s'est produite";
+                    return RedirectToAction("ProfileModification", "Users");
+                }
             }
             else
             {
-                TempData["TempDataError"] = "Une erreur interne s'est produite";
-                return View();
+                TempData["TempDataError"] = "Vous ne pouvez pas entrer deux fois le même instrument";
+                return RedirectToAction("ProfileModification", "Users");
             }
 
         }
 
+        private bool AllUnique(string[] array)
+        {
+            bool allUnique = array.Distinct().Count() == array.Length;
+            return allUnique;
+        }
+
         private User GetUserInfo(string Nickname)
         {
-            User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == Nickname);
+            User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
             return LoggedOnUser;
         }
 
@@ -253,7 +313,7 @@ namespace TrouveUnBand.Controllers
 
         public byte[] GetProfilePicByte(string nickname)
         {
-            var PicQuery = (from User in db.User
+            var PicQuery = (from User in db.Users
                             where
                             User.Nickname.Equals(nickname)
                             select new Photo

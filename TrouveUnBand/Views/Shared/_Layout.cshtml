@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/signin.css")
     @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Site.css")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -24,7 +25,8 @@
                 <ul class="nav navbar-nav">
                     <li class="active">@Html.ActionLink("Accueil", "Index", "Home")</li>
                     <li>@Html.ActionLink("À propos de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>             
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li> 
+                    <li>@Html.ActionLink("Groupe", "Index", "Group")</li>            
                 </ul>
                 <ul class="nav navbar-nav navbar-right" >
                     <li>@Html.Partial("_LoginPartial")</li>
@@ -63,7 +65,7 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrapjs")
         @Scripts.Render("~/Scripts/alert.js")
+        @Styles.Render("~/Content/Site.css")
 </body>
 </html>
-
 
