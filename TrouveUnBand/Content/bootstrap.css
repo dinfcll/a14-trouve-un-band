@@ -6247,16 +6247,32 @@ button.close {
     font-weight: normal
 }
 /*# sourceMappingURL=bootstrap.css.map */
- .animated {
-    -webkit-transition: height 0.2s;
-    -moz-transition: height 0.2s;
-    transition: height 0.2s;
+.big-star {
+    font-size: 20px;
+}
+.stars {
+  display: inline-block;
+  padding-top:12px;
+  padding-left:5px;
+  padding-right:5px;
+  margin-bottom: 0;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
-.starrr {
-  display: inline-block; }
-  .starrr i {
-    font-size: 16px;
-    padding: 0 1px;
-    cursor: pointer;
-    color: #ffd119; }
+.stars:hover,
+.stars:focus {
+  text-decoration: none;
+}
+
