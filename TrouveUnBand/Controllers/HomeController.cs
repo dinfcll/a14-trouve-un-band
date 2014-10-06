@@ -10,7 +10,7 @@ namespace TrouveUnBand.Controllers
     public class HomeController : Controller
     {
 
-        private TrouveUnBandEntities1 db = new TrouveUnBandEntities1();
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index()
         {

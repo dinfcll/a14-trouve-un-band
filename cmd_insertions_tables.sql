@@ -26,12 +26,6 @@ insert into Genres(Name) values ('Classique');
 insert into Genres(Name) values ('Jazz');
 insert into Genres(Name) values ('Chuck Norris Style');
 
-insert into Instruments(Name) Values('Aucun');
-insert into Instruments(Name) Values('Guitare');
-insert into Instruments(Name) Values('Basse');
-insert into Instruments(Name) Values('Piano');
-insert into Instruments(Name) Values('Drums');
-
 insert into Join_Band_Genre values(1, 1);
 insert into Join_Band_Genre values(2, 2);
 insert into Join_Band_Genre values(2, 4);

@@ -20,7 +20,7 @@ namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
-        private TrouveUnBandEntities1 db = new TrouveUnBandEntities1();
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index()
         {
@@ -224,9 +224,8 @@ namespace TrouveUnBand.Controllers
         {
             string InstrumentList = Request["InstrumentList"];
             string[] InstrumentArray = InstrumentList.Split(',');
-            bool allUnique = InstrumentArray.Distinct().Count() == InstrumentArray.Length;
-            
-            if (allUnique == true)
+
+            if (AllUnique(InstrumentArray))
             {
                 string SkillList = Request["SkillsList"];
                 string[] SkillArray = SkillList.Split(',');
@@ -283,6 +282,12 @@ namespace TrouveUnBand.Controllers
                 return RedirectToAction("ProfileModification", "Users");
             }
 
+        }
+
+        private bool AllUnique(string[] array)
+        {
+            bool allUnique = array.Distinct().Count() == array.Length;
+            return allUnique;
         }
 
         private User GetUserInfo(string Nickname)
