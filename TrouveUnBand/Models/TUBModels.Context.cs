@@ -13,10 +13,10 @@ using System.Data.Entity.Infrastructure;
 
 namespace TrouveUnBand.Models
 {
-    public partial class TrouveUnBandEntities1 : DbContext
+    public partial class TrouveUnBandEntities : DbContext
     {
-        public TrouveUnBandEntities1()
-            : base("name=TrouveUnBandEntities1")
+        public TrouveUnBandEntities()
+            : base("name=TrouveUnBandEntities")
         {
         }
     
