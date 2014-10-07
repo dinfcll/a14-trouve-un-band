@@ -238,7 +238,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\navbaractive.js" />
-    <Content Include="Scripts\Rating.js" />
+    <Content Include="Scripts\star-rating.js" />
     <Content Include="Scripts\Tooltips.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
