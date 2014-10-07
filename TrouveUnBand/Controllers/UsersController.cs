@@ -310,40 +310,20 @@ namespace TrouveUnBand.Controllers
             return user;
         }
 
-        public string GetDistance(string LatitudeP1,string LongitudeP1, string LatitudeP2, string LongitudeP2)
+        public string GetDistance(double LatitudeP1,double LongitudeP1, double LatitudeP2, double LongitudeP2)
         {
-            bool IsDouble;
-            double LatP1=0.0, LngP1=0.0, LatP2=0.0, LngP2=0.0;
-
-            IsDouble = double.TryParse(LatitudeP1,out LatP1);
-            if(IsDouble == true)
-            {
-                IsDouble = double.TryParse(LongitudeP1, out LngP1);
-            }
-            if (IsDouble == true)
-            {
-                IsDouble = double.TryParse(LatitudeP2, out LatP2);
-            }
-            if (IsDouble == true)
-            {
-                IsDouble = double.TryParse(LongitudeP2, out LngP2);
-            }
-            if (IsDouble == true)
-            {
                 double R = 6378.137; // Earth’s mean radius in kilometer
-                var lat = ToRadians(LatP2 - LatP1);
-                var lng = ToRadians(LngP2 - LngP1);
+                var lat = ToRadians(LatitudeP2 - LatitudeP1);
+                var lng = ToRadians(LongitudeP2 - LongitudeP1);
                 var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
-                              Math.Cos(ToRadians(LatP1)) * Math.Cos(ToRadians(LatP2)) *
+                              Math.Cos(ToRadians(LatitudeP1)) * Math.Cos(ToRadians(LatitudeP2)) *
                               Math.Sin(lng / 2) * Math.Sin(lng / 2);
                 var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
                 int d=  (int)(R * h2);
                 return d.ToString() + " kilomètres";
-            }
-            return "Erreur";
         }
 
-        public static double ToRadians(double val)
+        private static double ToRadians(double val)
         {
             return (Math.PI / 180) * val;
         }
