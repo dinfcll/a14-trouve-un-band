@@ -28,10 +28,6 @@ namespace TrouveUnBand.Controllers
         {
             return View();
         }
-        public ActionResult CalculLocation()
-        {
-            return View();
-        }
 
         public ActionResult Register()
         {
@@ -290,25 +286,6 @@ namespace TrouveUnBand.Controllers
             string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             return PhotoName;
 
-        }
-
-        public string GetLocation(string Location)
-        {
-            var client = new HttpClient();
-
-            client.BaseAddress = new Uri("https://maps.googleapis.com");
-
-            var response = client.GetAsync("/maps/api/geocode/json?address=" + Location + ",+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds").Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                string responseBody = response.Content.ReadAsStringAsync().Result;
-
-                var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
-                return location.results[location.results.Count - 1].geometry.location.lat.ToString() + 
-                       location.results[location.results.Count - 1].geometry.location.lng;
-            }
-            return "Erreur";
         }
 
         public User SetUserLocation(User user)
