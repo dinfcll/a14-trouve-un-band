@@ -168,7 +168,7 @@ namespace TrouveUnBand.Controllers
             {
                 User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
 
-                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != user.Location)
+                if ((LoggedOnUser.Latitude == "" || LoggedOnUser.Longitude == "") || LoggedOnUser.Location != user.Location)
                 {
                     user = SetUserLocation(user);
                 }
@@ -301,12 +301,12 @@ namespace TrouveUnBand.Controllers
                 string responseBody = response.Content.ReadAsStringAsync().Result;
 
                 var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
-                user.Latitude = location.results[location.results.Count - 1].geometry.location.lat;
-                user.Longitude = location.results[location.results.Count - 1].geometry.location.lng;
+                user.Latitude = location.results[location.results.Count - 1].geometry.location.lat.ToString();
+                user.Longitude = location.results[location.results.Count - 1].geometry.location.lng.ToString();
                 return user;
             }
-            user.Latitude = 0.0;
-            user.Longitude = 0.0;
+            user.Latitude = "";
+            user.Longitude = "";
             return user;
         }
 
