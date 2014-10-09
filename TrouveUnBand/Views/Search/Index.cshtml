@@ -2,19 +2,38 @@
     ViewBag.Title = "Search";
 }
 
-<div class="row">
-    <div class="form-group form-inline">
-        @using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
-        {       
-            @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" });                                                                                                                              
-            @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"],"Tout les genres", new { @class = "form-control" })     
-            @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche" })
-            @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "Ville" })
-            <button type="submit" class="btn btn-primary">Filtrer</button>
-        }
-    </div>
-</div>
+<div class="form-group">
+@using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
+{
+    <div class="form-inline searchform">
+        <label for="DDLCategories">Affiche</label>
+        @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
+        <label for="DDLGenres">parmis</label>
+        @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"], "tout les genres", new { @class = "form-control" })
+        <label for="Location">dans la région de</label>
+        @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
+    </div><!-- /searchform-->
 
+    <div class="row">
+        <a href="#" id="advanced-search-link">Filtre avancé<span class="glyphicon glyphicon-filter"></span></a>
+        <div id="advanced-search" hidden="hidden">
+            <label for="search-radius">Chercher dans un rayon de</label>
+            <div class="input-group input-group-sm">               
+                @Html.TextBox("search-radius","", new { @class="form-control", @placeholder="100"})
+                <span class="input-group-addon">Km</span>
+            </div>
+            @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="input-group searchbar">
+        @Html.TextBox("SearchString", "", new { @class = "form-control searchbar", @placeholder = "Recherche" })
+        <span class="input-group-btn">
+            <button id="btnSearch" type="submit" class="btn btn-primary">Go!</button>
+        </span>
+    </div><!-- /input-group -->
+}
+</div>
 <div id="SearchResults">
     @Html.Partial("_SearchResults")
 </div>

@@ -20,7 +20,7 @@ namespace TrouveUnBand.Controllers
 {
     public class UsersController : Controller
     {
-        private TrouveUnBand.Models.DBModels.DBTUBContext db = new TrouveUnBand.Models.DBModels.DBTUBContext();
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
         
         public ActionResult Index()
         {
@@ -66,7 +66,7 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                var ValidUserQuery = (from User in db.User
+                var ValidUserQuery = (from User in db.Users
                                       where
                                       User.Email.Equals(user.Email) ||
                                       User.Nickname.Equals(user.Email)
@@ -80,7 +80,7 @@ namespace TrouveUnBand.Controllers
                 {
                     db.Database.Connection.Open();
                     user.Password = Encrypt(user.Password);
-                    db.User.Add(user);
+                    db.Users.Add(user);
                     db.SaveChanges();
                     db.Database.Connection.Close();
                     return "";
@@ -132,7 +132,7 @@ namespace TrouveUnBand.Controllers
             try
             {
                 string EncryptedPass = Encrypt(Password);
-                var LoginQuery = (from User in db.User
+                var LoginQuery = (from User in db.Users
                                     where
                                     (User.Email.Equals(NicknameOrEmail) ||
                                     User.Nickname.Equals(NicknameOrEmail)) &&
@@ -162,7 +162,7 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                User LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == user.Nickname);
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
                 LoggedOnUser.LastName = user.LastName;
                 LoggedOnUser.Location = user.Location;
                 LoggedOnUser.BirthDate = user.BirthDate;
@@ -235,7 +235,7 @@ namespace TrouveUnBand.Controllers
             User LoggedOnUser = new User();
             try
             {
-                LoggedOnUser = db.User.FirstOrDefault(x => x.Nickname == Nickname);
+                LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
             }
             catch (DbEntityValidationException ex)
             {
@@ -260,7 +260,7 @@ namespace TrouveUnBand.Controllers
 
         public byte[] GetProfilePicByte(string nickname)
         {
-            var PicQuery = (from User in db.User
+            var PicQuery = (from User in db.Users
                             where
                             User.Nickname.Equals(nickname)
                             select new Photo

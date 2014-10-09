@@ -17,12 +17,12 @@ namespace TrouveUnBand.Controllers
 
             SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
             SelectList categoriesDDL = new SelectList(new List<Object>{
-                new { value=1, text="Toutes les catégories" },
-                new { value=2, text="Groupe" },
-                new { value=3, text="Musicien" },
-                new { value=4, text="Utilisateur" }
-            }, "value", "text");
-       
+                new { value=1, text="tout le monde" },
+                new { value=2, text="des groupes" },
+                new { value=3, text="des musiciens" },
+                new { value=4, text="des utilisateurs" }
+            }, "value", "text");         
+
             var bandQuery = from band in db.Bands
                             where band.Name.Contains(SearchString)
                             select new SearchResult
@@ -54,7 +54,7 @@ namespace TrouveUnBand.Controllers
             ViewBag.CategoriesList = categoriesDDL;
             ViewBag.SearchString = SearchString;
             ViewBag.ResultsList = ResultsList;
-
+            ViewBag.ResultNumber = ResultsList.Count();
             return View();
         }
 
@@ -152,7 +152,7 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.ResultsList = ResultsList;
-
+            ViewBag.ResultNumber = ResultsList.Count();
             return PartialView("_SearchResults");
         }
 

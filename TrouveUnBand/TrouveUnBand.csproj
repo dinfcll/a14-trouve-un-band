@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\SearchParameters.cs" />
     <Compile Include="Models\Style.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -234,7 +235,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Compile Include="Models\DBModels.cs" />
     <Compile Include="Models\InsertUserModel.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Photo.cs" />
@@ -275,7 +275,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
@@ -358,9 +358,9 @@
     <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -398,12 +398,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Search\Filter.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Search\_SearchFilter.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
