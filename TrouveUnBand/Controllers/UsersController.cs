@@ -111,15 +111,19 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            string ReturnLoginValid = LoginValid(model.Nickname, model.Password);
-            if (ReturnLoginValid != "")
+            if (ModelState.IsValid)
             {
-                model.Nickname = ReturnLoginValid;
-                FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
-                return RedirectToAction("Index", "Home");
+                string ReturnLoginValid = LoginValid(model.Nickname, model.Password);
+                if (ReturnLoginValid != "")
+                {
+                    model.Nickname = ReturnLoginValid;
+                    FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
+                    return RedirectToAction("Index", "Home");
+                }
+                TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+                return View();
             }
-
-            TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+            TempData["TempDataError"] = "";
             return View();
         }
 
@@ -131,30 +135,27 @@ namespace TrouveUnBand.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private String LoginValid(string NicknameOrEmail,string Password)
+        private String LoginValid(string NicknameOrEmail, string Password)
         {
             try
             {
                 string EncryptedPass = Encrypt(Password);
                 var LoginQuery = (from User in db.User
-                                    where
-                                    (User.Email.Equals(NicknameOrEmail) ||
-                                    User.Nickname.Equals(NicknameOrEmail)) &&
-                                    User.Password.Equals(EncryptedPass)
-                                    select new Login
-                                    {
-                                        Nickname = User.Nickname,
-                                        Email = User.Email,
-                                        Password = User.Password
-                                    }).FirstOrDefault();
+                                  where
+                                  (User.Email.Equals(NicknameOrEmail) ||
+                                  User.Nickname.Equals(NicknameOrEmail)) &&
+                                  User.Password.Equals(EncryptedPass)
+                                  select new LoginModel
+                                  {
+                                      Nickname = User.Nickname,
+                                      Email = User.Email,
+                                      Password = User.Password
+                                  }).FirstOrDefault();
                 if (LoginQuery != null)
                 {
                     return LoginQuery.Nickname;
                 }
-                else
-                {
-                    return "";
-                }
+                return "";
             }
             catch
             {
