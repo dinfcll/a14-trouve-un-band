@@ -95,31 +95,60 @@
 }
 
 .centrer-image{
-margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
     width: 70%;
 }
+
 tr.instTable > td{
-  padding-bottom: 1em;
+   padding-bottom: 1em;
 }
 
 .col-md-pull-1custom{
-    right: 1.35%;
-  }
+     right: 1.35%;
+}
  
- .col-md-pull-2custom{
+.col-md-pull-2custom{
     right: 6.90%;
-  }
+}
   
-  .col-md-pull-3custom{
+.col-md-pull-3custom{
     right: 0.90%;
-  }
-   
-  
-  .col-md-push-1custom{
+}
+    
+.col-md-push-1custom{
     left: 9.65%;
-  }
+}
   
 #Xfermer{
     font-weight:bold;
+}
+
+﻿.card {
+    height: 400px;
+}
+
+.searchbar {
+    width: 550px;
+    height: 50px;
+    font-size: 125%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.searchform {
+    padding: 0 0 20px 0;
+    text-align: center;
+}
+
+#btnSearch {
+    height: 50px;
+}
+
+#advanced-search-link { 
+    text-align: center;
+}
+
+.main-content {
+    margin-top: 40px;
 }

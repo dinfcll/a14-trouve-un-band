@@ -183,6 +183,7 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.Gender = user.Gender;
                 LoggedOnUser.Latitude = user.Latitude;
                 LoggedOnUser.Longitude = user.Longitude;
+
                 db.SaveChanges();
 
                 return "";
@@ -339,7 +340,16 @@ namespace TrouveUnBand.Controllers
 
         private User GetUserInfo(string Nickname)
         {
-            User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
+            User LoggedOnUser = new User();
+            try
+            {
+                LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             return LoggedOnUser;
         }
 

@@ -11,13 +11,12 @@
 */[Oo]bj/
 
 # User-specific files
+*.suo
 *.user
 *.userosscache
 *.sln.docstates
-*.v12.suo
-*.suo
+*.v12.suo 
 
 # SQL Server files
 *.mdf
 *.ldf
-

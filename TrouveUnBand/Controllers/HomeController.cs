@@ -34,48 +34,6 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-		[HttpGet]
-        public ActionResult Search()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Search(string searchString)
-        {
-            var bandQuery = from band in db.Bands
-                            where band.Name.Contains(searchString)
-                            select new SearchResultModel
-                            {
-                                Name = band.Name,
-                                Description = band.Description,
-                                Location = band.Location
-                            };
-
-            var userQuery = from user in db.Users
-                            join musician in db.Musicians on user.UserId equals musician.MusicianId
-                            where
-                            user.FirstName.Contains(searchString) ||
-                            user.LastName.Contains(searchString)
-                            select new SearchResultModel
-                            {
-                                Name = user.FirstName + " " + user.LastName,
-                                Description = musician.Description,
-                                Location = user.Location
-                            };
-
-
-            List<SearchResultModel> searchResults = new List<SearchResultModel>();
-            searchResults.AddRange(userQuery);
-            searchResults.AddRange(bandQuery);
-
-            ViewData["searchResults"] = searchResults;
-            ViewData["searchString"] = searchString;
-
-            return View();
-		}
-
-
         [HttpPost]
         public ActionResult Newsfeed()
         {
@@ -88,7 +46,6 @@ namespace TrouveUnBand.Controllers
                                 Description = band.Description,
                                 Location = band.Location,
                             };
-
             var UserQuery = from user in db.Users
                             orderby user.UserId descending
                             select new NewsfeedUserModel
@@ -98,13 +55,10 @@ namespace TrouveUnBand.Controllers
                                 LastName = user.LastName,
                                 Nickname = user.Nickname,
                             };
-
             BandQuery = BandQuery.Take(8);
             UserQuery = UserQuery.Take(12);
-
             ViewData["NewsfeedBand"] = BandQuery.ToList();
             ViewData["NewsfeedUser"] = UserQuery.ToList();
-
             return View("index");
         }
     }
