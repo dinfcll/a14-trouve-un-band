@@ -169,6 +169,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -272,19 +273,38 @@
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\SearchResultModel.cs" />
+    <Compile Include="Models\Musician.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TUBModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TUBModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TUBModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TUBModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TUBModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\disable-search-ddl.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -359,12 +379,12 @@
     <Content Include="Views\Group\ConfirmCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -396,6 +416,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Search\_SearchResults.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -162,14 +162,15 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.User.Nickname);
-                LoggedOnUser.LastName = user.User.LastName;
-                LoggedOnUser.Location = user.User.Location;
-                LoggedOnUser.BirthDate = user.User.BirthDate;
-                LoggedOnUser.Email = user.User.Email;
-                LoggedOnUser.FirstName = user.User.FirstName;
-                LoggedOnUser.Photo = user.User.Photo;
-                LoggedOnUser.Gender = user.User.Gender;
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
+                LoggedOnUser.LastName = user.LastName;
+                LoggedOnUser.Location = user.Location;
+                LoggedOnUser.BirthDate = user.BirthDate;
+                LoggedOnUser.Email = user.Email;
+                LoggedOnUser.FirstName = user.FirstName;
+                LoggedOnUser.Photo = user.Photo;
+                LoggedOnUser.Gender = user.Gender;
+
                 db.SaveChanges();
 
                 Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
@@ -293,7 +294,16 @@ namespace TrouveUnBand.Controllers
 
         private User GetUserInfo(string Nickname)
         {
-            User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
+            User LoggedOnUser = new User();
+            try
+            {
+                LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             return LoggedOnUser;
         }
 

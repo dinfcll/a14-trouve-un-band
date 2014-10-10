@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+<div class="form-group">
+@using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
+{
+    <div class="form-inline searchform">
+        <label for="DDLCategories">Affiche</label>
+        @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
+        <label for="DDLGenres">parmis</label>
+        @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"], "tous les genres", new { @class = "form-control" })
+        <label for="Location">dans la région de</label>
+        @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
+    </div>
+
+    <div class="input-group searchbar">
+        @Html.TextBox("SearchString", "", new { @class = "form-control searchbar", @placeholder = "Recherche" })
+        <span class="input-group-btn">
+            <button id="btnSearch" type="submit" class="btn btn-primary">Go!</button>
+        </span>
+    </div>
+}
+</div>
+
+<div id="SearchResults">
+    @Html.Partial("_SearchResults")
+</div>
