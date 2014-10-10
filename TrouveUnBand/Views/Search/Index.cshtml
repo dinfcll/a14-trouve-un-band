@@ -14,18 +14,6 @@
         @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
     </div><!-- /searchform-->
 
-    <div class="row">
-        <a href="#" id="advanced-search-link">Filtre avancé<span class="glyphicon glyphicon-filter"></span></a>
-        <div id="advanced-search" hidden="hidden">
-            <label for="search-radius">Chercher dans un rayon de</label>
-            <div class="input-group input-group-sm">               
-                @Html.TextBox("search-radius","", new { @class="form-control", @placeholder="100"})
-                <span class="input-group-addon">Km</span>
-            </div>
-            @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
-        </div>
-    </div>
-
     <div class="input-group searchbar">
         @Html.TextBox("SearchString", "", new { @class = "form-control searchbar", @placeholder = "Recherche" })
         <span class="input-group-btn">

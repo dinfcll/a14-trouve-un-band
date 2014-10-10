@@ -21,34 +21,34 @@ namespace TrouveUnBand.Controllers
                 new { value=2, text="des groupes" },
                 new { value=3, text="des musiciens" },
                 new { value=4, text="des utilisateurs" }
-            }, "value", "text");         
+            }, "value", "text");
 
-            var bandQuery = from band in db.Bands
-                            where band.Name.Contains(SearchString)
-                            select new SearchResult
-                            {
-                                Name = band.Name,
-                                Location = band.Location,
-                                Description = band.Description,
-                                Type = "Groupe"
-                            };
+            List<Band> bandsList = GetBands(null, SearchString, "");
+            List<Musician> musiciansList = GetMusicians(null, SearchString, "");
 
-            var userQuery = from user in db.Users
-                            join musician in db.Musicians on user.UserId equals musician.UserId
-                            where
-                            user.FirstName.Contains(SearchString) ||
-                            user.LastName.Contains(SearchString) ||
-                            user.Nickname.Contains(SearchString)
-                            select new SearchResult
-                            {
-                                Name = user.FirstName + " " + user.LastName,
-                                Location = user.Location,
-                                Description = musician.Description,
-                                Type = "Musicien"
-                            };
+            foreach (Band band in bandsList)
+            {
+                ResultsList.Add(new SearchResult
+                {
+                    Name = band.Name,
+                    Description = band.Description,
+                    Location = band.Location,
+                    Type = "Band"
+                });
+            }
 
-            ResultsList.AddRange(bandQuery);
-            ResultsList.AddRange(userQuery);
+            foreach (Musician musician in musiciansList)
+            {
+                User user = db.Users.Find(musician.UserId);
+
+                ResultsList.Add(new SearchResult
+                {
+                    Name = user.FirstName + " " + user.LastName,
+                    Description = musician.Description,
+                    Location = user.Location,
+                    Type = "Musicien"
+                });
+            }
 
             ViewBag.GenresList = genresDDL;
             ViewBag.CategoriesList = categoriesDDL;
@@ -61,15 +61,14 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Filter(int DDLCategories, int? DDLGenres, string SearchString, string Location)
         {
-            const int RESULTS_PER_PAGES = 25;
             List<SearchResult> ResultsList = new List<SearchResult>();
 
             switch (DDLCategories)
             {
                 case 1: //All categories dropdown list option
 
-                    List<Band> bandsList = GetBands(DDLGenres, SearchString, Location, RESULTS_PER_PAGES);
-                    List<Musician> musiciansList = GetMusicians(DDLGenres, SearchString, RESULTS_PER_PAGES);
+                    List<Band> bandsList = GetBands(DDLGenres, SearchString, Location);
+                    List<Musician> musiciansList = GetMusicians(DDLGenres, SearchString, Location);
 
                     foreach (Band band in bandsList)
                     {
@@ -99,7 +98,7 @@ namespace TrouveUnBand.Controllers
 
                 case 2: //Band dropdown list option
 
-                    bandsList = GetBands(DDLGenres, SearchString, Location, RESULTS_PER_PAGES);
+                    bandsList = GetBands(DDLGenres, SearchString, Location);
 
                     foreach (Band band in bandsList)
                     {
@@ -116,7 +115,7 @@ namespace TrouveUnBand.Controllers
 
                 case 3: //Musician dropdown list option
 
-                    musiciansList = GetMusicians(DDLGenres, SearchString, RESULTS_PER_PAGES);
+                    musiciansList = GetMusicians(DDLGenres, SearchString, Location);
 
                     foreach (Musician musician in musiciansList)
                     {
@@ -135,7 +134,7 @@ namespace TrouveUnBand.Controllers
 
                 case 4: //User dropdown list option
 
-                    List<User> usersList = GetUsers(SearchString, RESULTS_PER_PAGES);
+                    List<User> usersList = GetUsers(SearchString, Location);
 
                     foreach (User user in usersList)
                     {
@@ -156,84 +155,75 @@ namespace TrouveUnBand.Controllers
             return PartialView("_SearchResults");
         }
 
-        public List<Band> GetBands(int? GenreID, string BandName, string Location, int Number)
+        public List<Band> GetBands(int? GenreID, string BandName, string Location)
         {
             List<Band> lstResults = new List<Band>();
 
+            var bands = from band in db.Bands
+                        select band;
+
             if (GenreID != null)
             {
-                var bands = from band in db.Bands
-                            where
-                                band.Name.Contains(BandName) &&
-                                band.Genres.Any(genre => genre.GenreId == GenreID)
-                            select band;
-
-                bands.Take(Number);
-                lstResults.AddRange(bands);
+                bands = bands.Where(band => band.Genres.Any(genre => genre.GenreId == GenreID));
             }
-            else
+            if (!String.IsNullOrEmpty(BandName))
             {
-                var bands = from band in db.Bands
-                            where
-                                band.Name.Contains(BandName)
-                            select band;
-
-                bands.Take(Number);
-                lstResults.AddRange(bands);
+                bands = bands.Where(band => band.Name.Contains(BandName));
             }
+            if (!String.IsNullOrEmpty(Location))
+            {
+                bands = bands.Where(band => band.Location.Contains(Location));
+            }
+
+            lstResults.AddRange(bands);
             return lstResults;
         }
 
-        public List<Musician> GetMusicians(int? GenreID, string UserName, int Number)
+        public List<Musician> GetMusicians(int? GenreID, string UserName, string Location)
         {
             List<Musician> lstResults = new List<Musician>();
 
+            var musicians = from musician in db.Musicians
+                            select musician;
+
             if (GenreID != null)
             {
-                var musicians = from user in db.Users
-                                join musician in db.Musicians
-                                on user.UserId equals musician.MusicianId
-                                where(
-                                    user.FirstName.Contains(UserName)  ||
-                                    user.LastName.Contains(UserName)   ||
-                                    user.Nickname.Contains(UserName))  &&
-                                    musician.Genres.Any(genre => genre.GenreId == GenreID)
-                                select musician;
-
-                musicians.Take(Number);
-                lstResults.AddRange(musicians);
+                musicians = musicians.Where(musician => musician.Genres.Any(genre => genre.GenreId == GenreID));
             }
-            else
+            if (!String.IsNullOrEmpty(UserName))
             {
-                var musicians = from user in db.Users
-                                join musician in db.Musicians
-                                on user.UserId equals musician.MusicianId
-                                where(
-                                    user.FirstName.Contains(UserName)  ||
-                                    user.LastName.Contains(UserName)   ||
-                                    user.Nickname.Contains(UserName)
-                                    )
-                                select musician;
-
-                musicians.Take(Number);
-                lstResults.AddRange(musicians);
+                musicians = musicians.Where(musician => musician.User.FirstName.Contains(UserName) ||
+                                            musician.User.LastName.Contains(UserName) ||
+                                            musician.User.Nickname.Contains(UserName));
             }
+            if (!String.IsNullOrEmpty(Location))
+            {
+                musicians = musicians.Where(musician => musician.User.Location.Contains(Location));
+            }
+
+            lstResults.AddRange(musicians);
             return lstResults;
         }
 
-        public List<User> GetUsers(string UserName, int Number)
+        public List<User> GetUsers(string UserName, string Location)
         {
             List<User> lstResults = new List<User>();
 
             var users = from user in db.Users
-                        where(
-                            user.FirstName.Contains(UserName)  ||
-                            user.LastName.Contains(UserName)   ||
-                            user.Nickname.Contains(UserName)
-                            )
                         select user;
 
-            users.Take(Number);
+            if (!String.IsNullOrEmpty(UserName))
+            {
+                users = users.Where(user => user.FirstName.Contains(UserName) ||
+                                            user.LastName.Contains(UserName) ||
+                                            user.Nickname.Contains(UserName));
+            }
+            if (!String.IsNullOrEmpty(Location))
+            {
+                users.Where(user => user.Location.Contains(Location));
+            }
+
+
             lstResults.AddRange(users);
             return lstResults;
         }
