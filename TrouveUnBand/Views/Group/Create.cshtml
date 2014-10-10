@@ -4,6 +4,7 @@
     ViewBag.Title = "Création band";
 }
 
+
 <h2>Création de band</h2>
 
 @using (Html.BeginForm()) {
@@ -36,20 +37,58 @@
         </div>
 
         <p>
-            <input type="button" value="Créer" href="#" data-toggle="modal" data-target="#ConfirmCreate"/>
+            <input type="submit" value="Créer" class="easy-modal-open" href="#modal1"/>
         </p>
-
-        <div class="col-xs-8 col-sm-9 col-md-12">
-        En cliquant sur «Inscription», vous acceptez les <a href="#" data-toggle="modal" data-target="#TermsAndConditions">Conditions générales d'utilisation</a>.
-        </div>
     </fieldset>
 }
 
-    <div class="modal fade" id="ConfirmCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        @RenderPage("ConfirmCreate.cshtml")
+
+        <button class="easy-modal-open" href="#modal1">Open modal #1</button>
+
+    <div class="easy-modal" id="modal1">
+		<div class="easy-modal-inner">
+        @Html.Partial("ConfirmCreate")
+
+        <button class="easy-modal-close" title="Close">&times;</button>
+
+        </div>
     </div>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/Scripts/bootstrap-validation.js")
 }
+
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery.easyModal.js"></script>
+	<script type="text/javascript">
+	    $(function () {
+	        $('.easy-modal').easyModal({
+	            top: 200,
+	            overlay: 0.2
+	        });
+
+	        $('.easy-modal-open').click(function (e) {
+	            var target = $(this).attr('href');
+	            $(target).trigger('openModal');
+	            e.preventDefault();
+	        });
+
+	        $('.easy-modal-close').click(function (e) {
+	            $('.easy-modal').trigger('closeModal');
+	        });
+
+	        $('.easy-modal-animated').easyModal({
+	            top: 200,
+	            overlay: 0.2,
+	            transitionIn: 'animated bounceInLeft',
+	            transitionOut: 'animated bounceOutRight',
+	            closeButtonClass: '.animated-close'
+	        });
+	    });
+	</script>

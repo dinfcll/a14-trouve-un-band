@@ -44,16 +44,8 @@ namespace TrouveUnBand.Controllers
         }
 
         //
-        // GET: /Group/Create
-
-        public ActionResult ConfirmCreate()
-        {
-            return View();
-        }
-
-        //
         // POST: /Group/Create
-
+        [HttpPost]
         public ActionResult Create(Band band)
         {
             return RedirectToAction("CreateConfirm", band);
@@ -73,7 +65,7 @@ namespace TrouveUnBand.Controllers
                 Console.WriteLine(ex.Message);
             }
 
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Group", "Create");
         }
 
         [HttpPost]

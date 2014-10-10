@@ -4,7 +4,10 @@
     ViewBag.Title = "Confirmation";
 }
 
-<h2>Confirmation de la création</h2>
+		<div class="modal-content">
+
+        
+        <h2>Confirmation de la création</h2>
 
 @using (Html.BeginForm())
 {
@@ -42,7 +45,42 @@
         </p>
     </fieldset>
 }
+			
+			
+		</div>
+	</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery.easyModal.js"></script>
+	<script type="text/javascript">
+	    $(function () {
+	        $('.easy-modal').easyModal({
+	            top: 200,
+	            overlay: 0.2
+	        });
+
+	        $('.easy-modal-open').click(function (e) {
+	            var target = $(this).attr('href');
+	            $(target).trigger('openModal');
+	            e.preventDefault();
+	        });
+
+	        $('.easy-modal-close').click(function (e) {
+	            $('.easy-modal').trigger('closeModal');
+	        });
+
+	        $('.easy-modal-animated').easyModal({
+	            top: 200,
+	            overlay: 0.2,
+	            transitionIn: 'animated bounceInLeft',
+	            transitionOut: 'animated bounceOutRight',
+	            closeButtonClass: '.animated-close'
+	        });
+	    });
+	</script>
