@@ -31,14 +31,12 @@
                     <li>@Html.Partial("_LoginPartial")</li>
                 </ul>
 
-                <!--SEARCH BAR-->
                 @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class="navbar-form navbar-right", @role="search" }))
                 {  
                     @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
                     @Html.ValidationMessage("SearchString")
                     <button type="submit" class="hidden" value="search"></button>
                 }
-                <!--/SEARCH BAR-->
             </div><!--/.nav-collapse -->
 
         </div>

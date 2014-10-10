@@ -9,7 +9,7 @@
         <label for="DDLCategories">Affiche</label>
         @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
         <label for="DDLGenres">parmis</label>
-        @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"], "tout les genres", new { @class = "form-control" })
+        @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"], "tous les genres", new { @class = "form-control" })
         <label for="Location">dans la région de</label>
         @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
     </div>
