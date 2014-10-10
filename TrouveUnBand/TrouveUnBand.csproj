@@ -180,6 +180,7 @@
     <Compile Include="Models\Genre.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\Instrument.cs">
@@ -189,21 +190,8 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Member.cs" />
-    <Compile Include="Models\Musician.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Musician_Instrument.cs" />
     <Compile Include="Models\Style.cs" />
-    <Compile Include="Models\TUBModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TUBModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TUBModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -269,7 +257,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -285,11 +272,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TUBModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\SearchResult.cs" />
   </ItemGroup>

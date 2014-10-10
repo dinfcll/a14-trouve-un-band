@@ -15,6 +15,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Web.Script.Serialization;
+using System.Net.Http;
 
 namespace TrouveUnBand.Controllers
 {
@@ -45,6 +47,7 @@ namespace TrouveUnBand.Controllers
             {
                 if (user.Password == user.ConfirmPassword)
                 {
+                    user = SetUserLocation(user);
                     user.Photo = StockPhoto();
                     RC = Insertcontact(user);
                     if (RC == "")
@@ -108,14 +111,19 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            string ReturnLoginValid = LoginValid(model.Nickname, model.Password);
-            if (ReturnLoginValid != "")
+            if (ModelState.IsValid)
             {
-                model.Nickname = ReturnLoginValid;
-                FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
-                return RedirectToAction("Index", "Home");
+                string ReturnLoginValid = LoginValid(model.Nickname, model.Password);
+                if (ReturnLoginValid != "")
+                {
+                    model.Nickname = ReturnLoginValid;
+                    FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
+                    return RedirectToAction("Index", "Home");
+                }
+                TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+                return View();
             }
-            TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+            TempData["TempDataError"] = "";
             return View();
         }
 
@@ -127,30 +135,27 @@ namespace TrouveUnBand.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private String LoginValid(string NicknameOrEmail,string Password)
+        private String LoginValid(string NicknameOrEmail, string Password)
         {
             try
             {
                 string EncryptedPass = Encrypt(Password);
                 var LoginQuery = (from User in db.Users
-                                    where
-                                    (User.Email.Equals(NicknameOrEmail) ||
-                                    User.Nickname.Equals(NicknameOrEmail)) &&
-                                    User.Password.Equals(EncryptedPass)
-                                    select new Login
-                                    {
-                                        Nickname = User.Nickname,
-                                        Email = User.Email,
-                                        Password = User.Password
-                                    }).FirstOrDefault();
+                                  where
+                                  (User.Email.Equals(NicknameOrEmail) ||
+                                  User.Nickname.Equals(NicknameOrEmail)) &&
+                                  User.Password.Equals(EncryptedPass)
+                                  select new LoginModel
+                                  {
+                                      Nickname = User.Nickname,
+                                      Email = User.Email,
+                                      Password = User.Password
+                                  }).FirstOrDefault();
                 if (LoginQuery != null)
                 {
                     return LoginQuery.Nickname;
                 }
-                else
-                {
-                    return "";
-                }
+                return "";
             }
             catch
             {
@@ -158,11 +163,17 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string Updatecontact(Musician user)
+        private string UpdateProfil(User user)
         {
             try
             {
                 User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
+
+                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != user.Location)
+                {
+                    user = SetUserLocation(user);
+                }
+
                 LoggedOnUser.LastName = user.LastName;
                 LoggedOnUser.Location = user.Location;
                 LoggedOnUser.BirthDate = user.BirthDate;
@@ -170,25 +181,41 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.FirstName = user.FirstName;
                 LoggedOnUser.Photo = user.Photo;
                 LoggedOnUser.Gender = user.Gender;
+                LoggedOnUser.Latitude = user.Latitude;
+                LoggedOnUser.Longitude = user.Longitude;
 
                 db.SaveChanges();
+
+                return "";
+            }
+            catch
+            {
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+            }
+        }
+
+        private string UpdateProfil(Musician musician)
+        {
+            try
+            {
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
 
                 Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
 
                 if (MusicianQuery == null)
                 {
                     MusicianQuery = new Musician();
-                    MusicianQuery.Description = user.Description;
-                    MusicianQuery.UserId = user.User.UserId;
-                    MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
+                    MusicianQuery.Description = musician.Description;
+                    MusicianQuery.UserId = LoggedOnUser.UserId;
+                    MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
                     db.Musicians.Add(MusicianQuery);
                     db.SaveChanges();
                 }
                 else
                 {
-                    MusicianQuery.Description = user.Description;
+                    MusicianQuery.Description = musician.Description;
                     MusicianQuery.Join_Musician_Instrument.Clear();
-                    MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
+                    MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
                     MusicianQuery.User.ConfirmPassword = MusicianQuery.User.Password;
                     db.SaveChanges();
                 }
@@ -211,44 +238,27 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             }
 
+            User UserQuery = db.Users.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
+            ViewData["UserData"] = UserQuery;
+
             Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
             if (MusicianQuery == null)
             {
                 MusicianQuery = new Musician();
             }
-            MusicianQuery.User = LoggedOnUser;
-            ViewData["UserData"] = MusicianQuery;
+            ViewData["MusicianProfilData"] = MusicianQuery;
             return View();
         }
 
         [HttpPost]
-        public ActionResult ProfileModification(Musician music)
+        public ActionResult UserProfileModification(User user)
         {
-            string InstrumentList = Request["InstrumentList"];
-            string[] InstrumentArray = InstrumentList.Split(',');
-
-            if (AllUnique(InstrumentArray))
-            {
-                string SkillList = Request["SkillsList"];
-                string[] SkillArray = SkillList.Split(',');
-                string DescriptionMusician = Request["TextArea"];
-                music.Description = DescriptionMusician;
-
-                for (int i = 0; i < InstrumentArray.Length; i++)
-                {
-                    Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
-                    InstrumentsMusician.InstrumentId = Convert.ToInt32(InstrumentArray[i]);
-                    InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
-                    InstrumentsMusician.MusicianId = music.MusicianId;
-                    music.Join_Musician_Instrument.Add(InstrumentsMusician);
-                }
-
-                music.User.Nickname = User.Identity.Name;
+                user.Nickname = User.Identity.Name;
                 string RC = "";
                 if (Request.Files[0].ContentLength == 0)
                 {
-                    music.User.Photo = GetProfilePicByte(music.User.Nickname);
-                    RC = Updatecontact(music);
+                    user.Photo = GetProfilePicByte(user.Nickname);
+                    RC = UpdateProfil(user);
                 }
                 else
                 {
@@ -257,19 +267,55 @@ namespace TrouveUnBand.Controllers
                     {
                         Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
                         byte[] bytephoto = imageToByteArray(img);
-                        music.User.PhotoName = PostedPhoto.FileName;
-                        music.User.Photo = bytephoto;
+                        user.PhotoName = PostedPhoto.FileName;
+                        user.Photo = bytephoto;
                     }
                     catch
                     {
-                        music.User.Photo = StockPhoto();
+                        user.Photo = StockPhoto();
                     }
-                    RC = Updatecontact(music);
+                    RC = UpdateProfil(user);
                 }
 
                 if (RC == "")
                 {
                     TempData["success"] = "Le profil a été mis à jour.";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["TempDataError"] = "Une erreur interne s'est produite";
+                    return RedirectToAction("ProfileModification", "Users");
+                }
+        }
+
+        [HttpPost]
+        public ActionResult MusicianProfileModification(Musician musician)
+        {
+            string InstrumentList = Request["InstrumentList"];
+            string[] InstrumentArray = InstrumentList.Split(',');
+            string RC;
+
+            if (AllUnique(InstrumentArray))
+            {
+                string SkillList = Request["SkillsList"];
+                string[] SkillArray = SkillList.Split(',');
+                string DescriptionMusician = Request["TextArea"];
+                musician.Description = DescriptionMusician;
+
+                for (int i = 0; i < InstrumentArray.Length; i++)
+                {
+                    Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
+                    InstrumentsMusician.InstrumentId = Convert.ToInt32(InstrumentArray[i]);
+                    InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
+                    InstrumentsMusician.MusicianId = musician.MusicianId;
+                    musician.Join_Musician_Instrument.Add(InstrumentsMusician);
+                }
+
+                RC = UpdateProfil(musician);
+                if (RC == "")
+                {
+                    TempData["success"] = "Le profil musicien a été mis à jour.";
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -345,6 +391,46 @@ namespace TrouveUnBand.Controllers
             string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             return PhotoName;
 
+        }
+
+        public User SetUserLocation(User user)
+        {
+            var client = new HttpClient();
+
+            client.BaseAddress = new Uri("https://maps.googleapis.com");
+
+            var response = client.GetAsync("/maps/api/geocode/json?address=" + user.Location + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+
+                var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
+                user.Latitude = location.results[location.results.Count - 1].geometry.location.lat;
+                user.Longitude = location.results[location.results.Count - 1].geometry.location.lng;
+                return user;
+            }
+            user.Latitude = 0.0;
+            user.Longitude = 0.0;
+            return user;
+        }
+
+        public string GetDistance(double LatitudeP1,double LongitudeP1, double LatitudeP2, double LongitudeP2)
+        {
+                double R = 6378.137; // Earth’s mean radius in kilometer
+                var lat = ToRadians(LatitudeP2 - LatitudeP1);
+                var lng = ToRadians(LongitudeP2 - LongitudeP1);
+                var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
+                              Math.Cos(ToRadians(LatitudeP1)) * Math.Cos(ToRadians(LatitudeP2)) *
+                              Math.Sin(lng / 2) * Math.Sin(lng / 2);
+                var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
+                int d=  (int)(R * h2);
+                return d.ToString() + " kilomètres";
+        }
+
+        private static double ToRadians(double val)
+        {
+            return (Math.PI / 180) * val;
         }
     }
 }

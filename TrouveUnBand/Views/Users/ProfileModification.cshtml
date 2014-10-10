@@ -1,14 +1,12 @@
-﻿@model TrouveUnBand.Models.Musician
+﻿@model TrouveUnBand.Models.User
 @{
     ViewBag.Title = "ProfileModification";
 }
 
 @if (Request.IsAuthenticated)
 {
-    var user = (TrouveUnBand.Models.Musician)ViewData["UserData"];
+    var user = (TrouveUnBand.Models.User)ViewData["UserData"];
 
-    using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form", enctype = "multipart/form-data" }))
-    {
         <div class="row margin-top-50">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#sectionUtil">Profil Utilisateur</a></li>
@@ -16,180 +14,21 @@
                     <li><a data-toggle="tab" href="#sectionBand">Profil Band</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div id="sectionUtil" class="tab-pane fade in active">
-                        <div class="row pad-top-30">
-                            <div class="col-md-4">
-                                <div class="row col-md-offset-2">
-                                    @Html.Label("Profile Picture:")
-                                </div>
-                                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><img alt="" src="@user.User.PhotoName" width="350" class="photo" /></a>
-                                <input class="btn" type="file" name="FileUpload" />
-
-                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="row padding-right-20">
-                                            <button type="button" class="close" data-dismiss="modal">X</button>
-                                        </div>
-                                      </div>
-                                      <div class="modal-body centrer-image">
-                                        <img alt="" src="@user.User.PhotoName" width="600" class="photo"/>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="pad-top-10">
-                            @Html.HiddenFor(model => model.User.UserId, new { @class = "form-control", @Value = user.User.UserId })
-                                <div class="form-group col-md-3 col-md-push-1">
-                                    @Html.Label("First name:")
-                                    @Html.TextBoxFor(model => model.User.FirstName, new { @class = "form-control", @Value = user.User.FirstName })
-                                    @Html.ValidationMessage("FirstName")
-                                </div>
-                                <div class="form-group col-md-3 col-md-push-1">         
-                                    @Html.Label("Last name:")
-                                    @Html.TextBoxFor(model => model.User.LastName, new { @class = "form-control", @Value = user.User.LastName })
-                                    @Html.ValidationMessage("LastName")
-                                </div>
-                                <div class="form-group col-md-3 col-md-push-1">                
-                                    @Html.Label("Birthdate:")
-                                    @Html.TextBoxFor(model => model.User.BirthDate, new { @class = "form-control", @Value = user.User.BirthDate.ToString("yyyy/MM/dd") })
-                                    @Html.ValidationMessage("BirthDate")
-                                </div>
-                                <div class="form-group col-md-3 col-md-push-1">                
-                                    @Html.Label("Gender:")
-                                    @Html.DropDownListFor(model => model.User.Gender, new SelectList(
-                                          new List<Object>{ 
-                                               new { value = "Homme" , text = "Homme"  },
-                                               new { value = "Femme" , text = "Femme" },
-                                            },
-                                          "value",
-                                            "text", user.User.Gender), new { @class = "form-control" })
-                                </div>
-                                <div class="form-group col-md-3 col-md-push-1">           
-                                    @Html.Label("City:")
-                                    @Html.TextBoxFor(model => model.User.Location, new { @class = "form-control", @Value = user.User.Location })
-                                    @Html.ValidationMessage("Location")
-                                </div>
-        
-                                <div class="form-group col-md-3 col-md-push-1">                
-                                    @Html.Label("Email:")
-                                    @Html.TextBoxFor(model => model.User.Email, new { @class = "form-control", @Value = user.User.Email })
-                                    @Html.ValidationMessage("Email")
-                                </div> 
-                                <div class="pad-top-30 form-group col-md-3 margin-left-0 col-md-push-1">
-                                    <input type="button" class="btn btn-default" value="Annuler" onclick="annuler()"/>
-                                </div>
-                                <div class="pad-top-30 form-group col-md-3 margin-left-0 col-md-pull-1">
-                                    <input type="submit" class="btn btn-primary" value="Enregistrer les Modifications"/>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="sectionUtil" class="tab-pane in active">
+                        @Html.Partial("_UserProfil", user)
                     </div>
-                    <div id="sectionMusician" class="tab-pane fade">
-                        <div class="pad-top-30">
-                            <div class="row">
-                                <div class="form-group col-md-12 col-md-push-1">
-                                    <div class="col-md-12">
-                                         @Html.Label("Expériences")
-                                    </div>
-                                    <div class="col-md-6">
-                                        @Html.TextArea("TextArea", user.Description ,new { @class = "form-control" })
-                                    </div>
-                                    <div class="col-md-6"></div>
-                                </div>
-                                <div class="pad-top-30"></div>
-                                    <div class="form-group col-md-12 col-md-push-1custom row">
-                                        <div class="col-md-3">
-                                            @Html.Label("Instruments")
-                                        </div>
-                                        <div class="col-md-9 col-md-pull-3custom">
-                                            @Html.Label("Niveau")
-                                            <div id="skillquestion" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" data-original-title="Légendaire = Hendrix" onmouseover="hovertooltip()" onmouseout="outtooltip()"></div>
-                                            </div>
-                                        <table id="InstrumentTable" class="form-group col-md-9">
-                                            @if (user.Join_Musician_Instrument.FirstOrDefault() == null)
-                                            {
-                                                <tr name="1" id="tablerow" class="form-group col-md-12 row">
-                                                        <td id="tablecell" class="col-md-3">
-                                                            @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name", 0), new { @class = "form-control" })
-                                                        </td>   
-                                                        <td id="tablecell" class="col-md-3">
-                                                            @Html.DropDownList("SkillsList", new SelectList(
-                                                            new List<Object>{ 
-                                                            new { value = "0" , text = "Aucun"  },
-                                                            new { value = "1" , text = "Débutant"  },
-                                                            new { value = "2" , text = "Initié" },
-                                                            new { value = "3" , text = "Intermédiaire"  },
-                                                            new { value = "4" , text = "Avancé" },
-                                                            new { value = "5" , text = "Légendaire"  },
-                                                            },
-                                                            "value", "text", 0),
-                                                            new { @class = "form-control" })
-                                                        </td>
-                                                        <td id="tablecell" class="col-md-3">
-                                                        </td>
-                                                   </tr>
-                                            }
-                                            else
-                                            {
-                                                int i = 0;
-                                                foreach (TrouveUnBand.Models.Join_Musician_Instrument InstrumentsUser in user.Join_Musician_Instrument)
-                                                {
-                                                    i++;
-                                                    <tr name="@i" id="tablerow" class="form-group col-md-12 row">
-                                                        <td id="tablecell" class="col-md-3">
-                                                            @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name",
-                                                            Convert.ToInt32(InstrumentsUser.InstrumentId)), new { @class = "form-control" })
-                                                        </td>   
-                                                        <td id="tablecell" class="col-md-3">
-                                                            @Html.DropDownList("SkillsList", new SelectList(
-                                                            new List<Object>{ 
-                                                            new { value = "0" , text = "Aucun"  },
-                                                            new { value = "1" , text = "Débutant"  },
-                                                            new { value = "2" , text = "Initié" },
-                                                            new { value = "3" , text = "Intermédiaire"  },
-                                                            new { value = "4" , text = "Avancé" },
-                                                            new { value = "5" , text = "Légendaire"  },
-                                                            },
-                                                            "value", "text", @InstrumentsUser.Skills),
-                                                            new { @class = "form-control" })
-                                                    
-                                                        </td>
-                                                        <td id="tablecell" class="col-md-3">
-                                                        @if(i > 1)
-                                                        {
-                                                            <a id="Xfermer" href="#" onclick='DeleteInstrument("@i")'>X</a>
-                                                        }
-                                                        </td>
-                                                   </tr>
-                                                }
-                                            }
-                                        </table>
-                                    <div class="form-group col-md-12 margin-left-0">
-                                        <input type="button" onclick="AddInstrument()" class="btn btn-info" value="Ajouter un Instrument"/>
-                                    </div>
-                                    <div class="col-md-12"><h1></h1></div>
 
-                                    <div class="col-md-1 margin-left-0">
-                                        <input type="button" class="btn btn-default" value="Annuler" onclick="annuler()" />
-                                    </div>
-                                    <div class="col-md-1 margin-left-0">
-                                        <input type="submit" class="btn btn-primary" value="Enregistrer les Modifications"/>
-                                    </div>
-                                </div>
-                            </div>    
-                        </div>
+                    <div id="sectionMusician" class="tab-pane">
+                       
+                       @Html.Partial("_MusicianProfil", (TrouveUnBand.Models.Musician)ViewData["MusicianProfilData"])
                     </div> 
-                    <div id="sectionBand" class="tab-pane fade">        
+
+                    <div id="sectionBand" class="tab-pane">       
+                         
                     </div>
+
                 </div>
         </div>     
-    }
 }
 else
 {

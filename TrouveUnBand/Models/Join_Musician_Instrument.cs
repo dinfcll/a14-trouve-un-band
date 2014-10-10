@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrouveUnBand.Models
 {
@@ -18,7 +17,7 @@ namespace TrouveUnBand.Models
         public int MusicianId { get; set; }
         public int InstrumentId { get; set; }
         public int Skills { get; set; }
- 
+    
         public virtual Instrument Instrument { get; set; }
         public virtual Musician Musician { get; set; }
     }

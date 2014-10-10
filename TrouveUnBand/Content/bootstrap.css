@@ -264,8 +264,8 @@ th {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url('../Content/Images/glyphicons-halflings-regular.eot');
-  src: url('../Content/Images/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../Content/Images/glyphicons-halflings-regular.woff') format('woff'), url('../Content/Images/glyphicons-halflings-regular.ttf') format('truetype'), url('../Content/Images/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -6214,36 +6214,5 @@ button.close {
     display: none !important;
   }
 }
-
-.field-validation-error
-{
-    /*returned text when an error occured*/
-  font-size: 75%;
-  font-weight: bold;
-  color: #a94442;
-}
-
-.navbar-login
-{
-    width: 305px;
-    padding: 10px;
-    padding-bottom: 0px;
-}
-
-.navbar-login-session
-{
-    padding: 10px;
-    padding-bottom: 0px;
-    padding-top: 0px;
-}
-
-.icon-size
-{
-    font-size: 87px;
-}
-
-.normal-font
-{
-    font-weight: normal
-}
+/*# sourceMappingURL=bootstrap.css.map */
 
