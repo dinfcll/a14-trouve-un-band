@@ -19,7 +19,7 @@ namespace TrouveUnBand.Models
             this.Genres = new HashSet<Genre>();
             this.Musicians = new HashSet<Musician>();
         }
-    
+
         public int BandId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

@@ -173,8 +173,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BandCreation.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
-    <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Style.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -394,7 +394,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Group\ConfirmCreate.cshtml" />
+    <Content Include="Views\Group\_ConfirmCreate.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -7,47 +7,38 @@
 
 <h2>Création de band</h2>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+@using (Html.BeginForm("Create", "Group", FormMethod.Post))
+{
+    <div class="editor-label">
+        @Html.Label("Nom")
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
 
-    <fieldset>
+    <div class="editor-label">
+        @Html.Label("Location")
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Location)
+        @Html.ValidationMessageFor(model => model.Location)
+    </div>
 
-        <div class="editor-label">
-            @Html.Label("Nom")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
+    <div class="editor-label">
+        @Html.Label("Description")
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Description)
+        @Html.ValidationMessageFor(model => model.Description)
+    </div>
 
-        <div class="editor-label">
-            @Html.Label("Location")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Location)
-            @Html.ValidationMessageFor(model => model.Location)
-        </div>
-
-        <div class="editor-label">
-            @Html.Label("Description")
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
-        <p>
-            <input type="submit" value="Créer" class="easy-modal-open" href="#modal1"/>
-        </p>
-    </fieldset>
+        <button type="submit" value="Créer"><span class="easy-modal-open">Créer</span></button>
 }
-
-
-        <button class="easy-modal-open" href="#modal1">Open modal #1</button>
 
     <div class="easy-modal" id="modal1">
 		<div class="easy-modal-inner">
-        @Html.Partial("ConfirmCreate")
+        @Html.Partial("_ConfirmCreate")
 
         <button class="easy-modal-close" title="Close">&times;</button>
 
@@ -65,7 +56,6 @@
 
 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script type="text/javascript" src="../jquery.easyModal.js"></script>
 	<script type="text/javascript">
 	    $(function () {
 	        $('.easy-modal').easyModal({
