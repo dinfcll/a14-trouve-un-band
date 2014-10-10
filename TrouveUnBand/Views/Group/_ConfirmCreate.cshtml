@@ -7,14 +7,11 @@
 <div class="modal-content">
 
         
-        <h2>Confirmation de la création</h2>
+    <h2>Confirmation de la création</h2>
 
     @using (Html.BeginForm("ConfirmCreate", "Group"))
     {
         @Html.ValidationSummary(true)
-
-        <fieldset>
-            <legend>CreateGroupModel</legend>
 
             <div class="editor-label">
                 @Html.Label("Nom")
@@ -44,11 +41,11 @@
             </div>
 
             <p>
-                <input type="submit" value="Confirmer" onclick="location.href='@Url.Action("ConfirmCreate", "Group")'">
+                <input type="submit" value="Confirmer"/>
+                <input type="button" onclick="document.location.href('Group/')" value="Cancel" class="cancel-button btn-form" />
             </p>
-        </fieldset>
     }				
-    </div>
+</div>
 
 
 @section Scripts {
