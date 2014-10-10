@@ -12,16 +12,17 @@
         @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"], "tout les genres", new { @class = "form-control" })
         <label for="Location">dans la région de</label>
         @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
-    </div><!-- /searchform-->
+    </div>
 
     <div class="input-group searchbar">
         @Html.TextBox("SearchString", "", new { @class = "form-control searchbar", @placeholder = "Recherche" })
         <span class="input-group-btn">
             <button id="btnSearch" type="submit" class="btn btn-primary">Go!</button>
         </span>
-    </div><!-- /input-group -->
+    </div>
 }
 </div>
+
 <div id="SearchResults">
     @Html.Partial("_SearchResults")
 </div>

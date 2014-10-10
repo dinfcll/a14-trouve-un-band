@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     /**
     * This function hides the 'Genres' dropdown list when 'Utilisateur' is selected

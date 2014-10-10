@@ -1,5 +1,4 @@
-﻿
-insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,Location) 
+﻿insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,Location) 
 	values('Steven','Seagel',convert(datetime,'10/04/1952'),'Stevy','stevenseagel@hotmail.com','12345','Lévis');
 
 insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,Location)

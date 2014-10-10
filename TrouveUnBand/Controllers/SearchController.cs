@@ -17,10 +17,10 @@ namespace TrouveUnBand.Controllers
 
             SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
             SelectList categoriesDDL = new SelectList(new List<Object>{
-                new { value=1, text="tout le monde" },
-                new { value=2, text="des groupes" },
-                new { value=3, text="des musiciens" },
-                new { value=4, text="des utilisateurs" }
+                new { value="option_all", text="tous le monde" },
+                new { value="option_bands", text="des groupes" },
+                new { value="option_musicians", text="des musiciens" },
+                new { value="option_users", text="des utilisateurs" }
             }, "value", "text");
 
             List<Band> bandsList = GetBands(null, SearchString, "");
@@ -55,17 +55,18 @@ namespace TrouveUnBand.Controllers
             ViewBag.SearchString = SearchString;
             ViewBag.ResultsList = ResultsList;
             ViewBag.ResultNumber = ResultsList.Count();
+
             return View();
         }
 
         [HttpGet]
-        public ActionResult Filter(int DDLCategories, int? DDLGenres, string SearchString, string Location)
+        public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location)
         {
             List<SearchResult> ResultsList = new List<SearchResult>();
-
+            
             switch (DDLCategories)
             {
-                case 1: //All categories dropdown list option
+                case "option_all":
 
                     List<Band> bandsList = GetBands(DDLGenres, SearchString, Location);
                     List<Musician> musiciansList = GetMusicians(DDLGenres, SearchString, Location);
@@ -96,7 +97,7 @@ namespace TrouveUnBand.Controllers
 
                     break;
 
-                case 2: //Band dropdown list option
+                case "option_bands":
 
                     bandsList = GetBands(DDLGenres, SearchString, Location);
 
@@ -113,7 +114,7 @@ namespace TrouveUnBand.Controllers
 
                     break;
 
-                case 3: //Musician dropdown list option
+                case "option_musicians":
 
                     musiciansList = GetMusicians(DDLGenres, SearchString, Location);
 
@@ -132,7 +133,7 @@ namespace TrouveUnBand.Controllers
 
                     break;
 
-                case 4: //User dropdown list option
+                case "option_users":
 
                     List<User> usersList = GetUsers(SearchString, Location);
 
@@ -152,6 +153,7 @@ namespace TrouveUnBand.Controllers
 
             ViewBag.ResultsList = ResultsList;
             ViewBag.ResultNumber = ResultsList.Count();
+
             return PartialView("_SearchResults");
         }
 
@@ -176,6 +178,7 @@ namespace TrouveUnBand.Controllers
             }
 
             lstResults.AddRange(bands);
+
             return lstResults;
         }
 
@@ -202,6 +205,7 @@ namespace TrouveUnBand.Controllers
             }
 
             lstResults.AddRange(musicians);
+
             return lstResults;
         }
 
@@ -225,6 +229,7 @@ namespace TrouveUnBand.Controllers
 
 
             lstResults.AddRange(users);
+
             return lstResults;
         }
     }
