@@ -1,16 +1,15 @@
 ﻿@model TrouveUnBand.Models.Band
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Création band";
 }
 
-<h2>Create</h2>
+<h2>Création de band</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>CreateGroupModel</legend>
 
         <div class="editor-label">
             @Html.Label("Nom")
@@ -37,63 +36,20 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="button" value="Créer" href="#" data-toggle="modal" data-target="#ConfirmCreate"/>
         </p>
+
+        <div class="col-xs-8 col-sm-9 col-md-12">
+        En cliquant sur «Inscription», vous acceptez les <a href="#" data-toggle="modal" data-target="#TermsAndConditions">Conditions générales d'utilisation</a>.
+        </div>
     </fieldset>
 }
 
-<div class="Popupable_Form">
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>CreateGroupModel</legend>
-
-        <div class="editor-label">
-            @Html.Label("Nom")
-        </div>
-        <div class="editor-field">
-            @Html.DisplayTextFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.Label("Location")
-        </div>
-        <div class="editor-field">
-            @Html.DisplayTextFor(model => model.Location)
-            @Html.ValidationMessageFor(model => model.Location)
-        </div>
-
-        <div class="editor-label">
-            @Html.Label("Description")
-        </div>
-        <div class="editor-field">
-            @Html.DisplayTextFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
-        <p>
-            <input type="submit" value="ConfirmCreate"/>
-        </p>
-    </fieldset>
-}
-
-</div>
+    <div class="modal fade" id="ConfirmCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        @RenderPage("ConfirmCreate.cshtml")
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
 }
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.Popupable_Form').magnificPopup({
-            type: 'form',
-            modal: 'true'
-        });
-    });
-
-</script>

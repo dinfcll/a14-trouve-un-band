@@ -54,10 +54,26 @@ namespace TrouveUnBand.Controllers
         //
         // POST: /Group/Create
 
-        [HttpPost]
         public ActionResult Create(Band band)
         {
-            return RedirectToAction("ConfirmCreate", band);
+            return RedirectToAction("CreateConfirm", band);
+        }
+
+        [HttpPost]
+        public ActionResult CreateConfirm(Band band)
+        {
+            try
+            {
+                db.Bands.Add(band);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return RedirectToAction("Home", "Index");
         }
 
         [HttpPost]
@@ -65,16 +81,16 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                    db.Bands.Add(band);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                db.Bands.Add(band);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
-            return View(band);
+            return RedirectToAction("Home", "Index");
         }
 
         //
