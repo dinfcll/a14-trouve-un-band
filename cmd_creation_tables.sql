@@ -58,6 +58,7 @@ create table Join_Band_Musician(
 	constraint pk_join_band_musician Primary Key (BandId, MusicianId)
 );
 
+
 insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,Location) 
 	values('Steven','Seagel',convert(datetime,'10/04/1952'),'Stevy','stevenseagel@hotmail.com','12345','Lévis');
 
