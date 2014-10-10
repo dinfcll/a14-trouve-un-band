@@ -19,7 +19,9 @@ create table Users(
 	Password NVARCHAR(100) NOT NULL,
 	Location NVARCHAR(100) NOT NULL,
 	Photo varbinary(max),
-	Gender NVARCHAR(100)
+	Gender NVARCHAR(100),
+	Latitude FLOAT(40),
+	Longitude FLOAT(40)
 );
 
 create table Musicians(

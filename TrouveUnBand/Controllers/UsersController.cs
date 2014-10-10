@@ -47,7 +47,7 @@ namespace TrouveUnBand.Controllers
             {
                 if (user.Password == user.ConfirmPassword)
                 {
-                    SetUserLocation(user);
+                    user = SetUserLocation(user);
                     user.Photo = StockPhoto();
                     RC = Insertcontact(user);
                     if (RC == "")
@@ -197,7 +197,7 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == musician.User.Nickname);
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
 
                 Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
 
@@ -205,7 +205,7 @@ namespace TrouveUnBand.Controllers
                 {
                     MusicianQuery = new Musician();
                     MusicianQuery.Description = musician.Description;
-                    MusicianQuery.UserId = musician.User.UserId;
+                    MusicianQuery.UserId = LoggedOnUser.UserId;
                     MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
                     db.Musicians.Add(MusicianQuery);
                     db.SaveChanges();
@@ -249,6 +249,7 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult UserProfileModification(User user)
         {
                 user.Nickname = User.Identity.Name;
@@ -287,6 +288,7 @@ namespace TrouveUnBand.Controllers
                 }
         }
 
+        [HttpPost]
         public ActionResult MusicianProfileModification(Musician musician)
         {
             string InstrumentList = Request["InstrumentList"];

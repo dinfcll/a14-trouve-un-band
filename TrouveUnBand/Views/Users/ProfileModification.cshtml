@@ -7,8 +7,6 @@
 {
     var user = (TrouveUnBand.Models.User)ViewData["UserData"];
 
-    using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form", enctype = "multipart/form-data" }))
-    {
         <div class="row margin-top-50">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#sectionUtil">Profil Utilisateur</a></li>
@@ -31,7 +29,6 @@
 
                 </div>
         </div>     
-    }
 }
 else
 {
