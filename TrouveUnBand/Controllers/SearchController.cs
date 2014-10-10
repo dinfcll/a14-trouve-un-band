@@ -11,16 +11,21 @@ namespace TrouveUnBand.Controllers
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
+        private const string OPTION_ALL      = "option_all";
+        private const string OPTION_BAND     = "option_band";
+        private const string OPTION_MUSICIAN = "option_musician";
+        private const string OPTION_USER     = "option_user";
+
         public ActionResult Index(string SearchString)
         {
             List<SearchResult> ResultsList = new List<SearchResult>();
 
             SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
             SelectList categoriesDDL = new SelectList(new List<Object>{
-                new { value="option_all", text="tous le monde" },
-                new { value="option_bands", text="des groupes" },
-                new { value="option_musicians", text="des musiciens" },
-                new { value="option_users", text="des utilisateurs" }
+                new { value=OPTION_ALL, text="tout le monde" },
+                new { value=OPTION_BAND, text="des groupes" },
+                new { value=OPTION_MUSICIAN, text="des musiciens" },
+                new { value=OPTION_USER, text="des utilisateurs" }
             }, "value", "text");
 
             List<Band> bandsList = GetBands(null, SearchString, "");
@@ -66,7 +71,7 @@ namespace TrouveUnBand.Controllers
             
             switch (DDLCategories)
             {
-                case "option_all":
+                case OPTION_ALL:
 
                     List<Band> bandsList = GetBands(DDLGenres, SearchString, Location);
                     List<Musician> musiciansList = GetMusicians(DDLGenres, SearchString, Location);
@@ -97,7 +102,7 @@ namespace TrouveUnBand.Controllers
 
                     break;
 
-                case "option_bands":
+                case OPTION_BAND:
 
                     bandsList = GetBands(DDLGenres, SearchString, Location);
 
@@ -114,7 +119,7 @@ namespace TrouveUnBand.Controllers
 
                     break;
 
-                case "option_musicians":
+                case OPTION_MUSICIAN:
 
                     musiciansList = GetMusicians(DDLGenres, SearchString, Location);
 
@@ -133,7 +138,7 @@ namespace TrouveUnBand.Controllers
 
                     break;
 
-                case "option_users":
+                case OPTION_USER:
 
                     List<User> usersList = GetUsers(SearchString, Location);
 
