@@ -1,4 +1,15 @@
-﻿create table Users(
+﻿drop table Join_Band_Musician
+drop table Join_Band_Genre
+drop table Join_Musician_Instrument
+drop table Join_Musician_Genre
+drop table users;
+drop table musicians;
+drop table bands;
+drop table instruments;
+drop table genres;
+
+
+create table Users(
 	UserId int IDENTITY(1,1) Primary key,
 	FirstName NVARCHAR(100) NOT NULL,
 	LastName NVARCHAR(100) NOT NULL,
@@ -43,6 +54,7 @@ create table Join_Musician_Genre(
 create table Join_Musician_Instrument(
 	MusicianId int REFERENCES Musicians(MusicianId) not null,
 	InstrumentId int REFERENCES Instruments(InstrumentId) not null,
+	Skills int not null,
 	constraint pk_join_musician_instrument primary key (MusicianId, InstrumentId)
 );
 

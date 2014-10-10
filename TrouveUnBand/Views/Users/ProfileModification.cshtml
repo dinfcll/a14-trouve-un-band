@@ -6,59 +6,34 @@
 @if (Request.IsAuthenticated)
 {
     var user = (TrouveUnBand.Models.User)ViewData["UserData"];
-    
-    using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { @class = "row", @role="form", enctype = "multipart/form-data"} ))
+
+    using (Html.BeginForm("ProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form", enctype = "multipart/form-data" }))
     {
-        <div class="row">
-            <div class="col-md-5 col-md-offset-1">
-                @Html.Label("Photo de profil:")<br/>
-                <img alt="" src="@user.PhotoName" height="250" /><br/><br/>
-                <input type="file" name="FileUpload" /><br/>
-            </div>
-            <div class="form-group col-md-3">
-                @Html.Label("Prénom:")
-                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @Value = user.FirstName })
-                @Html.ValidationMessage("FirstName")
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3">         
-                @Html.Label("Nom de famille:")
-                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @Value = user.LastName })
-                @Html.ValidationMessage("LastName")
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3">                
-                @Html.Label("Date de naissance:")
-                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @Value = user.BirthDate.ToString("yyyy/MM/dd") })
-                @Html.ValidationMessage("BirthDate")
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3">                
-                @Html.Label("Sexe:")<br/>
-                @Html.DropDownListFor(model => model.Gender, new SelectList(
-                      new List<Object>{ 
-                           new { value = "Homme" , text = "Homme"  },
-                           new { value = "Femme" , text = "Femme" },
-                        },
-                      "value",
-                      "text",user.Gender), new { @class = "form-control" })
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3">           
-                @Html.Label("Ville:")
-                @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @Value = user.Location })
-                @Html.ValidationMessage("Location")
-            </div><br/><br/><br/><br/>
-            <div class="form-group col-md-3 col-xs-push-6">                
-                @Html.Label("Email:")
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @Value = user.Email })
-                @Html.ValidationMessage("Email")<br/>
-                <input type="submit" value="Modifier" />
-            </div>
-        </div>             
+        <div class="row margin-top-50">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#sectionUtil">Profil Utilisateur</a></li>
+                    <li><a data-toggle="tab" href="#sectionMusician">Profil Musicien</a></li>
+                    <li><a data-toggle="tab" href="#sectionBand">Profil Band</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="sectionUtil" class="tab-pane in active">
+                        @Html.Partial("_UserProfil", user)
+                    </div>
+
+                    <div id="sectionMusician" class="tab-pane">
+                       
+                       @Html.Partial("_MusicianProfil", (TrouveUnBand.Models.Musician)ViewData["MusicianProfilData"])
+                    </div> 
+
+                    <div id="sectionBand" class="tab-pane">       
+                         
+                    </div>
+
+                </div>
+        </div>     
     }
 }
 else
 {
     <h2>@Html.ActionLink("Sign in", "Login", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</h2>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

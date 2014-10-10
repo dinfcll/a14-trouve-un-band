@@ -1,4 +1,4 @@
-﻿.big-star {
+.big-star {
     font-size: 20px;
 }
 .stars {
@@ -54,7 +54,72 @@
     height: 87px;
 }
 
-.normal-font
-{
-    font-weight: normal
+.normal-font {
+    font-weight: normal;
+}
+
+﻿.pad-top-30 {
+    padding-top: 30px;
+}
+
+.pad-top-10{
+    padding-top:10px;
+}
+
+.pad-bottom-10{
+    padding-bottom:10px;
+}
+
+.margin-top-50{
+    margin-top:-50px;
+}
+
+.padding-right-20{
+    padding-right:20px;
+}
+
+.margin-left-0{
+    margin-left:0px;
+}
+
+.margin-left-20{
+    margin-left:20px;
+}
+
+.margin-bottom-10{
+    margin-bottom:10px;
+}
+
+.centrer{
+    right:0px;
+}
+
+.centrer-image{
+margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+tr.instTable > td{
+  padding-bottom: 1em;
+}
+
+.col-md-pull-1custom{
+    right: 1.35%;
+  }
+ 
+ .col-md-pull-2custom{
+    right: 6.90%;
+  }
+  
+  .col-md-pull-3custom{
+    right: 0.90%;
+  }
+   
+  
+  .col-md-push-1custom{
+    left: 9.65%;
+  }
+  
+#Xfermer{
+    font-weight:bold;
 }

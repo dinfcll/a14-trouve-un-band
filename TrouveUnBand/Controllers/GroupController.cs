@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
-using System.Data.Entity;
 
 namespace TrouveUnBand.Controllers
 {
@@ -14,16 +13,10 @@ namespace TrouveUnBand.Controllers
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-        //
-        // GET: /Group/
-
         public ActionResult Index()
         {
             return View(db.Bands.ToList());
         }
-
-        //
-        // GET: /Group/Details/5
 
         public ActionResult Details(int id = 0)
         {
@@ -35,24 +28,15 @@ namespace TrouveUnBand.Controllers
             return View(band);
         }
 
-        //
-        // GET: /Group/Create
-
         public ActionResult Create()
         {
             return View();
         }
 
-        //
-        // GET: /Group/Create
-
         public ActionResult ConfirmCreate()
         {
             return View();
         }
-
-        //
-        // POST: /Group/Create
 
         [HttpPost]
         public ActionResult Create(Band band)
@@ -77,9 +61,6 @@ namespace TrouveUnBand.Controllers
             return View(band);
         }
 
-        //
-        // GET: /Group/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
             Band band = db.Bands.Find(id);
@@ -89,9 +70,6 @@ namespace TrouveUnBand.Controllers
             }
             return View(band);
         }
-
-        //
-        // POST: /Group/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Band band)
@@ -105,9 +83,6 @@ namespace TrouveUnBand.Controllers
             return View(band);
         }
 
-        //
-        // GET: /Group/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             Band band = db.Bands.Find(id);
@@ -117,9 +92,6 @@ namespace TrouveUnBand.Controllers
             }
             return View(band);
         }
-
-        //
-        // POST: /Group/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)

@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Page d'accueil";
 }
+
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
@@ -43,3 +44,48 @@
             <a href="http://go.microsoft.com/fwlink/?LinkId=245157">En savoir plus…</a>
     </li>
 </ol>
+
+<div>
+
+<div id="NewsfeedUser" class="row">
+@foreach (var item in (List<TrouveUnBand.Models.NewsfeedUserModel>)ViewData["NewsfeedUser"])
+{  
+    <div class="col-sm-6 col-md-1 NewsfeedItems">
+        <div class="thumbnail">
+            <img data-src="holder.js/300x300" alt="none">
+            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.LastName)
+        </div>  
+    </div>
+}
+</div>
+</div>
+
+<div id="NewsfeedBand" class="row">
+@foreach (var item in (List<TrouveUnBand.Models.NewsfeedBandModel>)ViewData["NewsfeedBand"])
+{
+    <div class="col-md-3 NewsfeedItems">
+            <div class="thumbnail">
+                <img data-src="holder.js/300x300" alt="BandImage">
+                <div class="caption">
+                    <div class="row">
+                    @Html.Label("Nom")
+                    @Html.DisplayFor(modelItem => item.Name)
+                    </div>
+                    <div class="row">
+                    @Html.Label("Location")
+                    @Html.DisplayFor(modelItem => item.Location)
+                    </div>
+                    <div class="row">
+                    @Html.Label("Description")
+                    @Html.DisplayFor(modelItem => item.Description)
+                    </div>
+                    <div class="row">
+                    @Html.ActionLink("Details", "Details", new { id = item.BandId })
+                    </div>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+     </div>      
+}
+</div>

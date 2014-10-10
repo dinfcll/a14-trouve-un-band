@@ -26,15 +26,10 @@ insert into Genres(Name) values ('Classique');
 insert into Genres(Name) values ('Jazz');
 insert into Genres(Name) values ('Chuck Norris Style');
 
-insert into Instruments(Name) Values('Guitare');
-insert into Instruments(Name) Values('Basse');
-insert into Instruments(Name) Values('Piano');
-insert into Instruments(Name) Values('Drums');
-
 insert into Join_Band_Genre values(1, 1);
 insert into Join_Band_Genre values(2, 2);
 insert into Join_Band_Genre values(2, 4);
 
-insert into Join_Musician_Instrument values(1,1);
-insert into Join_Musician_Instrument values(1,2);
-insert into Join_Musician_Instrument values(2,3);
+insert into Join_Musician_Instrument values(1,1,2);
+insert into Join_Musician_Instrument values(1,2,3);
+insert into Join_Musician_Instrument values(2,3,5);
