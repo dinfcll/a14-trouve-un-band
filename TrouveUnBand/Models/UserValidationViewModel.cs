@@ -54,7 +54,7 @@ namespace TrouveUnBand.Models
         new public string Email { get; set; }
 
         [Required(ErrorMessage = "Ce champ est requis")]
-        [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ ]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum")]
+        [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
         new public string Location { get; set; }
 
         [Required(ErrorMessage = "Ce champ est requis")]
