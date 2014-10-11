@@ -40,20 +40,21 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult Register(UserValidation userModel)
         {
             string RC = "";
             if (ModelState.IsValid)
             {
-                if (user.Password == user.ConfirmPassword)
+                if (userModel.Password == userModel.ConfirmPassword)
                 {
-                    user = SetUserLocation(user);
-                    user.Photo = StockPhoto();
-                    RC = Insertcontact(user);
+                    userModel = SetUserLocation(userModel);
+                    userModel.Photo = StockPhoto();
+                    User userBD = CreateUserFromModel(userModel);
+                    RC = Insertcontact(userBD);
                     if (RC == "")
                     {
                         TempData["success"] = "L'inscription est confirmée!";
-                        FormsAuthentication.SetAuthCookie(user.Nickname, false);
+                        FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -66,14 +67,14 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        private string Insertcontact(User user)
+        private string Insertcontact(User userbd)
         {
             try
             {
                 var ValidUserQuery = (from User in db.Users
                                       where
-                                      User.Email.Equals(user.Email) ||
-                                      User.Nickname.Equals(user.Nickname)
+                                      User.Email.Equals(userbd.Email) ||
+                                      User.Nickname.Equals(userbd.Nickname)
                                       select new SearchUserInfo
                                       {
                                           Nickname = User.Nickname,
@@ -83,8 +84,8 @@ namespace TrouveUnBand.Controllers
                 if (ValidUserQuery == null)
                 {
                     db.Database.Connection.Open();
-                    user.Password = Encrypt(user.Password);
-                    db.Users.Add(user);
+                    userbd.Password = Encrypt(userbd.Password);
+                    db.Users.Add(userbd);
                     db.SaveChanges();
                     db.Database.Connection.Close();
                     return "";
@@ -163,27 +164,17 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string UpdateProfil(User user)
+        private string UpdateProfil(UserValidation userValid)
         {
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
-
-                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != user.Location)
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userValid.Nickname);
+                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != userValid.Location)
                 {
-                    user = SetUserLocation(user);
+                    userValid = SetUserLocation(userValid);
                 }
-
-                LoggedOnUser.LastName = user.LastName;
-                LoggedOnUser.Location = user.Location;
-                LoggedOnUser.BirthDate = user.BirthDate;
-                LoggedOnUser.Email = user.Email;
-                LoggedOnUser.FirstName = user.FirstName;
-                LoggedOnUser.Photo = user.Photo;
-                LoggedOnUser.Gender = user.Gender;
-                LoggedOnUser.Latitude = user.Latitude;
-                LoggedOnUser.Longitude = user.Longitude;
-
+                LoggedOnUser = CreateUserFromModel(userValid, LoggedOnUser);
+                
                 db.SaveChanges();
 
                 return "";
@@ -216,7 +207,6 @@ namespace TrouveUnBand.Controllers
                     MusicianQuery.Description = musician.Description;
                     MusicianQuery.Join_Musician_Instrument.Clear();
                     MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
-                    MusicianQuery.User.ConfirmPassword = MusicianQuery.User.Password;
                     db.SaveChanges();
                 }
 
@@ -232,16 +222,14 @@ namespace TrouveUnBand.Controllers
         {
             ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
 
-            User LoggedOnUser = GetUserInfo(User.Identity.Name);
-            if (LoggedOnUser.Photo != null)
+            UserValidation LoggedOnUserValid = GetUserInfo(User.Identity.Name);
+            if (LoggedOnUserValid.Photo != null)
             {
-                LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
+                LoggedOnUserValid.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUserValid.Photo);
             }
+            ViewData["UserData"] = LoggedOnUserValid;
 
-            User UserQuery = db.Users.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
-            ViewData["UserData"] = UserQuery;
-
-            Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
+            Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUserValid.UserId);
             if (MusicianQuery == null)
             {
                 MusicianQuery = new Musician();
@@ -251,14 +239,14 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserProfileModification(User user)
+        public ActionResult UserProfileModification(UserValidation userValid)
         {
-                user.Nickname = User.Identity.Name;
+                userValid.Nickname = User.Identity.Name;
                 string RC = "";
                 if (Request.Files[0].ContentLength == 0)
                 {
-                    user.Photo = GetProfilePicByte(user.Nickname);
-                    RC = UpdateProfil(user);
+                    userValid.Photo = GetProfilePicByte(userValid.Nickname);
+                    RC = UpdateProfil(userValid);
                 }
                 else
                 {
@@ -267,14 +255,14 @@ namespace TrouveUnBand.Controllers
                     {
                         Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
                         byte[] bytephoto = imageToByteArray(img);
-                        user.PhotoName = PostedPhoto.FileName;
-                        user.Photo = bytephoto;
+                        userValid.PhotoName = PostedPhoto.FileName;
+                        userValid.Photo = bytephoto;
                     }
                     catch
                     {
-                        user.Photo = StockPhoto();
+                        userValid.Photo = StockPhoto();
                     }
-                    RC = UpdateProfil(user);
+                    RC = UpdateProfil(userValid);
                 }
 
                 if (RC == "")
@@ -338,12 +326,12 @@ namespace TrouveUnBand.Controllers
             return allUnique;
         }
 
-        private User GetUserInfo(string Nickname)
+        private UserValidation GetUserInfo(string Nickname)
         {
-            User LoggedOnUser = new User();
+            UserValidation LoggedOnUser = new UserValidation();
             try
             {
-                LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
+                LoggedOnUser = new UserValidation(db.Users.FirstOrDefault(x => x.Nickname == Nickname));
             }
             catch (DbEntityValidationException ex)
             {
@@ -387,13 +375,12 @@ namespace TrouveUnBand.Controllers
 
         public string GetPhotoName()
         {
-            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            UserValidation LoggedOnUser = GetUserInfo(User.Identity.Name);
             string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             return PhotoName;
-
         }
 
-        public User SetUserLocation(User user)
+        public UserValidation SetUserLocation(UserValidation user)
         {
             var client = new HttpClient();
 
@@ -431,6 +418,42 @@ namespace TrouveUnBand.Controllers
         private static double ToRadians(double val)
         {
             return (Math.PI / 180) * val;
+        }
+
+        private User CreateUserFromModel(UserValidation UserValid)
+        {
+            User user = new User();
+            user.BirthDate = UserValid.BirthDate;
+            user.Email = UserValid.Email;
+            user.FirstName = UserValid.FirstName;
+            user.Gender = UserValid.Gender;
+            user.LastName = UserValid.LastName;
+            user.Latitude = UserValid.Latitude;
+            user.Location = UserValid.Location;
+            user.Longitude = UserValid.Longitude;
+            user.Musicians = UserValid.Musicians;
+            user.Nickname = UserValid.Nickname;
+            user.Password = UserValid.Password;
+            user.Photo = UserValid.Photo;
+            user.UserId = UserValid.UserId;
+            return user;
+        }
+
+        private User CreateUserFromModel(UserValidation UserValid, User user)
+        {
+            user.BirthDate = UserValid.BirthDate;
+            user.Email = UserValid.Email;
+            user.FirstName = UserValid.FirstName;
+            user.Gender = UserValid.Gender;
+            user.LastName = UserValid.LastName;
+            user.Latitude = UserValid.Latitude;
+            user.Location = UserValid.Location;
+            user.Longitude = UserValid.Longitude;
+            user.Musicians = UserValid.Musicians;
+            user.Nickname = UserValid.Nickname;
+            user.Photo = UserValid.Photo;
+            user.UserId = UserValid.UserId;
+            return user;
         }
     }
 }

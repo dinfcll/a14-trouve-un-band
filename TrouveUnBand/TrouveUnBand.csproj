@@ -200,6 +200,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserValidationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -418,7 +419,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2556</DevelopmentServerPort>
+          <DevelopmentServerPort>35845</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
