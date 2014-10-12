@@ -1,11 +1,11 @@
-﻿@model TrouveUnBand.Models.User
+﻿@model TrouveUnBand.Models.UserValidation
 @{
     ViewBag.Title = "ProfileModification";
 }
 
 @if (Request.IsAuthenticated)
 {
-    var user = (TrouveUnBand.Models.User)ViewData["UserData"];
+    var userValid = (TrouveUnBand.Models.UserValidation)ViewData["UserData"];
 
         <div class="row margin-top-50">
                 <ul class="nav nav-tabs">
@@ -15,7 +15,7 @@
                 </ul>
                 <div class="tab-content">
                     <div id="sectionUtil" class="tab-pane in active">
-                        @Html.Partial("_UserProfil", user)
+                        @Html.Partial("_UserProfil", userValid)
                     </div>
 
                     <div id="sectionMusician" class="tab-pane">

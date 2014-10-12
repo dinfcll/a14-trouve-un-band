@@ -15,35 +15,35 @@
           <EntitySet Name="Join_Musician_Instrument" EntityType="TrouveUnBandModel.Store.Join_Musician_Instrument" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Musicians" EntityType="TrouveUnBandModel.Store.Musicians" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="TrouveUnBandModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__Join_Band__BandI__656C112C" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__656C112C">
+          <AssociationSet Name="FK__Join_Band__BandI__4E1E9780" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__4E1E9780">
             <End Role="Bands" EntitySet="Bands" />
             <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__BandI__693CA210" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__693CA210">
+          <AssociationSet Name="FK__Join_Band__BandI__51EF2864" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__51EF2864">
             <End Role="Bands" EntitySet="Bands" />
             <End Role="Join_Band_Musician" EntitySet="Join_Band_Musician" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__Genre__66603565" Association="TrouveUnBandModel.Store.FK__Join_Band__Genre__66603565">
+          <AssociationSet Name="FK__Join_Band__Genre__4F12BBB9" Association="TrouveUnBandModel.Store.FK__Join_Band__Genre__4F12BBB9">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__Music__6A30C649" Association="TrouveUnBandModel.Store.FK__Join_Band__Music__6A30C649">
+          <AssociationSet Name="FK__Join_Band__Music__52E34C9D" Association="TrouveUnBandModel.Store.FK__Join_Band__Music__52E34C9D">
             <End Role="Musicians" EntitySet="Musicians" />
             <End Role="Join_Band_Musician" EntitySet="Join_Band_Musician" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Genre__5EBF139D" Association="TrouveUnBandModel.Store.FK__Join_Musi__Genre__5EBF139D">
+          <AssociationSet Name="FK__Join_Musi__Genre__477199F1" Association="TrouveUnBandModel.Store.FK__Join_Musi__Genre__477199F1">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Join_Musician_Genre" EntitySet="Join_Musician_Genre" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Instr__628FA481" Association="TrouveUnBandModel.Store.FK__Join_Musi__Instr__628FA481">
+          <AssociationSet Name="FK__Join_Musi__Instr__4B422AD5" Association="TrouveUnBandModel.Store.FK__Join_Musi__Instr__4B422AD5">
             <End Role="Instruments" EntitySet="Instruments" />
             <End Role="Join_Musician_Instrument" EntitySet="Join_Musician_Instrument" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Music__5DCAEF64" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__5DCAEF64">
+          <AssociationSet Name="FK__Join_Musi__Music__467D75B8" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__467D75B8">
             <End Role="Musicians" EntitySet="Musicians" />
             <End Role="Join_Musician_Genre" EntitySet="Join_Musician_Genre" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Music__619B8048" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__619B8048">
+          <AssociationSet Name="FK__Join_Musi__Music__4A4E069C" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__4A4E069C">
             <End Role="Musicians" EntitySet="Musicians" />
             <End Role="Join_Musician_Instrument" EntitySet="Join_Musician_Instrument" />
           </AssociationSet>
@@ -133,7 +133,7 @@
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
         </EntityType>
-        <Association Name="FK__Join_Band__BandI__656C112C">
+        <Association Name="FK__Join_Band__BandI__4E1E9780">
           <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
           <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -145,7 +145,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Band__BandI__693CA210">
+        <Association Name="FK__Join_Band__BandI__51EF2864">
           <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
           <End Role="Join_Band_Musician" Type="TrouveUnBandModel.Store.Join_Band_Musician" Multiplicity="*" />
           <ReferentialConstraint>
@@ -157,7 +157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Band__Genre__66603565">
+        <Association Name="FK__Join_Band__Genre__4F12BBB9">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -169,7 +169,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Band__Music__6A30C649">
+        <Association Name="FK__Join_Band__Music__52E34C9D">
           <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
           <End Role="Join_Band_Musician" Type="TrouveUnBandModel.Store.Join_Band_Musician" Multiplicity="*" />
           <ReferentialConstraint>
@@ -181,7 +181,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Musi__Genre__5EBF139D">
+        <Association Name="FK__Join_Musi__Genre__477199F1">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Join_Musician_Genre" Type="TrouveUnBandModel.Store.Join_Musician_Genre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -193,7 +193,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Musi__Instr__628FA481">
+        <Association Name="FK__Join_Musi__Instr__4B422AD5">
           <End Role="Instruments" Type="TrouveUnBandModel.Store.Instruments" Multiplicity="1" />
           <End Role="Join_Musician_Instrument" Type="TrouveUnBandModel.Store.Join_Musician_Instrument" Multiplicity="*" />
           <ReferentialConstraint>
@@ -205,7 +205,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Musi__Music__5DCAEF64">
+        <Association Name="FK__Join_Musi__Music__467D75B8">
           <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
           <End Role="Join_Musician_Genre" Type="TrouveUnBandModel.Store.Join_Musician_Genre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -217,7 +217,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Musi__Music__619B8048">
+        <Association Name="FK__Join_Musi__Music__4A4E069C">
           <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
           <End Role="Join_Musician_Instrument" Type="TrouveUnBandModel.Store.Join_Musician_Instrument" Multiplicity="*" />
           <ReferentialConstraint>
@@ -513,7 +513,7 @@
         <EntityTypeShape EntityType="TrouveUnBandModel.Instrument" Width="1.5" PointX="5.25" PointY="5.375" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.Join_Musician_Instrument" Width="1.5" PointX="7.5" PointY="1.125" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.Musician" Width="1.5" PointX="5.25" PointY="1" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrouveUnBandModel.User" Width="1.5" PointX="3" PointY="6" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.User" Width="1.5" PointX="3" PointY="6" Height="3.5186979166666656" IsExpanded="true" />
         <AssociationConnector Association="TrouveUnBandModel.FK__Join_Musi__Instr__02084FDA" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="6.172841796875" />
           <ConnectorPoint PointX="8.25" PointY="6.172841796875" />
