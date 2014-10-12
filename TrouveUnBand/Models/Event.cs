@@ -25,6 +25,7 @@ namespace TrouveUnBand.Models
         public string EventGender { get; set; }
         public Nullable<int> EventStageSize { get; set; }
         public byte[] EventPhoto { get; set; }
+        public string EventCreator { get; set; }
     }
     
 }

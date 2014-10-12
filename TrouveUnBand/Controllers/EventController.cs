@@ -43,6 +43,8 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
+                string Creator = Request["Creator"];
+                events.EventCreator = Creator;
                 db.Events.Add(events);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -66,6 +68,8 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
+                string Creator = Request["Creator"];
+                events.EventCreator = Creator;
                 if (Request.Files[0].ContentLength != 0)
                 {
                     HttpPostedFileBase PostedPhoto = Request.Files[0];

@@ -1,4 +1,10 @@
-﻿@model IEnumerable<TrouveUnBand.Models.Event>
+﻿<script>
+    var onglet = document.getElementById("event");
+    onglet.setAttribute("class", "active");
+</script>
+
+
+@model IEnumerable<TrouveUnBand.Models.Event>
 
 @{
     ViewBag.Title = "Évènements";
@@ -36,7 +42,10 @@
                     <b>@Html.DisplayName(item.EventGender)</b>
                     <p>
                         @Html.ActionLink("Détails", "Details", new { id = item.EventId }, new { @class = "btn btn-default" })
+                    @if (item.EventCreator == User.Identity.Name)
+                    {
                         @Html.ActionLink("Modifier", "Edit", new { id = item.EventId }, new { @class = "btn btn-primary" })
+                    }
                     </p>
                 </div>
             </div>

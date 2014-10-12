@@ -58,7 +58,8 @@ create table Event(
 	EventSalary float(10) NOT NULL,
 	EventGender NVARCHAR(100) NOT NULL,
 	EventStageSize int,
-	EventPhoto varbinary(max)
+	EventPhoto varbinary(max),
+	EventCreator NVARCHAR(100)
 );
 
 create table Join_Musician_Genre(
