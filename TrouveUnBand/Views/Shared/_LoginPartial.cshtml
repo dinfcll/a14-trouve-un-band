@@ -19,7 +19,7 @@
                                             <p class="text-left"><strong>
                                             @Html.Action("GetUserFullName", "Users")
                                             </strong></p>
-                                            <p class="text-left small">Info pratique à mettre</p>
+                                            <p class="text-left small">Profil de @Html.Name(User.Identity.Name)</p>
                                             <p class="text-left">
                                                 @Html.ActionLink("Gestion de compte", "ProfileModification", "Users", routeValues: null, htmlAttributes: new { @class = "username btn btn-primary btn-block btn-sm", title = "Manage" })
                                             </p>

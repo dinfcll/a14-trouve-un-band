@@ -2,16 +2,18 @@
 
 @using (Html.BeginForm("UserProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form", enctype = "multipart/form-data" }))
 {
-    <div class="row ">
-        <div class="col-md-4 pad-top-30">
-            <div class="row col-md-offset-2">
-                @Html.Label("Photo de Profil")
+    <div class="col-md-offset-1">
+        <div class="row col-md-4 form-group">
+            <div class="col-md-12 col-md-pull-1">
+                <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
             </div>
+            <div class="col-md-4 col-md-pull-4">
                 <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                     <img alt="" src="@Model.PhotoName" width="350" height="auto" class="photo" />
                 </a>
-                <input class="btn" type="file" name="FileUpload" />
+            </div>
             
+        </div>
             
 
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -31,25 +33,24 @@
                     </div>
                 </div>
             </div>
-        </div>
         <div class="pad-top-10">
             @Html.HiddenFor(model => model.UserId, new { @class = "form-control", @Value = Model.UserId })
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-3">
                 @Html.Label("Prénom:")
                 @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @Value = Model.FirstName })
                 @Html.ValidationMessage("FirstName")
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-3">
                 @Html.Label("Nom de famille:")
                 @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @Value = Model.LastName })
                 @Html.ValidationMessage("LastName")
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-3">
                 @Html.Label("Date de naissance:")
                 @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @Value = Model.BirthDate.ToString("yyyy/MM/dd") })
                 @Html.ValidationMessage("BirthDate")
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-3">
                 @Html.Label("Sexe:")
                 @Html.DropDownListFor(model => model.Gender, new SelectList(
                                           new List<Object>{
@@ -59,21 +60,21 @@
                                           "value",
                                             "text", Model.Gender), new { @class = "form-control" })
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-3">
                 @Html.Label("Ville:")
                 @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @Value = Model.Location })
                 @Html.ValidationMessage("Location")
             </div>
 
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-3">
                 @Html.Label("Courriel:")
                 @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @Value = Model.Email })
                 @Html.ValidationMessage("Email")
             </div>
-            <div class="pad-top-30 form-group col-md-3 margin-left-0 col-md-push-1">
+            <div class="pad-top-30 form-group col-md-3 margin-left-0">
                 <input type="button" class="btn btn-default" value="Annuler" onclick="annuler()" />
             </div>
-            <div class="pad-top-30 form-group col-md-3 margin-left-0 col-md-pull-1">
+            <div class="pad-top-30 form-group col-md-3 margin-left-0 col-md-pull-2">
                 <input type="submit" class="btn btn-primary" value="Enregistrer les Modifications" />
             </div>
         </div>
