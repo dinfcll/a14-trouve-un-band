@@ -4,78 +4,31 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Évènements</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Créer un évènement", "Create", new { controller = "Event" }, new { @class="btn btn-primary" })
 </p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EventName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventLocation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventCity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventMaxAudience)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventSalary)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventGender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventStageSize)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventLocation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventMaxAudience)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventSalary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventGender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventStageSize)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EventId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EventId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EventId })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+@foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="thumbnail card">
+                <img src="http://placehold.it/250x172" alt="Image">
+                <div class="caption">
+                    <h3>@Html.DisplayName(item.EventName)</h3>
+                    <p>@Html.DisplayName(item.EventLocation)</p>
+                    <p>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        @Html.DisplayName(item.EventCity)
+                    </p>
+                    <b>@Html.DisplayName(item.EventGender)</b>
+                    <p>
+                        @Html.ActionLink("Détails", "Details", new { id = item.EventId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Modifier", "Edit", new { id = item.EventId }, new { @class = "btn btn-primary" })
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
