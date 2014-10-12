@@ -51,12 +51,12 @@ create table Evenements(
 	EventId int IDENTITY(1,1) Primary key,
 	EventName NVARCHAR(100) NOT NULL,
 	EventLocation NVARCHAR(100) NOT NULL,
-	EventAdress NVARCHAR(100) NOT NULL,
+	EventAddress NVARCHAR(100) NOT NULL,
 	EventDate NVARCHAR(100) NOT NULL,
 	EventMaxAudience NVARCHAR(100) NOT NULL,
 	EventSalary NVARCHAR(100) NOT NULL,
 	EventGender NVARCHAR(100) NOT NULL,
-	EventStageWidth NVARCHAR(100)
+	EventStageSize int
 );
 
 create table Join_Musician_Genre(
