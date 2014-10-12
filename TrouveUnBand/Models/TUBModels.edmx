@@ -7,6 +7,7 @@
     <Schema Namespace="TrouveUnBandModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TrouveUnBandModelStoreContainer">
           <EntitySet Name="Bands" EntityType="TrouveUnBandModel.Store.Bands" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Event" EntityType="TrouveUnBandModel.Store.Event" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Genres" EntityType="TrouveUnBandModel.Store.Genres" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Instruments" EntityType="TrouveUnBandModel.Store.Instruments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Join_Band_Genre" EntityType="TrouveUnBandModel.Store.Join_Band_Genre" store:Type="Tables" Schema="dbo" />
@@ -60,6 +61,21 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="text" />
           <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="EventLocation" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="EventAddress" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="EventCity" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="EventDate" Type="date" Nullable="false" />
+          <Property Name="EventMaxAudience" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="EventSalary" Type="real" Nullable="false" />
+          <Property Name="EventGender" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="EventStageSize" Type="int" />
         </EntityType>
         <EntityType Name="Genres">
           <Key>
@@ -276,6 +292,7 @@
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Musicians" EntitySet="Musicians" />
           </AssociationSet>
+          <EntitySet Name="Events" EntityType="TrouveUnBandModel.Event" />
         </EntityContainer>
         <EntityType Name="Band">
           <Key>
@@ -394,6 +411,21 @@
           <End Role="Genres" Type="TrouveUnBandModel.Genre" Multiplicity="*" />
           <End Role="Musicians" Type="TrouveUnBandModel.Musician" Multiplicity="*" />
         </Association>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Type="Int32" Name="EventId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="EventName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventLocation" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventAddress" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventCity" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="EventDate" Nullable="false" />
+          <Property Type="String" Name="EventMaxAudience" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Single" Name="EventSalary" Nullable="false" />
+          <Property Type="String" Name="EventGender" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="EventStageSize" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -486,6 +518,22 @@
               <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EventStageSize" ColumnName="EventStageSize" />
+                <ScalarProperty Name="EventGender" ColumnName="EventGender" />
+                <ScalarProperty Name="EventSalary" ColumnName="EventSalary" />
+                <ScalarProperty Name="EventMaxAudience" ColumnName="EventMaxAudience" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="EventCity" ColumnName="EventCity" />
+                <ScalarProperty Name="EventAddress" ColumnName="EventAddress" />
+                <ScalarProperty Name="EventLocation" ColumnName="EventLocation" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -516,7 +564,9 @@
         <EntityTypeShape EntityType="TrouveUnBandModel.User" Width="1.5" PointX="3" PointY="6" Height="3.5186979166666656" IsExpanded="true" />
         <AssociationConnector Association="TrouveUnBandModel.FK__Join_Musi__Instr__02084FDA" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="6.172841796875" />
-          <ConnectorPoint PointX="8.25" PointY="6.172841796875" />
+          <ConnectorPoint PointX="7.125" PointY="6.172841796875" />
+          <ConnectorPoint PointX="7.125" PointY="4.5" />
+          <ConnectorPoint PointX="8.25" PointY="4.5" />
           <ConnectorPoint PointX="8.25" PointY="3.1052864583333335" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.FK__Join_Musi__Music__01142BA1" ManuallyRouted="false">
@@ -541,6 +591,7 @@
           <ConnectorPoint PointX="4.5" PointY="1.6537223307291664" />
           <ConnectorPoint PointX="5.25" PointY="1.6537223307291664" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="TrouveUnBandModel.Event" Width="1.5" PointX="7.375" PointY="4.75" Height="2.9417936197916674" />
       </Diagram>
     </Diagrams>
   </Designer>

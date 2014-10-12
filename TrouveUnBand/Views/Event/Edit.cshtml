@@ -1,0 +1,101 @@
+﻿@model TrouveUnBand.Models.Event
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Event</legend>
+
+        @Html.HiddenFor(model => model.EventId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventName)
+            @Html.ValidationMessageFor(model => model.EventName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventLocation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventLocation)
+            @Html.ValidationMessageFor(model => model.EventLocation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventAddress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventAddress)
+            @Html.ValidationMessageFor(model => model.EventAddress)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventCity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventCity)
+            @Html.ValidationMessageFor(model => model.EventCity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventDate)
+            @Html.ValidationMessageFor(model => model.EventDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventMaxAudience)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventMaxAudience)
+            @Html.ValidationMessageFor(model => model.EventMaxAudience)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventSalary)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventSalary)
+            @Html.ValidationMessageFor(model => model.EventSalary)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventGender)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventGender)
+            @Html.ValidationMessageFor(model => model.EventGender)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventStageSize)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventStageSize)
+            @Html.ValidationMessageFor(model => model.EventStageSize)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

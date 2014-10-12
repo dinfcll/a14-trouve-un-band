@@ -1,0 +1,81 @@
+﻿@model TrouveUnBand.Models.Event
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Event</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventLocation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventLocation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventAddress)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventCity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventCity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventMaxAudience)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventMaxAudience)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventSalary)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventSalary)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventGender)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventGender)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventStageSize)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventStageSize)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

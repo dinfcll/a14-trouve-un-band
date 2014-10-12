@@ -1,0 +1,78 @@
+﻿@model TrouveUnBand.Models.Event
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Event</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventLocation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventLocation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventAddress)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventCity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventCity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventMaxAudience)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventMaxAudience)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventSalary)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventSalary)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventGender)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventGender)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EventStageSize)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EventStageSize)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.EventId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
