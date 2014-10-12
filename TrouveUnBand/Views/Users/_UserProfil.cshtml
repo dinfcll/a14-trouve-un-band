@@ -7,8 +7,12 @@
             <div class="row col-md-offset-2">
                 @Html.Label("Photo de Profil")
             </div>
-            <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><img alt="" src="@Model.PhotoName" width="350" class="photo" /></a>
-            <input class="btn" type="file" name="FileUpload" />
+                <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    <img alt="" src="@Model.PhotoName" width="350" height="auto" class="photo" />
+                </a>
+                <input class="btn" type="file" name="FileUpload" />
+            
+            
 
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
