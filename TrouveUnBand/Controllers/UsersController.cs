@@ -164,16 +164,16 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string UpdateProfil(UserValidation userValid)
+        private string UpdateProfil(UserValidation userModel)
         {
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userValid.Nickname);
-                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != userValid.Location)
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
+                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != userModel.Location)
                 {
-                    userValid = SetUserLocation(userValid);
+                    userModel = SetUserLocation(userModel);
                 }
-                LoggedOnUser = CreateUserFromModel(userValid, LoggedOnUser);
+                LoggedOnUser = CreateUserFromModel(userModel, LoggedOnUser);
                 
                 db.SaveChanges();
 
@@ -239,14 +239,14 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserProfileModification(UserValidation userValid)
+        public ActionResult UserProfileModification(UserValidation userModel)
         {
-                userValid.Nickname = User.Identity.Name;
+                userModel.Nickname = User.Identity.Name;
                 string RC = "";
                 if (Request.Files[0].ContentLength == 0)
                 {
-                    userValid.Photo = GetProfilePicByte(userValid.Nickname);
-                    RC = UpdateProfil(userValid);
+                    userModel.Photo = GetProfilePicByte(userModel.Nickname);
+                    RC = UpdateProfil(userModel);
                 }
                 else
                 {
@@ -255,14 +255,14 @@ namespace TrouveUnBand.Controllers
                     {
                         Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
                         byte[] bytephoto = imageToByteArray(img);
-                        userValid.PhotoName = PostedPhoto.FileName;
-                        userValid.Photo = bytephoto;
+                        userModel.PhotoName = PostedPhoto.FileName;
+                        userModel.Photo = bytephoto;
                     }
                     catch
                     {
-                        userValid.Photo = StockPhoto();
+                        userModel.Photo = StockPhoto();
                     }
-                    RC = UpdateProfil(userValid);
+                    RC = UpdateProfil(userModel);
                 }
 
                 if (RC == "")
