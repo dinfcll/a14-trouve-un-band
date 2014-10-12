@@ -6,7 +6,7 @@
     */
     $('#DDLCategories').change(function () {
         var selectedItem = $('#DDLCategories').val()
-        if (selectedItem == '4') {
+        if (selectedItem == 'option_user') {
             $('#DDLGenres').hide();
             $('label[for="DDLGenres"]').hide();
         } else {
