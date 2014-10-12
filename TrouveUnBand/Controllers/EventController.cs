@@ -66,19 +66,16 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Request.Files.Count > 0)
+                if (Request.Files[0].ContentLength != 0)
                 {
                     HttpPostedFileBase PostedPhoto = Request.Files[0];
-                    try
-                    {
-                        Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                        byte[] bytephoto = imageToByteArray(img);
-                        events.EventPhoto = bytephoto;
-                    }
-                    catch
-                    {
-                        TempData["TempDataError"] = "Une erreur interne s'est produite";
-                    }
+                    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                    byte[] bytephoto = imageToByteArray(img);
+                    events.EventPhoto = bytephoto;
+                }
+                else
+                {
+                    events.EventPhoto = GetEventPhotoByte(events.EventId);
                 }
                 db.Entry(events).State = EntityState.Modified;
                 db.SaveChanges();
@@ -117,6 +114,18 @@ namespace TrouveUnBand.Controllers
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             return ms.ToArray();
+        }
+
+        public byte[] GetEventPhotoByte(int eventID)
+        {
+            var PicQuery = (from Events in db.Events
+                            where
+                            Events.EventId.Equals(eventID)
+                            select new Photo
+                            {
+                                ProfilePicture = Events.EventPhoto
+                            }).FirstOrDefault();
+            return PicQuery.ProfilePicture;
         }
     }
 }
