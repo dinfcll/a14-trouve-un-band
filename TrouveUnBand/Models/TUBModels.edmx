@@ -76,6 +76,7 @@
           <Property Name="EventSalary" Type="real" Nullable="false" />
           <Property Name="EventGender" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="EventStageSize" Type="int" />
+          <Property Name="EventPhoto" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Genres">
           <Key>
@@ -425,6 +426,7 @@
           <Property Type="Single" Name="EventSalary" Nullable="false" />
           <Property Type="String" Name="EventGender" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="EventStageSize" />
+          <Property Type="Binary" Name="EventPhoto" MaxLength="Max" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -521,6 +523,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="TrouveUnBandModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EventPhoto" ColumnName="EventPhoto" />
                 <ScalarProperty Name="EventStageSize" ColumnName="EventStageSize" />
                 <ScalarProperty Name="EventGender" ColumnName="EventGender" />
                 <ScalarProperty Name="EventSalary" ColumnName="EventSalary" />

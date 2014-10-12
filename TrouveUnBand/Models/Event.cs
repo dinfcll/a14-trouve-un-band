@@ -24,6 +24,7 @@ namespace TrouveUnBand.Models
         public float EventSalary { get; set; }
         public string EventGender { get; set; }
         public Nullable<int> EventStageSize { get; set; }
+        public byte[] EventPhoto { get; set; }
     }
     
 }

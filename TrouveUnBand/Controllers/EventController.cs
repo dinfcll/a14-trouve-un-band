@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
+using System.Drawing;
+using System.IO;
 
 namespace TrouveUnBand.Controllers
 {
@@ -64,6 +66,20 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase PostedPhoto = Request.Files[0];
+                    try
+                    {
+                        Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                        byte[] bytephoto = imageToByteArray(img);
+                        events.EventPhoto = bytephoto;
+                    }
+                    catch
+                    {
+                        TempData["TempDataError"] = "Une erreur interne s'est produite";
+                    }
+                }
                 db.Entry(events).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -94,6 +110,13 @@ namespace TrouveUnBand.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
         }
     }
 }
