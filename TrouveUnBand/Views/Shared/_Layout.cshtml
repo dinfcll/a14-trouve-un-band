@@ -59,9 +59,13 @@
             }
         </div>
         <div class="container" style="padding-top:100px">
-        @RenderSection("featured", required: false)
-        @RenderSection("scripts", required: false)
-        @RenderBody()
+
+            <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+            <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+            
+            @RenderSection("featured", required: false)
+            @RenderSection("scripts", required: false)
+            @RenderBody()
         </div><!-- /.container -->
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrapjs")
@@ -71,6 +75,7 @@
         @Scripts.Render("~/Scripts/tooltips.js")
         @Scripts.Render("~/Scripts/ModifProfil.js")
         @Scripts.Render("~/Scripts/disable-search-ddl.js")
-        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+        @Scripts.Render("~/Scripts/jquery.Jcrop.js")
+        @Scripts.Render("~/Scripts/ImageUpload.js")
     </body>
 </html>

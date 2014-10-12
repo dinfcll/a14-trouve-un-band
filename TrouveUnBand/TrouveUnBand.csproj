@@ -180,6 +180,7 @@
     <Compile Include="Models\Genre.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ImageHelper.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\GroupModels.cs" />
@@ -284,13 +285,16 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
+    <Content Include="Images\Jcrop.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
     <Content Include="Scripts\holder.js" />
+    <Content Include="Scripts\ImageUpload.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -398,6 +402,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Users\test.cshtml" />
+    <Content Include="Views\Users\ImageCropperDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
