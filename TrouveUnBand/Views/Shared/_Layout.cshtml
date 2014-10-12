@@ -16,7 +16,7 @@ $(function() {
         @Styles.Render("~/Content/signin.css")
         @Styles.Render("~/Content/bootstrap.css")
         @Styles.Render("~/Content/Site.css")
-        @Scripts.Render("~/bundles/jquery")
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         @Scripts.Render("~/bundles/bootstrapjs")
         @Scripts.Render("~/Scripts/alert.js")
         @Scripts.Render("~/Scripts/bootstrap-validation.js")
@@ -53,7 +53,7 @@ $(function() {
                     {
                         @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
                         @Html.ValidationMessage("SearchString")
-                        <button type="submit" class="hidden" value="search"></button>
+                        <button type="submit" class="glyphicon glyphicon-search form-control" value="search"></button>
                     }
                 </div><!--/.nav-collapse -->
             </div>
