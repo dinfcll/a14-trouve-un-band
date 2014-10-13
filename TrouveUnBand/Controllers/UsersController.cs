@@ -13,6 +13,7 @@ using WebMatrix.WebData;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Web.Script.Serialization;
@@ -438,27 +439,73 @@ namespace TrouveUnBand.Controllers
             return (Math.PI / 180) * val;
         }
 
-        //[HttpPost]
-        //public virtual ActionResult CropImage(string imagePath, int? cropPointX, int? cropPointY, int? imageCropWidth, int? imageCropHeight)
+        [HttpPost]
+        public virtual ActionResult CropImage(string imagePath, int? cropPointX, int? cropPointY, int? imageCropWidth, int? imageCropHeight)
+        {
+            HttpPostedFileBase PostedPhoto = Request.
+            Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+            //try
+            //{
+            //    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+            //    byte[] bytephoto = imageToByteArray(img);
+            //    user.PhotoName = PostedPhoto.FileName;
+            //    user.Photo = bytephoto;
+            //}
+            //catch
+            //{
+            //    user.Photo = StockPhoto();
+            //}
+            //byte[] imageBytes = System.IO.File.ReadAllBytes(Server.MapPath(imagePath));
+
+            //using (MemoryStream stream = new MemoryStream(imageBytes))
+            //{
+            //    byte[] croppedImage = CropImage(stream, cropPointX.Value, cropPointY.Value, imageCropWidth.Value, imageCropHeight.Value);
+            //}
+
+            return Json(new { photoPath = "test" }, JsonRequestBehavior.AllowGet);
+        }
+
+        //private static byte[] CropImage(Stream content, int x, int y, int width, int height)
         //{
-        //    byte[] imageBytes = System.IO.File.ReadAllBytes(Server.MapPath(imagePath));
-        //    byte[] croppedImage = ImageHelper.CropImage(imageBytes, cropPointX.Value, cropPointY.Value, imageCropWidth.Value, imageCropHeight.Value);
-
-        //    string tempFolderName = Server.MapPath("~/" + ConfigurationManager.AppSettings["Image.TempFolderName"]);
-        //    string fileName = Path.GetFileName(imagePath);
-
-        //    try
+        //    using (Bitmap sourceBitmap = new Bitmap(content))
         //    {
-        //        FileHelper.SaveFile(croppedImage, Path.Combine(tempFolderName, fileName));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Log an error     
-        //        return new HttpStatusCodeResult((int)HttpStatusCode.InternalServerError);
-        //    }
+        //        double sourceWidth = Convert.ToDouble(sourceBitmap.Size.Width);
+        //        double sourceHeight = Convert.ToDouble(sourceBitmap.Size.Height);
+        //        Rectangle cropRect = new Rectangle(x, y, width, height);
 
-        //    string photoPath = string.Concat("/", ConfigurationManager.AppSettings["Image.TempFolderName"], "/", fileName);
-        //    return Json(new { photoPath = photoPath }, JsonRequestBehavior.AllowGet);
+        //        using (Bitmap newBitMap = new Bitmap(cropRect.Width, cropRect.Height))
+        //        {
+        //            using (Graphics g = Graphics.FromImage(newBitMap))
+        //            {
+        //                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        //                g.SmoothingMode = SmoothingMode.HighQuality;
+        //                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+        //                g.CompositingQuality = CompositingQuality.HighQuality;
+
+        //                g.DrawImage(sourceBitmap, new Rectangle(0, 0, newBitMap.Width, newBitMap.Height), cropRect, GraphicsUnit.Pixel);
+
+        //                return GetBitmapBytes(newBitMap);
+        //            }
+        //        }
+        //    }
+        //}
+
+        //public static byte[] GetBitmapBytes(Bitmap source)
+        //{
+        //    ImageCodecInfo codec = ImageCodecInfo.GetImageEncoders()[4];
+        //    EncoderParameters parameters = new EncoderParameters(1);
+        //    parameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+
+        //    using (MemoryStream tmpStream = new MemoryStream())
+        //    {
+        //        source.Save(tmpStream, codec, parameters);
+
+        //        byte[] result = new byte[tmpStream.Length];
+        //        tmpStream.Seek(0, SeekOrigin.Begin);
+        //        tmpStream.Read(result, 0, (int)tmpStream.Length);
+
+        //        return result;
+        //    }
         //}
     }
 }

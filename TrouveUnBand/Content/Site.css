@@ -173,7 +173,7 @@ tr.instTable > td{
 /* Selection Border */
 .jcrop-vline,
 .jcrop-hline {
-  background: #ffffff /*url("../Images/Jcrop.gif")*/;
+  background: #ffffff url("../Images/Jcrop.gif");
   font-size: 0;
   position: absolute;
 }
@@ -206,8 +206,8 @@ tr.instTable > td{
 .jcrop-handle {
   background-color: #333333;
   border: 1px #eeeeee solid;
-  width: 10px;
-  height: 10px;
+  width: 7px;
+  height: 7px;
   font-size: 1px;
 }
 .jcrop-handle.ord-n {
@@ -332,8 +332,6 @@ img.jcrop-preview {
     margin-right: auto 
 }
 
-@media (min-width: 992px) {
-  .modal-md-lg {
-    width: 700px;
+  .modal-responsive {
+    width: auto;
   }
-}
