@@ -1,19 +1,25 @@
-﻿@{
+﻿@model TrouveUnBand.Models.User
+
+@{
     ViewBag.Title = "ImageCropperDialog";
 }
 
-
-<div id="CropperDialog" class="modal-dialog modal-responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title" id="myModalLabel">Redimenssion de l'image</h4>
-        </div>
-        <div class="modal-body" style="text-align: center">
-            <img id="PicToCrop" class="image-to-crop" src="@Model.PhotoName" />
-        </div>
-        <div class="modal-footer">
-            <button id="CropImage" type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+    <div id="CropperDialog" class="modal-dialog modal-responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Redimenssion de l'image</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <img id="PicToCrop" class="image-to-crop" src="" />
+            </div>
+            <div class="modal-footer">
+                <input id="HiddenUploader" type="file" style="display:none" />
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
         </div>
     </div>
-</div>
+    @Html.HiddenFor(model => model.PicX, new { id = "X" })
+    @Html.HiddenFor(model => model.PicY, new { id = "Y" })
+    @Html.HiddenFor(model => model.PicWidth, new { id = "Width" })
+    @Html.HiddenFor(model => model.PicHeight, new { id = "Height" })

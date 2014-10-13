@@ -180,7 +180,6 @@
     <Compile Include="Models\Genre.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ImageHelper.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\GroupModels.cs" />
@@ -404,6 +403,7 @@
     </None>
     <Content Include="Views\Users\test.cshtml" />
     <Content Include="Views\Users\ImageCropperDialog.cshtml" />
+    <Content Include="Views\Users\ViewPictureDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />

@@ -2,7 +2,6 @@
 var imageCropHeight = 0;
 var cropPointX = 0;
 var cropPointY = 0;
-var ImgUploaderControl = $("#ImageUploader");
 
 function readURL(input) {
     if (input.files && input.files[0]) {
@@ -20,9 +19,9 @@ function readURL(input) {
 }
 
 $("#ImageUploader").change(function () {
-    if (FileSize = this.files[0].size > 1048576)
+    if (FileSize = this.files[0].size > 3145728)
     {
-        alert("La taille de l'image ne doit pas dépasser 1mo.");
+        alert("La taille de l'image ne doit pas dépasser 3 mo.");
         $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
         $("#ImageUploader").unwrap();
         return;
@@ -34,12 +33,6 @@ $("#ImageUploader").change(function () {
 $(document).ready(function () {
     initCrop();
 });
-
-$("#CropImage").on("click", function (e) {
-    e.preventDefault();
-    cropImage();
-});
-
 
 function initCrop() {
     $('#PicToCrop').Jcrop({
@@ -56,40 +49,17 @@ function initCrop() {
 }
 
 function setCoordsAndImgSize(e) {
+    var element;
 
-    imageCropWidth = e.w;
-    imageCropHeight = e.h;
-    
-    cropPointX = e.x;
-    cropPointY = e.y;
-}
+    element = document.getElementById("X");
+    element.value = Math.round(e.x);
 
-function cropImage() {
+    element = document.getElementById("Y");
+    element.value = Math.round(e.y);
 
-    if (imageCropWidth == 0 && imageCropHeight == 0) {
-        alert("Please select crop area.");
-        return;
-    }
+    element = document.getElementById("Width");
+    element.value = Math.round(e.w);
 
-    $.ajax({
-        url: '/Users/CropImage',
-        type: 'POST',
-        data: {
-            imagePath: $("#PicToCrop").attr("src"),
-            cropPointX: cropPointX,
-            cropPointY: cropPointY,
-            imageCropWidth: imageCropWidth,
-            imageCropHeight: imageCropHeight,
-            stringf:"vs"
-        },
-        success: function (data) {
-            //$("#PicToCrop")
-            //    .attr("src", data.photoPath + "?t=" + new Date().getTime())
-            //    .show();
-            alert("Success");
-        },
-        error: function (data) {
-            alert("Error");
-        }
-    });
+    element = document.getElementById("Height");
+    element.value = Math.round(e.h);
 }

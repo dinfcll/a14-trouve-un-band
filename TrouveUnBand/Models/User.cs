@@ -63,6 +63,18 @@ namespace TrouveUnBand.Models
 
         public virtual ICollection<Musician> Musicians { get; set; }
 
+        [NotMapped]
+        public int PicX { get; set; }
+
+        [NotMapped]
+        public int PicY { get; set; }
+
+        [NotMapped]
+        public int PicWidth { get; set; }
+
+        [NotMapped]
+        public int PicHeight { get; set; }
+
     }
 }
 
