@@ -4,7 +4,7 @@
     ViewBag.Title = "Création d'évènement";
 }
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Event", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
 
@@ -59,6 +59,11 @@
                 <div class="form-group col-md-6">
                     @Html.TextBoxFor(model => model.EventStageSize, new { @class = "form-control", @placeholder = "Dimension de la scène" })
                     @Html.ValidationMessageFor(model => model.EventStageSize)
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.Label("Photo de l'Évènement")
+                    <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
                 </div>
 
                 <div class="col-md-12">

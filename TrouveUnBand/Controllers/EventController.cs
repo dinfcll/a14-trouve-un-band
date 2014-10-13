@@ -45,6 +45,13 @@ namespace TrouveUnBand.Controllers
             {
                 string Creator = Request["Creator"];
                 events.EventCreator = Creator;
+                if (Request.Files[0].ContentLength != 0)
+                {
+                    HttpPostedFileBase PostedPhoto = Request.Files[0];
+                    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                    byte[] bytephoto = imageToByteArray(img);
+                    events.EventPhoto = bytephoto;
+                }
                 db.Events.Add(events);
                 db.SaveChanges();
                 return RedirectToAction("Index");
