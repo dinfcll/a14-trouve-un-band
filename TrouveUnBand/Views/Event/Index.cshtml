@@ -13,10 +13,10 @@
 <h2>Évènements</h2>
 
 <p>
-    @if (User.Identity.Name != "")
+    @if(User.Identity.Name != "")
     {
-        @Html.ActionLink("Créer un évènement", "Create", new { controller = "Event" }, new { @class = "btn btn-primary" })
-    }
+        @Html.ActionLink("Créer un évènement", "Create", new { controller = "Event" }, new { @class="btn btn-primary" })
+        }
 </p>
 <div class="row">
 @foreach (var item in Model)
@@ -30,7 +30,7 @@
             else
             {
                 var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.EventPhoto);
-                <img src="@photo" width="350" height="auto" class="photo" alt="Image">
+                <img src="@photo" width="250" height="172" class="photo" alt="Image">
             }
                 <div class="caption">
                     <h3>@Html.DisplayName(item.EventName)</h3>
