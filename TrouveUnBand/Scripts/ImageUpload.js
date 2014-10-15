@@ -8,9 +8,8 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            
             api.destroy();
-            $('#PicToCrop').replaceWith('<img id="PicToCrop" class="image-to-crop" src="' + e.target.result + '"/>');
+            $('#PicToCrop').replaceWith('<img id="PicToCrop" class="CropThumbNail" src="' + e.target.result + '"/>');
             initCrop();
         }
 
@@ -27,7 +26,7 @@ $("#ImageUploader").change(function () {
         return;
     }
     readURL(this);
-    $('#CropperDialog').modal('show');
+    $("#CropperDialog").modal("show");
 });
 
 $(document).ready(function () {
@@ -63,3 +62,9 @@ function setCoordsAndImgSize(e) {
     element = document.getElementById("Height");
     element.value = Math.round(e.h);
 }
+
+$("#closeDialog").click(function () {
+    $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
+    $("#ImageUploader").unwrap();
+    return;
+});

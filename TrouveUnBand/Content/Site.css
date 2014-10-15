@@ -322,16 +322,26 @@ img.jcrop-preview {
   max-width: none;
 }
 
-.image-to-crop{
-    max-height:400px;
+.CropProfilPicture{
+    max-height:600px;
     max-width:600px;
-    min-height:172px;
-    min-width:250px;
+    min-height:200px;
+    min-width:200px;
     display: block;
     margin-left: auto;
     margin-right: auto 
 }
 
-  .modal-responsive {
-    width: auto;
+.CropThumbNail{
+    max-height:413px;
+    max-width:600px;
+    min-height:172px;
+    min-width:250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+  .modal-crop {
+    width: 700px;
   }

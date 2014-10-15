@@ -185,7 +185,6 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.BirthDate = user.BirthDate;
                 LoggedOnUser.Email = user.Email;
                 LoggedOnUser.FirstName = user.FirstName;
-                LoggedOnUser.Photo = user.Photo;
                 LoggedOnUser.Gender = user.Gender;
                 LoggedOnUser.Latitude = user.Latitude;
                 LoggedOnUser.Longitude = user.Longitude;
@@ -261,27 +260,8 @@ namespace TrouveUnBand.Controllers
         {
                 user.Nickname = User.Identity.Name;
                 string RC = "";
-                if (Request.Files[0].ContentLength == 0)
-                {
-                    user.Photo = GetProfilePicByte(user.Nickname);
-                    RC = UpdateProfil(user);
-                }
-                else
-                {
-                    HttpPostedFileBase PostedPhoto = Request.Files[0];
-                    try
-                    {
-                        Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                        byte[] bytephoto = imageToByteArray(img);
-                        user.PhotoName = PostedPhoto.FileName;
-                        user.Photo = bytephoto;
-                    }
-                    catch
-                    {
-                        user.Photo = StockPhoto();
-                    }
-                    RC = UpdateProfil(user);
-                }
+
+                RC = UpdateProfil(user);
 
                 if (RC == "")
                 {
@@ -453,49 +433,58 @@ namespace TrouveUnBand.Controllers
                 HttpPostedFileBase PostedPhoto = Request.Files[0];
                 try
                 {
-                    Image Img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                    byte[] BytePhoto = imageToByteArray(Img);
-                    using (MemoryStream stream = new MemoryStream(BytePhoto))
+                    string extension = Path.GetExtension(PostedPhoto.FileName).ToLower();
+
+                    if (extension != ".jpe" && extension != ".jpg" && extension != ".jpeg" && extension != ".gif" && extension != ".png" &&
+                        extension != ".pns" && extension != ".bmp" && extension != ".ico" && extension != ".psd" && extension != ".pdd")
                     {
-                        byte[] croppedImage = CropImage(stream, UserPicture.PicX, UserPicture.PicY, UserPicture.PicWidth, UserPicture.PicHeight);
-                        LoggedOnUser.Photo = croppedImage;
-                        db.SaveChanges();
+                        TempData["TempDataError"] = "Le type du fichier n'est pas valide. Assurez-vous que le fichier soit bien une image. ";
+                        return RedirectToAction("ProfileModification");
                     }
+
+                    Image image = Image.FromStream(PostedPhoto.InputStream, true, true);
+
+                    if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
+                    {
+                        image = ResizeOriginalImage(image, 172, 250, 413, 600);
+                    }
+
+                    byte[] croppedImage = CropImage(image, UserPicture.PicX, UserPicture.PicY, UserPicture.PicWidth, UserPicture.PicHeight);
+
+                    LoggedOnUser.Photo = croppedImage;
+                    db.SaveChanges();
                 }
                 catch
                 {
-
+                    TempData["TempDataError"] = "Une erreur inattendue s'est produite. Veuillez réessayer plus tard. ";
                 }
             }
-            return RedirectToAction("Index", "Home");
+            TempData["success"] = "La photo de profil a été modifiée avec succès.";
+            return RedirectToAction("ProfileModification", "Users");
         }
 
-        private static byte[] CropImage(Stream content, int x, int y, int width, int height)
+        private static byte[] CropImage(Image image, int x, int y, int width, int height)
         {
-            using (Bitmap sourceBitmap = new Bitmap(content))
+            Rectangle CropRect = new Rectangle(x, y, width, height);
+            Bitmap btmOriginalImage = new Bitmap(image);
+            Bitmap btmNewImage = new Bitmap(CropRect.Width, CropRect.Height);
+            byte[] CroppedImage;
+
+            using (Graphics g = Graphics.FromImage(btmNewImage))
             {
-                double sourceWidth = Convert.ToDouble(sourceBitmap.Size.Width);
-                double sourceHeight = Convert.ToDouble(sourceBitmap.Size.Height);
-                Rectangle cropRect = new Rectangle(x, y, width, height);
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.CompositingQuality = CompositingQuality.HighQuality;
 
-                using (Bitmap newBitMap = new Bitmap(cropRect.Width, cropRect.Height))
-                {
-                    using (Graphics g = Graphics.FromImage(newBitMap))
-                    {
-                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                        g.SmoothingMode = SmoothingMode.HighQuality;
-                        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                        g.CompositingQuality = CompositingQuality.HighQuality;
-
-                        g.DrawImage(sourceBitmap, new Rectangle(0, 0, newBitMap.Width, newBitMap.Height), cropRect, GraphicsUnit.Pixel);
-
-                        return GetBitmapBytes(newBitMap);
-                    }
-                }
+                g.DrawImage(btmOriginalImage, new Rectangle(0, 0, btmNewImage.Width, btmNewImage.Height),CropRect,GraphicsUnit.Pixel);
             }
+
+            CroppedImage = GetBitmapBytes(btmNewImage);
+            return CroppedImage;
         }
 
-        public static byte[] GetBitmapBytes(Bitmap source)
+        private static byte[] GetBitmapBytes(Bitmap source)
         {
             ImageCodecInfo codec = ImageCodecInfo.GetImageEncoders()[4];
             EncoderParameters parameters = new EncoderParameters(1);
@@ -511,6 +500,69 @@ namespace TrouveUnBand.Controllers
 
                 return result;
             }
+        }
+
+        private Image ResizeOriginalImage(Image ImageToResize, int MinHeight, int MinWidth, int MaxHeight, int MaxWidth)
+        {
+            Bitmap btmNewImage;
+
+            int OriginalHeight = ImageToResize.Height;
+            int OriginalWidth = ImageToResize.Width;
+            int NewHeight;
+            int NewWidth;
+
+            if (OriginalHeight < MinHeight || OriginalWidth < MinWidth)
+            {
+                if (OriginalHeight < MinHeight)
+                {
+                    NewHeight = MinHeight;
+                }
+                else
+                {
+                    NewHeight = ImageToResize.Height;
+                }
+
+                if (OriginalWidth < MinWidth)
+                {
+                    NewWidth = MinWidth;
+                }
+                else
+                {
+                    NewWidth = ImageToResize.Width;
+                }
+            }
+            else
+            {
+                if (OriginalHeight > MaxHeight)
+                {
+                    NewHeight = MaxHeight;
+                }
+                else
+                {
+                    NewHeight = ImageToResize.Height;
+                }
+
+                if (OriginalWidth > MaxWidth)
+                {
+                    NewWidth = MaxWidth;
+                }
+                else
+                {
+                    NewWidth = ImageToResize.Width;
+                }
+            }
+
+            btmNewImage = new Bitmap(NewWidth, NewHeight);
+            using (Graphics gr = Graphics.FromImage(btmNewImage))
+            {
+                gr.SmoothingMode = SmoothingMode.HighQuality;
+                gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                gr.DrawImage(ImageToResize, new Rectangle(0, 0, NewWidth, NewHeight));
+            }
+
+            return (Image)btmNewImage;
+
         }
     }
 }
