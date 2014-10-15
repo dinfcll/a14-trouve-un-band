@@ -2,14 +2,16 @@
 var imageCropHeight = 0;
 var cropPointX = 0;
 var cropPointY = 0;
+var Percentage;
 
 function readURL(input) {
     if (input.files && input.files[0]) {
+
         var reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function (event) {
             api.destroy();
-            $('#PicToCrop').replaceWith('<img id="PicToCrop" class="CropThumbNail" src="' + e.target.result + '"/>');
+            $('#PicToCrop').replaceWith('<img id="PicToCrop" class="CropThumbNail" src="' + event.target.result + '"/>');
             initCrop();
         }
 
@@ -39,6 +41,7 @@ function initCrop() {
         aspectRatio: 250 / 172,
         bgOpacity: 0.5,
         bgColor: 'white',
+        keySupport: false
     }, function () {
         api = this;
         api.setSelect([50, 50, 100, 250]);

@@ -15,10 +15,11 @@
         </div>
         <div class="modal-footer">
             <input id="HiddenUploader" type="file" style="display:none" />
-            <button type="submit" class="btn btn-primary">Valider</button>
+            <button type="submit" class="btn btn-primary">Valider la nouvelle photo</button>
         </div>
     </div>
 </div>
+
     @Html.HiddenFor(model => model.PicX, new { id = "X" })
     @Html.HiddenFor(model => model.PicY, new { id = "Y" })
     @Html.HiddenFor(model => model.PicWidth, new { id = "Width" })
