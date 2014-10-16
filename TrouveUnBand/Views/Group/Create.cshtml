@@ -6,9 +6,13 @@
 
 
 <h2>Création de band</h2>
-
-@using (Html.BeginForm("Create", "Group", FormMethod.Post))
+@if (Request.IsAuthenticated)
 {
+    var band = (TrouveUnBand.Models.Band)ViewData["BandData"];
+
+using (Ajax.BeginForm("Create", "Group", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "ConfirmCreateView" }))
+{
+    
     <div class="editor-label">
         @Html.Label("Nom")
     </div>
@@ -17,6 +21,14 @@
         @Html.ValidationMessageFor(model => model.Name)
     </div>
 
+    <div>
+        @Html.Label("Genre")
+    </div>
+    <div>
+        @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control" })
+    </div>
+    
+    
     <div class="editor-label">
         @Html.Label("Location")
     </div>
@@ -31,20 +43,21 @@
     <div class="editor-field">
         @Html.EditorFor(model => model.Description)
         @Html.ValidationMessageFor(model => model.Description)
+
     </div>
 
-        <button type="submit" value="Créer"><span class="easy-modal-open">Créer</span></button>
+        <button type="submit" value="Créer">Créer</button>
 }
 
-    <div class="easy-modal" id="modal1">
-		<div class="easy-modal-inner">
+
+    <div id="CronfirmCreateView">
         @Html.Partial("_ConfirmCreate")
-
-        <button class="easy-modal-close" title="Close">&times;</button>
-
-        </div>
     </div>
-
+}
+else
+{
+    <h2>@Html.ActionLink("Sign in", "Login", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</h2>
+}
 
 
 @section Scripts {
@@ -52,33 +65,5 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrapjs")
     @Scripts.Render("~/Scripts/bootstrap-validation.js")
+
 }
-
-
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script type="text/javascript">
-	    $(function () {
-	        $('.easy-modal').easyModal({
-	            top: 200,
-	            overlay: 0.2
-	        });
-
-	        $('.easy-modal-open').click(function (e) {
-	            var target = $(this).attr('href');
-	            $(target).trigger('openModal');
-	            e.preventDefault();
-	        });
-
-	        $('.easy-modal-close').click(function (e) {
-	            $('.easy-modal').trigger('closeModal');
-	        });
-
-	        $('.easy-modal-animated').easyModal({
-	            top: 200,
-	            overlay: 0.2,
-	            transitionIn: 'animated bounceInLeft',
-	            transitionOut: 'animated bounceOutRight',
-	            closeButtonClass: '.animated-close'
-	        });
-	    });
-	</script>

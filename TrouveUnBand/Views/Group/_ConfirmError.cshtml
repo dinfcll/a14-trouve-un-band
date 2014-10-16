@@ -1,8 +1,9 @@
 ﻿@model TrouveUnBand.Models.Band
 
 @{
-    ViewBag.Title = "Confirmation";
+    ViewBag.Title = "Error";
 }
+
 
 <div class="modal-content">
 
@@ -16,22 +17,15 @@
             <div class="editor-label">
                 @Html.Label("Nom")
             </div>
-            <div>
+            <div class="editor-field">
                 @Html.DisplayFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
             </div>
 
             <div class="editor-label">
-                @Html.Label("Genre")
-            </div>
-            <div>
-                @foreach (var item in (List<TrouveUnBand.Models.Genre>)ViewData["Genres"])
-            </div>
-            
-            <div class="editor-label">
                 @Html.Label("Location")
             </div>
-            <div>
+            <div class="editor-field">
                 @Html.DisplayFor(model => model.Location)
                 @Html.ValidationMessageFor(model => model.Location)
             </div>
@@ -39,7 +33,7 @@
             <div class="editor-label">
                 @Html.Label("Description")
             </div>
-            <div>
+            <div class="editor-field">
                 @Html.DisplayFor(model => model.Description)
                 @Html.ValidationMessageFor(model => model.Description)
             </div>

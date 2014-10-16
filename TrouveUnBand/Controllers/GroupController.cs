@@ -6,13 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
-using System.Data.Entity;
 
 namespace TrouveUnBand.Controllers
 {
     public class GroupController : Controller
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
+
 
         //
         // GET: /Group/
@@ -40,15 +40,27 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             return View();
         }
 
         //
         // POST: /Group/Create
         [HttpPost]
-        public ActionResult Create(Band band)
+        public PartialViewResult Create(Band band)
         {
-            return View("_ConfirmCreate");
+            string ViewNameToReturn = "";
+            if ((from t in db.Bands where t.Name == band.Name select t) == null)
+            {
+                ViewNameToReturn = "_ConfirmCreate";
+            }
+            else
+            {
+                ViewBag.Message = "Le nom de groupe existe déja";
+                ViewNameToReturn = "_ConfirmError";
+            }
+
+            return PartialView(ViewNameToReturn, band);
         }
 
         
@@ -68,7 +80,7 @@ namespace TrouveUnBand.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-        
+
         //
         // GET: /Group/Edit/5
 

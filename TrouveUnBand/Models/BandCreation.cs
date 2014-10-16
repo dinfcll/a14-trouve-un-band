@@ -15,6 +15,7 @@ namespace TrouveUnBand.Models
         }
 
         [Required(ErrorMessage = "Le nom est requis")]
+        [StringLength(50, ErrorMessage = "Le {0} ne doit pas excéder {1} characters de long")]
         [Display(Name = "Nom du band")]
         public string Name { get; set; }
 
@@ -23,6 +24,7 @@ namespace TrouveUnBand.Models
         public string Description { get; set; }
 
         [Required(ErrorMessage = "La location est requise")]
+        [StringLength(100, ErrorMessage = "La {0} ne doit pas excéder {1} characters de long")]
         [Display(Name = "Location")]
         public string Location { get; set; }
 
