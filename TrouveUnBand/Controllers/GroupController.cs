@@ -40,8 +40,20 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-            return View();
+            User CurrentUser = GetCurrentUser();
+            Musician CurrentMusician = new Musician();
+            ViewBag.CurrentUser = CurrentUser;
+            if (CurrentUserIsMusician(CurrentUser, out CurrentMusician))
+            {
+                ViewBag.CurrentMusician = CurrentMusician;
+                ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+                return View();
+            }
+            else
+            {
+                RedirectToAction("Index", "Home");
+                return null;
+            }
         }
 
         //
@@ -138,6 +150,25 @@ namespace TrouveUnBand.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        private bool CurrentUserIsMusician(User CurrentUser, out Musician CurrentMusician)
+        {
+            bool b = false;
+            CurrentMusician = CurrentUser.Musicians.FirstOrDefault();
+            if (CurrentMusician == null)
+                b = false;
+            else
+                b = true;
+            return b;
+        }
+
+        public User GetCurrentUser()
+        {
+            string Username = User.Identity.Name;
+            var iQUser = db.Users.Where(x => x.Nickname == Username);
+            User CurrentUser = iQUser.FirstOrDefault();
+            return CurrentUser;
         }
     }
 }
