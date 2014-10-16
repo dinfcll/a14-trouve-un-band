@@ -1,5 +1,4 @@
-﻿
-insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,Location) 
+﻿insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,Location) 
 	values('Steven','Seagel',convert(datetime,'10/04/1952'),'Stevy','stevenseagel@hotmail.com','12345','Lévis');
 
 insert into Users(FirstName,LastName,BirthDate,Nickname,Email,Password,Location)
@@ -98,11 +97,6 @@ insert into Genres(Name) values ('Rock');
 insert into Genres(Name) values ('Classique');
 insert into Genres(Name) values ('Jazz');
 insert into Genres(Name) values ('Chuck Norris Style');
-
-insert into Instruments(Name) Values('Guitare');
-insert into Instruments(Name) Values('Basse');
-insert into Instruments(Name) Values('Piano');
-insert into Instruments(Name) Values('Drums');
 
 insert into Join_Band_Genre values(1, 1);
 insert into Join_Band_Genre values(2, 2);

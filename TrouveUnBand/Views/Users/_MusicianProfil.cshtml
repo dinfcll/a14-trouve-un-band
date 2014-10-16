@@ -1,0 +1,96 @@
+﻿@model TrouveUnBand.Models.Musician
+
+@using (Html.BeginForm("MusicianProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form"}))
+{
+    <div class="pad-top-30">
+        <div class="row">
+            <div class="form-group col-md-12 col-md-push-1 form-group">
+                <div class="col-md-12">
+                    @Html.Label("Expériences")
+                </div>
+                <div class="col-md-6">
+                    @Html.TextArea("TextArea", Model.Description, new { @class = "form-control" })
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="form-group col-md-12 col-md-push-1custom row">
+                <div class="col-md-3">
+                    @Html.Label("Instruments")
+                </div>
+                <div class="col-md-9 col-md-pull-3custom">
+                    @Html.Label("Niveau")
+                    <div id="skillquestion" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" data-original-title="Légendaire = Hendrix" onmouseover="hovertooltip()" onmouseout="outtooltip()"></div>
+                </div>
+                <table id="InstrumentTable" class="form-group col-md-9">
+                    @if (Model.Join_Musician_Instrument.FirstOrDefault() == null)
+                    {
+                        <tr name="1" id="tablerow" class="form-group col-md-12 row">
+                            <td id="tablecell" class="col-md-3">
+                                @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name", 0), new { @class = "form-control" })
+                            </td>
+                            <td id="tablecell" class="col-md-3">
+                                @Html.DropDownList("SkillsList", new SelectList(
+                                                                new List<Object>{
+                                                                new { value = "0" , text = "Aucun"  },
+                                                                new { value = "1" , text = "Débutant"  },
+                                                                new { value = "2" , text = "Initié" },
+                                                                new { value = "3" , text = "Intermédiaire"  },
+                                                                new { value = "4" , text = "Avancé" },
+                                                                new { value = "5" , text = "Légendaire"  },
+                                                                },
+                                                                "value", "text", 0),
+                                                                new { @class = "form-control" })
+                            </td>
+                            <td id="tablecell" class="col-md-3"></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        int i = 0;
+                        foreach (TrouveUnBand.Models.Join_Musician_Instrument InstrumentsUser in Model.Join_Musician_Instrument)
+                        {
+                            i++;
+                            <tr name="@i" id="tablerow" class="form-group col-md-12 row">
+                                <td id="tablecell" class="col-md-3">
+                                    @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name",
+                                                                Convert.ToInt32(InstrumentsUser.InstrumentId)), new { @class = "form-control" })
+                                </td>
+                                <td id="tablecell" class="col-md-3">
+                                    @Html.DropDownList("SkillsList", new SelectList(
+                                                                new List<Object>{
+                                                                new { value = "0" , text = "Aucun"  },
+                                                                new { value = "1" , text = "Débutant"  },
+                                                                new { value = "2" , text = "Initié" },
+                                                                new { value = "3" , text = "Intermédiaire"  },
+                                                                new { value = "4" , text = "Avancé" },
+                                                                new { value = "5" , text = "Légendaire"  },
+                                                                },
+                                                                "value", "text", @InstrumentsUser.Skills),
+                                                                new { @class = "form-control" })
+
+                                </td>
+                                <td id="tablecell" class="col-md-3">
+                                    @if (i > 1)
+                                    {
+                                        <a id="Xfermer" href="#" onclick='DeleteInstrument("@i")'>X</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+                <div class="form-group col-md-12 margin-left-0">
+                    <input type="button" onclick="AddInstrument()" class="btn btn-info" value="Ajouter un Instrument" />
+                </div>
+                <div class="col-md-12"><h1></h1></div>
+
+                <div class="col-md-1 margin-left-0">
+                    <input type="button" class="btn btn-default" value="Annuler" onclick="annuler()" />
+                </div>
+                <div class="col-md-1 margin-left-0">
+                    <input type="submit" class="btn btn-primary" value="Enregistrer les Modifications" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

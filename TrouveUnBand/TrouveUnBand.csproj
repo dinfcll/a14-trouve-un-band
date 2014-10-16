@@ -169,14 +169,39 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BandCreation.cs" />
+    <Compile Include="Models\Band.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Genre.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
+    <Compile Include="Models\GroupModels.cs" />
+    <Compile Include="Models\Instrument.cs">
+    <Compile Include="Models\BandCreation.cs" />
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Join_Musician_Instrument.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\Musician_Instrument.cs" />
     <Compile Include="Models\Style.cs" />
+    <Compile Include="Models\TUBModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TUBModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserValidationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -234,22 +259,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Compile Include="Models\DBModels.cs" />
-    <Compile Include="Models\InsertUserModel.cs" />
-    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Band.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Genre.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Instrument.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\LoginModel.cs" />
+	<Compile Include="Models\Band.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Musician.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
@@ -263,29 +278,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TUBModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SearchResultModel.cs" />
+    <Compile Include="Models\SearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\disable-search-ddl.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
-    <Content Include="Scripts\jquery.easyModal.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -296,6 +306,7 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\ModifProfil.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -352,12 +363,12 @@
     <Content Include="Views\Group\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -373,31 +384,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Users\ProfileModification.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Models\TUBModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TUBModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\TUBModels.Context.tt">
+    <None Include="Models\TUBModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TUBModels.edmx</DependentUpon>
       <LastGenOutput>TUBModels.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\TUBModels.edmx.diagram">
-      <DependentUpon>TUBModels.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\TUBModels.tt">
+    </None>
+    <None Include="Models\TUBModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TUBModels.edmx</DependentUpon>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Group\_ConfirmCreate.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Group\_ConfirmError.cshtml" />
+    <Content Include="Views\Search\_SearchResults.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -415,7 +420,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2182</DevelopmentServerPort>
+          <DevelopmentServerPort>46544</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
@@ -433,6 +438,5 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-
   </Target> -->
 </Project>
