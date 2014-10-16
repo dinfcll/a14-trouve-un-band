@@ -1,70 +1,95 @@
-﻿<div class="container ">
-        <div class="profil-tab-container col-md-12">
-            <div class="thumbnail card col-md-3 set-profil-thumnail-border">
-                <img src="http://placehold.it/250x172" alt="Image">
-            </div>
-            <div class="col-md-9 set-profil-header-border">
-                <h4>Bon</h4>
-                <h3>Bon</h3>
-                <h3>Bon</h3>
-                <h3>Bon</h3>
-            </div>
-            <div class="profil-tab-menu col-md-3" >
-                <div class="list-group">
-                    <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-user"></h4><br />Description
-                    </a>
-                    <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-music"></h4><br />Info 2
-                    </a>
-                    <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-play"></h4><br />Info 3
-                    </a>
-                    <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-plus"></h4><br />Info 4
-                    </a>
-                    <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-stats"></h4><br />Info 5
-                    </a>
-                </div>
-            </div>
-            <!-- info section -->
-            <div class="col-md-9">
-                <div>
-                    <div>
-                        <center>
-                            <h1 class="glyphicon glyphicon-user" style="font-size:12em;color:#000000"></h1>
-                            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
-                            <h3 style="margin-top: 0;color:#000000">DIsponible</h3>
-                        </center>
-                    </div>
-                </div>
-            </div>
+﻿@model TrouveUnBand.Models.Musician
+@{
+    ViewBag.Title = "MusicianProfil";
+}
+
+<div class="profil-tab-container col-md-12">
+    <div class="thumbnail card col-md-3 set-profil-thumnail-border">
+        <img src="http://placehold.it/250x172" alt="Image">
+    </div>
+    <div class="col-md-9">
+        <h4>Bon</h4>
+        <h3>Bon</h3>
+        <h3>Bon</h3>
+        <h2>Bon</h2>
+    </div>
+    <div class="profil-tab-menu col-md-3">
+        <div class="list-group">
+            <a href="#" class="list-group-item text-center active">
+                <h4 class="glyphicon glyphicon-user"></h4><br />Description
+            </a>
+            <a href="#" class="list-group-item text-center">
+                <h4 class="glyphicon glyphicon-music"></h4><br />Infos supplémentaires
+            </a>
+            <a href="#" class="list-group-item text-center">
+                <h4 class="glyphicon glyphicon-play"></h4><br />Media (Soundcloud/Youtube)
+            </a>
+            <a href="#" class="list-group-item text-center">
+                <h4 class="glyphicon glyphicon-envelope"></h4><br />Contacter
+            </a>
+            <a href="#" class="list-group-item text-center">
+                <h4 class="glyphicon glyphicon-stats"></h4><br />Info 5
+            </a>
         </div>
+    </div>
+    <!--Desccription-->
+    <div class="profil-tab-content col-md-9 active">
+        <center>
+            <h1 class="glyphicon glyphicon-user" style="font-size: 12em;color:#000000"></h1>
+            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
+            <h3 style="margin-top: 0;color:#000000">Disponible</h3>
+            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
+            <h3 style="margin-top: 0;color:#000000">Disponible</h3>
+            <h3 style="margin-top: 0;color:#000000">Bientôt</h3>
+        </center>
+    </div><!--Desccription end-->
+    <!--Info 1-->
+    <div class="profil-tab-content col-md-9">
+        <center>
+            <h1 class="glyphicon glyphicon-music" style="font-size:12em;color:#000000"></h1>
+            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
+            <h3 style="margin-top: 0;color:#000000">Disponible</h3>
+        </center>
+    </div><!--Info 1 end-->
+    <!--Info 2-->
+    <div class="profil-tab-content col-md-9">
+        <center>
+            <h1 class="glyphicon glyphicon-play" style="font-size:12em;color:#000000"></h1>
+            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
+            <h3 style="margin-top: 0;color:#000000">Disponible</h3>
+        </center>
+    </div><!--Info 2 end-->
+    <!--Info 3-->
+    <div class="profil-tab-content col-md-9">
+        <center>
+            <h1 class="glyphicon glyphicon-envelope" style="font-size:12em;color:#000000"></h1>
+            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
+            <h3 style="margin-top: 0;color:#000000">Disponible</h3>
+        </center>
+    </div><!--Info 3 end-->
+    <!--Info 4-->
+    <div class="profil-tab-content col-md-9">
+        <center>
+            <h1 class="glyphicon glyphicon-stats" style="font-size:12em;color:#000000"></h1>
+            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
+            <h3 style="margin-top: 0;color:#000000">Disponible</h3>
+        </center>
+    </div><!--Info 4 end-->
 </div>
 
 
 
-@*<div class="col-md-3">
-<div class="thumbnail card" style="margin-bottom:0px">
-    <img src="http://placehold.it/250x172" alt="Image">
-    
-</div>
-    <div class="profil-tab-menu ">
-        <a href="#" class="list-group-item active text-center">
-            <h4 class="glyphicon glyphicon-plane"></h4><br />Description
-        </a>
-        <a href="#" class="list-group-item text-center">
-            <h4 class="glyphicon glyphicon-road"></h4><br />Info 2
-        </a>
-        <a href="#" class="list-group-item text-center">
-            <h4 class="glyphicon glyphicon-home"></h4><br />Info 3
-        </a>
-        <a href="#" class="list-group-item text-center">
-            <h4 class="glyphicon glyphicon-cutlery"></h4><br />Info 4
-        </a>
-        <a href="#" class="list-group-item text-center">
-            <h4 class="glyphicon glyphicon-credit-card"></h4><br />Info 5
-        </a>
-    </div>*@
-        </div>
+<script>
+    $(document).ready(function () {
+        $(".profil-tab-menu>div.list-group>a").click(function (event) {
+            var index = $(this).index();
+
+            event.preventDefault();
+
+            $(this).siblings(".active").removeClass("active");
+            $(this).addClass("active");
+            $(".profil-tab-content").removeClass("active");
+            $(".profil-tab-content").eq(index).addClass("active");
+        });
+    });
+</script>

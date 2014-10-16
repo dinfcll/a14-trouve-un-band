@@ -382,6 +382,11 @@ div.profil-tab-menu div.list-group > a {
     border-bottom: 0;
 }
 
+div.profil-tab-content{
+    border-top: 2px solid #ddd;
+    padding-left:0;
+}
+
 div.profil-tab-menu div.list-group>a:first-child{
   border-top-right-radius: 0;
   -moz-border-top-right-radius: 0;
@@ -403,23 +408,7 @@ div.profil-tab-menu div.list-group>a:last-child{
     margin-bottom: -1px;
 }
 
-.set-profil-header-border{
-    border-bottom: 2px solid #ddd;
-}
-
-/*div.bhoechie-tab-menu div.list-group>a.active:after{
-  content: '';
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  margin-top: -13px;
-  border-left: 0;
-  border-bottom: 13px solid transparent;
-  border-top: 13px solid transparent;
-  border-left: 10px solid #5A55A3;
-}
-
-
-/*div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
+.profil-tab-content:not(.active) {
     display: none;
-}*/
+}
+
