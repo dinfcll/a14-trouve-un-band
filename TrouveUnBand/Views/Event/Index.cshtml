@@ -16,7 +16,7 @@
     @if(User.Identity.Name != "")
     {
         @Html.ActionLink("Créer un évènement", "Create", new { controller = "Event" }, new { @class="btn btn-primary" })
-        }
+    }
 </p>
 <div class="row">
 @foreach (var item in Model)
@@ -45,10 +45,11 @@
                     <b>@Html.DisplayName(item.EventGender)</b>
                     <p>
                         @Html.ActionLink("Détails", "Details", new { id = item.EventId }, new { @class = "btn btn-default" })
-                    @if (item.EventCreator == User.Identity.Name)
-                    {
-                        @Html.ActionLink("Modifier", "Edit", new { id = item.EventId }, new { @class = "btn btn-primary" })
-                    }
+                        @if (item.EventCreator == User.Identity.Name)
+                        {
+                            @Html.ActionLink("Modifier", "Edit", new { id = item.EventId }, new { @class = "btn btn-primary" })
+                            <label> @Html.ActionLink("Annuler", "Delete", new { id = item.EventId }, new { @class = "btn btn-danger" })</label>
+                        }
                     </p>
                 </div>
             </div>

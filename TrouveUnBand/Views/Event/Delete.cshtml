@@ -4,78 +4,94 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div  id="CreateEventForm">
+        <div class="container">
+            <div class="row form-group col-md-6 col-md-push-3">
+                <div class="col-md-12">
+                    <h3>Voulez vous vraiment annuler l'évènement suivant?</h3>
+                    <hr class="colorgraph">
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Nom de l'évènement")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventName)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventName)
+                </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Event</legend>
+                <div class="form-group col-md-6">
+                    @Html.Label("Emplacement de l'évènement")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventLocation)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventLocation)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventName)
-    </div>
+                <div class="form-group col-md-12">
+                    @Html.Label("Adresse de l'emplacement")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventAddress)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventAddress)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventLocation)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventLocation)
-    </div>
+                <div class="form-group col-md-12">
+                    @Html.Label("Ville de l'emplacement")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventCity)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventCity)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventAddress)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventAddress)
-    </div>
+                <div class="form-group col-md-12">
+                    @Html.Label("Date de l'évènement")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventDate)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventDate)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventCity)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventCity)
-    </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Audience maximale")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventMaxAudience)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventMaxAudience)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventDate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventDate)
-    </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Salaire pour l'évènement")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventSalary)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventSalary)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventMaxAudience)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventMaxAudience)
-    </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Genre de l'évènement")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventGender)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventGender)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventSalary)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventSalary)
-    </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Dimension de la scène")
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.EventStageSize)
+                    </div>
+                    @Html.ValidationMessageFor(model => model.EventStageSize)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventGender)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventGender)
-    </div>
+                <div class="col-md-12">
+                    <hr class="colorgraph"/>
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventStageSize)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventStageSize)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+                <div class="col-md-6">
+                @using (Html.BeginForm()) {
+                    @Html.ActionLink("Retour", "Index", new { controller = "Event" }, new { @class="btn btn-default"})
+                    <input type="submit" value="Annuler l'évènement" class="btn btn-danger" />
+                }
+                </div>
+            </div>
+        </div>

@@ -39,7 +39,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Event events)
+        public ActionResult Create(EventValidation events)
         {
             if (ModelState.IsValid)
             {
@@ -52,7 +52,8 @@ namespace TrouveUnBand.Controllers
                     byte[] bytephoto = imageToByteArray(img);
                     events.EventPhoto = bytephoto;
                 }
-                db.Events.Add(events);
+                Event eventBD = CreateEventFromModel(events);
+                db.Events.Add(eventBD);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -71,7 +72,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Event events)
+        public ActionResult Edit(EventValidation events)
         {
             if (ModelState.IsValid)
             {
@@ -88,11 +89,17 @@ namespace TrouveUnBand.Controllers
                 {
                     events.EventPhoto = GetEventPhotoByte(events.EventId);
                 }
-                db.Entry(events).State = EntityState.Modified;
+
+                Event eventBD = CreateEventFromModel(events);
+                db.Entry(eventBD).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(events);
+            else
+            {
+                Event eventView = CreateEventFromModel(events);
+                return View();
+            }
         }
 
         public ActionResult Delete(int id = 0)
@@ -114,12 +121,6 @@ namespace TrouveUnBand.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-
         public byte[] imageToByteArray(System.Drawing.Image imageIn)
         {
             MemoryStream ms = new MemoryStream();
@@ -137,6 +138,24 @@ namespace TrouveUnBand.Controllers
                                 ProfilePicture = Events.EventPhoto
                             }).FirstOrDefault();
             return PicQuery.ProfilePicture;
+        }
+
+        private Event CreateEventFromModel(EventValidation EventValid)
+        {
+            Event events = new Event();
+            events.EventAddress = EventValid.EventAddress;
+            events.EventCity = EventValid.EventCity;
+            events.EventCreator = EventValid.EventCreator;
+            events.EventDate = EventValid.EventDate;
+            events.EventGender = EventValid.EventGender;
+            events.EventId = EventValid.EventId;
+            events.EventLocation = EventValid.EventLocation;
+            events.EventMaxAudience = EventValid.EventMaxAudience;
+            events.EventName = EventValid.EventName;
+            events.EventPhoto = EventValid.EventPhoto;
+            events.EventSalary = EventValid.EventSalary;
+            events.EventStageSize = EventValid.EventStageSize;
+            return events;
         }
     }
 }

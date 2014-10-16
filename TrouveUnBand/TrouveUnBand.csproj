@@ -181,6 +181,7 @@
     <Compile Include="Models\Event.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EventValidationModel.cs" />
     <Compile Include="Models\Genre.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
@@ -204,7 +205,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserValidationViewModel.cs" />
+    <Compile Include="Models\UserValidationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -428,7 +429,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>46544</DevelopmentServerPort>
+          <DevelopmentServerPort>21046</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
