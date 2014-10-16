@@ -405,6 +405,7 @@
     <Content Include="Views\Users\test.cshtml" />
     <Content Include="Views\Users\ImageCropperDialog.cshtml" />
     <Content Include="Views\Users\ViewPictureDialog.cshtml" />
+    <Content Include="Views\Users\MusicianProfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />

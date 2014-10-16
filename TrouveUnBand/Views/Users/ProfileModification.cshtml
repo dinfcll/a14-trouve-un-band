@@ -15,11 +15,11 @@
                 </ul>
                 <div class="tab-content">
                     <div id="sectionUtil" class="tab-pane in active">
-                        @Html.Partial("_UserProfil", user)
+                        @Html.Partial("_UserProfilModif", user)
                     </div>
 
                     <div id="sectionMusician" class="tab-pane">
-                       @Html.Partial("_MusicianProfil", (TrouveUnBand.Models.Musician)ViewData["MusicianProfilData"])
+                       @Html.Partial("_MusicianProfilModif", (TrouveUnBand.Models.Musician)ViewData["MusicianProfilData"])
                     </div> 
 
                     <div id="sectionBand" class="tab-pane">       

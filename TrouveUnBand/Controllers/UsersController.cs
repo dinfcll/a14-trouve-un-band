@@ -45,6 +45,11 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
+        public ActionResult MusicianProfil()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Register(User user)
         {

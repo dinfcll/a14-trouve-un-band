@@ -13,6 +13,6 @@
 $(document).ready(function () {
     var CurrPage = GetCurrentPageName();
 
-    $(".nav").find(".active").removeClass("active");
+    $(".navbar-nav").find(".active").removeClass("active");
     $("#" + CurrPage).addClass("active");
 });
