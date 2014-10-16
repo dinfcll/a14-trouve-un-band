@@ -174,16 +174,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Band.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Genre.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
-    <Compile Include="Models\GroupModels.cs" />
-	<Compile Include="Models\BandCreation.cs" />
+    <Compile Include="Models\BandCreation.cs" />
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
@@ -262,7 +258,7 @@
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\LoginModel.cs" />
-	<Compile Include="Models\Band.cs">
+    <Compile Include="Models\Band.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Musician.cs">
@@ -400,6 +396,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Group\_UserSearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />

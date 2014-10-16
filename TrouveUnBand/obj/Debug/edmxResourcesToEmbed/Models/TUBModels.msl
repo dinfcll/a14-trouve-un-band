@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="TrouveUnBandModelStoreContainer" CdmEntityContainer="TrouveUnBandEntities">
+  <EntityContainerMapping StorageEntityContainer="TrouveUnBandModelStoreContainer" CdmEntityContainer="TrouveUnBandEntities1">
     <EntitySetMapping Name="Bands">
       <EntityTypeMapping TypeName="TrouveUnBandModel.Band">
         <MappingFragment StoreEntitySet="Bands">
@@ -27,6 +27,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Join_Musician_Instrument">
+      <EntityTypeMapping TypeName="TrouveUnBandModel.Join_Musician_Instrument">
+        <MappingFragment StoreEntitySet="Join_Musician_Instrument">
+          <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
+          <ScalarProperty Name="InstrumentId" ColumnName="InstrumentId" />
+          <ScalarProperty Name="Skills" ColumnName="Skills" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Musicians">
       <EntityTypeMapping TypeName="TrouveUnBandModel.Musician">
         <MappingFragment StoreEntitySet="Musicians">
@@ -39,6 +48,8 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="TrouveUnBandModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -47,6 +58,8 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -69,14 +82,6 @@
     <AssociationSetMapping Name="Join_Musician_Genre" TypeName="TrouveUnBandModel.Join_Musician_Genre" StoreEntitySet="Join_Musician_Genre">
       <EndProperty Name="Genres">
         <ScalarProperty Name="GenreId" ColumnName="GenreId" />
-      </EndProperty>
-      <EndProperty Name="Musicians">
-        <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="Join_Musician_Instrument" TypeName="TrouveUnBandModel.Join_Musician_Instrument" StoreEntitySet="Join_Musician_Instrument">
-      <EndProperty Name="Instruments">
-        <ScalarProperty Name="InstrumentId" ColumnName="InstrumentId" />
       </EndProperty>
       <EndProperty Name="Musicians">
         <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />

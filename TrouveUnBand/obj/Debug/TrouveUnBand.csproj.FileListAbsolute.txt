@@ -204,7 +204,6 @@ C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\Microsof
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.WebData.resources.dll
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
-C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll.config
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.pdb
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Antlr3.Runtime.dll
@@ -274,7 +273,6 @@ C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatr
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
-C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
 C:\Users\Vincent\Documents\Visual Studio 2012\Projects\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll
 C:\Users\Vincent\Documents\Visual Studio 2012\Projects\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.pdb
 C:\Users\Vincent\Documents\Visual Studio 2012\Projects\a14-trouve-un-band\TrouveUnBand\bin\Antlr3.Runtime.dll

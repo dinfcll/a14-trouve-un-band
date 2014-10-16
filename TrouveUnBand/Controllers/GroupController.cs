@@ -88,6 +88,11 @@ namespace TrouveUnBand.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public PartialViewResult SearchUser(String Username)
+        {
+            return null;
+        }
+
         public ActionResult Edit(int id = 0)
         {
             Band band = db.Bands.Find(id);
@@ -153,5 +158,16 @@ namespace TrouveUnBand.Controllers
             User CurrentUser = iQUser.FirstOrDefault();
             return CurrentUser;
         }
+
+        public void AddMusician(Band band)
+        {
+            
+        }
+
+        public void AddGenre(Band band)
+        {
+
+        }
     }
 }
+
