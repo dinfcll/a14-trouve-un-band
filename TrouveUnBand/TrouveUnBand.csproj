@@ -183,8 +183,8 @@
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\GroupModels.cs" />
+	<Compile Include="Models\BandCreation.cs" />
     <Compile Include="Models\Instrument.cs">
-    <Compile Include="Models\BandCreation.cs" />
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Join_Musician_Instrument.cs">
