@@ -41,12 +41,12 @@ namespace TrouveUnBand.Controllers
             {
                 ViewBag.CurrentMusician = CurrentMusician;
                 ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-                return View();
+                return View("Create");
             }
             else
             {
                 RedirectToAction("Index", "Home");
-                return null;
+                return View("Index", "Home");
             }
         }
 
@@ -54,7 +54,7 @@ namespace TrouveUnBand.Controllers
         // POST: /Group/Create
 
         [HttpPost]
-        public PartialViewResult Create(Band band)
+        public PartialViewResult CreateSubmit(Band band)
         {
             string ViewNameToReturn = "";
             if ((from t in db.Bands where t.Name == band.Name select t) == null)

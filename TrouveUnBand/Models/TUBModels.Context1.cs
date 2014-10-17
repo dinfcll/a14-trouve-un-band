@@ -16,7 +16,7 @@ namespace TrouveUnBand.Models
     public partial class TrouveUnBandEntities1 : DbContext
     {
         public TrouveUnBandEntities1()
-            : base("name=TrouveUnBandEntities")
+            : base("name=TrouveUnBandEntities1")
         {
         }
     
