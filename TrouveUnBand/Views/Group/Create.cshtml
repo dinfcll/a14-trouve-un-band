@@ -11,7 +11,7 @@
     var band = (TrouveUnBand.Models.Band)ViewData["BandData"];
 
     <div class="span5">
-        using (Ajax.BeginForm("Create", "Group", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "ConfirmCreateView" }))
+        @using (Ajax.BeginForm("Create", "Group", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "ConfirmCreateView" }))
         {
     
             <div class="editor-label">
@@ -54,13 +54,12 @@
 
     <div class="span5">
 
-        <div id="UserSearchResultView">
-            @Html.Partial("_UserSearchRrsults")
+        <div id="UserSearchResults">
+        @Html.Partial("_UserSearchResults")
         </div>
-
     </div>
 
-    <div id="CronfirmCreateView">
+    <div id="ConfirmCreateView">
         @Html.Partial("_ConfirmCreate")
     </div>
 }

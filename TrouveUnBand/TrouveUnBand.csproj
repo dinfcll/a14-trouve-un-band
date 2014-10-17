@@ -174,22 +174,43 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Band.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Genre.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LocationModel.cs" />
-    <Compile Include="Models\NewsfeedModel.cs" />
-    <Compile Include="Models\BandCreation.cs" />
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Join_Musician_Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LocationModel.cs" />
+    <Compile Include="Models\Musician.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NewsfeedModel.cs" />
+    <Compile Include="Models\BandCreation.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Musician_Instrument.cs" />
     <Compile Include="Models\Style.cs" />
-    <Compile Include="Models\TUBModels.Designer.cs">
+    <Compile Include="Models\TUBModels.Context.cs" />
+    <Compile Include="Models\TUBModels.Context1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TUBModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TUBModels.cs" />
+    <Compile Include="Models\TUBModels.designer.cs">
+      <DependentUpon>TUBModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TUBModels1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TUBModels1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TUBModels.edmx</DependentUpon>
@@ -258,22 +279,6 @@
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\Band.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Musician.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TUBModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TUBModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -382,24 +387,24 @@
     <Content Include="Views\Users\ProfileModification.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\TUBModels.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TUBModels.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Models\TUBModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TUBModels.Context.cs</LastGenOutput>
-    </None>
-    <None Include="Models\TUBModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TUBModels.cs</LastGenOutput>
-    </None>
     <Content Include="Views\Group\_UserSearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\TUBModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TUBModels.Context1.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="Models\TUBModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TUBModels1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\TUBModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TUBModels1.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
