@@ -38,7 +38,8 @@ namespace TrouveUnBand.Controllers
                     Name = band.Name,
                     Description = band.Description,
                     Location = band.Location,
-                    Type = "Band"
+                    Type = "Band", 
+                    ID = band.BandId
                 });
             }
 
@@ -51,7 +52,8 @@ namespace TrouveUnBand.Controllers
                     Name = user.FirstName + " " + user.LastName,
                     Description = musician.Description,
                     Location = user.Location,
-                    Type = "Musicien"
+                    Type = "Musicien",
+                    ID = musician.MusicianId
                 });
             }
 
@@ -83,7 +85,8 @@ namespace TrouveUnBand.Controllers
                             Name = band.Name, 
                             Description = band.Description, 
                             Location = band.Location, 
-                            Type = "Band" 
+                            Type = "Band" ,
+                            ID = band.BandId
                         });
                     }
 
@@ -96,7 +99,8 @@ namespace TrouveUnBand.Controllers
                             Name = user.FirstName + " " + user.LastName,
                             Description = musician.Description,
                             Location = user.Location,
-                            Type = "Musicien"
+                            Type = "Musicien",
+                            ID = musician.MusicianId
                         });
                     }
 
@@ -113,7 +117,8 @@ namespace TrouveUnBand.Controllers
                             Name = band.Name,
                             Description = band.Description,
                             Location = band.Location,
-                            Type = "Band"
+                            Type = "Band",
+                            ID = band.BandId
                         });
                     }
 
@@ -132,7 +137,8 @@ namespace TrouveUnBand.Controllers
                             Name = user.FirstName + " " + user.LastName,
                             Description = musician.Description,
                             Location = user.Location,
-                            Type = "Musicien"
+                            Type = "Musicien" ,
+                            ID = musician.MusicianId
                         });
                     }
 
@@ -149,7 +155,8 @@ namespace TrouveUnBand.Controllers
                             Name = user.FirstName + " " + user.LastName,
                             Description = "",
                             Location = user.Location,
-                            Type = "Utilisateur"
+                            Type = "Utilisateur",
+                            ID = user.UserId
                         });
                     }
 

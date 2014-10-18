@@ -8,10 +8,10 @@
         <img src="http://placehold.it/250x172" alt="Image">
     </div>
     <div class="col-md-9">
+        <h2>NOM  </h2>
         <h4>Bon</h4>
         <h3>Bon</h3>
         <h3>Bon</h3>
-        <h2>Bon</h2>
     </div>
     <div class="profil-tab-menu col-md-3">
         <div class="list-group">
@@ -19,7 +19,7 @@
                 <h4 class="glyphicon glyphicon-user"></h4><br />Description
             </a>
             <a href="#" class="list-group-item text-center">
-                <h4 class="glyphicon glyphicon-music"></h4><br />Infos supplémentaires
+                <h4 class="glyphicon glyphicon-eye-open"></h4><br />Recherche
             </a>
             <a href="#" class="list-group-item text-center">
                 <h4 class="glyphicon glyphicon-play"></h4><br />Media (Soundcloud/Youtube)
@@ -34,19 +34,33 @@
     </div>
     <!--Desccription-->
     <div class="profil-tab-content col-md-9 active">
-        <center>
-            <h1 class="glyphicon glyphicon-user" style="font-size: 12em;color:#000000"></h1>
-            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
-            <h3 style="margin-top: 0;color:#000000">Disponible</h3>
-            <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
-            <h3 style="margin-top: 0;color:#000000">Disponible</h3>
-            <h3 style="margin-top: 0;color:#000000">Bientôt</h3>
+            <span>Description:</span>
+            @Model.Description
+            @if (Model.Join_Musician_Instrument.FirstOrDefault() != null)
+                {
+                    List<TrouveUnBand.Models.Instrument> InstrumentLsit = ViewBag.InstrumentListDD;
+                    List<String> SkillList = new List<String>{"Aucun","Débutant","Initié","Intermédiaire","Avancé","Légendaire"};
+
+                    
+                    foreach (TrouveUnBand.Models.Join_Musician_Instrument InstrumentsUser in Model.Join_Musician_Instrument)
+                    {
+                        var instrument = InstrumentLsit.Find(ins => ins.InstrumentId == InstrumentsUser.InstrumentId);
+                        <span>@instrument.Name</span>
+                        <span>@SkillList[InstrumentsUser.Skills]</span>
+                    }
+                }
+                else
+            {
+                <center>
+            <h1 class="glyphicon glyphicon-user" style="font-size:12em;color:#000000"></h1>
+            <h2 style="margin-top: 0;color:#000000">Aucun profil musicien pour l'instant.</h2>
         </center>
+            }
     </div><!--Desccription end-->
     <!--Info 1-->
     <div class="profil-tab-content col-md-9">
         <center>
-            <h1 class="glyphicon glyphicon-music" style="font-size:12em;color:#000000"></h1>
+            <h1 class="glyphicon glyphicon-eye-open" style="font-size:12em;color:#000000"></h1>
             <h2 style="margin-top: 0;color:#000000">Bientôt</h2>
             <h3 style="margin-top: 0;color:#000000">Disponible</h3>
         </center>

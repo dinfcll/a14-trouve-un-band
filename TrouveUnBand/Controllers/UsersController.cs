@@ -45,9 +45,28 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        public ActionResult MusicianProfil()
+        public ActionResult ViewProfile(string type, int Id)
         {
-            return View();
+            switch(type.ToUpper())
+            {
+                case "MUSICIEN" : //view model
+                    ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
+                    Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
+                    return View("MusicianProfil", musician);
+                
+                case "BAND":
+                    break;
+                
+                case "EVENT":
+                    break;
+                
+                case "PROMOTER":
+                    break;
+               
+                default:
+                    break;
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
