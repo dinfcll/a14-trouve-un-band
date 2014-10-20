@@ -4,7 +4,6 @@
     ViewBag.Title = "Création band";
 }
 
-
 <h2>Création de band</h2>
 @if (Request.IsAuthenticated)
 {
@@ -26,7 +25,13 @@
                 @Html.Label("Genre")
             </div>
             <div>
-                @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control" })
+                @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
+                <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </button>
             </div>
     
     
@@ -56,14 +61,12 @@
 }
 else
 {
-    <h2>@Html.ActionLink("Sign in", "Login", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</h2>
-}
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrapjs")
-    @Scripts.Render("~/Scripts/bootstrap-validation.js")
-
+    <div class="row">
+        <div class="col-lg-3 span3 offset2">
+            <h2>@Html.ActionLink("S'identifier", "Login", "Users", routeValues: null, htmlAttributes: new { id = "LoginLink" })</h2>
+        </div>
+        <div class="col-lg-3 span3">
+            <h2>@Html.ActionLink("S'enregistrer", "Register", "Users", routeValues: null, htmlAttributes: new { id = "RegisterLink" })</h2>
+        </div>
+    </div>
 }

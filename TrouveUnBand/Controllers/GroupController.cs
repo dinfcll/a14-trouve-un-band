@@ -34,20 +34,31 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            User CurrentUser = GetCurrentUser();
-            Musician CurrentMusician = new Musician();
-            ViewBag.CurrentUser = CurrentUser;
-            if (CurrentUserIsMusician(CurrentUser, out CurrentMusician))
+            string RC = "";
+            if (Request.IsAuthenticated)
             {
-                ViewBag.CurrentMusician = CurrentMusician;
-                ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-                return View("Create");
+                User CurrentUser = GetCurrentUser();
+                Musician CurrentMusician = new Musician();
+                ViewBag.CurrentUser = CurrentUser;
+                if (CurrentUserIsMusician(CurrentUser, out CurrentMusician))
+                {
+                    ViewBag.CurrentMusician = CurrentMusician;
+                    ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+                    return View("Create");
+                }
+                else
+                {
+                    RC = "Aucun profile musicien n'est associé à ce compte. Veuillez vous créer un profile musicien";
+                    RedirectToAction("Index", "Home");
+                }
             }
             else
             {
+                RC = "Vous devez être connecté pour créer un band";
                 RedirectToAction("Index", "Home");
-                return View("Index", "Home");
             }
+            TempData["TempDataError"] = RC;
+            return View();
         }
 
         //
@@ -159,12 +170,22 @@ namespace TrouveUnBand.Controllers
             return CurrentUser;
         }
 
-        public void AddMusician(Band band)
+        public void AddMusician(Band band, Musician musician)
         {
             
         }
 
-        public void AddGenre(Band band)
+        public void AddGenre(Band band, Genre genre)
+        {
+
+        }
+
+        public void RemoveMusician(Band band, Musician musician)
+        {
+
+        }
+
+        public void RemoveGenre(Band band, Genre genre)
         {
 
         }
