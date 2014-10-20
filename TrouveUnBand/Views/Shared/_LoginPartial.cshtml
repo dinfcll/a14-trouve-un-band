@@ -12,14 +12,14 @@
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <p class="text-center">
-                                                <img width="90" src="@Html.Action("GetPhotoName","Users")" />
+                                                <img class="icon-size" src="@Html.Action("GetPhotoName","Users")" />
                                             </p>
                                         </div>
                                         <div class="col-lg-8">
                                             <p class="text-left"><strong>
                                             @Html.Action("GetUserFullName", "Users")
                                             </strong></p>
-                                            <p class="text-left small">Profil de @Html.Name(User.Identity.Name)</p>
+                                            <p class="text-left small">Info pratique à mettre</p>
                                             <p class="text-left">
                                                 @Html.ActionLink("Gestion de compte", "ProfileModification", "Users", routeValues: null, htmlAttributes: new { @class = "username btn btn-primary btn-block btn-sm", title = "Manage" })
                                             </p>
@@ -50,8 +50,8 @@
 else
 {
     <ul class="nav navbar-nav">
-        <li class="inscription">@Html.ActionLink("Inscription", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li class="connexion">@Html.ActionLink("Connexion", "Login", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Inscription", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Connexion", "Login", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 
 }
