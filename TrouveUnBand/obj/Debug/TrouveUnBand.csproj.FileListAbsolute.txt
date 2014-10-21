@@ -1,4 +1,3 @@
-Z:\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
 Z:\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 Z:\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
 Z:\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll

@@ -42,6 +42,7 @@ namespace TrouveUnBand.Controllers
                 ViewBag.CurrentUser = CurrentUser;
                 if (CurrentUserIsMusician(CurrentUser, out CurrentMusician))
                 {
+                    ViewData["Musician"] = CurrentMusician;
                     ViewBag.CurrentMusician = CurrentMusician;
                     ViewBag.GenrelistDD = new List<Genre>(db.Genres);
                     return View("Create");
@@ -67,17 +68,22 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public PartialViewResult CreateSubmit(Band band)
         {
+            string RC = "";
             string ViewNameToReturn = "";
-            if ((from t in db.Bands where t.Name == band.Name select t) == null)
+            Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
+            if (ExistingBand == null)
             {
                 ViewNameToReturn = "_ConfirmCreate";
             }
             else
             {
-                ViewBag.Message = "Le nom de groupe existe déja";
-                ViewNameToReturn = "_ConfirmError";
+                ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
+                db.SaveChanges();
+                band.Name = band.Name + " (" + band.Location + ")";
+                RC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
             }
 
+            TempData["TempDataError"] = RC;
             return PartialView(ViewNameToReturn, band);
         }
 

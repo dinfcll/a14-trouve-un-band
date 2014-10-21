@@ -25,17 +25,23 @@
                 @Html.Label("Genre")
             </div>
             <div>
-                @foreach (var item in (List<TrouveUnBand.Models.Genre>)ViewData["Genres"])
+            @if(ViewData["Genres"] != null)
+            {
+                foreach (var item in (List<TrouveUnBand.Models.Genre>)ViewData["Genres"])
                 {
-                    
+                    Html.Display("", item.Name);
                 }
+            }
             </div>
         
             <div>
-                @foreach (var item in (List<TrouveUnBand.Models.Musician)ViewData["Musicians"])
+            @if (ViewData["Musician"] != null)
+            {
+                foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["Musicians"])
                 {
-
+                    Html.Display("", item.User.FirstName + " " + item.User.LastName);
                 }
+            }
             </div>
             
             <div class="editor-label">
