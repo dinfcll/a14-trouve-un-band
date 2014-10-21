@@ -13,10 +13,11 @@
         @using (Ajax.BeginForm("CreateSubmit", "Group", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "ConfirmCreateView" }))
         {
     
-            <div class="editor-label">
+            <div>
                 @Html.Label("Nom")
             </div>
-            <div class="editor-field">
+            
+            <div>
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
             </div>
@@ -24,30 +25,37 @@
             <div>
                 @Html.Label("Genre")
             </div>
+            
             <div>
                 @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
+                <a id="XaddGenre" href="#" onclick='AddGenre()'><span  class="glyphicon glyphicon-plus"></span></a>
             </div>
+            
             <div>
             @if (ViewData["Genres"] != null)
             {
-                foreach (var item in (List<TrouveUnBand.Models.Genre>)ViewData["Genres"])
+                int i = 0;
+                <table>
+                @foreach (var item in (List<TrouveUnBand.Models.Genre>)ViewData["Genres"])
                 {
-                    int i = 0;
-                    @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", Convert.ToInt32(item.GenreId)), new { @class = "form-control " })
-                            i++;
-                            <tr name="@i" id="tablerow" class="form-group col-md-12 row">
-                                <td id="tablecell" class="col-md-3">
-                                    @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name",
-                                                                Convert.ToInt32(item.GenreId)), new { @class = "form-control" })
-                                </td>
-                                <td id="tablecell" class="col-md-3">
-                                    @if (i > 1)
-                                    {
-                                        <a id="Xfermer" href="#" onclick='RemoveGenre("@i")'>X</a>
-                                    }
-                                </td>
-                            </tr>
+
+                    
+                    i++;
+                    <tr>
+                        <td>
+                            @Html.DropDownList("addedGenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name",
+                                                        Convert.ToInt32(item.GenreId)), new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @if (i > 1)
+                            {
+                                <a id="XrmGenre" href="#" onclick='RemoveGenre("@i")'><span  class="glyphicon glyphicon-minus"></span></a>
+                            }
+                        </td>
+                    </tr>
                 }
+                </table>
+                
             }
             </div>
             
@@ -56,20 +64,34 @@
             <div>
             @if (ViewData["Musicians"] != null)
             {
-                foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["Musicians"])
+                @Html.Editor("AddMusicianInput")
+                <a id="btnSearchMusician" href="#" onclick='SearchMusician'><span  class="glyphicon glyphicon-search"></span></a>
+                int j = 0;
+                <table>
+                @foreach (TrouveUnBand.Models.Musician item in (List<TrouveUnBand.Models.Musician>)ViewData["Musicians"])
                 {
-                    @Html.Display(item.User.FirstName + " " + item.User.LastName);
+
+                    j++;
+                    <tr>
+                        <td>
+                            <span>@item.User.FirstName @item.User.LastName</span>
+                        </td>
+                        <td>
+                            @if (j > 1)
+                            {
+                                <a id="XrmMusician" href="#" onclick='RemoveMusician("@j")'><span  class="glyphicon glyphicon-search"></span></a>
+                            }
+                        </td>
+                    </tr>
                 }
+                </table>
+            }
+            else
+            {
+                TempData["TempDataError"] = "Profil musicien introuvable";
             }
             </div>
-            
-            
-            
-            
-            
-            
-            
-            
+       
             <div class="editor-label">
                 @Html.Label("Location")
             </div>
@@ -89,10 +111,9 @@
 
                 <button type="submit" value="Créer">Créer</button>
         }
-
-                        <button type="button" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
+    </div>
+    <div>
+        @Html.RenderPartial("_UserSearchResult")
     </div>
 
 

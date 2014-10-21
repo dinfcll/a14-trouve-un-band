@@ -43,6 +43,7 @@ namespace TrouveUnBand.Controllers
                 bool b = CurrentUserIsMusician(CurrentUser, out CurrentMusician);
                 if (b)
                 {
+                    ViewData["InCreationBand"] = new Band();
                     ViewData["Musicians"] = CurrentMusician;
                     //à la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
                     ViewBag.CurrentMusician = CurrentMusician[0];
@@ -105,11 +106,6 @@ namespace TrouveUnBand.Controllers
             }
 
             return RedirectToAction("Index", "Home");
-        }
-
-        public PartialViewResult SearchUser(String Username)
-        {
-            return null;
         }
 
         public ActionResult Edit(int id = 0)
@@ -178,24 +174,53 @@ namespace TrouveUnBand.Controllers
             return CurrentUser;
         }
 
-        public void AddMusician(Band band, Musician musician)
+        public void AddMusician(Musician musician)
         {
-            
+            List<Musician> Musicians = (List<Musician>)ViewData["Musicians"];
+            Musicians.Add(musician);
+            ViewData["Musicians"] = Musicians;
         }
 
-        public void AddGenre(Band band, Genre genre)
+        public void RemoveMusician(Musician musician)
         {
-
+            List<Musician> Musicians = (List<Musician>)ViewData["Musicians"];
+            Musicians.Remove(musician);
+            ViewData["Musicians"] = Musicians;
         }
 
-        public void RemoveMusician(Band band, Musician musician)
+        public void AddGenre(Genre genre)
         {
-
+            List<Genre> Genres = (List<Genre>)ViewData["Genres"];
+            Genres.Add(genre);
+            ViewData["genre"] = Genres;
         }
 
-        public void RemoveGenre(Band band, Genre genre)
+        public void RemoveGenre(Genre genre)
         {
+            List<Genre> Genres = (List<Genre>)ViewData["Genres"];
+            Genres.Remove(genre);
+            ViewData["Genres"] = Genres;
+        }
 
+        public List<Musician> SearchGenre(String SearchString)
+        {
+            string RC = "";
+            List<Musician> musicians = new List<Musician>();
+            if (String.IsNullOrEmpty(SearchString))
+            {
+                RC = "Le champ de recherche est vide";
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(SearchString))
+                {
+                    musicians = (db.Musicians.Where(musician => musician.User.FirstName.Contains(SearchString) ||
+                                                musician.User.LastName.Contains(SearchString) ||
+                                                musician.User.Nickname.Contains(SearchString))).ToList();
+                }
+            }
+
+            return musicians;
         }
     }
 }
