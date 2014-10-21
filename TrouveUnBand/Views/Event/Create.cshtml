@@ -10,14 +10,14 @@
 }
 else
 {
-    using (Html.BeginForm("Create", "Event", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
+    using (Html.BeginForm("Create", "Event", FormMethod.Post, new { @role = "form", @class="top-80", enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(true)
 
         @Html.Hidden("Creator", User.Identity.Name)
         <div  id="CreateEventForm">
             <div class="container">
-                <div class="row form-group col-md-6 col-md-push-3">
+                <div class="row form-group col-md-12">
                     <div class="col-md-12">
                         <h3>Créer un Évènement</h3>
                         <hr class="colorgraph">
@@ -76,7 +76,7 @@ else
                     </div>
 
                     <div class="col-md-6">
-                        <input value="Annuler" class="btn btn-default col-md-12" onclick="annuler()"/>
+                         @Html.ActionLink("Retour", "Index", new { controller = "Event" }, new { @class = "btn btn-default col-md-12" })
                     </div>
 
                     <div class="col-md-6">
