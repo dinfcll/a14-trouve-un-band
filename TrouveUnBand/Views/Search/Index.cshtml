@@ -20,6 +20,31 @@
             <button id="btnSearch" type="submit" class="btn btn-primary">Go!</button>
         </span>
     </div>
+    <div class="col-md-6 col-md-offset-6">@Html.ActionLink("Recherche avancée", "")</div>
+    <div id="advanced-search">
+        <div class="panel panel-default">
+
+            <div class="panel-heading">Recherche avancée</div>
+
+            <table class="table">
+                @{
+                    foreach (var genre in (SelectList)ViewData["GenresList"])
+                    {
+                        <tr>
+                            <th>@genre.Text</th>
+                            @{
+                                foreach (var sub in (SelectList)ViewData["Subgenres"])
+                                {
+                                    <td>@sub.Text</td>
+                                }
+                            }
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+    
 }
 </div>
 

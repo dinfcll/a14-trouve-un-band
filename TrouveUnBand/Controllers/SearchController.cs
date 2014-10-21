@@ -21,6 +21,7 @@ namespace TrouveUnBand.Controllers
             List<SearchResult> ResultsList = new List<SearchResult>();
 
             SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
+            SelectList subgenresCkB = new SelectList(db.Sub_Genres, "Sub_GenreId", "Name");
             SelectList categoriesDDL = new SelectList(new List<Object>{
                 new { value=OPTION_ALL, text="tout le monde" },
                 new { value=OPTION_BAND, text="des groupes" },
@@ -56,6 +57,7 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.GenresList = genresDDL;
+            ViewBag.Subgenres = subgenresCkB;
             ViewBag.CategoriesList = categoriesDDL;
             ViewBag.SearchString = SearchString;
             ViewBag.ResultsList = ResultsList;
