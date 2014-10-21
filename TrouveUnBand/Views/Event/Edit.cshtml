@@ -1,4 +1,4 @@
-﻿@model TrouveUnBand.Models.Event
+﻿@model TrouveUnBand.Models.EventValidation
 
 @{
     ViewBag.Title = "Modifier un Évènement";
@@ -44,7 +44,7 @@
 
                             <div class="form-group col-md-12">
                                 @Html.Label("Date de l'évènement")
-                                @Html.TextBoxFor(model => model.EventDate, new { @class = "form-control", @placeholder = "Date de l'évènement" })
+                                @Html.TextBoxFor(model => model.EventDate, new { @class = "form-control", @placeholder = "Date de l'évènement", @id = "datepicker", @type="date" })
                                 @Html.ValidationMessageFor(model => model.EventDate)
                             </div>
 

@@ -43,7 +43,7 @@ else
                     </div>
 
                     <div class="form-group col-md-12">
-                        @Html.TextBoxFor(model => model.EventDate, new { @class = "form-control", @placeholder = "Date de l'évènement" })
+                        @Html.TextBoxFor(model => model.EventDate, new { @class = "form-control", @placeholder = "Date de l'évènement", @id = "datepicker", @type="date" })
                         @Html.ValidationMessageFor(model => model.EventDate)
                     </div>
 
@@ -58,9 +58,7 @@ else
                     </div>
 
                     <div class="form-group col-md-6">
-                        
-                         @Html.DropDownList("EventGenderDB", new SelectList(ViewBag.GenderListDB, "Name", "Name", 0), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.EventGender)
+                        @Html.DropDownList("EventGenderDB", new SelectList(ViewBag.GenderListDB, "Name", "Name", 0), new { @class = "form-control" })
                     </div>
 
                     <div class="form-group col-md-6">

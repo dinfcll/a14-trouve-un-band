@@ -39,10 +39,10 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Create(EventValidation events)
         {
-            events.EventGender = Request["EventGenderDB"];
-            events.EventCreator = Request["Creator"];
             if (ModelState.IsValid)
             {
+                events.EventGender = Request["EventGenderDB"];
+                events.EventCreator = Request["Creator"];
                 if (Request.Files[0].ContentLength != 0)
                 {
                     HttpPostedFileBase PostedPhoto = Request.Files[0];
@@ -55,8 +55,8 @@ namespace TrouveUnBand.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(events);
+            ViewBag.GenderListDB = new List<Genre>(db.Genres);
+            return View();
         }
 
         public ActionResult Edit(int id = 0)
@@ -67,7 +67,8 @@ namespace TrouveUnBand.Controllers
             {
                 return HttpNotFound();
             }
-            return View(events);
+            EventValidation EventV = new EventValidation(events);
+            return View(EventV);
         }
 
         [HttpPost]
@@ -97,8 +98,8 @@ namespace TrouveUnBand.Controllers
             }
             else
             {
-                Event eventView = CreateEventFromModel(events);
-                return View();
+                ViewBag.GenderListDB = new List<Genre>(db.Genres);
+                return View(events);
             }
         }
 

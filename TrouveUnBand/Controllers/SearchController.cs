@@ -15,6 +15,7 @@ namespace TrouveUnBand.Controllers
         private const string OPTION_BAND     = "option_band";
         private const string OPTION_MUSICIAN = "option_musician";
         private const string OPTION_USER     = "option_user";
+        private const string OPTION_EVENT    = "option_event";
 
         public ActionResult Index(string SearchString)
         {
@@ -25,7 +26,8 @@ namespace TrouveUnBand.Controllers
                 new { value=OPTION_ALL, text="tout le monde" },
                 new { value=OPTION_BAND, text="des groupes" },
                 new { value=OPTION_MUSICIAN, text="des musiciens" },
-                new { value=OPTION_USER, text="des utilisateurs" }
+                new { value=OPTION_USER, text="des utilisateurs" },
+                new { value=OPTION_EVENT, text="des évènements" }
             }, "value", "text");
 
             List<Band> bandsList = GetBands(null, SearchString, "");
@@ -154,6 +156,23 @@ namespace TrouveUnBand.Controllers
                     }
 
                     break;
+
+                case OPTION_EVENT:
+
+                    List<Event> EventList = GetEvent(SearchString, Location);
+
+                    foreach (Event events in EventList)
+                    {
+                        ResultsList.Add(new SearchResult
+                        {
+                            Name = events.EventName,
+                            Description = "",
+                            Location = events.EventLocation,
+                            Type = "Évènement"
+                        });
+                    }
+
+                    break;
             }
 
             ViewBag.ResultsList = ResultsList;
@@ -234,6 +253,28 @@ namespace TrouveUnBand.Controllers
 
 
             lstResults.AddRange(users);
+
+            return lstResults;
+        }
+
+        public List<Event> GetEvent(string EventName, string Location)
+        {
+            List<Event> lstResults = new List<Event>();
+
+            var eventList = from events in db.Events
+                            select events;
+
+            if (!String.IsNullOrEmpty(EventName))
+            {
+                eventList = eventList.Where(events => events.EventName.Contains(EventName));
+            }
+            if (!String.IsNullOrEmpty(Location))
+            {
+                eventList.Where(events => events.EventLocation.Contains(Location));
+            }
+
+
+            lstResults.AddRange(eventList);
 
             return lstResults;
         }
