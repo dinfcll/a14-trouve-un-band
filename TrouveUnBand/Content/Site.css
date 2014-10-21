@@ -436,83 +436,17 @@ div.profile-tab-menu div.list-group>a.active{
 
 .profile-info-container{
      padding:0;
-     background-color:#EDEEF0;
+     background-color:silver;
+     color:#222222;
 }
 
 div.profile-tab-menu div.list-group{
   margin-bottom: 0;
 }
 
-
-/*div.profil-tab-container{
-  padding: 0 !important;
-  border:2px solid #ddd;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  background-clip: padding-box;
-}
-
-div.profil-tab-menu{
-  padding-right: 0;
-  padding-left: 0;
-  padding-bottom: 0; 
-}
-
-div.profil-tab-menu div.list-group{
-  margin-bottom: 0;
-}
-
-div.profil-tab-menu div.list-group > a {
-    border: 2px solid #ddd;
-    margin-bottom: 0;
-    border-top-left-radius: 0;
-    border-left: 0;
-    border-bottom: 0;
-}
-
-div.profil-tab-content{
-    border-top: 2px solid #ddd;
-    padding-left:0;
-}
-
-div.profil-tab-menu div.list-group>a:first-child{
-  border-top-right-radius: 0;
-  -moz-border-top-right-radius: 0;
-}
-
-div.profil-tab-menu div.list-group>a:last-child{
-  border-bottom-right-radius: 0;
-  -moz-border-bottom-right-radius: 0;
-}
-
-.set-profil-thumnail-border {
-    border: 2px solid #ddd;
-    border-top: 0;
-    border-left: 0;
-    border-bottom: 0;
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    margin-bottom: -1px;
-}
-
-.profil-tab-content:not(.active) {
-    display: none;
-}
-
-div.profile-header>ul>li{
+.profile-info-container span.glyphicon{
+    font-size:18px;
+    padding-top:10px;
     padding-bottom:10px;
 }
-
-div.profile-header>ul>li:last-child{
-    padding-bottom:5px;
-}
-
-div.profile-header>ul>li>span{
-    font-size:115%;
-}
-
-div.profile-header>ul>li>div>span{
-    font-size:115%;
-}*/
 

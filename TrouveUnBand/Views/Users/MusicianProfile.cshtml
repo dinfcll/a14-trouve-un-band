@@ -1,0 +1,146 @@
+﻿@model TrouveUnBand.Models.MusicianProfileViewModel
+@{
+    ViewBag.Title = "MusicianProfil";
+}
+@{int i;}
+<div class="container profile-container">
+    <div class="jumbotron col-md-12">
+        <div class="thumbnail card col-md-3">
+            <a href="#" data-toggle="modal" data-target="#PicModal">
+                <img id="ProfilePic" alt="" src="@Model.ProfilePicture.stringProfilePicture" width="250" class="photo" />
+            </a>
+        </div>
+        <div class="col-md-9 profile-header-info">
+            <ul class="list-unstyled">
+                <li><span class="label label-primary pull-right label-profile-type">Musicien</span>
+                    <h1>@Model.Name</h1>
+                </li>
+                <li><span class="glyphicon glyphicon-map-marker"></span><span>@Model.Location</span>
+                </li>
+                <li><span class="glyphicon glyphicon-music"></span><span>Rock, Christian Rock, Métal,
+                    Blues, Country</span> </li>
+                <li><span class="glyphicon glyphicon-user"></span>
+                    @{
+                        i = 0;
+                        while (i < 5 && i < Model.InstrumentName.Count)
+                        {
+                        <span class="label label-default"  data-toggle="tooltip" data-placement="top" title="@Model.InstrumentSkill[i]">
+                            @Model.InstrumentName[i]
+                        </span>
+                            i++;
+                        }
+                    }
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-eye-open"></span><span>Groupe, Promoteur</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="profile-info-container col-md-12">
+        <div class="profile-tab-menu col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item text-center active">
+                    <span class="glyphicon glyphicon-user col-md-12"></span>
+                    <span>Description</span>
+                </a>
+                 
+                <a href="#" class="list-group-item text-center">
+                    <span class="glyphicon glyphicon-camera col-md-12"></span>
+                    <span>Photos</span> 
+                </a>  
+                 
+                <a href="#" class="list-group-item text-center">
+                    <span class=" glyphicon glyphicon-eye-open col-md-12"></span>
+                    <span>Recherche </span> 
+                </a>
+                            
+                <a href="#" class="list-group-item text-center">
+                    <span class="glyphicon glyphicon-play col-md-12"></span>
+                    <span>Media (Soundcloud/Youtube)</span> 
+                </a>
+                                
+                <a href="#" class="list-group-item text-center">
+                    <span class="glyphicon glyphicon-envelope col-md-12"></span>
+                    <span>Contacter</span> 
+                </a>
+            </div>
+        </div>
+        <!--Desccription-->
+        <div class="profile-tab-content col-md-9 active">
+            <span>Description: @Model.Description</span>
+            @for (i = 0; i < Model.InstrumentName.Count; i++)
+            {
+                <span>Instrument: @Model.InstrumentName[i]</span>
+                <span>Expérience: @Model.InstrumentSkill[i]</span>
+            }
+        </div>
+        <!--Desccription end-->
+        <!--Info 4-->
+        <div class="profile-tab-content col-md-9">
+            <center>
+                <h1 class="glyphicon glyphicon-camera" style="font-size: 12em; color: #000000">
+                </h1>
+                <h2 style="margin-top: 0; color: #000000">
+                    Bientôt</h2>
+                <h3 style="margin-top: 0; color: #000000">
+                    Disponible</h3>
+            </center>
+        </div>
+        <!--Info 4 end-->
+        <!--Info 1-->
+        <div class="profile-tab-content col-md-9">
+            <center>
+                <h1 class="glyphicon glyphicon-eye-open" style="font-size: 12em; color: #000000">
+                </h1>
+                <h2 style="margin-top: 0; color: #000000">
+                    Bientôt</h2>
+                <h3 style="margin-top: 0; color: #000000">
+                    Disponible</h3>
+            </center>
+        </div>
+        <!--Info 1 end-->
+        <!--Info 2-->
+        <div class="profile-tab-content col-md-9">
+            <center>
+                <h1 class="glyphicon glyphicon-play" style="font-size: 12em; color: #000000">
+                </h1>
+                <h2 style="margin-top: 0; color: #000000">
+                    Bientôt</h2>
+                <h3 style="margin-top: 0; color: #000000">
+                    Disponible</h3>
+            </center>
+        </div>
+        <!--Info 2 end-->
+        <!--Info 3-->
+        <div class="profile-tab-content col-md-9">
+            <center>
+                <h1 class="glyphicon glyphicon-envelope" style="font-size: 12em; color: #000000">
+                </h1>
+                <h2 style="margin-top: 0; color: #000000">
+                    Bientôt</h2>
+                <h3 style="margin-top: 0; color: #000000">
+                    Disponible</h3>
+            </center>
+        </div>
+        <!--Info 3 end-->
+    </div>
+</div>
+<div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
+    aria-hidden="true">
+    @Html.Partial("ViewPictureDialog", Model.ProfilePicture)
+</div>
+<script>
+    $(document).ready(function () {
+        $(".profile-tab-menu>div.list-group>a").click(function (event) {
+            var index = $(this).index();
+
+            event.preventDefault();
+
+            $(this).siblings(".active").removeClass("active");
+            $(this).addClass("active");
+            $(".profile-tab-content").removeClass("active");
+            $(".profile-tab-content").eq(index).addClass("active");
+        });
+    });
+</script>

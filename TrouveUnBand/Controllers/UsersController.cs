@@ -52,7 +52,7 @@ namespace TrouveUnBand.Controllers
                 case "MUSICIEN" : //view model
                     Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
                     MusicianProfileViewModel ViewProfile = CreateMusicianProfileView(musician);
-                    return View("MusicianProfil", ViewProfile);
+                    return View("MusicianProfile", ViewProfile);
                 
                 case "BAND":
                     break;
@@ -264,7 +264,7 @@ namespace TrouveUnBand.Controllers
             User LoggedOnUser = GetUserInfo(User.Identity.Name);
             if (LoggedOnUser.Photo != null)
             {
-                LoggedOnUser.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
+                LoggedOnUser.ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
             }
 
             User UserQuery = db.Users.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
@@ -322,7 +322,6 @@ namespace TrouveUnBand.Controllers
                     InstrumentsMusician.InstrumentId = instrument.InstrumentId;
                     InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
                     InstrumentsMusician.MusicianId = musician.MusicianId;
-                    InstrumentsMusician.InstrumentName = instrument.Name;
 
                     musician.Join_Musician_Instrument.Add(InstrumentsMusician);
                 }
@@ -389,9 +388,9 @@ namespace TrouveUnBand.Controllers
                             User.Nickname.Equals(nickname)
                             select new Photo
                             {
-                                ProfilePicture = User.Photo
+                                byteProfilePicture = User.Photo
                             }).FirstOrDefault();
-            return PicQuery.ProfilePicture;
+            return PicQuery.byteProfilePicture;
         }
 
         public string GetUserFullName()
@@ -481,7 +480,11 @@ namespace TrouveUnBand.Controllers
                         image = ResizeOriginalImage(image, 172, 250, 413, 600);
                     }
 
-                    byte[] croppedImage = CropImage(image, UserPicture.PicX, UserPicture.PicY, UserPicture.PicWidth, UserPicture.PicHeight);
+                    byte[] croppedImage = CropImage(image, 
+                                          UserPicture.ProfilePicture.PicX,
+                                          UserPicture.ProfilePicture.PicY,
+                                          UserPicture.ProfilePicture.PicWidth,
+                                          UserPicture.ProfilePicture.PicHeight);
 
                     LoggedOnUser.Photo = croppedImage;
                     db.SaveChanges();
@@ -602,14 +605,25 @@ namespace TrouveUnBand.Controllers
             MusicianProfileViewModel ProfileView = new MusicianProfileViewModel();
 
             User user = db.Users.FirstOrDefault(x => x.UserId == musician.UserId);
-            ICollection<Join_Musician_Instrument> ListOfInstruments = musician.Join_Musician_Instrument;
-            List<Join_Musician_Instrument> SortedInstrumentsList = ListOfInstruments.OrderByDescending(x => (x.Skills)).ToList();
 
-            ProfileView.MostSkilledInstrument = SortedInstrumentsList.Take(5).ToList();
+            ICollection<Join_Musician_Instrument> ListOfInstruments = musician.Join_Musician_Instrument.OrderByDescending(x => (x.Skills)).ToList();
+            List<string> InstrumentName = new List<string>();
+            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
+
+            ProfileView.InstrumentName = new List<string>();
+            ProfileView.InstrumentSkill = new List<string>();
+            for (int i = 0; i < ListOfInstruments.Count; i++)
+            {
+                ProfileView.InstrumentName.Add(ListOfInstruments.ElementAt(i).Instrument.Name);
+                ProfileView.InstrumentSkill.Add(SkillList[ListOfInstruments.ElementAt(i).Skills]);
+            }
+
             ProfileView.Description = musician.Description;
-            ProfileView.Instruments = musician.Join_Musician_Instrument;
             ProfileView.Name = user.FirstName + " " + user.LastName;
             ProfileView.Location = user.Location;
+            ProfileView.ProfilePicture = new Photo();
+            ProfileView.ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+
             return ProfileView;
         }
     }

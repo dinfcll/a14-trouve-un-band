@@ -7,7 +7,17 @@ namespace TrouveUnBand.Models
 {
     public class Photo
     {
-        public byte[] ProfilePicture { get; set; }
+        public byte[] byteProfilePicture { get; set; }
+
+        public string stringProfilePicture { get; set; }
+
+        public int PicX { get; set; }
+
+        public int PicY { get; set; }
+
+        public int PicWidth { get; set; }
+
+        public int PicHeight { get; set; }
 
     }
 }
