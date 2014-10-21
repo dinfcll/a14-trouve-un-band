@@ -26,12 +26,50 @@
             </div>
             <div>
                 @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
-                <button type="button" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
             </div>
-    
-    
+            <div>
+            @if (ViewData["Genres"] != null)
+            {
+                foreach (var item in (List<TrouveUnBand.Models.Genre>)ViewData["Genres"])
+                {
+                    int i = 0;
+                    @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", Convert.ToInt32(item.GenreId)), new { @class = "form-control " })
+                            i++;
+                            <tr name="@i" id="tablerow" class="form-group col-md-12 row">
+                                <td id="tablecell" class="col-md-3">
+                                    @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name",
+                                                                Convert.ToInt32(item.GenreId)), new { @class = "form-control" })
+                                </td>
+                                <td id="tablecell" class="col-md-3">
+                                    @if (i > 1)
+                                    {
+                                        <a id="Xfermer" href="#" onclick='RemoveGenre("@i")'>X</a>
+                                    }
+                                </td>
+                            </tr>
+                }
+            }
+            </div>
+            
+            @Html.Label("Musiciens")
+
+            <div>
+            @if (ViewData["Musicians"] != null)
+            {
+                foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["Musicians"])
+                {
+                    @Html.Display(item.User.FirstName + " " + item.User.LastName);
+                }
+            }
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
             <div class="editor-label">
                 @Html.Label("Location")
             </div>
@@ -52,6 +90,9 @@
                 <button type="submit" value="Créer">Créer</button>
         }
 
+                        <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
     </div>
 
 

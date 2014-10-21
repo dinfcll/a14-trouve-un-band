@@ -38,12 +38,14 @@ namespace TrouveUnBand.Controllers
             if (Request.IsAuthenticated)
             {
                 User CurrentUser = GetCurrentUser();
-                Musician CurrentMusician = new Musician();
+                List<Musician> CurrentMusician = new List<Musician>();
                 ViewBag.CurrentUser = CurrentUser;
-                if (CurrentUserIsMusician(CurrentUser, out CurrentMusician))
+                bool b = CurrentUserIsMusician(CurrentUser, out CurrentMusician);
+                if (b)
                 {
-                    ViewData["Musician"] = CurrentMusician;
-                    ViewBag.CurrentMusician = CurrentMusician;
+                    ViewData["Musicians"] = CurrentMusician;
+                    //à la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
+                    ViewBag.CurrentMusician = CurrentMusician[0];
                     ViewBag.GenrelistDD = new List<Genre>(db.Genres);
                     return View("Create");
                 }
@@ -157,10 +159,10 @@ namespace TrouveUnBand.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CurrentUserIsMusician(User CurrentUser, out Musician CurrentMusician)
+        private bool CurrentUserIsMusician(User CurrentUser, out List<Musician> CurrentMusician)
         {
             bool b = false;
-            CurrentMusician = CurrentUser.Musicians.FirstOrDefault();
+            CurrentMusician = CurrentUser.Musicians.ToList();
             if (CurrentMusician == null)
                 b = false;
             else
@@ -172,7 +174,7 @@ namespace TrouveUnBand.Controllers
         {
             string Username = User.Identity.Name;
             var iQUser = db.Users.Where(x => x.Nickname == Username);
-            User CurrentUser = iQUser.FirstOrDefault();
+            User CurrentUser = (iQUser.ToList())[0];
             return CurrentUser;
         }
 
