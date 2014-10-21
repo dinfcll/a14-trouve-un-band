@@ -16,7 +16,21 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Bands.ToList());
+            if (Request.IsAuthenticated)
+            {
+                List<Musician> CurrentMusician = new List<Musician>();
+                bool b = false;
+                b = CurrentUserIsMusician(GetCurrentUser(), out CurrentMusician);
+
+                if (b)
+                {
+                    var Query = db.Database.SqlQuery<string>(
+                        "SELECT Name, Description, Location FROM BANDS b JOIN JOIN_BAND_MUSICIAN  jbm on b.BandId = jbm.BandId where MusicianId = " + CurrentMusician[0].MusicianId.ToString());
+                    return View(Query.ToList());
+                }
+
+            }
+                return View();
         }
 
         public ActionResult Details(int id = 0)
