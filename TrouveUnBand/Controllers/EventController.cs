@@ -15,9 +15,6 @@ namespace TrouveUnBand.Controllers
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-        //
-        // GET: /Event/
-
         public ActionResult Index()
         {
             return View(db.Events.ToList());
@@ -35,16 +32,17 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.GenderListDB = new List<Genre>(db.Genres);
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(EventValidation events)
         {
+            events.EventGender = Request["EventGenderDB"];
+            events.EventCreator = Request["Creator"];
             if (ModelState.IsValid)
             {
-                string Creator = Request["Creator"];
-                events.EventCreator = Creator;
                 if (Request.Files[0].ContentLength != 0)
                 {
                     HttpPostedFileBase PostedPhoto = Request.Files[0];
@@ -63,6 +61,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            ViewBag.GenderListDB = new List<Genre>(db.Genres);
             Event events = db.Events.Find(id);
             if (events == null)
             {
@@ -74,10 +73,11 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Edit(EventValidation events)
         {
+            events.EventCreator = Request["Creator"];
+            events.EventGender = Request["EventGenderDB"];
+
             if (ModelState.IsValid)
             {
-                string Creator = Request["Creator"];
-                events.EventCreator = Creator;
                 if (Request.Files[0].ContentLength != 0)
                 {
                     HttpPostedFileBase PostedPhoto = Request.Files[0];

@@ -56,7 +56,7 @@ create table Event(
 	EventDate Date NOT NULL,
 	EventMaxAudience NVARCHAR(100) NOT NULL,
 	EventSalary float(10) NOT NULL,
-	EventGender NVARCHAR(100) NOT NULL,
+	EventGender NVARCHAR(100),
 	EventStageSize int,
 	EventPhoto varbinary(max),
 	EventCreator NVARCHAR(100)

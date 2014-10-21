@@ -206,7 +206,6 @@ namespace TrouveUnBand.Controllers
                 {
                     MusicianQuery.Description = musician.Description;
                     MusicianQuery.Join_Musician_Instrument.Clear();
-                    MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
                     db.SaveChanges();
                 }
 

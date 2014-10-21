@@ -62,7 +62,7 @@
 
                             <div class="form-group col-md-6">
                                 @Html.Label("Genre de l'évènement")
-                                @Html.TextBoxFor(model => model.EventGender, new { @class = "form-control", @placeholder = "Genre de l'évènement" })
+                                @Html.DropDownList("EventGenderDB", new SelectList(ViewBag.GenderListDB, "Name", "Name", Model.EventGender), new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.EventGender)
                             </div>
                 
