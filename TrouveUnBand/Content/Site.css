@@ -156,3 +156,13 @@ tr.instTable > td{
 .main-content {
     margin-top: 40px;
 }
+
+li.searchfilter {
+    list-style-type: none;
+    text-align: left;
+}
+
+ul.searchfilter {
+    padding-left: 0;
+}
+    

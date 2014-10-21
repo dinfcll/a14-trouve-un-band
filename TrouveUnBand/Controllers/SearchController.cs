@@ -22,6 +22,18 @@ namespace TrouveUnBand.Controllers
 
             SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
             SelectList subgenresCkB = new SelectList(db.Sub_Genres, "Sub_GenreId", "Name");
+
+            List<String> genresList = db.Genres.Select(x => x.Name).ToList();
+            List<List<String>> subgenresList = new List<List<String>>();
+
+            foreach (var genre in db.Genres)
+            {
+                var subgenres = db.Sub_Genres.Where(x => x.GenreId == genre.GenreId).Select(x => x.Name).ToList();
+                List<String> tempList = new List<String>();
+                tempList.AddRange(subgenres);
+                subgenresList.Add(tempList);
+            }
+
             SelectList categoriesDDL = new SelectList(new List<Object>{
                 new { value=OPTION_ALL, text="tout le monde" },
                 new { value=OPTION_BAND, text="des groupes" },
@@ -57,7 +69,8 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.GenresList = genresDDL;
-            ViewBag.Subgenres = subgenresCkB;
+            ViewBag.Genres = genresList;
+            ViewBag.Subgenres = subgenresList;
             ViewBag.CategoriesList = categoriesDDL;
             ViewBag.SearchString = SearchString;
             ViewBag.ResultsList = ResultsList;
@@ -67,9 +80,18 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location)
+        public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location, params String[] ck_genre)
         {
             List<SearchResult> ResultsList = new List<SearchResult>();
+            List<String> SelectedGenres = new List<String>();
+
+            foreach (String genre in ck_genre)
+            {
+                if (genre != "false")
+                {
+                    SelectedGenres.Add(genre);
+                }
+            }
             
             switch (DDLCategories)
             {

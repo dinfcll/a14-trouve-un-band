@@ -13,9 +13,9 @@ namespace TrouveUnBand.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TrouveUnBandEntities1 : DbContext
+    public partial class TrouveUnBandEntities : DbContext
     {
-        public TrouveUnBandEntities1()
+        public TrouveUnBandEntities()
             : base("name=TrouveUnBandEntities")
         {
         }

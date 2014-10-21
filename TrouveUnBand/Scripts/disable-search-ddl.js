@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    $('#advanced-search').hide();
 
     /**
     * This function hides the 'Genres' dropdown list when 'Utilisateur' is selected

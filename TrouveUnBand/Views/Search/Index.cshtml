@@ -20,32 +20,39 @@
             <button id="btnSearch" type="submit" class="btn btn-primary">Go!</button>
         </span>
     </div>
-    <div class="col-md-6 col-md-offset-6">@Html.ActionLink("Recherche avancée", "")</div>
-    <div id="advanced-search">
+    <div>
         <div class="panel panel-default">
-
-            <div class="panel-heading">Recherche avancée</div>
-
-            <table class="table">
+            <div id="advanced-search-link" class="panel-heading" >Recherche avancée</div>  
+            <table id="advanced-search" class="table">
+                <tr>
                 @{
-                    foreach (var genre in (SelectList)ViewData["GenresList"])
+                    foreach (var genre in (List<String>)ViewData["Genres"])
                     {
-                        <tr>
-                            <th>@genre.Text</th>
-                            @{
-                                foreach (var sub in (SelectList)ViewData["Subgenres"])
-                                {
-                                    <td>@sub.Text</td>
-                                }
-                            }
-                        </tr>
+                        <th>@genre</th>
                     }
                 }
+                </tr>
+                <tr>
+                @{
+                    foreach (var list in (List<List<String>>)ViewData["Subgenres"])
+                    { 
+                        <td>
+                            <ul class="searchfilter">
+                                @{
+                                    foreach (var genre in list)
+                                    {
+                                        <li class="searchfilter">@Html.CheckBox("ck_genre", false, new { @value = @genre }) @genre</li>
+                                    }   
+                                }
+                            </ul>
+                        </td>
+                    }
+                }
+                </tr>
             </table>
         </div>
-    </div>
-    
-}
+    </div>  
+} 
 </div>
 
 <div id="SearchResults">
