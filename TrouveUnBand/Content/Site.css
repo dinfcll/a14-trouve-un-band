@@ -356,7 +356,95 @@ img.jcrop-preview {
       line-height: 30px;
   }
 
-div.profil-tab-container{
+.profile-container{
+    background-clip: padding-box;
+}
+
+.profile-header-info>ul>li{
+    color:White;
+}
+
+.profile-header-info>ul>li>span{
+    font-size:115%;
+    color:#CDCDCD;
+    margin-bottom:10px;
+}
+
+.profile-header-info>ul>li>div>span{
+    font-size:115%;
+    color:#CDCDCD;
+    margin-bottom:10px;
+}
+
+.profile-header-info>ul>li>span.label{
+    font-size:100%;
+    color:White;
+    margin-left:5px;
+    display: inline-block;
+    vertical-align:top;
+    cursor:pointer;
+}
+
+.profile-header-info>ul>li>span.label-profile-type{
+    font-size:125%;
+    color:White;
+    cursor:default;
+}
+
+.profile-container>div.jumbotron{
+    background-color:#222222;
+    margin-bottom:0;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.profile-tab-menu{
+   padding-left:0;
+}
+
+div.profile-tab-menu div.list-group > a {
+    background-color:#222222;
+    border:0;
+    border-left: 8px solid transparent;
+}
+
+div.profile-tab-menu div.list-group > a:hover {
+    background-color:#525252;
+    border:0;
+    border-left: 8px solid #428BCA;
+    color:white;
+}
+
+div.profile-tab-menu div.list-group > a:first-child {
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+div.profile-tab-menu div.list-group > a:last-child {
+    border-bottom-right-radius: 0 !important;
+}
+
+div.profile-tab-menu div.list-group>a.active{
+     background-color:#525252;
+    border:0;
+    border-left: 8px solid #428BCA;
+}
+
+.profile-tab-content:not(.active) {
+    display: none;
+}
+
+.profile-info-container{
+     padding:0;
+     background-color:#EDEEF0;
+}
+
+div.profile-tab-menu div.list-group{
+  margin-bottom: 0;
+}
+
+
+/*div.profil-tab-container{
   padding: 0 !important;
   border:2px solid #ddd;
   border-radius: 4px;
@@ -367,7 +455,7 @@ div.profil-tab-container{
 div.profil-tab-menu{
   padding-right: 0;
   padding-left: 0;
-  padding-bottom: 0;
+  padding-bottom: 0; 
 }
 
 div.profil-tab-menu div.list-group{
@@ -411,4 +499,20 @@ div.profil-tab-menu div.list-group>a:last-child{
 .profil-tab-content:not(.active) {
     display: none;
 }
+
+div.profile-header>ul>li{
+    padding-bottom:10px;
+}
+
+div.profile-header>ul>li:last-child{
+    padding-bottom:5px;
+}
+
+div.profile-header>ul>li>span{
+    font-size:115%;
+}
+
+div.profile-header>ul>li>div>span{
+    font-size:115%;
+}*/
 

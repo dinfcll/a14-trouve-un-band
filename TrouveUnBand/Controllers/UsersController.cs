@@ -50,9 +50,9 @@ namespace TrouveUnBand.Controllers
             switch(type.ToUpper())
             {
                 case "MUSICIEN" : //view model
-                    ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
                     Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
-                    return View("MusicianProfil", musician);
+                    MusicianProfileViewModel ViewProfile = CreateMusicianProfileView(musician);
+                    return View("MusicianProfil", ViewProfile);
                 
                 case "BAND":
                     break;
@@ -311,14 +311,19 @@ namespace TrouveUnBand.Controllers
                 string SkillList = Request["SkillsList"];
                 string[] SkillArray = SkillList.Split(',');
                 string DescriptionMusician = Request["TextArea"];
-                musician.Description = DescriptionMusician;
 
+                musician.Description = DescriptionMusician;
                 for (int i = 0; i < InstrumentArray.Length; i++)
                 {
+                    int CurrentInstrumentID = Convert.ToInt32(InstrumentArray[i]);
+                    Instrument instrument = db.Instruments.FirstOrDefault(x => x.InstrumentId == CurrentInstrumentID);
                     Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
-                    InstrumentsMusician.InstrumentId = Convert.ToInt32(InstrumentArray[i]);
+
+                    InstrumentsMusician.InstrumentId = instrument.InstrumentId;
                     InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
                     InstrumentsMusician.MusicianId = musician.MusicianId;
+                    InstrumentsMusician.InstrumentName = instrument.Name;
+
                     musician.Join_Musician_Instrument.Add(InstrumentsMusician);
                 }
 
@@ -409,7 +414,10 @@ namespace TrouveUnBand.Controllers
 
             client.BaseAddress = new Uri("https://maps.googleapis.com");
 
-            var response = client.GetAsync("/maps/api/geocode/json?address=" + user.Location + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds").Result;
+            var response = client.GetAsync("/maps/api/geocode/json?address=" 
+                                            + user.Location 
+                                            + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
+                                            ).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -587,6 +595,22 @@ namespace TrouveUnBand.Controllers
 
             return (Image)btmNewImage;
 
+        }
+
+        private MusicianProfileViewModel CreateMusicianProfileView(Musician musician)
+        {
+            MusicianProfileViewModel ProfileView = new MusicianProfileViewModel();
+
+            User user = db.Users.FirstOrDefault(x => x.UserId == musician.UserId);
+            ICollection<Join_Musician_Instrument> ListOfInstruments = musician.Join_Musician_Instrument;
+            List<Join_Musician_Instrument> SortedInstrumentsList = ListOfInstruments.OrderByDescending(x => (x.Skills)).ToList();
+
+            ProfileView.MostSkilledInstrument = SortedInstrumentsList.Take(5).ToList();
+            ProfileView.Description = musician.Description;
+            ProfileView.Instruments = musician.Join_Musician_Instrument;
+            ProfileView.Name = user.FirstName + " " + user.LastName;
+            ProfileView.Location = user.Location;
+            return ProfileView;
         }
     }
 }
