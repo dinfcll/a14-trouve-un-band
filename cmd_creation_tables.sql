@@ -2,10 +2,11 @@
 drop table Join_Band_Genre
 drop table Join_Musician_Instrument
 drop table Join_Musician_Genre
-drop table users;
 drop table musicians;
+drop table users;
 drop table bands;
 drop table instruments;
+drop table sub_genres;
 drop table genres;
 
 
@@ -46,6 +47,13 @@ create table Genres(
 	GenreId int IDENTITY(1,1) Primary Key,
 	Name NVARCHAR(50) not null
 );
+
+create table Sub_Genres(
+	Sub_GenreId int IDENTITY(1,1) Primary Key,
+	GenreId int constraint fk_sub_genres_genres REFERENCES Genres(GenreId) not null,
+	Name NVARCHAR(50) not null
+);
+	
 
 create table Evenements(
 	EventId int IDENTITY(1,1) Primary key,
