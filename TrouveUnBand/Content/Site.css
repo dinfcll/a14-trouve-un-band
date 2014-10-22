@@ -376,11 +376,15 @@ img.jcrop-preview {
     margin-bottom:10px;
 }
 
+.profile-header-info span:not(.glyphicon):not(.label){
+   padding-left: 5px;
+}
+    
 .profile-header-info>ul>li>span.label{
     font-size:100%;
     color:White;
     margin-left:5px;
-    display: inline-block;
+     display: inline-block;
     vertical-align:top;
     cursor:pointer;
 }

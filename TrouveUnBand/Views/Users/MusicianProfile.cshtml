@@ -3,7 +3,8 @@
     ViewBag.Title = "MusicianProfil";
 }
 @{int i;}
-<div class="container profile-container">
+
+<div class="profile-container">
     <div class="jumbotron col-md-12">
         <div class="thumbnail card col-md-3">
             <a href="#" data-toggle="modal" data-target="#PicModal">
@@ -12,14 +13,18 @@
         </div>
         <div class="col-md-9 profile-header-info">
             <ul class="list-unstyled">
-                <li><span class="label label-primary pull-right label-profile-type">Musicien</span>
+                <li>
+                    <span class="label label-primary pull-right label-profile-type">Musicien</span>
                     <h1>@Model.Name</h1>
                 </li>
-                <li><span class="glyphicon glyphicon-map-marker"></span><span>@Model.Location</span>
+                <li>
+                    <span class="glyphicon glyphicon-map-marker"></span><span>@Model.Location</span>
                 </li>
-                <li><span class="glyphicon glyphicon-music"></span><span>Rock, Christian Rock, Métal,
-                    Blues, Country</span> </li>
-                <li><span class="glyphicon glyphicon-user"></span>
+                <li>
+                    <span class="glyphicon glyphicon-music"></span><span>Rock, Christian Rock, Métal, Blues, Country</span> 
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-user"></span>
                     @{
                         i = 0;
                         while (i < 5 && i < Model.InstrumentName.Count)
