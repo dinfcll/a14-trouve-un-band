@@ -80,19 +80,10 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location, params String[] ck_genre)
+        public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location)
         {
             List<SearchResult> ResultsList = new List<SearchResult>();
-            List<String> SelectedGenres = new List<String>();
 
-            foreach (String genre in ck_genre)
-            {
-                if (genre != "false")
-                {
-                    SelectedGenres.Add(genre);
-                }
-            }
-            
             switch (DDLCategories)
             {
                 case OPTION_ALL:
@@ -184,6 +175,12 @@ namespace TrouveUnBand.Controllers
             ViewBag.ResultNumber = ResultsList.Count();
 
             return PartialView("_SearchResults");
+        }
+
+        [HttpGet]
+        public ActionResult AdvancedFilter(params String[] CbSubgenres)
+        {
+            return PartialView("_SearchResults"); 
         }
 
         public List<Band> GetBands(int? GenreID, string BandName, string Location)

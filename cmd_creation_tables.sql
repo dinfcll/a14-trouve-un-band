@@ -113,11 +113,6 @@ insert into Musicians(UserId, Description)
 insert into Join_Band_Musician values(1, 1);
 insert into Join_Band_Musician values(1, 2);
 
-insert into Instruments(Name) Values('Guitare');
-insert into Instruments(Name) Values('Basse');
-insert into Instruments(Name) Values('Piano');
-insert into Instruments(Name) Values('Drums');
-
 insert into Join_Band_Genre values(1, 1);
 insert into Join_Band_Genre values(2, 2);
 insert into Join_Band_Genre values(2, 4);

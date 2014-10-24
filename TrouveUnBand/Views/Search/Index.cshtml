@@ -14,45 +14,53 @@
         @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
     </div>
 
-    <div class="input-group searchbar">
-        @Html.TextBox("SearchString", "", new { @class = "form-control searchbar", @placeholder = "Recherche" })
-        <span class="input-group-btn">
-            <button id="btnSearch" type="submit" class="btn btn-primary">Go!</button>
-        </span>
-    </div>
-    <div>
+    @Html.Partial("_Searchbar")
+}
+</div>
+
+<div class="advanced-search">
+    @using (Ajax.BeginForm("AdvancedFilter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
+    {
+        @Html.Partial("_Searchbar")
         <div class="panel panel-default">
-            <div id="advanced-search-link" class="panel-heading" >Recherche avancée</div>  
-            <table id="advanced-search" class="table">
+            <div id="advanced-search-link" class="panel-heading">Recherche avancée</div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    @Html.RadioButton("rbCategories", "All", true) Afficher tout
+                    @Html.RadioButton("rbCategories", "Bands", false) Groupes
+                    @Html.RadioButton("rbCategories", "Musicians", false) Musiciens
+                    @Html.RadioButton("rbCategories", "Users", false) Utilisateurs
+                </div>
+            </div>
+            <table class="table">
                 <tr>
-                @{
-                    foreach (var genre in (List<String>)ViewData["Genres"])
-                    {
-                        <th>@genre</th>
+                    @{
+                        foreach (var genre in (List<String>)ViewData["Genres"])
+                        {
+                            <th>@genre</th>
+                        }
                     }
-                }
                 </tr>
                 <tr>
-                @{
-                    foreach (var list in (List<List<String>>)ViewData["Subgenres"])
-                    { 
-                        <td>
-                            <ul class="searchfilter">
-                                @{
-                                    foreach (var genre in list)
-                                    {
-                                        <li class="searchfilter">@Html.CheckBox("ck_genre", false, new { @value = @genre }) @genre</li>
-                                    }   
-                                }
-                            </ul>
-                        </td>
+                    @{
+                        foreach (var list in (List<List<String>>)ViewData["Subgenres"])
+                        {
+                            <td>
+                                <ul class="searchfilter">
+                                    @{
+                                        foreach (var genre in list)
+                                        {
+                                            <li class="searchfilter">@Html.CheckBox("CbSubgenres", false, new { @value = @genre }) @genre</li>
+                                        }
+                                    }
+                                </ul>
+                            </td>
+                        }
                     }
-                }
                 </tr>
             </table>
-        </div>
-    </div>  
-} 
+    </div>
+    }
 </div>
 
 <div id="SearchResults">
