@@ -71,7 +71,7 @@
                             </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
-                                @Html.Label("Salaire pour l'évènement")
+                                @Html.Label("Salaire pour l'évènement ($)")
                                 @Html.TextBoxFor(model => model.EventSalary, new { @class = "form-control", @placeholder = "Salaire pour l'évènement" })
                                 @Html.ValidationMessageFor(model => model.EventSalary)
                             </div>
@@ -83,8 +83,8 @@
                             </div>
                 
                             <div class="form-group col-md-6 col-md-pull-4">
-                                @Html.Label("Dimension de la scène")
-                                @Html.TextBoxFor(model => model.EventStageSize, new { @class = "form-control", @placeholder = "Dimension de la scène" })
+                                @Html.Label("Dimension de la scène (mètres carrés)")
+                                @Html.TextBoxFor(model => model.EventStageSize, new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
                                 @Html.ValidationMessageFor(model => model.EventStageSize)
                             </div>
                             <div class="col-md-12 col-md-pull-4">

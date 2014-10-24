@@ -49,17 +49,17 @@ namespace TrouveUnBand.Models
         public System.DateTime EventDate { get; set; }
 
         [Required(ErrorMessage = "Ce champ est requis")]
-        [RegularExpression(@"^[0-9]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, chiffres seulement")]
+        [RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
         public string EventMaxAudience { get; set; }
 
         [Required(ErrorMessage = "Ce champ est requis")]
-        [RegularExpression(@"^[0-9]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, chiffres seulement")]
+        [RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
         public float EventSalary { get; set; }
 
         public string EventGender { get; set; }
 
         [Required(ErrorMessage = "Ce champ est requis")]
-        [RegularExpression(@"^[0-9]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, chiffres seulement")]
+        [RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
         public int EventStageSize { get; set; }
 
         public byte[] EventPhoto { get; set; }

@@ -77,20 +77,20 @@ namespace TrouveUnBand.Controllers
             events.EventCreator = Request["Creator"];
             events.EventGender = Request["EventGenderDB"];
 
+            if (Request.Files[0].ContentLength != 0)
+            {
+                HttpPostedFileBase PostedPhoto = Request.Files[0];
+                Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+                byte[] bytephoto = imageToByteArray(img);
+                events.EventPhoto = bytephoto;
+            }
+            else
+            {
+                events.EventPhoto = GetEventPhotoByte(events.EventId);
+            }
+
             if (ModelState.IsValid)
             {
-                if (Request.Files[0].ContentLength != 0)
-                {
-                    HttpPostedFileBase PostedPhoto = Request.Files[0];
-                    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                    byte[] bytephoto = imageToByteArray(img);
-                    events.EventPhoto = bytephoto;
-                }
-                else
-                {
-                    events.EventPhoto = GetEventPhotoByte(events.EventId);
-                }
-
                 Event eventBD = CreateEventFromModel(events);
                 db.Entry(eventBD).State = EntityState.Modified;
                 db.SaveChanges();
