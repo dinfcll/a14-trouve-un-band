@@ -60,6 +60,9 @@ $(function () {
 
 $(function () {
     $('#datepickernotime').datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "yy-mm-dd",
+        changeYear: true,
+        yearRange: '-90:+0'
     });
 });
+
