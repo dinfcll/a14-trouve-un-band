@@ -9,50 +9,59 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Vos bands</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-striped table-bordered table-hover" data-toggle="table">
-    <tr>
-        <th data-field="Name">
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
+
+@if (Model.Any())
+{
+    <table class="table table-striped table-bordered table-hover" data-toggle="table">
+        <tr>
+            <th data-field="Name">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
             
-        </th>
-    </tr>
+            </th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Edit", "Group", new { id = item.BandId })'">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
-            <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Details", "Group", new { id = item.BandId })'">
-                <span class="glyphicon glyphicon-list-alt"></span>
-            </button>
-            <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Delete", "Group", new { id = item.BandId })'">
-                <span class="glyphicon glyphicon-trash"></span>
-            </button>
-        </td>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Edit", "Group", new { id = item.BandId })'">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Details", "Group", new { id = item.BandId })'">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Delete", "Group", new { id = item.BandId })'">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+
+    </table>
 }
-
-</table>
+else
+{
+    <h2>Vous ne faites parti d'aucun band</h2>
+}

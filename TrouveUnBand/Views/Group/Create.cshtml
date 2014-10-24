@@ -1,131 +1,50 @@
-﻿@model TrouveUnBand.Models.Band
-
-@{
+﻿@{
     ViewBag.Title = "Création band";
 }
-
-<h2>Création de band</h2>
-@if (Request.IsAuthenticated)
-{
-    var band = (TrouveUnBand.Models.Band)ViewData["BandData"];
-
-    <div class="span5">
-        @using (Ajax.BeginForm("CreateSubmit", "Group", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "ConfirmCreateView" }))
-        {
+<div class="row" >
+    <h2>Création de band</h2>
+    @if (Request.IsAuthenticated)
+    {
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+            <span class="sr-only">0% Complete</span>
+          </div>
+        </div>
     
-            <div>
-                @Html.Label("Nom")
-            </div>
-            
-            <div>
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
-
-            <div>
-                @Html.Label("Genre")
-            </div>
-            
-            <div>
-                @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
-                <a id="XaddGenre" href="#" onclick='AddGenre()'><span  class="glyphicon glyphicon-plus"></span></a>
-            </div>
-            
-            <div>
-            @if (ViewData["Genres"] != null)
-            {
-                int i = 0;
-                <table>
-                @foreach (var item in (List<TrouveUnBand.Models.Genre>)ViewData["Genres"])
-                {
-
-                    
-                    i++;
-                    <tr>
-                        <td>
-                            @Html.DropDownList("addedGenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name",
-                                                        Convert.ToInt32(item.GenreId)), new { @class = "form-control" })
-                        </td>
-                        <td>
-                            @if (i > 1)
-                            {
-                                <a id="XrmGenre" href="#" onclick='RemoveGenre("@i")'><span  class="glyphicon glyphicon-minus"></span></a>
-                            }
-                        </td>
-                    </tr>
-                }
-                </table>
-                
-            }
-            </div>
-            
-            @Html.Label("Musiciens")
-
-            <div>
-            @if (ViewData["Musicians"] != null)
-            {
-                @Html.Editor("AddMusicianInput")
-                <a id="btnSearchMusician" href="#" onclick='SearchMusician'><span  class="glyphicon glyphicon-search"></span></a>
-                int j = 0;
-                <table>
-                @foreach (TrouveUnBand.Models.Musician item in (List<TrouveUnBand.Models.Musician>)ViewData["Musicians"])
-                {
-
-                    j++;
-                    <tr>
-                        <td>
-                            <span>@item.User.FirstName @item.User.LastName</span>
-                        </td>
-                        <td>
-                            @if (j > 1)
-                            {
-                                <a id="XrmMusician" href="#" onclick='RemoveMusician("@j")'><span  class="glyphicon glyphicon-search"></span></a>
-                            }
-                        </td>
-                    </tr>
-                }
-                </table>
-            }
-            else
-            {
-                TempData["TempDataError"] = "Profil musicien introuvable";
-            }
-            </div>
-       
-            <div class="editor-label">
-                @Html.Label("Location")
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Location)
-                @Html.ValidationMessageFor(model => model.Location)
-            </div>
-
-            <div class="editor-label">
-                @Html.Label("Description")
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Description)
-                @Html.ValidationMessageFor(model => model.Description)
-
-            </div>
-
-                <button type="submit" value="Créer">Créer</button>
-        }
-    </div>
-    <div>
-
-    </div>
-
-
-}
-else
-{
-    <div class="row">
-        <div class="col-lg-3 span3 offset2">
-            <h2>@Html.ActionLink("S'identifier", "Login", "Users", routeValues: null, htmlAttributes: new { id = "LoginLink" })</h2>
+        <div>
+            <button type="button" class="btn btn-primary btn-lg btn-block">Terminer</button>
         </div>
-        <div class="col-lg-3 span3">
-            <h2>@Html.ActionLink("S'enregistrer", "Register", "Users", routeValues: null, htmlAttributes: new { id = "RegisterLink" })</h2>
+    
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a href="#basetab" role="tab" data-toggle="tab">Information de base</a></li>
+          <li><a href="#genretab" role="tab" data-toggle="tab">Genre</a></li>
+          <li><a href="#musiciantab" role="tab" data-toggle="tab">Musicien</a></li>
+        </ul>
+    
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane in active" id="basetab">
+                @Html.Partial("_BaseTab", (TrouveUnBand.Models.Band)ViewData["BandData"])
+            </div>
+            <div class="tab-pane" id="genretab">
+        
+                @Html.Partial("_GenreTab", (TrouveUnBand.Models.Genre)ViewData["GenreData"])
+            </div>
+            <div class="tab-pane" id="musiciantab">
+                @Html.Partial("_MusicianTab", (TrouveUnBand.Models.Musician)ViewData["MusicianData"])
+            </div>
         </div>
-    </div>
-}
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-3 span3 offset2">
+                <h2>@Html.ActionLink("S'identifier", "Login", "Users", routeValues: null, htmlAttributes: new { id = "LoginLink" })</h2>
+            </div>
+            <div class="col-lg-3 span3">
+                <h2>@Html.ActionLink("S'enregistrer", "Register", "Users", routeValues: null, htmlAttributes: new { id = "RegisterLink" })</h2>
+            </div>
+        </div>
+    }
+</div>

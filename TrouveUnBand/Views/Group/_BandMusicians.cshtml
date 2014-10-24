@@ -1,0 +1,78 @@
+﻿@model TrouveUnBand.Models.Musician
+
+@{
+    ViewBag.Title = "Resultat de recherche";
+}
+
+<h2>Musiciens</h2>
+
+
+<div>
+    @if (ViewData["Musicians"] != null)
+    {
+        @Html.Editor("AddMusicianInput")
+        <a id="btnSearchMusician" href="#" onclick="location.href='@Url.Action("SearchMusician", "Group", )'"><span  class="glyphicon glyphicon-search"></span></a>
+        int j = 0;
+        <table>
+        @foreach (TrouveUnBand.Models.Musician item in (List<TrouveUnBand.Models.Musician>)ViewData["Musicians"])
+        {
+
+            j++;
+            <tr>
+                <td>
+                    <span>@item.User.FirstName @item.User.LastName</span>
+                </td>
+                <td>
+                    @if (j > 1)
+                    {
+                        <a id="XrmMusician" href="#" onclick='RemoveMusician("@j")'><span  class="glyphicon glyphicon-search"></span></a>
+                    }
+                </td>
+            </tr>
+        }
+        </table>
+    }
+    else
+    {
+        TempData["TempDataError"] = "Profil musicien introuvable";
+    }
+</div>
+
+
+
+
+<table class="table table-striped table-bordered table-hover" data-toggle="table">
+    <tr>
+        <th>
+            @Html.Display("Prénom")
+        </th>
+        <th>
+            @Html.Display("Nom de famille")
+        </th>
+        <th>
+            @Html.Display("Identifiant")
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"] )
+    {
+        <tr>
+            <td>
+                @item.User.FirstName
+            </td>
+            <td>
+                @item.User.LastName
+            </td>
+            <td>
+                @item.User.Nickname
+            </td>
+            <td>
+                <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Edit", "Group", new { id = item.MusicianId })'">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+            </td>
+        </tr>
+    }
+</table>

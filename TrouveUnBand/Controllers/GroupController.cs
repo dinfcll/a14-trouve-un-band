@@ -24,13 +24,11 @@ namespace TrouveUnBand.Controllers
 
                 if (b)
                 {
-                    var Query = db.Database.SqlQuery<string>(
-                        "SELECT Name, Description, Location FROM BANDS b JOIN JOIN_BAND_MUSICIAN  jbm on b.BandId = jbm.BandId where MusicianId = " + CurrentMusician[0].MusicianId.ToString());
-                    return View(Query.ToList());
+                    return View(CurrentMusician[0].Bands);
                 }
 
             }
-                return View();
+                return View(new List<Band>());
         }
 
         public ActionResult Details(int id = 0)
@@ -57,7 +55,7 @@ namespace TrouveUnBand.Controllers
                 bool b = CurrentUserIsMusician(CurrentUser, out CurrentMusician);
                 if (b)
                 {
-                    ViewData["InCreationBand"] = new Band();
+                    ViewData["myBand"] = new Band();
                     ViewData["Musicians"] = CurrentMusician;
                     //à la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
                     ViewBag.CurrentMusician = CurrentMusician[0];
@@ -188,35 +186,31 @@ namespace TrouveUnBand.Controllers
             return CurrentUser;
         }
 
-        public void AddMusician(Musician musician)
+        public void AddMusician(int Musicianid)
         {
-            List<Musician> Musicians = (List<Musician>)ViewData["Musicians"];
-            Musicians.Add(musician);
-            ViewData["Musicians"] = Musicians;
+            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
+            ((Band)ViewData["myBand"]).Musicians.Add(Query);
         }
 
-        public void RemoveMusician(Musician musician)
+        public void RemoveMusician(int Musicianid)
         {
-            List<Musician> Musicians = (List<Musician>)ViewData["Musicians"];
-            Musicians.Remove(musician);
-            ViewData["Musicians"] = Musicians;
+            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
+            ((Band)ViewData["myBand"]).Musicians.Remove(Query);
         }
 
-        public void AddGenre(Genre genre)
+        public void AddGenre(int Genreid)
         {
-            List<Genre> Genres = (List<Genre>)ViewData["Genres"];
-            Genres.Add(genre);
-            ViewData["genre"] = Genres;
+            var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genreid);
+            ((Band)ViewData["myBand"]).Genres.Remove(Query);
         }
 
-        public void RemoveGenre(Genre genre)
+        public void RemoveGenre(int Genreid)
         {
-            List<Genre> Genres = (List<Genre>)ViewData["Genres"];
-            Genres.Remove(genre);
-            ViewData["Genres"] = Genres;
+            var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genreid);
+            ((Band)ViewData["myBand"]).Genres.Add(Query);
         }
 
-        public List<Musician> SearchGenre(String SearchString)
+        public List<Musician> SearchMusician(String SearchString)
         {
             string RC = "";
             List<Musician> musicians = new List<Musician>();
@@ -234,6 +228,7 @@ namespace TrouveUnBand.Controllers
                 }
             }
 
+            TempData["TempDataError"] = RC;
             return musicians;
         }
     }

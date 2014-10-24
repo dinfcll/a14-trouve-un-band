@@ -387,9 +387,6 @@
     <Content Include="Views\Users\ProfileModification.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Group\_UserSearchResults.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -405,6 +402,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels1.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Group\_BaseTab.cshtml" />
+    <Content Include="Views\Group\_GenreTab.cshtml" />
+    <Content Include="Views\Group\_MusicianTab.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
