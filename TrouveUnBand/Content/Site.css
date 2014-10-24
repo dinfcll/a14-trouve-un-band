@@ -37,12 +37,12 @@
 
 .navbar-login
 {
-    width: 305px;
+    width: 315px;
     padding: 10px;
     padding-bottom: 0px;
 }
 
-.navbar-login-session
+.navbar-footer
 {
     padding: 10px;
     padding-bottom: 0px;
@@ -52,6 +52,10 @@
 .icon-size
 {
     height: 87px;
+}
+
+.navbar-login a{
+    font-weight:600;
 }
 
 .normal-font {
@@ -152,9 +156,6 @@ tr.instTable > td{
 .main-content {
     margin-top: 40px;
 }
-
-
-/*test crop*/
 
 /* jquery.Jcrop.css v0.9.12 - MIT License */
 /*
@@ -429,7 +430,7 @@ div.profile-tab-menu div.list-group > a:last-child {
 }
 
 div.profile-tab-menu div.list-group>a.active{
-     background-color:#525252;
+    background-color:#525252;
     border:0;
     border-left: 8px solid #428BCA;
 }
@@ -440,8 +441,10 @@ div.profile-tab-menu div.list-group>a.active{
 
 .profile-info-container{
      padding:0;
-     background-color:silver;
-     color:#222222;
+     background-color:#F5F5F5;
+     color:black;    
+     border-right: 1px solid #e3e3e3;
+     border-bottom: 1px solid #e3e3e3;
 }
 
 div.profile-tab-menu div.list-group{
@@ -454,3 +457,38 @@ div.profile-tab-menu div.list-group{
     padding-bottom:10px;
 }
 
+.profile-tab-content{
+    height:386px;
+    overflow: auto;
+}
+
+.profile-info-row{
+    margin-top:10px;
+}
+
+.profile-info-row .panel{
+    margin-bottom:25px;
+}
+
+.profile-info-row i.chevron{
+    margin-top: 30px;
+}
+
+.profile-info-header>strong,
+.profile-info-header>span,
+.profile-info-row i.chevron:hover{
+    cursor:pointer;
+}
+
+.profile-info-header{
+    margin-bottom:20px;
+}
+
+.profile-info-panel .panel{
+    border: 1px solid #222222;
+}
+
+.profile-info-panel .panel .panel-heading{
+    background-color:#222222;
+    color:white;
+}

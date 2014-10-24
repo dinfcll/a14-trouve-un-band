@@ -1,72 +1,114 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "test";
 }
 
-<div id="TicTacToe" class="container" style="width:800px; margin:0 auto;">
-    <div>
-        <h1>Tic Tac Toe</h1>
-    </div>
-    <div>
-        @*<button class="btn btn-success col-md-3 col-md-pull-5 pull-right">Recommencer</button>*@
-        <div class="input-group">
-            <span class="input-group-addon col-md-1 col-md-pull-5 pull-right">Victoire(s) X:</span>
-            <input type="text" class="form-control col-md-2">
+@*<div id="TicTacToe" class="container" style="width:800px; margin:0 auto;">
+        <div>
+            <h1>Tic Tac Toe</h1>
         </div>
-        <div class="input-group">
-            <span class="input-group-addon col-md-1 col-md-pull-5 pull-right">Victoire(s) O:</span>
-            <input type="text" class="form-control col-md-2">
+        <div>
+            <button class="btn btn-success col-md-3 col-md-pull-5 pull-right">Recommencer</button>
+            <div class="input-group">
+                <span class="input-group-addon col-md-1 col-md-pull-5 pull-right">Victoire(s) X:</span>
+                <input type="text" class="form-control col-md-2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon col-md-1 col-md-pull-5 pull-right">Victoire(s) O:</span>
+                <input type="text" class="form-control col-md-2">
+            </div>
+        </div>
+        <div>
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+        </div>
+        <div>
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+        </div>
+        <div>
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+            <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
         </div>
     </div>
-    <div>
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe"> 
-    </div>    
-    <div>
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+    <div class="input-group col-md-2">
+        <span class="input-group-addon">Victoire(s) O:</span>
+        <input type="text" class="form-control" placeholder="Username">
     </div>
-    <div>
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
-        <input type="button" value="•" class="btn btn-lg btn-default btn-tic-tac-toe">
+
+    <script>
+        $(document).ready(function () {
+            var X = "X"
+            var O = "O"
+            var X_Win = 0;
+            var O_Win = 0;
+            var PlayedTurn = 0;
+
+            $(".btn-tic-tac-toe").click(function () {
+            }, function () {
+
+                if (PlayedTurn%2 == 0)
+                {
+                    $(this).removeClass("btn-default");
+                    $(this).addClass("btn-primary");
+                    $(this).prop('disabled', true);
+                    $(this).val("X");
+                    PlayedTurn++;
+                }
+                else
+                {
+                    $(this).removeClass("btn-default");
+                    $(this).addClass("btn-info");
+                    $(this).prop('disabled', true);
+                    $(this).val("O");
+                    PlayedTurn++;
+                }
+            });
+
+        });
+    </script>*@
+
+
+
+
+<div class="row">
+    <div class="col-md-10">
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".cyruxx">
+        <i class="glyphicon glyphicon-chevron-down text-muted"></i>
     </div>
 </div>
-<div class="input-group col-md-2">
-    <span class="input-group-addon">Victoire(s) O:</span>
-    <input type="text" class="form-control" placeholder="Username">
+
+<div class="row user-infos cyruxx">
+        <strong>contenue</strong>
 </div>
+
 
 <script>
     $(document).ready(function () {
-        var X = "X"
-        var O = "O"
-        var X_Win = 0;
-        var O_Win = 0;
-        var PlayedTurn = 0;
+        var panels = $('.user-infos');
+        var panelsButton = $('.dropdown-user');
+        panels.hide();
 
-        $(".btn-tic-tac-toe").click(function () {
-        }, function () {
-            
-            if (PlayedTurn%2 == 0)
-            {
-                $(this).removeClass("btn-default");
-                $(this).addClass("btn-primary");
-                $(this).prop('disabled', true);
-                $(this).val("X");
-                PlayedTurn++;
-            }
-            else
-            {
-                $(this).removeClass("btn-default");
-                $(this).addClass("btn-info");
-                $(this).prop('disabled', true);
-                $(this).val("O");
-                PlayedTurn++;
-            }
+        //Click dropdown
+        panelsButton.click(function () {
+            //get data-for attribute
+            var dataFor = $(this).attr('data-for');
+            var idFor = $(dataFor);
+
+            //current button
+            var currentButton = $(this);
+            idFor.slideToggle(400, function () {
+                //Completed slidetoggle
+                if (idFor.is(':visible')) {
+                    currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+                }
+                else {
+                    currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+                }
+            })
         });
-
     });
 </script>

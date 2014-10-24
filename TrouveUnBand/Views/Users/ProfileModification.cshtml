@@ -8,22 +8,22 @@
     var user = (TrouveUnBand.Models.User)ViewData["UserData"];
 
         <div class="row margin-top-50">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#sectionUtil">Profil Utilisateur</a></li>
-                    <li><a data-toggle="tab" href="#sectionMusician">Profil Musicien</a></li>
-                    <li><a data-toggle="tab" href="#sectionBand">Profil Band</a></li>
-                </ul>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#sectionUtil">Profil Utilisateur</a></li>
+                <li><a data-toggle="tab" href="#sectionMusician">Profil Musicien</a></li>
+                <li><a data-toggle="tab" href="#sectionBand">Profil Band</a></li>
+            </ul>
                 <div class="tab-content">
-                    <div id="sectionUtil" class="tab-pane in active">
+                    <div id="sectionUtil" class="tab-pane in active fade">
                         @Html.Partial("_UserProfilModif", user)
                     </div>
 
-                    <div id="sectionMusician" class="tab-pane">
-                       @Html.Partial("_MusicianProfilModif", (TrouveUnBand.Models.Musician)ViewData["MusicianProfilData"])
+                    <div id="sectionMusician" class="tab-pane fade">
+                        @Html.Partial("_MusicianProfilModif", (TrouveUnBand.Models.Musician)ViewData["MusicianProfilData"])
                     </div> 
 
-                    <div id="sectionBand" class="tab-pane">       
-                         
+                    <div id="sectionBand" class="tab-pane fade">
+
                     </div>
 
                 </div>

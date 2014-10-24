@@ -291,6 +291,7 @@
     <Content Include="Scripts\disable-search-ddl.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\ImageUpload.js" />
+    <Content Include="Scripts\jquery-1.11.1.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -307,6 +308,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
     <Content Include="Scripts\NavBarActive.js" />
+    <Content Include="Scripts\ProfilePageInfo.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -407,6 +409,7 @@
     <Content Include="Views\Users\ImageCropperDialog.cshtml" />
     <Content Include="Views\Users\ViewPictureDialog.cshtml" />
     <Content Include="Views\Users\MusicianProfile.cshtml" />
+    <Content Include="Views\Users\_MusicianProfileInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
