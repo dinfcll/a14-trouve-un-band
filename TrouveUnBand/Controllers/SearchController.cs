@@ -27,7 +27,7 @@ namespace TrouveUnBand.Controllers
                 new { value=OPTION_BAND, text="des groupes" },
                 new { value=OPTION_MUSICIAN, text="des musiciens" },
                 new { value=OPTION_USER, text="des utilisateurs" },
-                new { value=OPTION_EVENT, text="des évènements" }
+                new { value=OPTION_EVENT, text="des événements" }
             }, "value", "text");
 
             List<Band> bandsList = GetBands(null, SearchString, "");
@@ -66,7 +66,7 @@ namespace TrouveUnBand.Controllers
                     Name = eventBD.EventName,
                     Description = eventBD.EventDate.ToString("yyyy-MM-dd"),
                     Location = eventBD.EventLocation,
-                    Type = "Évènement"
+                    Type = "événement"
                 });
             }
 
@@ -181,7 +181,7 @@ namespace TrouveUnBand.Controllers
                             Name = events.EventName,
                             Description = "",
                             Location = events.EventLocation,
-                            Type = "Évènement"
+                            Type = "événement"
                         });
                     }
 

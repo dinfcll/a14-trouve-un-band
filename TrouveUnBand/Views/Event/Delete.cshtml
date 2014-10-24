@@ -4,8 +4,6 @@
     ViewBag.Title = "Delete";
 }
 
-
-
 @if (Model.EventCreator != User.Identity.Name)
 {
          <h3>Veuillez vous identifiez</h3>       
@@ -16,7 +14,7 @@ else
         <div class="container">
             <div class="row form-group col-md-12 col-md-push-3">
                 <div class="col-md-12 col-md-pull-4">
-                    <h3>Voulez vous vraiment annuler l'évènement suivant?</h3>
+                    <h3>Voulez vous vraiment annuler l'événement suivant?</h3>
                     <hr class="colorgraph"/>
                 </div>
                 <div class="modal-body col-md-6 col-md-pull-4">
@@ -32,7 +30,7 @@ else
                 </div>
 
                 <div class="form-group col-md-6 col-md-pull-4">
-                    @Html.Label("Nom de l'évènement")
+                    @Html.Label("Nom de l'événement")
                     <div class="form-control">
                         @Html.DisplayFor(model => model.EventName)
                     </div>
@@ -40,7 +38,7 @@ else
                 </div>
 
                 <div class="form-group col-md-6 col-md-pull-4">
-                    @Html.Label("Emplacement de l'évènement")
+                    @Html.Label("Emplacement de l'événement")
                     <div class="form-control">
                         @Html.DisplayFor(model => model.EventLocation)
                     </div>
@@ -64,7 +62,7 @@ else
                 </div>
 
                 <div class="form-group col-md-6 col-md-pull-4">
-                    @Html.Label("Date de l'évènement")
+                    @Html.Label("Date de l'événement")
                     <div class="form-control">
                         @Html.DisplayFor(model => model.EventDate)
                     </div>
@@ -80,7 +78,7 @@ else
                 </div>
 
                 <div class="form-group col-md-6 col-md-pull-4">
-                    @Html.Label("Salaire pour l'évènement ($)")
+                    @Html.Label("Salaire pour l'événement ($)")
                     <div class="form-control">
                         @Html.DisplayFor(model => model.EventSalary)
                     </div>
@@ -88,7 +86,7 @@ else
                 </div>
 
                 <div class="form-group col-md-6 col-md-pull-4">
-                    @Html.Label("Genre de l'évènement")
+                    @Html.Label("Genre de l'événement")
                     <div class="form-control">
                         @Html.DisplayFor(model => model.EventGender)
                     </div>
@@ -112,7 +110,7 @@ else
                     </div>
                     <div class="col-md-6">
                         @using (Html.BeginForm()) {
-                            <input type="submit" value="Annuler l'évènement" class="btn btn-danger col-md-12" />
+                            <input type="submit" value="Annuler l'événement" class="btn btn-danger col-md-12" />
                         }
                     </div>
                 </div>

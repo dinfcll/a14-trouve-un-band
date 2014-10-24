@@ -28,8 +28,6 @@ $(function() {
         @Scripts.Render("~/Scripts/ModifProfil.js")
         @Scripts.Render("~/Scripts/disable-search-ddl.js")
         @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
-        
-        
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -50,7 +48,7 @@ $(function() {
                         <li id="apropos">@Html.ActionLink("À propos de", "About", "Home")</li>
                         <li id="contact">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li id="groupe">@Html.ActionLink("Groupes", "Index", "Group")</li>
-                        <li id="event">@Html.ActionLink("Évènements", "Index", "Event")</li>
+                        <li id="event">@Html.ActionLink("Événements", "Index", "Event")</li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" >
                         <li>@Html.Partial("_LoginPartial")</li>

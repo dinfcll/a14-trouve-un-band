@@ -7,15 +7,15 @@
 @model IEnumerable<TrouveUnBand.Models.Event>
 
 @{
-    ViewBag.Title = "Évènements";
+    ViewBag.Title = "événements";
 }
 
-<h2>Évènements</h2>
+<h2>événements</h2>
 
 <p>
     @if(User.Identity.Name != "")
     {
-        @Html.ActionLink("Créer un évènement", "Create", new { controller = "Event" }, new { @class="btn btn-primary" })
+        @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class="btn btn-primary" })
     }
 </p>
 <div class="row">

@@ -8,12 +8,21 @@ namespace TrouveUnBand.Models
 {
     public class EventValidation
     {
-
         public EventValidation()
         {
-
+            EventAddress = "";
+            EventCity = "";
+            EventCreator = "";
+            EventDate = new DateTime();
+            EventGender = "";
+            EventId = 0;
+            EventLocation = "";
+            EventMaxAudience = "";
+            EventName = "";
+            EventSalary = (float)0.0;
+            EventStageSize = 0;
         }
-
+        
         public EventValidation(Event eventBD)
         {
             EventAddress = eventBD.EventAddress;

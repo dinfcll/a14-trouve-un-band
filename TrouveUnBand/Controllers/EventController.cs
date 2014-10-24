@@ -32,7 +32,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.GenderListDB = new List<Genre>(db.Genres);
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View();
         }
 
@@ -41,27 +41,24 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
-                events.EventGender = Request["EventGenderDB"];
+                events.EventGender = Request["EventGenreDB"];
                 events.EventCreator = Request["Creator"];
                 if (Request.Files[0].ContentLength != 0)
                 {
-                    HttpPostedFileBase PostedPhoto = Request.Files[0];
-                    Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                    byte[] bytephoto = imageToByteArray(img);
-                    events.EventPhoto = bytephoto;
+                    events.EventPhoto = GetPostedEventPhoto();
                 }
                 Event eventBD = CreateEventFromModel(events);
                 db.Events.Add(eventBD);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GenderListDB = new List<Genre>(db.Genres);
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View();
         }
 
         public ActionResult Edit(int id = 0)
         {
-            ViewBag.GenderListDB = new List<Genre>(db.Genres);
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
             Event events = db.Events.Find(id);
             if (events == null)
             {
@@ -75,14 +72,11 @@ namespace TrouveUnBand.Controllers
         public ActionResult Edit(EventValidation events)
         {
             events.EventCreator = Request["Creator"];
-            events.EventGender = Request["EventGenderDB"];
+            events.EventGender = Request["EventGenreDB"];
 
             if (Request.Files[0].ContentLength != 0)
             {
-                HttpPostedFileBase PostedPhoto = Request.Files[0];
-                Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                byte[] bytephoto = imageToByteArray(img);
-                events.EventPhoto = bytephoto;
+                events.EventPhoto = GetPostedEventPhoto();
             }
             else
             {
@@ -98,7 +92,7 @@ namespace TrouveUnBand.Controllers
             }
             else
             {
-                ViewBag.GenderListDB = new List<Genre>(db.Genres);
+                ViewBag.GenreListDB = new List<Genre>(db.Genres);
                 return View(events);
             }
         }
@@ -157,6 +151,14 @@ namespace TrouveUnBand.Controllers
             events.EventSalary = EventValid.EventSalary;
             events.EventStageSize = EventValid.EventStageSize;
             return events;
+        }
+
+        private byte[] GetPostedEventPhoto()
+        {
+            HttpPostedFileBase PostedPhoto = Request.Files[0];
+            Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+            byte[] bytephoto = imageToByteArray(img);
+            return bytephoto;
         }
     }
 }
