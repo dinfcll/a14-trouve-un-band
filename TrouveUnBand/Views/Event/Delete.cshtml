@@ -4,12 +4,20 @@
     ViewBag.Title = "Delete";
 }
 
-<div  id="CreateEventForm" class="top-80">
+
+
+@if (Model.EventCreator != User.Identity.Name)
+{
+         <h3>Veuillez vous identifiez</h3>       
+}
+else
+{
+    <div  id="CreateEventForm" class="top-80">
         <div class="container">
             <div class="row form-group col-md-12 col-md-push-3">
                 <div class="col-md-12 col-md-pull-4">
                     <h3>Voulez vous vraiment annuler l'évènement suivant?</h3>
-                    <hr class="colorgraph">
+                    <hr class="colorgraph"/>
                 </div>
                 <div class="modal-body col-md-6 col-md-pull-4">
                             @if (Model.EventPhoto == null)
@@ -110,3 +118,6 @@
                 </div>
             </div>
         </div>
+    </div>
+}
+        

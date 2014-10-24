@@ -5,8 +5,6 @@
 }
 @using (Html.BeginForm("Edit", "Event", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
 {
-    if (Model.EventCreator == User.Identity.Name)
-    {
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.EventId)
         @Html.Hidden("Creator", User.Identity.Name)
@@ -113,12 +111,6 @@
                         </div>
                     </div>
                 </div>
-    }
-    else
-    {
-        <h3>Veuillez vous identifier svp</h3>
-    }
-
 }
 
 @section Scripts {
