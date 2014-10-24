@@ -12,21 +12,19 @@ using System.Collections.Generic;
 
 namespace TrouveUnBand.Models
 {
-    public partial class Genre
+    public partial class Advert
     {
-        public Genre()
-        {
-            this.Bands = new HashSet<Band>();
-            this.Musicians = new HashSet<Musician>();
-            this.Adverts = new HashSet<Advert>();
-        }
+        public int AdvertId { get; set; }
+        public string Type { get; set; }
+        public int Creator { get; set; }
+        public int GenresAdvert { get; set; }
+        public string Description { get; set; }
+        public string Status { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public System.DateTime ExpirationDate { get; set; }
     
-        public int GenreId { get; set; }
-        public string Name { get; set; }
-    
-        public virtual ICollection<Band> Bands { get; set; }
-        public virtual ICollection<Musician> Musicians { get; set; }
-        public virtual ICollection<Advert> Adverts { get; set; }
+        public virtual User User { get; set; }
+        public virtual Genre Genre { get; set; }
     }
     
 }
