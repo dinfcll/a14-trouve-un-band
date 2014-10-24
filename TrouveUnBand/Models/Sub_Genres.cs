@@ -19,5 +19,7 @@ namespace TrouveUnBand.Models
         public string Name { get; set; }
     
         public virtual Genre Genre { get; set; }
+        public virtual ICollection<Band> Bands { get; set; }
+        public virtual ICollection<Musician> Musicians { get; set; }
     }
 }

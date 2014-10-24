@@ -2,7 +2,7 @@
     ViewBag.Title = "Search";
 }
 
-<div class="form-group">
+<div id="basic-search">
 @using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
 {
     <div class="form-inline searchform">
@@ -18,20 +18,35 @@
 }
 </div>
 
-<div class="advanced-search">
+<a href="#" id="advanced-search-link">Recherche avancée</a>
+
+<div id="advanced-search">
     @using (Ajax.BeginForm("AdvancedFilter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
     {
         @Html.Partial("_Searchbar")
         <div class="panel panel-default">
-            <div id="advanced-search-link" class="panel-heading">Recherche avancée</div>
+            <div class="panel-heading">Recherche avancée</div>
+
             <div class="panel-body">
-                <div class="col-md-3">
-                    @Html.RadioButton("rbCategories", "All", true) Afficher tout
-                    @Html.RadioButton("rbCategories", "Bands", false) Groupes
-                    @Html.RadioButton("rbCategories", "Musicians", false) Musiciens
-                    @Html.RadioButton("rbCategories", "Users", false) Utilisateurs
+                <div class="col-md-4">
+                    <ul class="list-unstyled">
+                        <li>@Html.RadioButton("rbCategories", "option_all", true) Afficher tout</li>
+                        <li>@Html.RadioButton("rbCategories", "option_band", false) Groupes</li>
+                        <li>@Html.RadioButton("rbCategories", "option_musician", false) Musiciens</li>
+                        <li>@Html.RadioButton("rbCategories", "option_user", false) Utilisateurs</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    @Html.TextBox("Location", "", new { @placeholder="Ville", @class="form-control"})
+                    @Html.TextBox("Radius", "", new { @placeholder="Rayon", @class="form-control"})
+                </div>
+
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-primary">Recommencer</button>
                 </div>
             </div>
+
             <table class="table">
                 <tr>
                     @{

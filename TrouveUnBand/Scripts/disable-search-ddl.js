@@ -20,6 +20,7 @@
     * This function show/hide the advanced search section.
     */
     $('#advanced-search-link').click(function () {
+        $('#basic-search').toggle();
         $('#advanced-search').toggle();
     });
 });

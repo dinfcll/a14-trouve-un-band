@@ -41,8 +41,8 @@ namespace TrouveUnBand.Controllers
                 new { value=OPTION_USER, text="des utilisateurs" }
             }, "value", "text");
 
-            List<Band> bandsList = GetBands(null, SearchString, "");
-            List<Musician> musiciansList = GetMusicians(null, SearchString, "");
+            List<Band> bandsList = GetBands(0, SearchString, "");
+            List<Musician> musiciansList = GetMusicians(0, SearchString, "");
 
             foreach (Band band in bandsList)
             {
@@ -178,8 +178,109 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult AdvancedFilter(params String[] CbSubgenres)
+        public ActionResult AdvancedFilter(string SearchString, string Location, string Radius, string rbCategories, params String[] CbSubgenres)
         {
+            List<SearchResult> ResultsList = new List<SearchResult>();
+            List<String> SelectedGenres = new List<String>();
+
+            foreach (string genre in CbSubgenres)
+            {
+                if (genre != "false")
+                {
+                    SelectedGenres.Add(genre);
+                }
+            }
+
+            switch (rbCategories)
+            {
+                case OPTION_ALL:
+
+                    List<Band> Bands = GetBands(SelectedGenres, SearchString, Location);
+                    List<Musician> Musicians = GetMusicians(SelectedGenres, SearchString, Location);
+
+                     foreach (Band band in Bands)
+                    {
+                        ResultsList.Add(new SearchResult 
+                        { 
+                            Name = band.Name, 
+                            Description = band.Description, 
+                            Location = band.Location, 
+                            Type = "Band"
+                        });
+                    }
+
+                    foreach (Musician musician in Musicians)
+                    {
+                        User user = db.Users.Find(musician.UserId);
+
+                        ResultsList.Add(new SearchResult
+                        {
+                            Name = user.FirstName + " " + user.LastName,
+                            Description = musician.Description,
+                            Location = user.Location,
+                            Type = "Musicien"
+                        });
+                    }
+
+                    break;
+
+                case OPTION_BAND:
+
+                    Bands = GetBands(SelectedGenres, SearchString, Location);
+                    
+                    foreach (Band band in Bands)
+                    {
+                        ResultsList.Add(new SearchResult
+                        {
+                            Name = band.Name,
+                            Description = band.Description,
+                            Location = band.Location,
+                            Type = "Band"
+                        });
+                    }
+
+                    break;
+
+                case OPTION_MUSICIAN:
+
+                    Musicians = GetMusicians(SelectedGenres, SearchString, Location);
+
+                    foreach (Musician musician in Musicians)
+                    {
+                        User user = db.Users.Find(musician.UserId);
+
+                        ResultsList.Add(new SearchResult
+                        {
+                            Name = user.FirstName + " " + user.LastName,
+                            Description = musician.Description,
+                            Location = user.Location,
+                            Type = "Musicien"
+                        });
+                    }
+
+                    break;
+
+                case OPTION_USER:
+
+                    List<User> usersList = GetUsers(SearchString, Location);
+
+                    foreach (User user in usersList)
+                    {
+                        ResultsList.Add(new SearchResult
+                        {
+                            Name = user.FirstName + " " + user.LastName,
+                            Description = "",
+                            Location = user.Location,
+                            Type = "Utilisateur"
+                        });
+                    }
+
+                    break;
+            }
+
+            ViewBag.ResultsList = ResultsList;
+            ViewBag.ResultNumber = ResultsList.Count();
+
             return PartialView("_SearchResults"); 
         }
 
@@ -190,14 +291,43 @@ namespace TrouveUnBand.Controllers
             var bands = from band in db.Bands
                         select band;
 
-            if (GenreID != null)
+            if (GenreID > 0)
             {
-                bands = bands.Where(band => band.Genres.Any(genre => genre.GenreId == GenreID));
+                bands = bands.Where(band => band.Sub_Genres.Any(genre => genre.GenreId == GenreID));
             }
             if (!String.IsNullOrEmpty(BandName))
             {
                 bands = bands.Where(band => band.Name.Contains(BandName));
             }
+            if (!String.IsNullOrEmpty(Location))
+            {
+                bands = bands.Where(band => band.Location.Contains(Location));
+            }
+
+            lstResults.AddRange(bands);
+
+            return lstResults;
+        }
+
+        public List<Band> GetBands(List<String> Subgenres, string BandName, string Location)
+        {
+            List<Band> lstResults = new List<Band>();
+
+            var bands = from band in db.Bands select band;
+
+            if (Subgenres.Count > 0)
+            {
+                foreach (String GenreName in Subgenres)
+                {
+                    bands = bands.Where(band => band.Sub_Genres.Any(genre => genre.Name.Equals(GenreName)));
+                }
+            }
+
+            if (!String.IsNullOrEmpty(BandName))
+            {
+                bands = bands.Where(band => band.Name.Contains(BandName));
+            }
+
             if (!String.IsNullOrEmpty(Location))
             {
                 bands = bands.Where(band => band.Location.Contains(Location));
@@ -217,8 +347,40 @@ namespace TrouveUnBand.Controllers
 
             if (GenreID != null)
             {
-                musicians = musicians.Where(musician => musician.Genres.Any(genre => genre.GenreId == GenreID));
+                musicians = musicians.Where(musician => musician.Sub_Genres.Any(genre => genre.GenreId == GenreID));
             }
+
+            if (!String.IsNullOrEmpty(UserName))
+            {
+                musicians = musicians.Where(musician => musician.User.FirstName.Contains(UserName) ||
+                                            musician.User.LastName.Contains(UserName) ||
+                                            musician.User.Nickname.Contains(UserName));
+            }
+            if (!String.IsNullOrEmpty(Location))
+            {
+                musicians = musicians.Where(musician => musician.User.Location.Contains(Location));
+            }
+
+            lstResults.AddRange(musicians);
+
+            return lstResults;
+        }
+
+        public List<Musician> GetMusicians(List<String> Subgenres, string UserName, string Location)
+        {
+            List<Musician> lstResults = new List<Musician>();
+
+            var musicians = from musician in db.Musicians
+                            select musician;
+
+            if (Subgenres.Count > 0)
+            {
+                foreach (String GenreName in Subgenres)
+                {
+                    musicians = musicians.Where(musician => musician.Sub_Genres.Any(genre => genre.Name == GenreName));
+                }
+            }
+
             if (!String.IsNullOrEmpty(UserName))
             {
                 musicians = musicians.Where(musician => musician.User.FirstName.Contains(UserName) ||
@@ -250,9 +412,8 @@ namespace TrouveUnBand.Controllers
             }
             if (!String.IsNullOrEmpty(Location))
             {
-                users.Where(user => user.Location.Contains(Location));
+                users = users.Where(user => user.Location.Contains(Location));
             }
-
 
             lstResults.AddRange(users);
 
