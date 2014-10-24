@@ -76,5 +76,10 @@ namespace TrouveUnBand.Models
         new public double Latitude { get; set; }
 
         new public double Longitude { get; set; }
+
+        public int PicX { get; set; }
+        public int PicY { get; set; }
+        public int PicWidth { get; set; }
+        public int PicHeight { get; set; }
     }
 }

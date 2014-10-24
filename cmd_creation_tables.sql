@@ -47,16 +47,19 @@ create table Genres(
 	Name NVARCHAR(50) not null
 );
 
-create table Evenements(
+create table Event(
 	EventId int IDENTITY(1,1) Primary key,
 	EventName NVARCHAR(100) NOT NULL,
 	EventLocation NVARCHAR(100) NOT NULL,
 	EventAddress NVARCHAR(100) NOT NULL,
-	EventDate NVARCHAR(100) NOT NULL,
+	EventCity NVARCHAR(100) NOT NULL,
+	EventDate datetime NOT NULL,
 	EventMaxAudience NVARCHAR(100) NOT NULL,
-	EventSalary NVARCHAR(100) NOT NULL,
-	EventGender NVARCHAR(100) NOT NULL,
-	EventStageSize int
+	EventSalary float(10) NOT NULL,
+	EventGender NVARCHAR(100) not null,
+	EventStageSize int,
+	EventPhoto varbinary(max),
+	EventCreator NVARCHAR(100)
 );
 
 create table Join_Musician_Genre(
