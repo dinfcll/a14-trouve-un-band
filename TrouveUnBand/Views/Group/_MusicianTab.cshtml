@@ -9,12 +9,12 @@
 
 
         <div>
-            @if (ViewData["Musicians"] != null)
+            @if ((((TrouveUnBand.Models.Band)ViewData["myBand"]).Musicians).Any())
             {
                 int j = 0;
         
                 <table>
-                    @foreach (TrouveUnBand.Models.Musician item in (List<TrouveUnBand.Models.Musician>)ViewData["Musicians"])
+                    @foreach (var item in ((TrouveUnBand.Models.Band)ViewData["myBand"]).Musicians)
                     {
 
                         j++;

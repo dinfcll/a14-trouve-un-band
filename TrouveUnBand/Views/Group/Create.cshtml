@@ -1,10 +1,13 @@
 ﻿@{
     ViewBag.Title = "Création band";
 }
-<div class="row" >
+<div class="container" >
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
     <h2>Création de band</h2>
     @if (Request.IsAuthenticated)
     {
+        <div class="row" style="margin-bottom:20px">
         <div class="progress">
           <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
             <span class="sr-only">0% Complete</span>
@@ -14,7 +17,8 @@
         <div>
             <button type="button" class="btn btn-primary btn-lg btn-block">Terminer</button>
         </div>
-    
+        </div>
+        
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="active"><a href="#basetab" role="tab" data-toggle="tab">Information de base</a></li>
@@ -47,4 +51,6 @@
             </div>
         </div>
     }
+    </div>
+    </div>
 </div>
