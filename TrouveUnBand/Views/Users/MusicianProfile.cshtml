@@ -103,8 +103,8 @@
         </div>
         <!--Media end-->
         <!--Pictures-->
-        <div class="profile-tab-content col-md-9">
-            @Html.Partial("_MusicianProfilePhoto")
+        <div class="profile-tab-content col-md-9 pictures-tab">
+            @Html.Partial("_MusicianProfilePhoto",Model)
         </div>
         <!--Pictures end-->
         <!--Contact-->
@@ -123,9 +123,11 @@
     </div>
 </div>
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
-     aria-hidden="true">
+     aria-hidden="true" >
     @Html.Partial("ViewPictureDialog", Model.ProfilePicture)
 </div>
+
+
 <script>
     $(document).ready(function () {
         $(".profile-tab-menu>div.list-group>a").click(function (event) {
