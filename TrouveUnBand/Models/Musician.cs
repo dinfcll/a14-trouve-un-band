@@ -30,5 +30,4 @@ namespace TrouveUnBand.Models
         public virtual ICollection<Band> Bands { get; set; }
         public virtual ICollection<Sub_Genres> Sub_Genres { get; set; }
     }
-    
 }

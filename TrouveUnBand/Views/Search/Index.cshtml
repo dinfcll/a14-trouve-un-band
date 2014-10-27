@@ -3,7 +3,7 @@
 }
 
 <div id="basic-search">
-@using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
+@using (Ajax.BeginForm("BasicFilter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
 {
     <div class="form-inline searchform">
         <label for="ddlCategories">Affiche</label>
