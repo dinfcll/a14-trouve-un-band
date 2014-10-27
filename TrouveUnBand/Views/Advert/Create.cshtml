@@ -14,33 +14,26 @@ else
         @Html.ValidationSummary(true)
         <div  id="CreateEventForm">
             <div class="container">
-                <div class="row form-group col-md-12">
+                <div class="row form-group col-md-8 col-md-push-1">
                     <div class="col-md-12">
                         <h3>Créer une annonce</h3>
                         <hr class="colorgraph">
                     </div>
                     <div class="form-group col-md-12">
+                        @Html.Hidden("CreatorName", User.Identity.Name)
                         <div class="form-group col-md-6">
                             @Html.TextBoxFor(model => model.Type,
                                 new { @class = "form-control", @placeholder = "Type d'Annonce" })
                             @Html.ValidationMessageFor(model => model.Type)
                         </div>
                         <div class="form-group col-md-6">
-                            <div class="form-control">
-                                @Html.DropDownList("Creator", "Utilisateur")
-                                @Html.ValidationMessageFor(model => model.Creator)
-                            </div>
+                            @Html.TextBoxFor(model => model.Location,
+                                new { @class = "form-control", @placeholder = "Emplacement" })
+                            @Html.ValidationMessageFor(model => model.Location)
                         </div>
                         <div class="form-group col-md-6">
-                            <div class="form-control">
-                                @Html.DropDownList("GenresAdvert", "Genre")
-                            </div>
+                            @Html.DropDownList("GenreAdvertDB", (IEnumerable<SelectListItem>)ViewBag.GenresAdvert, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.GenresAdvert)
-                        </div>
-                        <div class="form-group col-md-6">
-                            @Html.TextBoxFor(model => model.Description,
-                                new { @class = "form-control", @placeholder = "Description" })
-                            @Html.ValidationMessageFor(model => model.Description)
                         </div>
                         <div class="form-group col-md-6">
                             @Html.TextBoxFor(model => model.Status,
@@ -57,7 +50,15 @@ else
                                 new { @class = "form-control", @placeholder = "Date d'expiration de l'annonce" })
                             @Html.ValidationMessageFor(model => model.ExpirationDate)
                         </div>
-
+                        <div class="form-group col-md-12">
+                            @Html.TextAreaFor(model => model.Description,
+                                new { @class = "form-control", @placeholder = "Description" })
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                        <div class="form-group col-md-12">
+                            @Html.Label("Photo de l'annonce")
+                            <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
+                        </div>
                         <div class="col-md-12">
                             <hr class="colorgraph"/>
                         </div>
@@ -74,10 +75,6 @@ else
             </div>
     }
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

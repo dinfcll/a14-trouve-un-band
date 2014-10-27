@@ -1,69 +1,73 @@
-﻿@model IEnumerable<TrouveUnBand.Models.Advert>
+﻿<script>
+    var onglet = document.getElementById("Advert");
+    onglet.setAttribute("class", "active");
+</script>
+<div class="top-80">
+    @model IEnumerable<TrouveUnBand.Models.Advert>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Genre.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpirationDate)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genre.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpirationDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AdvertId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AdvertId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AdvertId })
-        </td>
-    </tr>
-}
-
-</table>
+    @{
+        ViewBag.Title = "Annonces";
+    }
+    <div class="form-group col-md-12">
+        <div class="col-md-10">
+            <h2>Annonces</h2>
+        </div>
+        <div class="col-md-2">
+            @if(User.Identity.Name != "")
+            {
+                @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class="btn btn-primary" })
+            }
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <hr class="colorgraph">
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="col-md-12">
+                <div class="col-md-4 form-group">
+                    @if (item.AdvertPhoto == null)
+                    {
+                        <img src="http://placehold.it/230x175" alt="Image">
+                    }
+                    else
+                    {
+                        var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.AdvertPhoto);
+                        <img src="@photo" width="230" height="172" class="photo" alt="Image">
+                    }
+                    <div class="row col-md-12 form-group" id="AdvertButton">
+                        @Html.ActionLink("Détails", "Details", new { id = item.AdvertId }, new { @class = "btn btn-default" })
+                        @if (item.User.Nickname == User.Identity.Name)
+                        {
+                            @Html.ActionLink("Modifier", "Edit", new { id = item.AdvertId }, new { @class = "btn btn-primary" })
+                            <label> @Html.ActionLink("Annuler", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-danger" })</label>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-pull-1" id="AdvertDesc">
+                    <div class="col-md-12 form-group">
+                        <h3>@Html.DisplayName(item.Type)</h3>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayName(item.CreationDate.ToString("dd MMMM yyyy"))
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <span class="glyphicon glyphicon-music"></span> @Html.DisplayName(item.Genre.Name)
+                    </div>
+                    <div class="col-md-4 form-group col-md-pull-1">
+                        <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(item.Location)
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <hr class="colorgraph" />
+                        @Html.TextArea("DescriptionArea", item.Description, new { @class = "form-control", @readonly = "readonly", @rows = "6" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <hr class="colorgraph">
+            </div>
+        }
+    </div>
+</div>

@@ -17,11 +17,11 @@
           <EntitySet Name="Join_Musician_Instrument" EntityType="TrouveUnBandModel.Store.Join_Musician_Instrument" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Musicians" EntityType="TrouveUnBandModel.Store.Musicians" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="TrouveUnBandModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__Advert__Creator__2E1BDC42" Association="TrouveUnBandModel.Store.FK__Advert__Creator__2E1BDC42">
+          <AssociationSet Name="FK__Advert__Creator__34C8D9D1" Association="TrouveUnBandModel.Store.FK__Advert__Creator__34C8D9D1">
             <End Role="Users" EntitySet="Users" />
             <End Role="Advert" EntitySet="Advert" />
           </AssociationSet>
-          <AssociationSet Name="FK__Advert__GenresAd__2F10007B" Association="TrouveUnBandModel.Store.FK__Advert__GenresAd__2F10007B">
+          <AssociationSet Name="FK__Advert__GenresAd__35BCFE0A" Association="TrouveUnBandModel.Store.FK__Advert__GenresAd__35BCFE0A">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Advert" EntitySet="Advert" />
           </AssociationSet>
@@ -70,10 +70,12 @@
           <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Creator" Type="int" Nullable="false" />
           <Property Name="GenresAdvert" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="100" />
+          <Property Name="AdvertPhoto" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Bands">
           <Key>
@@ -173,7 +175,7 @@
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
         </EntityType>
-        <Association Name="FK__Advert__Creator__2E1BDC42">
+        <Association Name="FK__Advert__Creator__34C8D9D1">
           <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
           <End Role="Advert" Type="TrouveUnBandModel.Store.Advert" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,7 +187,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Advert__GenresAd__2F10007B">
+        <Association Name="FK__Advert__GenresAd__35BCFE0A">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Advert" Type="TrouveUnBandModel.Store.Advert" Multiplicity="*" />
           <ReferentialConstraint>
@@ -495,12 +497,14 @@
           <Property Type="String" Name="Type" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Creator" Nullable="false" />
           <Property Type="Int32" Name="GenresAdvert" Nullable="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Status" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="CreationDate" Nullable="false" />
           <Property Type="DateTime" Name="ExpirationDate" Nullable="false" />
           <NavigationProperty Name="User" Relationship="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42" FromRole="Advert" ToRole="User" />
           <NavigationProperty Name="Genre" Relationship="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B" FromRole="Advert" ToRole="Genre" />
+          <Property Type="String" Name="Location" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="AdvertPhoto" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK__Advert__Creator__2E1BDC42">
           <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="1" />
@@ -639,6 +643,8 @@
           <EntitySetMapping Name="Adverts">
             <EntityTypeMapping TypeName="TrouveUnBandModel.Advert">
               <MappingFragment StoreEntitySet="Advert">
+                <ScalarProperty Name="AdvertPhoto" ColumnName="AdvertPhoto" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

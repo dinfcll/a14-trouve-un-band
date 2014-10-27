@@ -30,7 +30,7 @@ $(function() {
         @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="titre">
             <!--NAVBAR-->
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -49,6 +49,7 @@ $(function() {
                         <li id="contact">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li id="groupe">@Html.ActionLink("Groupes", "Index", "Group")</li>
                         <li id="event">@Html.ActionLink("Événements", "Index", "Event")</li>
+                        <li id="Advert">@Html.ActionLink("Annonces", "Index", "Advert")</li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" >
                         <li>@Html.Partial("_LoginPartial")</li>

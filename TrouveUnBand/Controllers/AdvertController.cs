@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
+using System.IO;
+using System.Drawing;
 
 namespace TrouveUnBand.Controllers
 {
@@ -40,7 +42,6 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName");
             ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name");
             return View();
         }
@@ -51,8 +52,15 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Create(Advert advert)
         {
+            string CreatorNameDB = Request["CreatorName"];
+            advert.Creator = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB).UserId;
+            advert.GenresAdvert = Convert.ToInt32(Request["GenreAdvertDB"]);
             if (ModelState.IsValid)
             {
+                if (Request.Files[0].ContentLength != 0)
+                {
+                    advert.AdvertPhoto = GetPostedAdvertPhoto();
+                }
                 db.Adverts.Add(advert);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -73,6 +81,7 @@ namespace TrouveUnBand.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator);
             ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.GenresAdvert);
             return View(advert);
@@ -84,8 +93,19 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Edit(Advert advert)
         {
+            string CreatorNameDB = Request["CreatorName"];
+            advert.Creator = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB).UserId;
+            advert.GenresAdvert = Convert.ToInt32(Request["GenreAdvertDB"]);
             if (ModelState.IsValid)
             {
+                if (Request.Files[0].ContentLength != 0)
+                {
+                    advert.AdvertPhoto = GetPostedAdvertPhoto();
+                }
+                else
+                {
+                    advert.AdvertPhoto = GetAdvertPhotoByte(advert.AdvertId);
+                }
                 db.Entry(advert).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -124,6 +144,33 @@ namespace TrouveUnBand.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
+        }
+
+        public byte[] GetAdvertPhotoByte(int AdvertIDView)
+        {
+            var PicQuery = (from Adverts in db.Adverts
+                            where
+                            Adverts.AdvertId.Equals(AdvertIDView)
+                            select new Photo
+                            {
+                                ProfilePicture = Adverts.AdvertPhoto
+                            }).FirstOrDefault();
+            return PicQuery.ProfilePicture;
+        }
+
+        private byte[] GetPostedAdvertPhoto()
+        {
+            HttpPostedFileBase PostedPhoto = Request.Files[0];
+            Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
+            byte[] bytephoto = imageToByteArray(img);
+            return bytephoto;
         }
     }
 }

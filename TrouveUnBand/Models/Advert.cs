@@ -22,6 +22,8 @@ namespace TrouveUnBand.Models
         public string Status { get; set; }
         public System.DateTime CreationDate { get; set; }
         public System.DateTime ExpirationDate { get; set; }
+        public string Location { get; set; }
+        public byte[] AdvertPhoto { get; set; }
     
         public virtual User User { get; set; }
         public virtual Genre Genre { get; set; }
