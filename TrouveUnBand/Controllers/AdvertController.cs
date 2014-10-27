@@ -24,6 +24,12 @@ namespace TrouveUnBand.Controllers
             return View(adverts.ToList());
         }
 
+        public ActionResult MyAdverts()
+        {
+            var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genre);
+            return View(adverts.ToList());
+        }
+
         //
         // GET: /Advert/Create
 
@@ -96,7 +102,7 @@ namespace TrouveUnBand.Controllers
                 }
                 db.Entry(advert).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
             }
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator);
             ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.GenresAdvert);
@@ -124,6 +130,28 @@ namespace TrouveUnBand.Controllers
         {
             Advert advert = db.Adverts.Find(id);
             db.Adverts.Remove(advert);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Close(int id = 0)
+        {
+            Advert advert = db.Adverts.Find(id);
+            if (advert == null)
+            {
+                return HttpNotFound();
+            }
+            return View(advert);
+        }
+
+        //
+        // POST: /Advert/Delete/5
+
+        [HttpPost, ActionName("Close")]
+        public ActionResult CloseConfirmed(int id)
+        {
+            Advert advert = db.Adverts.Find(id);
+            db.Adverts.FirstOrDefault(x => x.AdvertId == advert.AdvertId).Status = "Fermée";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

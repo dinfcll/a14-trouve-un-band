@@ -9,7 +9,7 @@
         ViewBag.Title = "Annonces";
     }
     <div class="form-group col-md-12">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <h2>Annonces</h2>
         </div>
         <div class="col-md-4">
@@ -27,7 +27,7 @@
         </div>
         @foreach (var item in Model)
         {
-            if (item.Status == "En cours")
+            if (User.Identity.Name == item.User.Nickname)
             {
                 <div class="col-md-12">
                     <div class="col-md-4 form-group">
@@ -40,6 +40,7 @@
                             var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.AdvertPhoto);
                             <img src="@photo" width="230" height="172" class="photo" alt="Image">
                         }
+                        
                     </div>
                     <div class="col-md-8 col-md-pull-1" id="AdvertDesc">
                         <div class="col-md-12 form-group">
@@ -55,24 +56,36 @@
                             <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(item.Location)
                         </div>
                         <div class="col-md-3 form-group col-md-pull-2">
+                        @if(item.Status == "En cours")
+                        {
                             <span class="glyphicon glyphicon-ok"></span> @Html.DisplayName(item.Status)
+                        }
+                        else
+                            if (item.Status == "En attente")
+                            {
+                                <span class="glyphicon glyphicon-time"></span> @Html.DisplayName(item.Status)
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-remove"></span> @Html.DisplayName(item.Status)
+                            }
                         </div>
                         <div class="col-md-12 form-group">
                             <hr class="colorgraph" />
                             @Html.TextArea("DescriptionArea", item.Description, new { @class = "form-control", @readonly = "readonly", @rows = "6" })
                         </div>
-                        @if (item.User.Nickname == User.Identity.Name)
-                        {
-                            <div class="col-md-4">
-                                @Html.ActionLink("Modifier l'annonce", "Edit", new { id = item.AdvertId }, new { @class = "btn btn-primary col-md-12" })
-                            </div>
-                            <div class="col-md-4">
-                                @Html.ActionLink("Fermer l'annonce", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-warning col-md-12" })
-                            </div>
-                            <div class="col-md-4">          
-                                @Html.ActionLink("Supprimer l'annonce", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-danger col-md-12" })
-                            </div>
-                        }
+                            @if (item.User.Nickname == User.Identity.Name)
+                            {
+                                <div class="col-md-4">
+                                    @Html.ActionLink("Modifier l'annonce", "Edit", new { id = item.AdvertId }, new { @class = "btn btn-primary col-md-12" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.ActionLink("Fermer l'annonce", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-warning col-md-12" })
+                                </div>
+                                <div class="col-md-4">          
+                                    @Html.ActionLink("Supprimer l'annonce", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-danger col-md-12" })
+                                </div>
+                            }
                     </div>
                 </div>
                 <div class="col-md-12">

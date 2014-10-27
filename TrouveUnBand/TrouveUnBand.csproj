@@ -410,15 +410,16 @@
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
     <Content Include="Views\Event\Index.cshtml" />
-    <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Delete.cshtml" />
     <Content Include="Views\Advert\Index.cshtml" />
-    <Content Include="Views\Advert\Details.cshtml" />
     <Content Include="Views\Advert\Create.cshtml" />
     <Content Include="Views\Advert\Edit.cshtml" />
     <Content Include="Views\Advert\Delete.cshtml" />
+    <Content Include="Views\Event\Details.cshtml" />
+    <Content Include="Views\Advert\MyAdverts.cshtml" />
+    <Content Include="Views\Advert\Close.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
