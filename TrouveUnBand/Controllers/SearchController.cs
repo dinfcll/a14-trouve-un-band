@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Controllers
 {
     public class SearchController : Controller
-    {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
+    {      
         private const string OPTION_ALL      = "option_all";
         private const string OPTION_BAND     = "option_band";
         private const string OPTION_MUSICIAN = "option_musician";
         private const string OPTION_USER     = "option_user";
 
+        private readonly TrouveUnBandEntities db = new TrouveUnBandEntities();
+
         public ActionResult Index(string SearchString)
         {
-            List<SearchResult> ResultsList = new List<SearchResult>();
+            List<SearchResult> resultsList = new List<SearchResult>();
 
             SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
-            SelectList subgenresCkB = new SelectList(db.Sub_Genres, "Sub_GenreId", "Name");
 
             List<String> genresList = db.Genres.Select(x => x.Name).ToList();
             List<List<String>> subgenresList = new List<List<String>>();
@@ -41,31 +39,17 @@ namespace TrouveUnBand.Controllers
                 new { value=OPTION_USER, text="des utilisateurs" }
             }, "value", "text");
 
-            List<Band> bandsList = GetBands(0, SearchString, "");
-            List<Musician> musiciansList = GetMusicians(0, SearchString, "");
+            List<Band> bandsList = BandDao.GetBands(0, SearchString, "");
+            List<Musician> musiciansList = MusicianDao.GetMusicians(0, SearchString, "");
 
-            foreach (Band band in bandsList)
+            foreach (var band in bandsList) 
             {
-                ResultsList.Add(new SearchResult
-                {
-                    Name = band.Name,
-                    Description = band.Description,
-                    Location = band.Location,
-                    Type = "Band"
-                });
+                resultsList.Add(new SearchResult(band)); 
             }
 
-            foreach (Musician musician in musiciansList)
+            foreach (var musician in musiciansList)
             {
-                User user = db.Users.Find(musician.UserId);
-
-                ResultsList.Add(new SearchResult
-                {
-                    Name = user.FirstName + " " + user.LastName,
-                    Description = musician.Description,
-                    Location = user.Location,
-                    Type = "Musicien"
-                });
+                resultsList.Add(new SearchResult(musician));
             }
 
             ViewBag.GenresList = genresDDL;
@@ -73,8 +57,8 @@ namespace TrouveUnBand.Controllers
             ViewBag.Subgenres = subgenresList;
             ViewBag.CategoriesList = categoriesDDL;
             ViewBag.SearchString = SearchString;
-            ViewBag.ResultsList = ResultsList;
-            ViewBag.ResultNumber = ResultsList.Count();
+            ViewBag.ResultsList = resultsList;
+            ViewBag.ResultNumber = resultsList.Count();
 
             return View();
         }
@@ -82,97 +66,66 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location)
         {
-            List<SearchResult> ResultsList = new List<SearchResult>();
+            List<SearchResult> resultsList = new List<SearchResult>();
+            List<Band> bandsList = new List<Band>();
+            List<Musician> musiciansList = new List<Musician>();
+            List<User> usersList = new List<User>();
 
             switch (DDLCategories)
             {
                 case OPTION_ALL:
 
-                    List<Band> bandsList = GetBands(DDLGenres, SearchString, Location);
-                    List<Musician> musiciansList = GetMusicians(DDLGenres, SearchString, Location);
+                    bandsList = BandDao.GetBands(DDLGenres, SearchString, Location);
+                    musiciansList = MusicianDao.GetMusicians(DDLGenres, SearchString, Location);
 
                     foreach (Band band in bandsList)
                     {
-                        ResultsList.Add(new SearchResult 
-                        { 
-                            Name = band.Name, 
-                            Description = band.Description, 
-                            Location = band.Location, 
-                            Type = "Band" 
-                        });
+                        resultsList.Add(new SearchResult(band));
                     }
 
                     foreach (Musician musician in musiciansList)
                     {
-                        User user = db.Users.Find(musician.UserId);
-
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = musician.Description,
-                            Location = user.Location,
-                            Type = "Musicien"
-                        });
+                        resultsList.Add(new SearchResult(musician));
                     }
 
                     break;
 
                 case OPTION_BAND:
 
-                    bandsList = GetBands(DDLGenres, SearchString, Location);
+                    bandsList = BandDao.GetBands(DDLGenres, SearchString, Location);
 
                     foreach (Band band in bandsList)
                     {
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = band.Name,
-                            Description = band.Description,
-                            Location = band.Location,
-                            Type = "Band"
-                        });
+                        resultsList.Add(new SearchResult(band));
                     }
 
                     break;
 
                 case OPTION_MUSICIAN:
 
-                    musiciansList = GetMusicians(DDLGenres, SearchString, Location);
+                    musiciansList = MusicianDao.GetMusicians(DDLGenres, SearchString, Location);
 
                     foreach (Musician musician in musiciansList)
                     {
-                        User user = db.Users.Find(musician.UserId);
-
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = musician.Description,
-                            Location = user.Location,
-                            Type = "Musicien"
-                        });
+                        resultsList.Add(new SearchResult(musician));
                     }
 
                     break;
 
                 case OPTION_USER:
 
-                    List<User> usersList = GetUsers(SearchString, Location);
+                    usersList = UserDao.GetUsers(SearchString, Location);
 
                     foreach (User user in usersList)
                     {
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = "",
-                            Location = user.Location,
-                            Type = "Utilisateur"
-                        });
+                        resultsList.Add(new SearchResult(user));
                     }
 
                     break;
             }
 
-            ViewBag.ResultsList = ResultsList;
-            ViewBag.ResultNumber = ResultsList.Count();
+            ViewBag.ResultsList = resultsList;
+            ViewBag.ResultNumber = resultsList.Count();
 
             return PartialView("_SearchResults");
         }
@@ -180,7 +133,7 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult AdvancedFilter(string SearchString, string Location, string Radius, string rbCategories, params String[] CbSubgenres)
         {
-            List<SearchResult> ResultsList = new List<SearchResult>();
+            List<SearchResult> resultsList = new List<SearchResult>();
             List<String> SelectedGenres = new List<String>();
 
             foreach (string genre in CbSubgenres)
@@ -195,229 +148,59 @@ namespace TrouveUnBand.Controllers
             {
                 case OPTION_ALL:
 
-                    List<Band> Bands = GetBands(SelectedGenres, SearchString, Location);
-                    List<Musician> Musicians = GetMusicians(SelectedGenres, SearchString, Location);
+                    List<Band> Bands = BandDao.GetBands(SelectedGenres, SearchString, Location);
+                    List<Musician> Musicians = MusicianDao.GetMusicians(SelectedGenres, SearchString, Location);
 
                      foreach (Band band in Bands)
-                    {
-                        ResultsList.Add(new SearchResult 
-                        { 
-                            Name = band.Name, 
-                            Description = band.Description, 
-                            Location = band.Location, 
-                            Type = "Band"
-                        });
-                    }
+                     {
+                         resultsList.Add(new SearchResult(band));
+                     }
 
                     foreach (Musician musician in Musicians)
                     {
-                        User user = db.Users.Find(musician.UserId);
-
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = musician.Description,
-                            Location = user.Location,
-                            Type = "Musicien"
-                        });
+                        resultsList.Add(new SearchResult(musician));
                     }
 
                     break;
 
                 case OPTION_BAND:
 
-                    Bands = GetBands(SelectedGenres, SearchString, Location);
+                    Bands = BandDao.GetBands(SelectedGenres, SearchString, Location);
                     
                     foreach (Band band in Bands)
                     {
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = band.Name,
-                            Description = band.Description,
-                            Location = band.Location,
-                            Type = "Band"
-                        });
+                        resultsList.Add(new SearchResult(band));
                     }
 
                     break;
 
                 case OPTION_MUSICIAN:
 
-                    Musicians = GetMusicians(SelectedGenres, SearchString, Location);
+                    Musicians = MusicianDao.GetMusicians(SelectedGenres, SearchString, Location);
 
                     foreach (Musician musician in Musicians)
                     {
-                        User user = db.Users.Find(musician.UserId);
-
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = musician.Description,
-                            Location = user.Location,
-                            Type = "Musicien"
-                        });
+                        resultsList.Add(new SearchResult(musician));
                     }
 
                     break;
 
                 case OPTION_USER:
 
-                    List<User> usersList = GetUsers(SearchString, Location);
+                    List<User> usersList = UserDao.GetUsers(SearchString, Location);
 
                     foreach (User user in usersList)
                     {
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = "",
-                            Location = user.Location,
-                            Type = "Utilisateur"
-                        });
+                        resultsList.Add(new SearchResult(user));
                     }
 
                     break;
             }
 
-            ViewBag.ResultsList = ResultsList;
-            ViewBag.ResultNumber = ResultsList.Count();
+            ViewBag.ResultsList = resultsList;
+            ViewBag.ResultNumber = resultsList.Count();
 
             return PartialView("_SearchResults"); 
-        }
-
-        public List<Band> GetBands(int? GenreID, string BandName, string Location)
-        {
-            List<Band> lstResults = new List<Band>();
-
-            var bands = from band in db.Bands
-                        select band;
-
-            if (GenreID > 0)
-            {
-                bands = bands.Where(band => band.Sub_Genres.Any(genre => genre.GenreId == GenreID));
-            }
-            if (!String.IsNullOrEmpty(BandName))
-            {
-                bands = bands.Where(band => band.Name.Contains(BandName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                bands = bands.Where(band => band.Location.Contains(Location));
-            }
-
-            lstResults.AddRange(bands);
-
-            return lstResults;
-        }
-
-        public List<Band> GetBands(List<String> Subgenres, string BandName, string Location)
-        {
-            List<Band> lstResults = new List<Band>();
-
-            var bands = from band in db.Bands select band;
-
-            if (Subgenres.Count > 0)
-            {
-                foreach (String GenreName in Subgenres)
-                {
-                    bands = bands.Where(band => band.Sub_Genres.Any(genre => genre.Name.Equals(GenreName)));
-                }
-            }
-
-            if (!String.IsNullOrEmpty(BandName))
-            {
-                bands = bands.Where(band => band.Name.Contains(BandName));
-            }
-
-            if (!String.IsNullOrEmpty(Location))
-            {
-                bands = bands.Where(band => band.Location.Contains(Location));
-            }
-
-            lstResults.AddRange(bands);
-
-            return lstResults;
-        }
-
-        public List<Musician> GetMusicians(int? GenreID, string UserName, string Location)
-        {
-            List<Musician> lstResults = new List<Musician>();
-
-            var musicians = from musician in db.Musicians
-                            select musician;
-
-            if (GenreID != null)
-            {
-                musicians = musicians.Where(musician => musician.Sub_Genres.Any(genre => genre.GenreId == GenreID));
-            }
-
-            if (!String.IsNullOrEmpty(UserName))
-            {
-                musicians = musicians.Where(musician => musician.User.FirstName.Contains(UserName) ||
-                                            musician.User.LastName.Contains(UserName) ||
-                                            musician.User.Nickname.Contains(UserName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                musicians = musicians.Where(musician => musician.User.Location.Contains(Location));
-            }
-
-            lstResults.AddRange(musicians);
-
-            return lstResults;
-        }
-
-        public List<Musician> GetMusicians(List<String> Subgenres, string UserName, string Location)
-        {
-            List<Musician> lstResults = new List<Musician>();
-
-            var musicians = from musician in db.Musicians
-                            select musician;
-
-            if (Subgenres.Count > 0)
-            {
-                foreach (String GenreName in Subgenres)
-                {
-                    musicians = musicians.Where(musician => musician.Sub_Genres.Any(genre => genre.Name == GenreName));
-                }
-            }
-
-            if (!String.IsNullOrEmpty(UserName))
-            {
-                musicians = musicians.Where(musician => musician.User.FirstName.Contains(UserName) ||
-                                            musician.User.LastName.Contains(UserName) ||
-                                            musician.User.Nickname.Contains(UserName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                musicians = musicians.Where(musician => musician.User.Location.Contains(Location));
-            }
-
-            lstResults.AddRange(musicians);
-
-            return lstResults;
-        }
-
-        public List<User> GetUsers(string UserName, string Location)
-        {
-            List<User> lstResults = new List<User>();
-
-            var users = from user in db.Users
-                        select user;
-
-            if (!String.IsNullOrEmpty(UserName))
-            {
-                users = users.Where(user => user.FirstName.Contains(UserName) ||
-                                            user.LastName.Contains(UserName) ||
-                                            user.Nickname.Contains(UserName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                users = users.Where(user => user.Location.Contains(Location));
-            }
-
-            lstResults.AddRange(users);
-
-            return lstResults;
         }
     }
 }

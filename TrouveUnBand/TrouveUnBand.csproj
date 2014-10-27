@@ -170,6 +170,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\UserDao.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -177,6 +178,7 @@
     <Compile Include="Models\Band.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BandDao.cs" />
     <Compile Include="Models\Evenement.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
@@ -193,6 +195,7 @@
     <Compile Include="Models\Musician.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MusicianDao.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\Member.cs" />

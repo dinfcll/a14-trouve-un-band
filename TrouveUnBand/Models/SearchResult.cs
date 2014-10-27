@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
+using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 
 namespace TrouveUnBand.Models
 {
@@ -12,6 +15,31 @@ namespace TrouveUnBand.Models
         public string Description { get; set; }
         public string Location { get; set; }
         public string Type { get; set; }
-        public string Genres { get; set; }
+        private readonly TrouveUnBandEntities _db = new TrouveUnBandEntities();
+
+        public SearchResult(Band band)
+        {
+            Name = band.Name;
+            Description = band.Description;
+            Location = band.Location;
+            Type = "Band";
+        }
+
+        public SearchResult(Musician musician)
+        {
+            User user = _db.Users.Find(musician.UserId);
+            Name = user.FirstName + " " + user.LastName;
+            Description = musician.Description;
+            Location = user.Location;
+            Type = "Musician";
+        }
+
+        public SearchResult(User user)
+        {
+            Name = user.FirstName + " " + user.LastName;
+            Description = "";
+            Location = user.Location;
+            Type = "Utilisateur";
+        }
     }
 }
