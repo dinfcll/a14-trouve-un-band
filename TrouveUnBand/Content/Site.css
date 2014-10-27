@@ -525,6 +525,36 @@ div.profile-tab-menu div.list-group{
     opacity: 0.7;
 }
 
+#profile-photo-carousel{
+    padding-right:0;
+}
+
 #profile-photo-carousel img{
-    min-width:561px;
+    width:561px;
+    height:386px;
+}
+
+#PicModal .modal-content {
+    display: inline-block;
+    text-align: center;  
+    background-color:transparent;
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0); 
+    border:0;
+}
+
+#PicModal .close {
+    opacity: 1;
+    color: rgb(255, 255, 255);
+    background-color: rgb(25, 25, 25);
+    padding: 5px 8px;
+    border-radius: 30px;
+    border: 2px solid rgb(255, 255, 255);
+    position: absolute;
+    top: -15px;
+    right: -55px;
+    
+    z-index:1032;
 }

@@ -10,13 +10,12 @@ namespace TrouveUnBand.Models
     {
         public Photo ProfilePicture { get; set; }
 
-        //Musician info tab
+        //Musician info
         public string Name { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
         public string Influences { get; set; }
-        public List<string> InstrumentName { get; set; }
-        public List<string> InstrumentSkill { get; set; }
+        public Musician_Instrument InstrumentInfo { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }
         
 
@@ -25,6 +24,12 @@ namespace TrouveUnBand.Models
         public string Availability { get; set; }
         public string Frequency { get; set; }
         public string SeekingMessage { get; set; }
+
+        public MusicianProfileViewModel()
+        {
+            InstrumentInfo = new Musician_Instrument();
+            ProfilePicture = new Photo();
+        }
      }
 
 }

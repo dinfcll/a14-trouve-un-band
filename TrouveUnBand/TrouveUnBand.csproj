@@ -177,6 +177,7 @@
     <Compile Include="Models\Band.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BandProfileViewModel.cs" />
     <Compile Include="Models\Genre.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
@@ -308,7 +309,9 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
     <Content Include="Scripts\NavBarActive.js" />
-    <Content Include="Scripts\ProfilePageInfo.js" />
+    <Content Include="Scripts\PictureDialog.js" />
+    <Content Include="Scripts\ProfilePage.js" />
+    <Content Include="Scripts\TopSecret.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -405,12 +408,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Users\test.cshtml" />
     <Content Include="Views\Users\ImageCropperDialog.cshtml" />
     <Content Include="Views\Users\ViewPictureDialog.cshtml" />
     <Content Include="Views\Users\MusicianProfile.cshtml" />
     <Content Include="Views\Users\_MusicianProfileInfo.cshtml" />
     <Content Include="Views\Users\_MusicianProfilePhoto.cshtml" />
+    <Content Include="Views\Users\BandProfile.cshtml" />
+    <Content Include="Views\Users\_BandProfileInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />

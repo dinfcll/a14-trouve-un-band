@@ -1,56 +1,53 @@
 ﻿@model TrouveUnBand.Models.MusicianProfileViewModel
 
-<div class="carousel slide article-slide col-md-12" id="profile-photo-carousel">
+<div class="carousel slide col-md-12" id="profile-photo-carousel" style="padding-left:0;">
     <div class="carousel-inner cont-slider">
-        <div class="item active">
+        <div class="item active" data-slide="0">
             <img alt="" title="" src="@Model.ProfilePicture.stringProfilePicture" />
         </div>
-        <div class="item">
+        <div class="item" data-slide="1">
             <img alt="" title="" src="http://placehold.it/561x386" />
         </div>
-        <div class="item">
+        <div class="item" data-slide="2">
             <img alt="" title="" src="http://placehold.it/561x386" />
         </div>
-        <div class="item">
+        <div class="item" data-slide="3">
             <img alt="" title="" src="http://placehold.it/561x386" />
         </div>
-        <div class="item">
+        <div class="item" data-slide="4">
             <img alt="" title="" src="http://placehold.it/561x386" />
         </div>
-        <div class="item">
+        <div class="item" data-slide="5">
             <img alt="" title="" src="http://placehold.it/561x386" />
         </div>
     </div>
+    <a class="left carousel-control" href="#profile-photo-carousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#profile-photo-carousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
 </div>
+
 <div class="profile-photo-list col-md-offset-9">
-    <ul class="list-unstyled ">
+    <ul class="list-unstyled">
         <li class="active" data-slide-to="0" data-target="#profile-photo-carousel">
             <img width="120" alt="" src="@Model.ProfilePicture.stringProfilePicture" />
         </li>
         <li data-slide-to="1" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/250x172">
+            <img width="120" alt="" src="http://placehold.it/561x386">
         </li>
         <li data-slide-to="2" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/250x172">
+            <img width="120" alt="" src="http://placehold.it/561x386">
         </li>
         <li data-slide-to="3" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/250x172">
+            <img width="120" alt="" src="http://placehold.it/561x386">
         </li>
-        <li data-slide-to="4" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/250x172">
+        <li id="fafa" data-slide-to="4" data-target="#profile-photo-carousel">
+            <img width="120" alt="" src="http://placehold.it/561x386">
         </li>
         <li data-slide-to="5" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/250x172">
+            <img width="120" alt="" src="http://placehold.it/561x386">
         </li>
     </ul>
 </div>
-
-<script>
-    $(document).ready(function () {
-
-        $(".profile-photo-list li").click(function () {
-            $(".profile-photo-list li").removeClass("active");
-            $(this).addClass("active");
-        });
-    });
-</script>

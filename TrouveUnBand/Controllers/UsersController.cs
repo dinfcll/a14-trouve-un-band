@@ -25,11 +25,6 @@ namespace TrouveUnBand.Controllers
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-        public ActionResult test()
-        {
-            return View();
-        }
-
         public ActionResult Index()
         {
             return View();
@@ -47,22 +42,24 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult ViewProfile(string type, int Id)
         {
-            switch(type.ToUpper())
+            switch (type.ToUpper())
             {
-                case "MUSICIEN" : //view model
+                case "MUSICIEN": //view model
                     Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
-                    MusicianProfileViewModel ViewProfile = CreateMusicianProfileView(musician);
-                    return View("MusicianProfile", ViewProfile);
-                
+                    MusicianProfileViewModel MusicianProfile = CreateMusicianProfileView(musician);
+                    return View("MusicianProfile", MusicianProfile);
+
                 case "BAND":
-                    break;
-                
+                    Band band = db.Bands.FirstOrDefault(x => x.BandId == Id);
+                    BandProfileViewModel BandProfile = CreateBandProfileView(band);
+                    return View("BandProfile", BandProfile);
+
                 case "EVENT":
                     break;
-                
+
                 case "PROMOTER":
                     break;
-               
+
                 default:
                     break;
             }
@@ -282,21 +279,21 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult UserProfileModification(User user)
         {
-                user.Nickname = User.Identity.Name;
-                string RC = "";
+            user.Nickname = User.Identity.Name;
+            string RC = "";
 
-                RC = UpdateProfil(user);
+            RC = UpdateProfil(user);
 
-                if (RC == "")
-                {
-                    TempData["success"] = "Le profil a été mis à jour.";
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    TempData["TempDataError"] = "Une erreur interne s'est produite";
-                    return RedirectToAction("ProfileModification", "Users");
-                }
+            if (RC == "")
+            {
+                TempData["success"] = "Le profil a été mis à jour.";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["TempDataError"] = "Une erreur interne s'est produite";
+                return RedirectToAction("ProfileModification", "Users");
+            }
         }
 
         [HttpPost]
@@ -413,8 +410,8 @@ namespace TrouveUnBand.Controllers
 
             client.BaseAddress = new Uri("https://maps.googleapis.com");
 
-            var response = client.GetAsync("/maps/api/geocode/json?address=" 
-                                            + user.Location 
+            var response = client.GetAsync("/maps/api/geocode/json?address="
+                                            + user.Location
                                             + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
                                             ).Result;
 
@@ -432,17 +429,17 @@ namespace TrouveUnBand.Controllers
             return user;
         }
 
-        public string GetDistance(double LatitudeP1,double LongitudeP1, double LatitudeP2, double LongitudeP2)
+        public string GetDistance(double LatitudeP1, double LongitudeP1, double LatitudeP2, double LongitudeP2)
         {
-                double R = 6378.137; // Earth’s mean radius in kilometer
-                var lat = ToRadians(LatitudeP2 - LatitudeP1);
-                var lng = ToRadians(LongitudeP2 - LongitudeP1);
-                var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
-                              Math.Cos(ToRadians(LatitudeP1)) * Math.Cos(ToRadians(LatitudeP2)) *
-                              Math.Sin(lng / 2) * Math.Sin(lng / 2);
-                var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
-                int d=  (int)(R * h2);
-                return d.ToString() + " kilomètres";
+            double R = 6378.137; // Earth’s mean radius in kilometer
+            var lat = ToRadians(LatitudeP2 - LatitudeP1);
+            var lng = ToRadians(LongitudeP2 - LongitudeP1);
+            var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
+                          Math.Cos(ToRadians(LatitudeP1)) * Math.Cos(ToRadians(LatitudeP2)) *
+                          Math.Sin(lng / 2) * Math.Sin(lng / 2);
+            var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
+            int d = (int)(R * h2);
+            return d.ToString() + " kilomètres";
         }
 
         private static double ToRadians(double val)
@@ -480,7 +477,7 @@ namespace TrouveUnBand.Controllers
                         image = ResizeOriginalImage(image, 172, 250, 413, 600);
                     }
 
-                    byte[] croppedImage = CropImage(image, 
+                    byte[] croppedImage = CropImage(image,
                                           UserPicture.ProfilePicture.PicX,
                                           UserPicture.ProfilePicture.PicY,
                                           UserPicture.ProfilePicture.PicWidth,
@@ -512,7 +509,7 @@ namespace TrouveUnBand.Controllers
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 g.CompositingQuality = CompositingQuality.HighQuality;
 
-                g.DrawImage(btmOriginalImage, new Rectangle(0, 0, btmNewImage.Width, btmNewImage.Height),CropRect,GraphicsUnit.Pixel);
+                g.DrawImage(btmOriginalImage, new Rectangle(0, 0, btmNewImage.Width, btmNewImage.Height), CropRect, GraphicsUnit.Pixel);
             }
 
             CroppedImage = GetBitmapBytes(btmNewImage);
@@ -600,31 +597,65 @@ namespace TrouveUnBand.Controllers
 
         }
 
-        private MusicianProfileViewModel CreateMusicianProfileView(Musician musician)
+        private List<Musician_Instrument> SetMusician_Instrument(List<Musician> musicians)
         {
-            MusicianProfileViewModel ProfileView = new MusicianProfileViewModel();
-
-            User user = db.Users.FirstOrDefault(x => x.UserId == musician.UserId);
-
-            ICollection<Join_Musician_Instrument> ListOfInstruments = musician.Join_Musician_Instrument.OrderByDescending(x => (x.Skills)).ToList();
-            List<string> InstrumentName = new List<string>();
+            List<Musician_Instrument> InstrumentInfoList = new List<Musician_Instrument>();
+            ICollection<Join_Musician_Instrument> ListOfInstruments;
             List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
 
-            ProfileView.InstrumentName = new List<string>();
-            ProfileView.InstrumentSkill = new List<string>();
-            for (int i = 0; i < ListOfInstruments.Count; i++)
+            //Pass through each musician
+            for (int i = 0; i < musicians.Count; i++)
             {
-                ProfileView.InstrumentName.Add(ListOfInstruments.ElementAt(i).Instrument.Name);
-                ProfileView.InstrumentSkill.Add(SkillList[ListOfInstruments.ElementAt(i).Skills]);
+                ListOfInstruments = musicians.ElementAt(i)
+                                    .Join_Musician_Instrument
+                                    .OrderByDescending(x => (x.Skills))
+                                    .ToList();
+
+                Musician_Instrument InstrumentInfo = new Musician_Instrument();
+
+                //for each musician, pass through each instrument
+                for (int j = 0; j < ListOfInstruments.Count; j++)
+                {
+                    InstrumentInfo.InstrumentNames
+                        .Add(ListOfInstruments.ElementAt(j).Instrument.Name);
+
+                    InstrumentInfo.Skills
+                        .Add(SkillList[ListOfInstruments.ElementAt(j).Skills]);
+                }
+                InstrumentInfoList.Add(InstrumentInfo);
             }
 
-            ProfileView.Description = musician.Description;
-            ProfileView.Name = user.FirstName + " " + user.LastName;
-            ProfileView.Location = user.Location;
-            ProfileView.ProfilePicture = new Photo();
-            ProfileView.ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+            return InstrumentInfoList;
+        }
 
-            return ProfileView;
+        private MusicianProfileViewModel CreateMusicianProfileView(Musician musician)
+        {
+            MusicianProfileViewModel MusicianView = new MusicianProfileViewModel();
+            User user = db.Users.FirstOrDefault(x => x.UserId == musician.UserId);
+
+            List<Musician> MusicianList = new List<Musician>();
+            MusicianList.Add(musician);
+            List<Musician_Instrument> InstrumentInfos = SetMusician_Instrument(MusicianList);
+
+            MusicianView.InstrumentInfo = InstrumentInfos[0];
+            MusicianView.Description = musician.Description;
+            MusicianView.Name = user.FirstName + " " + user.LastName;
+            MusicianView.Location = user.Location;
+            MusicianView.ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+
+            return MusicianView;
+        }
+
+        private BandProfileViewModel CreateBandProfileView(Band band)
+        {
+            BandProfileViewModel BandView = new BandProfileViewModel();
+
+            //BandView.InstrumentInfoList = SetMusician_Instrument(band.Musicians.ToList());
+            BandView.Name = band.Name;
+            BandView.Description = band.Description;
+            BandView.Location = band.Location;
+
+            return BandView;
         }
     }
 }
