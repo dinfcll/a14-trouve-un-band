@@ -33,6 +33,7 @@ $("#btnTicTacToeNewGame").click(function () {
     $("#TicTacToe .btn-tic-tac-toe").removeClass("X");
     $("#TicTacToe .btn-tic-tac-toe").addClass("btn-default");
     $("#TicTacToe .btn-tic-tac-toe").prop('disabled', false);
+    PlayedTurn = 0;
 });
 
 function CheckWin() {
@@ -99,8 +100,8 @@ function CheckWin() {
         $("#XWin").val(X_Win);
     }
     else if (PlayedTurn == 9) {
-        alert('Égalité!')
-        PlayedTurn = 0
+        alert('Égalité!');
+        PlayedTurn = 0;
     }
 }
 

@@ -67,20 +67,21 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult Register(UserValidation userModel)
         {
             string RC = "";
             if (ModelState.IsValid)
             {
-                if (user.Password == user.ConfirmPassword)
+                if (userModel.Password == userModel.ConfirmPassword)
                 {
-                    user = SetUserLocation(user);
-                    user.Photo = StockPhoto();
-                    RC = Insertcontact(user);
+                    userModel = SetUserLocation(userModel);
+                    userModel.ProfilePicture.byteProfilePicture = StockPhoto();
+                    User userBD = CreateUserFromModel(userModel);
+                    RC = Insertcontact(userBD);
                     if (RC == "")
                     {
                         TempData["success"] = "L'inscription est confirmée!";
-                        FormsAuthentication.SetAuthCookie(user.Nickname, false);
+                        FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -93,14 +94,14 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        private string Insertcontact(User user)
+        private string Insertcontact(User userbd)
         {
             try
             {
                 var ValidUserQuery = (from User in db.Users
                                       where
-                                      User.Email.Equals(user.Email) ||
-                                      User.Nickname.Equals(user.Nickname)
+                                      User.Email.Equals(userbd.Email) ||
+                                      User.Nickname.Equals(userbd.Nickname)
                                       select new SearchUserInfo
                                       {
                                           Nickname = User.Nickname,
@@ -110,8 +111,8 @@ namespace TrouveUnBand.Controllers
                 if (ValidUserQuery == null)
                 {
                     db.Database.Connection.Open();
-                    user.Password = Encrypt(user.Password);
-                    db.Users.Add(user);
+                    userbd.Password = Encrypt(userbd.Password);
+                    db.Users.Add(userbd);
                     db.SaveChanges();
                     db.Database.Connection.Close();
                     return "";
@@ -190,25 +191,16 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string UpdateProfil(User user)
+        private string UpdateProfil(UserValidation userModel)
         {
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
-
-                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != user.Location)
+                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
+                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != userModel.Location)
                 {
-                    user = SetUserLocation(user);
+                    userModel = SetUserLocation(userModel);
                 }
-
-                LoggedOnUser.LastName = user.LastName;
-                LoggedOnUser.Location = user.Location;
-                LoggedOnUser.BirthDate = user.BirthDate;
-                LoggedOnUser.Email = user.Email;
-                LoggedOnUser.FirstName = user.FirstName;
-                LoggedOnUser.Gender = user.Gender;
-                LoggedOnUser.Latitude = user.Latitude;
-                LoggedOnUser.Longitude = user.Longitude;
+                LoggedOnUser = CreateUserFromModel(userModel, LoggedOnUser);
 
                 db.SaveChanges();
 
@@ -241,8 +233,6 @@ namespace TrouveUnBand.Controllers
                 {
                     MusicianQuery.Description = musician.Description;
                     MusicianQuery.Join_Musician_Instrument.Clear();
-                    MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
-                    MusicianQuery.User.ConfirmPassword = MusicianQuery.User.Password;
                     db.SaveChanges();
                 }
 
@@ -258,16 +248,14 @@ namespace TrouveUnBand.Controllers
         {
             ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
 
-            User LoggedOnUser = GetUserInfo(User.Identity.Name);
-            if (LoggedOnUser.Photo != null)
+            UserValidation LoggedOnUserValid = GetUserInfo(User.Identity.Name);
+            if (LoggedOnUserValid.Photo != null)
             {
-                LoggedOnUser.ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
+                LoggedOnUserValid.ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUserValid.Photo);
             }
+            ViewData["UserData"] = LoggedOnUserValid;
 
-            User UserQuery = db.Users.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
-            ViewData["UserData"] = UserQuery;
-
-            Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
+            Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUserValid.UserId);
             if (MusicianQuery == null)
             {
                 MusicianQuery = new Musician();
@@ -277,12 +265,14 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserProfileModification(User user)
+        public ActionResult UserProfileModification(UserValidation userModel)
         {
-            user.Nickname = User.Identity.Name;
+            //la modification du user ne marche pas, dans la ligne suivante soit qu'il ne garde pas la photo et les
+            //coordonées soit qu'il perd ses nouvelles info
+            userModel.Nickname = User.Identity.Name;
             string RC = "";
 
-            RC = UpdateProfil(user);
+            RC = UpdateProfil(userModel);
 
             if (RC == "")
             {
@@ -349,12 +339,12 @@ namespace TrouveUnBand.Controllers
             return allUnique;
         }
 
-        private User GetUserInfo(string Nickname)
+        private UserValidation GetUserInfo(string Nickname)
         {
-            User LoggedOnUser = new User();
+            UserValidation LoggedOnUser = new UserValidation();
             try
             {
-                LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
+                LoggedOnUser = new UserValidation(db.Users.FirstOrDefault(x => x.Nickname == Nickname));
             }
             catch (DbEntityValidationException ex)
             {
@@ -392,19 +382,18 @@ namespace TrouveUnBand.Controllers
 
         public string GetUserFullName()
         {
-            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            UserValidation LoggedOnUser = GetUserInfo(User.Identity.Name);
             return LoggedOnUser.FirstName + " " + LoggedOnUser.LastName;
         }
 
         public string GetPhotoName()
         {
-            User LoggedOnUser = GetUserInfo(User.Identity.Name);
-            string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
+            UserValidation LoggedOnUser = GetUserInfo(User.Identity.Name);
+            string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.ProfilePicture.byteProfilePicture);
             return PhotoName;
-
         }
 
-        public User SetUserLocation(User user)
+        public UserValidation SetUserLocation(UserValidation user)
         {
             var client = new HttpClient();
 
@@ -449,7 +438,7 @@ namespace TrouveUnBand.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult CropImage(User UserPicture)
+        public virtual ActionResult CropImage(UserValidation UserPicture)
         {
             User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
             if (Request.Files[0].ContentLength == 0)
@@ -656,6 +645,30 @@ namespace TrouveUnBand.Controllers
             BandView.Location = band.Location;
 
             return BandView;
+        }
+
+        private User CreateUserFromModel(UserValidation UserValid)
+        {
+            User user = new User();
+            user = CreateUserFromModel(UserValid, user);
+            return user;
+        }
+
+        private User CreateUserFromModel(UserValidation UserValid, User user)
+        {
+            user.BirthDate = UserValid.BirthDate;
+            user.Email = UserValid.Email;
+            user.FirstName = UserValid.FirstName;
+            user.Gender = UserValid.Gender;
+            user.LastName = UserValid.LastName;
+            user.Latitude = UserValid.Latitude;
+            user.Location = UserValid.Location;
+            user.Longitude = UserValid.Longitude;
+            user.Musicians = UserValid.Musicians;
+            user.Nickname = UserValid.Nickname;
+            user.Photo = UserValid.ProfilePicture.byteProfilePicture;
+            user.UserId = UserValid.UserId;
+            return user;
         }
     }
 }

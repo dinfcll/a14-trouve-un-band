@@ -51,3 +51,18 @@ function hovertooltip() {
 function outtooltip() {
     $('#skillquestion').tooltip('destroy');
 }
+
+$(function () {
+    $('#datepicker').datetimepicker({
+        dateFormat: "yy-mm-dd"
+    });
+});
+
+$(function () {
+    $('#datepickernotime').datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true,
+        yearRange: '-90:+0'
+    });
+});
+

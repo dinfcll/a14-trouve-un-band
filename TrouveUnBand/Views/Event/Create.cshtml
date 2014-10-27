@@ -1,0 +1,103 @@
+﻿@model TrouveUnBand.Models.EventValidation
+
+@{
+    ViewBag.Title = "Création d'événement";
+}
+
+@if (User.Identity.Name == "")
+{
+    <h3>Veuillez vous identifier svp</h3>
+}
+else
+{
+    using (Html.BeginForm("Create", "Event", FormMethod.Post, new { @role = "form", @class="top-80", enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+
+        @Html.Hidden("Creator", User.Identity.Name)
+        <div  id="CreateEventForm">
+            <div class="container">
+                <div class="row form-group col-md-12">
+                    <div class="col-md-12">
+                        <h3>Créer un événement</h3>
+                        <hr class="colorgraph">
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(model => model.EventName, 
+                            new { @class = "form-control", @placeholder = "Nom de l'événement" })
+                        @Html.ValidationMessageFor(model => model.EventName)
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(model => model.EventLocation, 
+                            new { @class = "form-control", @placeholder = "Emplacement de l'événement" })
+                        @Html.ValidationMessageFor(model => model.EventLocation)
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.TextBoxFor(model => model.EventAddress, 
+                            new { @class = "form-control", @placeholder = "Adresse de l'emplacement" })
+                        @Html.ValidationMessageFor(model => model.EventAddress)
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.TextBoxFor(model => model.EventCity, 
+                            new { @class = "form-control", @placeholder = "Ville de l'emplacement" })
+                        @Html.ValidationMessageFor(model => model.EventCity)
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.TextBoxFor(model => model.EventDate, 
+                            new { @class = "form-control", @placeholder = "Date de l'événement", @id = "datepicker", @type = "date" })
+                        @Html.ValidationMessageFor(model => model.EventDate)
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(model => model.EventMaxAudience, 
+                            new { @class = "form-control", @placeholder = "Audience maximale" })
+                        @Html.ValidationMessageFor(model => model.EventMaxAudience)
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(model => model.EventSalary, 
+                            new { @class = "form-control", @placeholder = "Salaire pour l'événement ($)" })
+                        @Html.ValidationMessageFor(model => model.EventSalary)
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.DropDownList("EventGenreDB", 
+                            new SelectList(ViewBag.GenreListDB, "Name", "Name", 0), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(model => model.EventStageSize, 
+                            new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
+                        @Html.ValidationMessageFor(model => model.EventStageSize)
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.Label("Photo de l'événement")
+                        <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <hr class="colorgraph"/>
+                    </div>
+
+                    <div class="col-md-6">
+                         @Html.ActionLink("Retour", "Index", new { controller = "Event" }, 
+                            new { @class = "btn btn-default col-md-12" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <input type="submit" value="Créer l'événement" class="btn btn-primary col-md-12" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

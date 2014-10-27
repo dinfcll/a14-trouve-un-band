@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "BandProfile";
 }
-
+<canvas id="canvas" width="825" height="375"></canvas>
 <div class="profile-container">
     <div class="jumbotron col-md-12">
         <div class="thumbnail card col-md-3">
@@ -100,7 +100,6 @@
         <!--Contact end-->
     </div>
 </div>
-
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
      aria-hidden="true">
     @Html.Partial("ViewPictureDialog")
