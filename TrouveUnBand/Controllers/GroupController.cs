@@ -49,24 +49,28 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             if (Request.IsAuthenticated)
             {
-                User CurrentUser = GetCurrentUser();
-                List<Musician> CurrentMusician = new List<Musician>();
-                ViewBag.CurrentUser = CurrentUser;
-                bool b = CurrentUserIsMusician(CurrentUser, out CurrentMusician);
-                if (b)
-                {
-                    ViewData["myBand"] = new Band();
-                    ViewData["Musicians"] = CurrentMusician;
-                    //à la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
-                    ViewBag.CurrentMusician = CurrentMusician[0];
-                    ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-                    return View("Create");
-                }
-                else
-                {
-                    RC = "Aucun profile musicien n'est associé à ce compte. Veuillez vous créer un profile musicien";
-                    RedirectToAction("Index", "Home");
-                }
+                    User CurrentUser = GetCurrentUser();
+                    List<Musician> CurrentMusician = new List<Musician>();
+                    ViewBag.CurrentUser = CurrentUser;
+                    bool b = CurrentUserIsMusician(CurrentUser, out CurrentMusician);
+                    if (b)
+                    {
+                        if (Session["myBand"] == null)
+                        {
+                            Band myBand = new Band();
+                            myBand.Musicians.Add(CurrentMusician[0]);
+                            Session["myBand"] = myBand;
+                            //à la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
+                            ViewBag.CurrentMusician = CurrentMusician[0];
+                        }
+                        ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+                        return View("Create");
+                    }
+                    else
+                    {
+                        RC = "Aucun profile musicien n'est associé à ce compte. Veuillez vous créer un profile musicien";
+                        RedirectToAction("Index", "Home");
+                    }
             }
             else
             {
@@ -89,13 +93,24 @@ namespace TrouveUnBand.Controllers
             if (ExistingBand == null)
             {
                 ViewNameToReturn = "_ConfirmCreate";
+                db.SaveChanges();
             }
             else
             {
-                ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
-                db.SaveChanges();
-                band.Name = band.Name + " (" + band.Location + ")";
-                RC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
+                if (ExistingBand.Musicians.Contains((GetCurrentUser()).Musicians.ToList()[0]))
+                {
+                    db.Bands.Add(band);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
+                    band.Name = band.Name + " (" + band.Location + ")";
+                    db.Bands.Add(band);
+                    db.SaveChanges();
+                    RC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
+                }
+                ViewNameToReturn = "index";
             }
 
             TempData["TempDataError"] = RC;
@@ -186,31 +201,42 @@ namespace TrouveUnBand.Controllers
             return CurrentUser;
         }
 
-        public void AddMusician(int Musicianid)
+        [HttpPut]
+        public void AddMusician(int MusicianId)
         {
-            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
-            ((Band)ViewData["myBand"]).Musicians.Add(Query);
+            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
+            ((Band)Session["myBand"]).Musicians.Add(Query);
         }
 
+        [HttpDelete]
         public void RemoveMusician(int Musicianid)
         {
             var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
-            ((Band)ViewData["myBand"]).Musicians.Remove(Query);
+            ((Band)Session["myBand"]).Musicians.Remove(Query);
         }
 
-        public void AddGenre(int Genreid)
+        [HttpPut]
+        public ActionResult AddGenre()
         {
-            var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genreid);
-            ((Band)ViewData["myBand"]).Genres.Remove(Query);
+            int Genrelist = Convert.ToInt32(Request.Form["GenreList"]);
+            Genre Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
+            ((Band)Session["myBand"]).Genres.Add(Query);
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            return PartialView("_GenreTab");
         }
 
-        public void RemoveGenre(int Genreid)
+        [HttpDelete]
+        public ActionResult RemoveGenre(int GenreId)
         {
-            var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genreid);
-            ((Band)ViewData["myBand"]).Genres.Add(Query);
+            Genre Query = db.Genres.FirstOrDefault(x => x.GenreId == GenreId);
+            Band myBand = ((Band)Session["myBand"]);
+            myBand.Genres.Remove(myBand.Genres.Single( s => s.GenreId == Query.GenreId));
+            Session["myBand"] = myBand;
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            return PartialView("_GenreTab");
         }
 
-        public List<Musician> SearchMusician(String SearchString)
+        public List<Musician> SearchMusician(string SearchString)
         {
             string RC = "";
             List<Musician> musicians = new List<Musician>();
@@ -230,6 +256,11 @@ namespace TrouveUnBand.Controllers
 
             TempData["TempDataError"] = RC;
             return musicians;
+        }
+
+        public ActionResult BaseSubmit(Band myBand)
+        {
+            return View();
         }
     }
 }
