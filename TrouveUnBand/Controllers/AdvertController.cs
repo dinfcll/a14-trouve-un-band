@@ -25,19 +25,6 @@ namespace TrouveUnBand.Controllers
         }
 
         //
-        // GET: /Advert/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Advert advert = db.Adverts.Find(id);
-            if (advert == null)
-            {
-                return HttpNotFound();
-            }
-            return View(advert);
-        }
-
-        //
         // GET: /Advert/Create
 
         public ActionResult Create()
@@ -55,6 +42,7 @@ namespace TrouveUnBand.Controllers
             string CreatorNameDB = Request["CreatorName"];
             advert.Creator = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB).UserId;
             advert.GenresAdvert = Convert.ToInt32(Request["GenreAdvertDB"]);
+            advert.CreationDate = (DateTime)DateTime.Now;
             if (ModelState.IsValid)
             {
                 if (Request.Files[0].ContentLength != 0)

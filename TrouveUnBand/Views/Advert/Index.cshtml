@@ -38,11 +38,11 @@
                         <img src="@photo" width="230" height="172" class="photo" alt="Image">
                     }
                     <div class="row col-md-12 form-group" id="AdvertButton">
-                        @Html.ActionLink("Détails", "Details", new { id = item.AdvertId }, new { @class = "btn btn-default" })
+                        
                         @if (item.User.Nickname == User.Identity.Name)
                         {
                             @Html.ActionLink("Modifier", "Edit", new { id = item.AdvertId }, new { @class = "btn btn-primary" })
-                            <label> @Html.ActionLink("Annuler", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-danger" })</label>
+                            <label> @Html.ActionLink("Fermer l'annonce", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-danger" })</label>
                         }
                     </div>
                 </div>
@@ -50,14 +50,17 @@
                     <div class="col-md-12 form-group">
                         <h3>@Html.DisplayName(item.Type)</h3>
                     </div>
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-3 form-group">
                         <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayName(item.CreationDate.ToString("dd MMMM yyyy"))
                     </div>
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-3 form-group">
                         <span class="glyphicon glyphicon-music"></span> @Html.DisplayName(item.Genre.Name)
                     </div>
-                    <div class="col-md-4 form-group col-md-pull-1">
+                    <div class="col-md-3 form-group col-md-pull-1">
                         <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(item.Location)
+                    </div>
+                    <div class="col-md-3 form-group col-md-pull-2">
+                        <span class="glyphicon glyphicon-ok"></span> @Html.DisplayName(item.Status)
                     </div>
                     <div class="col-md-12 form-group">
                         <hr class="colorgraph" />

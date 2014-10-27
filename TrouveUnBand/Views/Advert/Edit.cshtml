@@ -27,35 +27,42 @@ else
 
                         @Html.Hidden("CreatorName", User.Identity.Name)
                         <div class="form-group col-md-6">
+                            @Html.Label("Nom de l'annonce")
                             @Html.TextBoxFor(model => model.Type,
                                 new { @class = "form-control", @placeholder = "Type d'Annonce" })
                             @Html.ValidationMessageFor(model => model.Type)
                         </div>
                         <div class="form-group col-md-6">
+                            @Html.Label("Emplacement")
                             @Html.TextBoxFor(model => model.Location,
-                                new { @class = "form-control", @placeholder = "Emplacement" })
+                                new { @class = "form-control", @placeholder = "Emplacement", @id = "datepicker", @type = "date" })
                             @Html.ValidationMessageFor(model => model.Location)
                         </div>
                         <div class="form-group col-md-6">
+                            @Html.Label("Genre Musical")
                             @Html.DropDownList("GenreAdvertDB", (IEnumerable<SelectListItem>)ViewBag.GenresAdvert, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.GenresAdvert)
                         </div>
                         <div class="form-group col-md-6">
+                            @Html.Label("Status")
                             @Html.TextBoxFor(model => model.Status,
                                 new { @class = "form-control", @placeholder = "Statut" })
                             @Html.ValidationMessageFor(model => model.Status)
                         </div>
                         <div class="form-group col-md-6">
+                            @Html.Label("Date de Création")
                             @Html.TextBoxFor(model => model.CreationDate,
-                                new { @class = "form-control", @placeholder = "Date" })
+                                new { @class = "form-control", @placeholder = "Date", @readonly = "readonly" })
                             @Html.ValidationMessageFor(model => model.CreationDate)
                         </div>
                         <div class="form-group col-md-6">
+                            @Html.Label("Date d'expiration")
                             @Html.TextBoxFor(model => model.ExpirationDate,
-                                new { @class = "form-control", @placeholder = "Date d'expiration de l'annonce" })
+                                new { @class = "form-control", @placeholder = "Date d'expiration de l'annonce", @id = "datepickernotime2", @type = "date" })
                             @Html.ValidationMessageFor(model => model.ExpirationDate)
                         </div>
                         <div class="form-group col-md-12">
+                            @Html.Label("Description")
                             @Html.TextAreaFor(model => model.Description,
                                 new { @class = "form-control", @placeholder = "Description" })
                             @Html.ValidationMessageFor(model => model.Description)
