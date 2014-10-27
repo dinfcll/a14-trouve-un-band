@@ -42,8 +42,8 @@ $(function() {
                     </ul>
                     @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class="navbar-form navbar-right", @role="search" }))
                     {
-                        @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
-                        @Html.ValidationMessage("SearchString")
+                        @Html.TextBox("searchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
+                        @Html.ValidationMessage("searchString")
                         <button type="submit" class="glyphicon glyphicon-search form-control" value="search"></button>
                     }
                 </div><!--/.nav-collapse -->

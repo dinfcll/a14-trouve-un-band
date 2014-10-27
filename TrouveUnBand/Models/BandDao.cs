@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Web.Mvc.Html;
 
 namespace TrouveUnBand.Models
 {
@@ -38,14 +40,15 @@ namespace TrouveUnBand.Models
 
             if (subgenres != null && subgenres.Count > 0)
             {
-                bands = subgenres.Aggregate(bands, (current, genreName) => current.Where(band => band.Sub_Genres.Any(genre => genre.Name.Equals(genreName))));
+                foreach (String genreName in subgenres)
+                {
+                    bands = bands.Where(band => band.Sub_Genres.Any(genre => genre.Name == genreName));
+                }
             }
-
             if (!String.IsNullOrEmpty(bandName))
             {
                 bands = bands.Where(band => band.Name.Contains(bandName));
             }
-
             if (!String.IsNullOrEmpty(location))
             {
                 bands = bands.Where(band => band.Location.Contains(location));

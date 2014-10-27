@@ -6,12 +6,12 @@
 @using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
 {
     <div class="form-inline searchform">
-        <label for="DDLCategories">Affiche</label>
-        @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
-        <label for="DDLGenres">parmis</label>
-        @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"], "tous les genres", new { @class = "form-control" })
-        <label for="Location">dans la région de</label>
-        @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
+        <label for="ddlCategories">Affiche</label>
+        @Html.DropDownList("ddlCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
+        <label for="ddlGenres">parmis</label>
+        @Html.DropDownList("ddlGenres", (SelectList)ViewData["GenresList"], "tous les genres", new { @class = "form-control" })
+        <label for="location">dans la région de</label>
+        @Html.TextBox("location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
     </div>
 
     @Html.Partial("_Searchbar")
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    @Html.TextBox("Location", "", new { @placeholder="Ville", @class="form-control"})
+                    @Html.TextBox("location", "", new { @placeholder="Ville", @class="form-control"})
                     @Html.TextBox("Radius", "", new { @placeholder="Rayon", @class="form-control"})
                 </div>
 
@@ -65,7 +65,7 @@
                                     @{
                                         foreach (var genre in list)
                                         {
-                                            <li class="searchfilter">@Html.CheckBox("CbSubgenres", false, new { @value = @genre }) @genre</li>
+                                            <li class="searchfilter">@Html.CheckBox("cbSubgenres", false, new { @value = @genre }) @genre</li>
                                         }
                                     }
                                 </ul>

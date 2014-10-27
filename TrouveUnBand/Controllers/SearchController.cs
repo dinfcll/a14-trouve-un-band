@@ -15,7 +15,7 @@ namespace TrouveUnBand.Controllers
 
         private readonly TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-        public ActionResult Index(string SearchString)
+        public ActionResult Index(string searchString)
         {
             List<SearchResult> resultsList = new List<SearchResult>();
 
@@ -39,8 +39,8 @@ namespace TrouveUnBand.Controllers
                 new { value=OPTION_USER, text="des utilisateurs" }
             }, "value", "text");
 
-            List<Band> bandsList = BandDao.GetBands(0, SearchString, "");
-            List<Musician> musiciansList = MusicianDao.GetMusicians(0, SearchString, "");
+            List<Band> bandsList = BandDao.GetBands(0, searchString, "");
+            List<Musician> musiciansList = MusicianDao.GetMusicians(0, searchString, "");
 
             foreach (var band in bandsList) 
             {
@@ -56,7 +56,7 @@ namespace TrouveUnBand.Controllers
             ViewBag.Genres = genresList;
             ViewBag.Subgenres = subgenresList;
             ViewBag.CategoriesList = categoriesDDL;
-            ViewBag.SearchString = SearchString;
+            ViewBag.SearchString = searchString;
             ViewBag.ResultsList = resultsList;
             ViewBag.ResultNumber = resultsList.Count();
 
@@ -64,19 +64,19 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location)
+        public ActionResult Filter(string ddlCategories, int? ddlGenres, string searchString, string location)
         {
             List<SearchResult> resultsList = new List<SearchResult>();
             List<Band> bandsList = new List<Band>();
             List<Musician> musiciansList = new List<Musician>();
             List<User> usersList = new List<User>();
 
-            switch (DDLCategories)
+            switch (ddlCategories)
             {
                 case OPTION_ALL:
 
-                    bandsList = BandDao.GetBands(DDLGenres, SearchString, Location);
-                    musiciansList = MusicianDao.GetMusicians(DDLGenres, SearchString, Location);
+                    bandsList = BandDao.GetBands(ddlGenres, searchString, location);
+                    musiciansList = MusicianDao.GetMusicians(ddlGenres, searchString, location);
 
                     foreach (Band band in bandsList)
                     {
@@ -92,7 +92,7 @@ namespace TrouveUnBand.Controllers
 
                 case OPTION_BAND:
 
-                    bandsList = BandDao.GetBands(DDLGenres, SearchString, Location);
+                    bandsList = BandDao.GetBands(ddlGenres, searchString, location);
 
                     foreach (Band band in bandsList)
                     {
@@ -103,7 +103,7 @@ namespace TrouveUnBand.Controllers
 
                 case OPTION_MUSICIAN:
 
-                    musiciansList = MusicianDao.GetMusicians(DDLGenres, SearchString, Location);
+                    musiciansList = MusicianDao.GetMusicians(ddlGenres, searchString, location);
 
                     foreach (Musician musician in musiciansList)
                     {
@@ -114,7 +114,7 @@ namespace TrouveUnBand.Controllers
 
                 case OPTION_USER:
 
-                    usersList = UserDao.GetUsers(SearchString, Location);
+                    usersList = UserDao.GetUsers(searchString, location);
 
                     foreach (User user in usersList)
                     {
@@ -131,12 +131,12 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult AdvancedFilter(string SearchString, string Location, string Radius, string rbCategories, params String[] CbSubgenres)
+        public ActionResult AdvancedFilter(string searchString, string location, string radius, string rbCategories, params String[] cbSubgenres)
         {
             List<SearchResult> resultsList = new List<SearchResult>();
             List<String> SelectedGenres = new List<String>();
 
-            foreach (string genre in CbSubgenres)
+            foreach (string genre in cbSubgenres)
             {
                 if (genre != "false")
                 {
@@ -148,8 +148,8 @@ namespace TrouveUnBand.Controllers
             {
                 case OPTION_ALL:
 
-                    List<Band> Bands = BandDao.GetBands(SelectedGenres, SearchString, Location);
-                    List<Musician> Musicians = MusicianDao.GetMusicians(SelectedGenres, SearchString, Location);
+                    List<Band> Bands = BandDao.GetBands(SelectedGenres, searchString, location);
+                    List<Musician> Musicians = MusicianDao.GetMusicians(SelectedGenres, searchString, location);
 
                      foreach (Band band in Bands)
                      {
@@ -165,7 +165,7 @@ namespace TrouveUnBand.Controllers
 
                 case OPTION_BAND:
 
-                    Bands = BandDao.GetBands(SelectedGenres, SearchString, Location);
+                    Bands = BandDao.GetBands(SelectedGenres, searchString, location);
                     
                     foreach (Band band in Bands)
                     {
@@ -176,7 +176,7 @@ namespace TrouveUnBand.Controllers
 
                 case OPTION_MUSICIAN:
 
-                    Musicians = MusicianDao.GetMusicians(SelectedGenres, SearchString, Location);
+                    Musicians = MusicianDao.GetMusicians(SelectedGenres, searchString, location);
 
                     foreach (Musician musician in Musicians)
                     {
@@ -187,7 +187,7 @@ namespace TrouveUnBand.Controllers
 
                 case OPTION_USER:
 
-                    List<User> usersList = UserDao.GetUsers(SearchString, Location);
+                    List<User> usersList = UserDao.GetUsers(searchString, location);
 
                     foreach (User user in usersList)
                     {

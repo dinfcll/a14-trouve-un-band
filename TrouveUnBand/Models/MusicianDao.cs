@@ -50,7 +50,6 @@ namespace TrouveUnBand.Models
                     musicians = musicians.Where(musician => musician.Sub_Genres.Any(genre => genre.Name == genreName));
                 }
             }
-
             if (!String.IsNullOrEmpty(userName))
             {
                 musicians = musicians.Where(musician => musician.User.FirstName.Contains(userName) ||
