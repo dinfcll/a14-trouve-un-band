@@ -1,20 +1,20 @@
 ﻿@model TrouveUnBand.Models.Musician
 
 @{
-    ViewBag.Title = "Resultat de recherche";
+    ViewBag.Title = "Créer ton Band - Musiciens";
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>Musiciens</h2>
+        <h2>Crée ton band - Les musiciens</h2>
 
 
-        <div>
-            @if (ViewData["Musicians"] != null)
+        <div id="MusicianResult">
+            @if (Session["myBand"] != null)
             {
                 int j = 0;
         
                 <table>
-                    @foreach (TrouveUnBand.Models.Musician item in (List<TrouveUnBand.Models.Musician>)ViewData["Musicians"])
+                    @foreach (TrouveUnBand.Models.Musician item in ((TrouveUnBand.Models.Band)Session["myBand"]).Musicians)
                     {
 
                         j++;
@@ -41,51 +41,51 @@
 
 
         <div>
-            @using (Ajax.BeginForm("SearchMusician", "Group", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "ConfirmCreateView" }))
+            @using (Ajax.BeginForm("AddMusician", "Group", FormMethod.Post, new AjaxOptions { UpdateTargetId = "result" }))
             {
-                @Html.Editor("AddMusicianInput")
-                <button type="submit" value="Search">
-                    <span  class="glyphicon glyphicon-search">
-                    </span>
-                </button>
-                <table class="table table-striped table-bordered table-hover" data-toggle="table">
-                    <tr>
-                        <th>
-                            @Html.Display("Prénom")
-                        </th>
-                        <th>
-                            @Html.Display("Nom de famille")
-                        </th>
-                        <th>
-                            @Html.Display("Identifiant")
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                    @if ((List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"] != null)
-                    {
-                        foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"])
-                        {
-                            <tr>
-                                <td>
-                                    @item.User.FirstName
-                                </td>
-                                <td>
-                                    @item.User.LastName
-                                </td>
-                                <td>
-                                    @item.User.Nickname
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("AddMusician", "Group", new { id = item.MusicianId })'">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    }
-                </table>
+                @Html.Editor("test1","test2","MusicianSearchBox")
             }
+            <button type="submit" value="Search" onclick="location.href='@Url.Action("SearchMusician", "Group", new { MusicianSearch = Request.Form["MusicianSearchBox"] })'">
+                <span  class="glyphicon glyphicon-search">
+                </span>
+            </button>
+            <table class="table table-striped table-bordered table-hover" data-toggle="table">
+                <tr>
+                    <th>
+                        @Html.Display("Prénom")
+                    </th>
+                    <th>
+                        @Html.Display("Nom de famille")
+                    </th>
+                    <th>
+                        @Html.Display("Identifiant")
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+                @if ((List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"] != null)
+                {
+                    foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"])
+                    {
+                        <tr>
+                            <td>
+                                @item.User.FirstName
+                            </td>
+                            <td>
+                                @item.User.LastName
+                            </td>
+                            <td>
+                                @item.User.Nickname
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("AddMusician", "Group", new { MusicianId = item.MusicianId })'">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
         </div>
     </div>
 </div>

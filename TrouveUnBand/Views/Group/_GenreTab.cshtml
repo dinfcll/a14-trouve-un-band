@@ -1,7 +1,7 @@
 ﻿@model TrouveUnBand.Models.Genre
 
 @{
-    ViewBag.Title = "_BandGenreDialog";
+    ViewBag.Title = "Création de band";
 }
 
 
@@ -9,45 +9,49 @@
     <div class="panel-body">
         <h2>Genres</h2>
         <div> 
-            @using (Html.BeginForm("AddGenre", "Group", FormMethod.Post, new { @class = "row", @role = "form"}))
+            @using (Ajax.BeginForm("AddGenre", "Group", FormMethod.Get, 
+                                                        new AjaxOptions { HttpMethod = "Put",
+                                                            UpdateTargetId = "genretab" }))
             {
       
                 <div>
                     @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
             
-                    <a id="XaddGenre" href="#" onclick='RemoveGenre("ViewData["InCreationBand"]")'>
+                    <button type="submit" class="btn btn-default btn-sm" title="Edit">
                         <span  class="glyphicon glyphicon-plus">
                         </span>
-                    </a>
+                    </button>
 
                 </div>
-            } 
+            }
                
             <div>
-                @if ((((TrouveUnBand.Models.Band)ViewData["myBand"]).Genres).Any())
+                @if ((((TrouveUnBand.Models.Band)Session["myBand"]).Genres).Any())
                 {
-                    <table>
-                    @foreach (var item in ((TrouveUnBand.Models.Band)ViewData["myBand"]).Genres)
-                    { 
-                        <tr>
-                            <td>
-                                @Html.DropDownList("addedGenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name",
-                                                            Convert.ToInt32(item.GenreId)))
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("AddGenre", "Group", new { id = item.GenreId })'">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </button>
-                            </td>
-                        </tr>
-                    }
-                    </table>
-                
+                        int j = 0;
+                        <table id="GenreTable">
+                        @foreach (var item in ((TrouveUnBand.Models.Band)Session["myBand"]).Genres)
+                        { 
+                            <tr id="@j">
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                <span  class="glyphicon glyphicon-plus">
+                                    @Ajax.ActionLink("AjaxLink", "RemoveGenre", new {GenreId = item.GenreId}, 
+                                            new AjaxOptions {
+                                                HttpMethod = "Delete", 
+                                                UpdateTargetId = "genretab", 
+                                                OnSuccess = "$('#" + @j + "').remove();"
+                                            })
+                                </span>
+                                </td>
+                            </tr>
+                            j++;
+                        }
+                        </table>             
                 }
             </div>
         </div> 
     </div>
-</div> 
-
-
-
+</div>
