@@ -15,7 +15,9 @@ namespace TrouveUnBand.Models
         public string Description { get; set; }
         public string Location { get; set; }
         public string Type { get; set; }
-        private readonly TrouveUnBandEntities _db = new TrouveUnBandEntities();
+        public List<string> Subgenres { get; set; }
+
+        private readonly TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public SearchResult(Band band)
         {
@@ -23,15 +25,17 @@ namespace TrouveUnBand.Models
             Description = band.Description;
             Location = band.Location;
             Type = "Band";
+            Subgenres = band.Sub_Genres.Select(x => x.Name).ToList();
         }
 
         public SearchResult(Musician musician)
         {
-            User user = _db.Users.Find(musician.UserId);
+            User user = db.Users.Find(musician.UserId);
             Name = user.FirstName + " " + user.LastName;
             Description = musician.Description;
             Location = user.Location;
             Type = "Musician";
+            Subgenres = musician.Sub_Genres.Select(x => x.Name).ToList();
         }
 
         public SearchResult(User user)
@@ -40,6 +44,7 @@ namespace TrouveUnBand.Models
             Description = "";
             Location = user.Location;
             Type = "Utilisateur";
+            Subgenres = null;
         }
     }
 }

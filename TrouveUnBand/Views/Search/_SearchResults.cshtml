@@ -8,12 +8,21 @@
                 <img src="http://placehold.it/250x172" alt="Image">
                 <div class="caption">
                     <h3>@Html.DisplayName(item.Name)</h3>
+                    <b>@item.Type</b>
                     <p>@Html.DisplayName(item.Description)</p>
                     <p>
                         <span class="glyphicon glyphicon-map-marker"></span>
                         @Html.DisplayName(item.Location)
                     </p>
-                    <b>@Html.DisplayName(item.Type)</b>
+                    @{
+                        if (item.Subgenres != null)
+                        {
+                            foreach (var subgenre in item.Subgenres)
+                            {
+                                <span class="label label-default">@subgenre</span>
+                            }
+                        }
+                    }
                     <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                 </div>
             </div>
