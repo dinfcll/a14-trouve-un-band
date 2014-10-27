@@ -333,4 +333,3 @@ C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatr
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
 Z:\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
-C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache

@@ -55,9 +55,8 @@ namespace TrouveUnBand.Controllers
                 bool b = CurrentUserIsMusician(CurrentUser, out CurrentMusician);
                 if (b)
                 {
-                    Band myBand = new Band();
-                    myBand.Musicians = CurrentMusician;
-                    ViewData["myBand"] = myBand;
+                    ViewData["myBand"] = new Band();
+                    ViewData["Musicians"] = CurrentMusician;
                     //à la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
                     ViewBag.CurrentMusician = CurrentMusician[0];
                     ViewBag.GenrelistDD = new List<Genre>(db.Genres);

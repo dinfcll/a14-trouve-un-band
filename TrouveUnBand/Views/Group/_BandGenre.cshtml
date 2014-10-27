@@ -1,0 +1,44 @@
+﻿@model TrouveUnBand.Models.Genre
+
+@{
+    ViewBag.Title = "_BandGenreDialog";
+}
+
+<h2>Genres</h2>
+
+<div>
+    @Html.Label("Genre")
+</div>
+            
+<div>
+    @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
+    <a id="XaddGenre" href="#" onclick='AddGenre()'><span  class="glyphicon glyphicon-plus"></span></a>
+</div>
+            
+<div>
+@if (ViewData["Genres"] != null)
+{
+    int i = 0;
+    <table>
+    @foreach (var item in (List<TrouveUnBand.Models.Genre>)ViewData["Genres"])
+    {
+
+                    
+        i++;
+        <tr>
+            <td>
+                @Html.DropDownList("addedGenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name",
+                                            Convert.ToInt32(item.GenreId)), new { @class = "form-control" })
+            </td>
+            <td>
+                @if (i > 1)
+                {
+                    <a id="XrmGenre" href="#" onclick='RemoveGenre("@i")'><span  class="glyphicon glyphicon-minus"></span></a>
+                }
+            </td>
+        </tr>
+    }
+    </table>
+                
+}
+</div>

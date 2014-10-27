@@ -9,42 +9,42 @@
     <div class="panel-body">
         <h2>Genres</h2>
         <div> 
-            <table>
-                @using (Html.BeginForm("AddGenre", "Group", FormMethod.Post, new { @class = "row", @role = "form"}))
-                {
-                    <tr>
-                        <td>
-                            @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
-                        </td>
-                        <td>
-                            <a id="XaddGenre" href="#" onclick='RemoveGenre("ViewData["InCreationBand"]")'>
-                                <span  class="glyphicon glyphicon-plus">
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
+            @using (Html.BeginForm("AddGenre", "Group", FormMethod.Post, new { @class = "row", @role = "form"}))
+            {
+      
+                <div>
+                    @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
+            
+                    <a id="XaddGenre" href="#" onclick='RemoveGenre("ViewData["InCreationBand"]")'>
+                        <span  class="glyphicon glyphicon-plus">
+                        </span>
+                    </a>
 
-                } 
+                </div>
+            } 
                
-                    @if ((((TrouveUnBand.Models.Band)ViewData["myBand"]).Genres).Any())
-                    {
-                        foreach (var item in ((TrouveUnBand.Models.Band)ViewData["myBand"]).Genres)
-                        { 
-                            <tr>
-                                <td>
-                                    @Html.DropDownList("addedGenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name",
-                                                                Convert.ToInt32(item.GenreId)))
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("AddGenre", "Group", new { id = item.GenreId })'">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                
+            <div>
+                @if ((((TrouveUnBand.Models.Band)ViewData["myBand"]).Genres).Any())
+                {
+                    <table>
+                    @foreach (var item in ((TrouveUnBand.Models.Band)ViewData["myBand"]).Genres)
+                    { 
+                        <tr>
+                            <td>
+                                @Html.DropDownList("addedGenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name",
+                                                            Convert.ToInt32(item.GenreId)))
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("AddGenre", "Group", new { id = item.GenreId })'">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            </td>
+                        </tr>
                     }
-            </table>
+                    </table>
+                
+                }
+            </div>
         </div> 
     </div>
 </div> 
