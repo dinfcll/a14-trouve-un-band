@@ -8,6 +8,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>Genres</h2>
+
         <div> 
             @using (Ajax.BeginForm("AddGenre", "Group", FormMethod.Get, 
                                                         new AjaxOptions { HttpMethod = "Put",
@@ -28,26 +29,26 @@
             <div>
                 @if ((((TrouveUnBand.Models.Band)Session["myBand"]).Genres).Any())
                 {
-                        int j = 0;
-                        <table id="GenreTable">
+                        int Trid = 0;
+                        <table id="GenreTable row-fluid">
                         @foreach (var item in ((TrouveUnBand.Models.Band)Session["myBand"]).Genres)
                         { 
-                            <tr id="@j">
-                                <td>
+                            <tr id="@Trid" class="col-md-4">
+                                <td class="col-md-3">
                                     @item.Name
                                 </td>
                                 <td>
-                                <span  class="glyphicon glyphicon-plus">
-                                    @Ajax.ActionLink("AjaxLink", "RemoveGenre", new {GenreId = item.GenreId}, 
-                                            new AjaxOptions {
-                                                HttpMethod = "Delete", 
-                                                UpdateTargetId = "genretab", 
-                                                OnSuccess = "$('#" + @j + "').remove();"
-                                            })
-                                </span>
+                                    @Ajax.ActionLink(" ", "RemoveGenre", new { GenreId = item.GenreId },
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "Delete",
+                                                UpdateTargetId = "genretab",
+                                                OnSuccess = "$('#" + @Trid + "').remove();"
+                                            },
+                                         new { @class = "form-control glyphicon glyphicon-minus btn btn-default btn-sm" })
                                 </td>
                             </tr>
-                            j++;
+                            Trid++;
                         }
                         </table>             
                 }
