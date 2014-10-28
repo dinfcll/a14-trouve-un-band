@@ -11,7 +11,7 @@ namespace TrouveUnBand.Models
         public BandCreation()
         {
             this.Genres = new HashSet<Genre>();
-            this.Musicians = new HashSet<UserMusicianModel>();
+            this.Musicians = new HashSet<Musician>();
         }
 
         [Required(ErrorMessage = "Le nom est requis")]
@@ -28,10 +28,12 @@ namespace TrouveUnBand.Models
         [Display(Name = "Location")]
         public string Location { get; set; }
 
+        [Required(ErrorMessage = "Au moins un genre est requis")]
         [Display(Name = "Genre(s)")]
         public virtual ICollection<Genre> Genres { get; set; }
 
+        [Required(ErrorMessage = "Au moins un musicien est requis")]
         [Display(Name = "Musiciens(s)")]
-        public virtual ICollection<UserMusicianModel> Musicians { get; set; }
+        public virtual ICollection<Musician> Musicians { get; set; }
     }
 }

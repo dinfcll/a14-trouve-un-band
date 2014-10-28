@@ -18,7 +18,6 @@ namespace TrouveUnBand.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                Session["myBand"] = null;
                 List<Musician> CurrentMusician = new List<Musician>();
                 bool b = false;
                 b = CurrentUserIsMusician(GetCurrentUser(), out CurrentMusician);
@@ -86,33 +85,36 @@ namespace TrouveUnBand.Controllers
         // POST: /Group/Create
 
         [HttpPost]
-        public PartialViewResult CreateSubmit()
+        public PartialViewResult CreateSubmit(Band band)
         {
-            Band myBand = (Band)Session["myBand"];
             string RC = "";
             string ViewNameToReturn = "";
-            Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == myBand.Name);
+            Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
             if (ExistingBand == null)
             {
                 ViewNameToReturn = "_ConfirmCreate";
+                db.SaveChanges();
             }
             else
             {
                 if (ExistingBand.Musicians.Contains((GetCurrentUser()).Musicians.ToList()[0]))
                 {
-                    ViewNameToReturn = "_ConfirmCreate";
+                    db.Bands.Add(band);
+                    db.SaveChanges();
                 }
                 else
                 {
                     ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
-                    myBand.Name = myBand.Name + " (" + myBand.Location + ")";
-                    RC = "Le Band existe déja. Votre band a été renommé par: " + myBand.Name;
+                    band.Name = band.Name + " (" + band.Location + ")";
+                    db.Bands.Add(band);
+                    db.SaveChanges();
+                    RC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
                 }
-
+                ViewNameToReturn = "index";
             }
 
             TempData["TempDataError"] = RC;
-            return PartialView(ViewNameToReturn, myBand);
+            return PartialView(ViewNameToReturn, band);
         }
 
         
@@ -216,20 +218,10 @@ namespace TrouveUnBand.Controllers
         [HttpPut]
         public ActionResult AddGenre()
         {
-            string RC = "";
             int Genrelist = Convert.ToInt32(Request.Form["GenreList"]);
             Genre Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
-            Band myBand = ((Band)Session["myBand"]);
-            if (myBand.Genres.Any(x => x.GenreId == Query.GenreId))
-            {
-                RC = "Vous avez déja ajouté ce genre";
-            }
-            else
-            {
-                ((Band)Session["myBand"]).Genres.Add(Query);
-            }
+            ((Band)Session["myBand"]).Genres.Add(Query);
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-            TempData["TempDataError"] = RC;
             return PartialView("_GenreTab");
         }
 
@@ -244,7 +236,7 @@ namespace TrouveUnBand.Controllers
             return PartialView("_GenreTab");
         }
 
-        public ActionResult SearchMusician(string SearchString)
+        public List<Musician> SearchMusician(string SearchString)
         {
             string RC = "";
             List<Musician> musicians = new List<Musician>();
@@ -254,14 +246,16 @@ namespace TrouveUnBand.Controllers
             }
             else
             {
+                if (!String.IsNullOrEmpty(SearchString))
+                {
                     musicians = (db.Musicians.Where(musician => musician.User.FirstName.Contains(SearchString) ||
                                                 musician.User.LastName.Contains(SearchString) ||
                                                 musician.User.Nickname.Contains(SearchString))).ToList();
+                }
             }
 
             TempData["TempDataError"] = RC;
-            ViewData["MusicianResult"] = musicians;
-            return PartialView("_MusicianTab");
+            return musicians;
         }
 
         public ActionResult BaseSubmit(Band myBand)

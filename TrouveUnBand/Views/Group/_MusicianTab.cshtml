@@ -7,48 +7,28 @@
     <div class="panel-body">
         <h2>Crée ton band - Les musiciens</h2>
 
-        <div>
-        @using (Ajax.BeginForm("SearchMusician", "Group", FormMethod.Get,
-                                                        new AjaxOptions
-                                                        {
-                                                            HttpMethod = "Get",
-                                                            UpdateTargetId = "musiciantab",
-                                                        }))
-        {
-            @Html.Editor("SearchString", "", new { @class = "form-control", @placeholder = "Nom, prénom ou identifiant" })
-            <button type="submit" class="btn btn-default btn-sm" title="Search">
-                <span  class="glyphicon glyphicon-Search">
-                </span>
-            </button>
-        }
-        </div>
-        <div>
-            @if (((TrouveUnBand.Models.Band)Session["myBand"]).Musicians != null)
+
+        <div id="MusicianResult">
+            @if (Session["myBand"] != null)
             {
-                int mTrid = 0;
+                int j = 0;
         
                 <table>
-                    @foreach (TrouveUnBand.Models.Musician item in ((TrouveUnBand.Models.Band)Session["myBand"]).Musicians.ToList())
+                    @foreach (TrouveUnBand.Models.Musician item in ((TrouveUnBand.Models.Band)Session["myBand"]).Musicians)
                     {
-                        <tr id="@mTrid">
+
+                        j++;
+                        <tr>
                             <td>
                                 <span>@item.User.FirstName @item.User.LastName</span>
                             </td>
                             <td>
-                                @if (mTrid > 0)
+                                @if (j > 1)
                                 {
-                                    @Ajax.ActionLink(" ", "RemoveMusician", new { MusicianId = item.MusicianId },
-                                            new AjaxOptions
-                                            {
-                                                HttpMethod = "Delete",
-                                                UpdateTargetId = "musiciantab",
-                                                OnSuccess = "$('#" + @mTrid + "').remove();"
-                                            },
-                                            new { @class = "form-control glyphicon glyphicon-minus btn btn-default btn-sm" })
+                                    <a id="XrmMusician" href="#" onclick='RemoveMusician("@j")'><span  class="glyphicon glyphicon-search"></span></a>
                                 }
                             </td>
                         </tr>
-                                mTrid++;
                     }
                 </table>
             }
@@ -57,25 +37,35 @@
                 TempData["TempDataError"] = "Profil musicien introuvable";
             }
         </div>
-        <div id="musicianresult">
+
+
+
+        <div>
+            @using (Ajax.BeginForm("AddMusician", "Group", FormMethod.Post, new AjaxOptions { UpdateTargetId = "result" }))
+            {
+                @Html.Editor("test1","test2","MusicianSearchBox")
+            }
+            <button type="submit" value="Search" onclick="location.href='@Url.Action("SearchMusician", "Group", new { MusicianSearch = Request.Form["MusicianSearchBox"] })'">
+                <span  class="glyphicon glyphicon-search">
+                </span>
+            </button>
             <table class="table table-striped table-bordered table-hover" data-toggle="table">
                 <tr>
                     <th>
-                        <span>Prénom</span>
+                        @Html.Display("Prénom")
                     </th>
                     <th>
-                        <span>Nom de famille</span>
+                        @Html.Display("Nom de famille")
                     </th>
                     <th>
-                        <span>Identifiant</span>
+                        @Html.Display("Identifiant")
                     </th>
                     <th>
                     </th>
                 </tr>
-                @if ((List<TrouveUnBand.Models.Musician>)ViewData["MusicianResult"] != null)
+                @if ((List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"] != null)
                 {
-                    int sTrid = 0;
-                    foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["MusicianResult"])
+                    foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"])
                     {
                         <tr>
                             <td>
@@ -88,17 +78,11 @@
                                 @item.User.Nickname
                             </td>
                             <td>
-                                @Ajax.ActionLink(" ", "AddMusician", new { MusicianId = item.MusicianId },
-                                            new AjaxOptions
-                                            {
-                                                HttpMethod = "Put",
-                                                UpdateTargetId = "genretab",
-                                                OnSuccess = "$('#" + @sTrid + "').remove();"
-                                            },
-                                            new { @class = "form-control glyphicon glyphicon-plus btn btn-default btn-sm" })
+                                <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("AddMusician", "Group", new { MusicianId = item.MusicianId })'">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
                             </td>
                         </tr>
-                        sTrid++;
                     }
                 }
             </table>

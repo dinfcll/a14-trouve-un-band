@@ -8,7 +8,6 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>Genres</h2>
-
         <div> 
             @using (Ajax.BeginForm("AddGenre", "Group", FormMethod.Get, 
                                                         new AjaxOptions { HttpMethod = "Put",
@@ -29,26 +28,26 @@
             <div>
                 @if ((((TrouveUnBand.Models.Band)Session["myBand"]).Genres).Any())
                 {
-                        int Trid = 0;
-                        <table id="GenreTable row-fluid">
+                        int j = 0;
+                        <table id="GenreTable">
                         @foreach (var item in ((TrouveUnBand.Models.Band)Session["myBand"]).Genres)
                         { 
-                            <tr id="@Trid" class="col-md-4">
-                                <td class="col-md-3">
+                            <tr id="@j">
+                                <td>
                                     @item.Name
                                 </td>
                                 <td>
-                                    @Ajax.ActionLink(" ", "RemoveGenre", new { GenreId = item.GenreId },
-                                            new AjaxOptions
-                                            {
-                                                HttpMethod = "Delete",
-                                                UpdateTargetId = "genretab",
-                                                OnSuccess = "$('#" + @Trid + "').remove();"
-                                            },
-                                         new { @class = "form-control glyphicon glyphicon-minus btn btn-default btn-sm" })
+                                <span  class="glyphicon glyphicon-plus">
+                                    @Ajax.ActionLink("AjaxLink", "RemoveGenre", new {GenreId = item.GenreId}, 
+                                            new AjaxOptions {
+                                                HttpMethod = "Delete", 
+                                                UpdateTargetId = "genretab", 
+                                                OnSuccess = "$('#" + @j + "').remove();"
+                                            })
+                                </span>
                                 </td>
                             </tr>
-                            Trid++;
+                            j++;
                         }
                         </table>             
                 }
