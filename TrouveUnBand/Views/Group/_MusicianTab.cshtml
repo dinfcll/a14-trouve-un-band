@@ -17,7 +17,7 @@
                     { 
                         <tr id="@mTrid">
                             <td>
-                                @item.User.Nickname
+                                <p>@item.User.FirstName @item.User.Nickname  @item.User.LastName</p>
                             </td>
                             <td>
                                 @if (mTrid > 0)
@@ -28,11 +28,11 @@
                                                 HttpMethod = "Delete",
                                                 UpdateTargetId = "musiciantab",
                                                 OnSuccess = "$('#" + @mTrid + "').remove();"
-                                            }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
+                                            }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-minus" })
                                 }
                             </td>
                         </tr>
-                        mTrid++;
+                                mTrid++;
                     }
                     </table>             
             }
@@ -48,7 +48,7 @@
                                                             UpdateTargetId = "musiciantab"
                                                         }))
             {
-                @Html.Editor("SearchString", "", new { @class="form-control" })
+                @Html.Editor("SearchString", "", new { @class = "form-control" })
                 <button type="submit" value="Search">
                     <span  class="glyphicon glyphicon-search"></span>
                 </button>
@@ -57,13 +57,13 @@
                 <table class="table table-striped table-bordered table-hover" data-toggle="table">
                     <tr>
                         <th>
-                            @Html.Display("Prénom")
+                            Prénom
                         </th>
                         <th>
-                            @Html.Display("Nom de famille")
+                            Nom de famille
                         </th>
                         <th>
-                            @Html.Display("Identifiant")
+                            Identifiant
                         </th>
                         <th>
                         </th>
@@ -84,14 +84,13 @@
                                     @item.User.Nickname
                                 </td>
                                 <td>
-                                    <span  class="glyphicon glyphicon-plus">
-                                        @Ajax.ActionLink("AjaxLink", "AddMusician", new {MusicianId = item.MusicianId}, 
-                                                new AjaxOptions {
-                                                    HttpMethod = "Put", 
-                                                    UpdateTargetId = "musiciantab", 
+                                        @Ajax.ActionLink(" ", "AddMusician", new { MusicianId = item.MusicianId },
+                                                new AjaxOptions
+                                                {
+                                                    HttpMethod = "Put",
+                                                    UpdateTargetId = "musiciantab",
                                                     OnSuccess = "$('#" + @sTrid + "').remove();"
-                                                })
-                                    </span>
+                                                }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
                                 </td>
                             </tr>
                             sTrid++;

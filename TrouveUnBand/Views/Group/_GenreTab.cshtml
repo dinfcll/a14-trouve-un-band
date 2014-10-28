@@ -7,7 +7,7 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>Genres</h2>
+        <h2>Crée ton band - les genres</h2>
         <div> 
             @using (Ajax.BeginForm("AddGenre", "Group", FormMethod.Get, 
                                                         new AjaxOptions { HttpMethod = "Put",
@@ -43,7 +43,7 @@
                                                 HttpMethod = "Delete",
                                                 UpdateTargetId = "genretab",
                                                 OnSuccess = "$('#" + @gTrid + "').remove();"
-                                            }, new {@class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
+                                            }, new {@class = "btn btn-default btn-sm glyphicon glyphicon-minus" })
                                 </td>
                             </tr>
                             gTrid++;

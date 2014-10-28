@@ -206,27 +206,39 @@ namespace TrouveUnBand.Controllers
         [HttpPut]
         public ActionResult AddMusician(int MusicianId)
         {
-            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
-            ((List<Musician>)Session["myMusicians"]).Add(Query);
+            string RC = "";
+            if (((List<Musician>)Session["myMusicians"]).Any(x => x.MusicianId == MusicianId))
+            {
+                RC = "Vous avez déja sélectionner ce musiciens";
+            }
+            else
+            {
+                var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
+                ((List<Musician>)Session["myMusicians"]).Add(Query);
+            }
+            TempData["TempDataError"] = RC;
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             return PartialView("_MusicianTab");
         }
 
         [HttpDelete]
         public ActionResult RemoveMusician(int Musicianid)
         {
-            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
-            ((List<Musician>)Session["myMusicians"]).Remove(Query);
+            Musician Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
+            List<Musician> myMusician = (List<Musician>)Session["myMusicians"];
+            myMusician.Remove(myMusician.Single(s => s.MusicianId == Query.MusicianId));
+            Session["myMusicians"] = myMusician;
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             return PartialView("_MusicianTab");
         }
 
         [HttpPut]
-        public ActionResult AddGenre()
+        public ActionResult AddGenre(int Genrelist)
         {
             string RC = "";
-            int Genrelist = Convert.ToInt32(Request.Form["GenreList"]);
             if (((Band)Session["myBand"]).Genres.Any(x => x.GenreId == Genrelist))
             {
-                RC = "Vous avez déja sélectionner ce style";
+                RC = "Vous avez déja sélectionner ce genre";
             }
             else
             {
@@ -249,6 +261,7 @@ namespace TrouveUnBand.Controllers
             return PartialView("_GenreTab");
         }
 
+        [HttpPut]
         public ActionResult SearchMusician(string SearchString)
         {
             string RC = "";
