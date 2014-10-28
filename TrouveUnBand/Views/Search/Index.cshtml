@@ -49,28 +49,22 @@
 
             <table class="table">
                 <tr>
-                    @{
-                        foreach (var genre in (List<String>)ViewData["Genres"])
-                        {
-                            <th>@genre</th>
-                        }
+                    @foreach (var genre in (List<String>)ViewData["Genres"])
+                    {
+                        <th>@genre</th>
                     }
                 </tr>
                 <tr>
-                    @{
-                        foreach (var list in (List<List<String>>)ViewData["Subgenres"])
-                        {
-                            <td>
-                                <ul class="searchfilter">
-                                    @{
-                                        foreach (var genre in list)
-                                        {
-                                            <li class="searchfilter">@Html.CheckBox("cbSubgenres", false, new { @value = @genre }) @genre</li>
-                                        }
-                                    }
-                                </ul>
-                            </td>
-                        }
+                    @foreach (var list in (List<List<String>>)ViewData["Subgenres"])
+                    {
+                        <td>
+                            <ul class="searchfilter">
+                                @foreach (var genre in list)
+                                {
+                                    <li class="searchfilter">@Html.CheckBox("cbSubgenres", false, new { @value = @genre }) @genre</li>
+                                }
+                            </ul>
+                        </td>
                     }
                 </tr>
             </table>
