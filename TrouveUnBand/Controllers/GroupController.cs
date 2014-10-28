@@ -55,10 +55,12 @@ namespace TrouveUnBand.Controllers
                     bool b = CurrentUserIsMusician(CurrentUser, out CurrentMusician);
                     if (b)
                     {
-                        if (Session["myBand"] == null)
+                        if (Session["myBand"] == null || Session["myMusicians"] == null)
                         {
                             Band myBand = new Band();
-                            myBand.Musicians.Add(CurrentMusician[0]);
+                            List<Musician> myMusicians = new List<Musician>();
+                            myMusicians.Add(CurrentMusician[0]);
+                            Session["myMusicians"] = myMusicians;
                             Session["myBand"] = myBand;
                             //à la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
                             ViewBag.CurrentMusician = CurrentMusician[0];
@@ -202,17 +204,19 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPut]
-        public void AddMusician(int MusicianId)
+        public ActionResult AddMusician(int MusicianId)
         {
             var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
-            ((Band)Session["myBand"]).Musicians.Add(Query);
+            ((List<Musician>)Session["myMusicians"]).Add(Query);
+            return PartialView("_MusicianTab");
         }
 
         [HttpDelete]
-        public void RemoveMusician(int Musicianid)
+        public ActionResult RemoveMusician(int Musicianid)
         {
             var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
-            ((Band)Session["myBand"]).Musicians.Remove(Query);
+            ((List<Musician>)Session["myMusicians"]).Remove(Query);
+            return PartialView("_MusicianTab");
         }
 
         [HttpPut]

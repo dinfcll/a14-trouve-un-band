@@ -28,27 +28,25 @@
             <div>
                 @if ((((TrouveUnBand.Models.Band)Session["myBand"]).Genres).Any())
                 {
-                        int j = 0;
+                        int gTrid = 0;
                         <table id="GenreTable">
                         @foreach (var item in ((TrouveUnBand.Models.Band)Session["myBand"]).Genres)
                         { 
-                            <tr id="@j">
+                            <tr id="@gTrid">
                                 <td>
                                     @item.Name
                                 </td>
                                 <td>
-                                <span  class="glyphicon glyphicon-plus">
                                     @Ajax.ActionLink(" ", "RemoveGenre", new { GenreId = item.GenreId },
                                             new AjaxOptions
                                             {
                                                 HttpMethod = "Delete",
                                                 UpdateTargetId = "genretab",
-                                                OnSuccess = "$('#" + @j + "').remove();"
+                                                OnSuccess = "$('#" + @gTrid + "').remove();"
                                             }, new {@class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
-                                </span>
                                 </td>
                             </tr>
-                            j++;
+                            gTrid++;
                         }
                         </table>             
                 }

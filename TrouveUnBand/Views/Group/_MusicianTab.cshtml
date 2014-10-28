@@ -8,18 +8,33 @@
         <h2>Crée ton band - Les musiciens</h2>
 
 
-        <div id="MusicianResult">
-            @if (Session["myBand"] != null)
+        <div>
+            @if (((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]) != null)
             {
-                int j = 0;
-        
-                <table>
-                    
-                </table>
-            }
-            else
-            {
-                TempData["TempDataError"] = "Profil musicien introuvable";
+                    int mTrid = 0;
+                    <table id="GenreTable">
+                    @foreach (var item in ((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]))
+                    { 
+                        <tr id="@mTrid">
+                            <td>
+                                @item.User.Nickname
+                            </td>
+                            <td>
+                                @if (mTrid > 0)
+                                {
+                                    @Ajax.ActionLink(" ", "RemoveMusician", new { MusicianId = item.MusicianId },
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "Delete",
+                                                UpdateTargetId = "musiciantab",
+                                                OnSuccess = "$('#" + @mTrid + "').remove();"
+                                            }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
+                                }
+                            </td>
+                        </tr>
+                        mTrid++;
+                    }
+                    </table>             
             }
         </div>
 
