@@ -218,9 +218,18 @@ namespace TrouveUnBand.Controllers
         [HttpPut]
         public ActionResult AddGenre()
         {
+            string RC = "";
             int Genrelist = Convert.ToInt32(Request.Form["GenreList"]);
-            Genre Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
-            ((Band)Session["myBand"]).Genres.Add(Query);
+            if (((Band)Session["myBand"]).Genres.Any(x => x.GenreId == Genrelist))
+            {
+                RC = "Vous avez déja sélectionner ce style";
+            }
+            else
+            {
+                Genre Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
+                ((Band)Session["myBand"]).Genres.Add(Query);
+            }
+            TempData["TempDataError"] = RC;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             return PartialView("_GenreTab");
         }
@@ -236,7 +245,7 @@ namespace TrouveUnBand.Controllers
             return PartialView("_GenreTab");
         }
 
-        public List<Musician> SearchMusician(string SearchString)
+        public ActionResult SearchMusician(string SearchString)
         {
             string RC = "";
             List<Musician> musicians = new List<Musician>();
@@ -254,8 +263,9 @@ namespace TrouveUnBand.Controllers
                 }
             }
 
+            ViewData["SearchMusicians"] = musicians;
             TempData["TempDataError"] = RC;
-            return musicians;
+            return PartialView("_MusicianTab");
         }
 
         public ActionResult BaseSubmit(Band myBand)

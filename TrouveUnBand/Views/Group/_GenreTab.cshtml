@@ -38,12 +38,13 @@
                                 </td>
                                 <td>
                                 <span  class="glyphicon glyphicon-plus">
-                                    @Ajax.ActionLink("AjaxLink", "RemoveGenre", new {GenreId = item.GenreId}, 
-                                            new AjaxOptions {
-                                                HttpMethod = "Delete", 
-                                                UpdateTargetId = "genretab", 
+                                    @Ajax.ActionLink(" ", "RemoveGenre", new { GenreId = item.GenreId },
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "Delete",
+                                                UpdateTargetId = "genretab",
                                                 OnSuccess = "$('#" + @j + "').remove();"
-                                            })
+                                            }, new {@class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
                                 </span>
                                 </td>
                             </tr>
