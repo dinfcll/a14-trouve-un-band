@@ -12,9 +12,10 @@
             @if (((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]) != null)
             {
                     int mTrid = 0;
-                    <table id="GenreTable">
+                    <table id="myMusicianTable">
                     @foreach (var item in ((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]))
-                    { 
+                    {
+                        mTrid++; 
                         <tr id="@mTrid">
                             <td>
                                 <p>@item.User.FirstName @item.User.Nickname  @item.User.LastName</p>
@@ -27,12 +28,11 @@
                                             {
                                                 HttpMethod = "Delete",
                                                 UpdateTargetId = "musiciantab",
-                                                OnSuccess = "$('#" + @mTrid + "').remove();"
+                                                OnComplete = "$('#" + @mTrid + "').remove();"
                                             }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-minus" })
                                 }
                             </td>
                         </tr>
-                                mTrid++;
                     }
                     </table>             
             }
@@ -48,13 +48,13 @@
                                                             UpdateTargetId = "musiciantab"
                                                         }))
             {
-                @Html.Editor("SearchString", "", new { @class = "form-control" })
+                @Html.Editor("SearchString", "", new { @class = "form-control glyphicon glyphicon-search" })
                 <button type="submit" value="Search">
                     <span  class="glyphicon glyphicon-search"></span>
                 </button>
             }
             <div>
-                <table class="table table-striped table-bordered table-hover" data-toggle="table">
+                <table class="table table-striped table-bordered table-hover" data-toggle="table" id="SearchMusiciansTable">
                     <tr>
                         <th>
                             Prénom

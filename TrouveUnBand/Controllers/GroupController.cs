@@ -60,9 +60,14 @@ namespace TrouveUnBand.Controllers
                             Band myBand = new Band();
                             List<Musician> myMusicians = new List<Musician>();
                             myMusicians.Add(CurrentMusician[0]);
+                            /* 
+                                Il faut utilisé une list de musiciens à part du band car l'exécution différée de LINQ entre en conflit. 
+                                Lors d'une boucle foreach, l'objet est disposé apres la première lecture, donc n'a plus d'instance a la 
+                                deuxième itération de la boucle
+                            */
                             Session["myMusicians"] = myMusicians;
                             Session["myBand"] = myBand;
-                            //à la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
+                            // À la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
                             ViewBag.CurrentMusician = CurrentMusician[0];
                         }
                         ViewBag.GenrelistDD = new List<Genre>(db.Genres);
@@ -87,42 +92,43 @@ namespace TrouveUnBand.Controllers
         // POST: /Group/Create
 
         [HttpPost]
-        public PartialViewResult CreateSubmit(Band band)
+        public PartialViewResult SubmitInfo(Band band)
         {
-            string RC = "";
-            string ViewNameToReturn = "";
+            string WC = "";
             Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
-            if (ExistingBand == null)
+            if (ExistingBand != null)
             {
-                ViewNameToReturn = "_ConfirmCreate";
-                db.SaveChanges();
-            }
-            else
-            {
-                if (ExistingBand.Musicians.Contains((GetCurrentUser()).Musicians.ToList()[0]))
+                if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
                 {
-                    db.Bands.Add(band);
-                    db.SaveChanges();
+                    WC = "Le Band existe déja. Votre band sera renommé par: " + band.Name;
                 }
-                else
-                {
-                    ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
-                    band.Name = band.Name + " (" + band.Location + ")";
-                    db.Bands.Add(band);
-                    db.SaveChanges();
-                    RC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
-                }
-                ViewNameToReturn = "index";
             }
 
-            TempData["TempDataError"] = RC;
-            return PartialView(ViewNameToReturn, band);
+            Band BandToUpdate = (Band)Session["myBand"];
+            BandToUpdate.Name = band.Name;
+            BandToUpdate.Location = band.Location;
+            BandToUpdate.Description = band.Description;
+            Session["myBand"] = BandToUpdate;
+
+            TempData["warning"] = WC;
+            return PartialView("_basetab", band);
         }
 
         
         [HttpPost]
         public ActionResult ConfirmCreate(Band band)
         {
+            string WC = "";
+            string RC = "";
+
+            Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
+            band.Musicians = (List<Musician>)Session["myMusicians"];
+            if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
+            {
+                band.Name = band.Name + " (" + band.Location + ")";
+                ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
+                WC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
+            }
             try
             {
                 db.Bands.Add(band);
@@ -131,9 +137,12 @@ namespace TrouveUnBand.Controllers
             }
             catch (Exception ex)
             {
+                RC = "Une erreur interne s'est produite, Réessayez plus tard";
                 Console.WriteLine(ex.Message);
             }
 
+            TempData["warning"] = WC;
+            TempData["TempDataError"] = RC;
             return RedirectToAction("Index", "Home");
         }
 
@@ -261,7 +270,7 @@ namespace TrouveUnBand.Controllers
             return PartialView("_GenreTab");
         }
 
-        [HttpPut]
+        [HttpGet]
         public ActionResult SearchMusician(string SearchString)
         {
             string RC = "";

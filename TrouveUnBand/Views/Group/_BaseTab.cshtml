@@ -13,12 +13,10 @@
             <div>
                 @Html.Label("Nom")
             </div>
-            
             <div>
                 @Html.EditorFor(model => model.Name)
                 @Html.ValidationMessageFor(model => model.Name)
             </div>
-       
             <div class="editor-label">
                 @Html.Label("Location")
             </div>
@@ -26,16 +24,14 @@
                 @Html.EditorFor(model => model.Location)
                 @Html.ValidationMessageFor(model => model.Location)
             </div>
-
             <div class="editor-label">
                 @Html.Label("Description")
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Description)
                 @Html.ValidationMessageFor(model => model.Description)
-
             </div>
-            <button type="submit" value="Créer">Créer</button>
+            <button type="submit" value="Créer">Envoyer</button>
         }
     </div>
 </div>

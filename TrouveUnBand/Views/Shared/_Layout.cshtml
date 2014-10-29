@@ -57,6 +57,13 @@
                     <span class="glyphicon glyphicon-ok"></span><strong> Bravo! </strong><span>@TempData["success"]</span>
                 </div>
             }
+            @if (TempData["warning"] != null && TempData["warning"] != "")
+            {
+                <div class="alert alert-warning page-alert" id="alert-2">
+                    <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <span class="glyphicon glyphicon-asterisk"></span><strong> Attention </strong><span>@TempData["warning"]</span>
+                </div>
+            }
         </div>
         <div class="container" style="padding-top:100px">
 

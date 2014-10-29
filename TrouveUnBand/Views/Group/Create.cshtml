@@ -5,9 +5,9 @@
     <h2>Création de band</h2>
     @if (Request.IsAuthenticated)
     {
-        <div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Terminer</button>
-        </div>
+        <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">
+          Terminer
+        </button>
     
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
@@ -19,14 +19,13 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane in active" id="basetab">
-                @Html.Partial("_BaseTab", (TrouveUnBand.Models.Band)ViewData["BandData"])
+                @Html.Partial("_BaseTab")
             </div>
             <div class="tab-pane" id="genretab">
-        
-                @Html.Partial("_GenreTab", (TrouveUnBand.Models.Genre)ViewData["GenreData"])
+                @Html.Partial("_GenreTab")
             </div>
             <div class="tab-pane" id="musiciantab">
-                @Html.Partial("_MusicianTab", (TrouveUnBand.Models.Musician)ViewData["MusicianData"])
+                @Html.Partial("_MusicianTab")
             </div>
         </div>
     }
@@ -41,4 +40,10 @@
             </div>
         </div>
     }
+</div>
+
+<!-- Button trigger modal -->
+
+<div>
+    @Html.Partial("_ConfirmCreateDialog")
 </div>
