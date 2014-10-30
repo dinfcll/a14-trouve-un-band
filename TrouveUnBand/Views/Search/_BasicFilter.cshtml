@@ -1,0 +1,12 @@
+﻿@using (Ajax.BeginForm("BasicFilter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
+{
+    <div class="form-inline searchform">
+        <label for="ddlCategories">Affiche</label>
+        @Html.DropDownList("ddlCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
+        <label for="ddlGenres">parmis</label>
+        @Html.DropDownList("ddlGenres", (SelectList)ViewData["GenresList"], "tous les genres", new { @class = "form-control" })
+        <label for="location">dans la région de</label>
+        @Html.TextBox("location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
+    </div>
+    @Html.Partial("_Searchbar")
+}

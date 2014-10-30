@@ -1,0 +1,77 @@
+﻿@using (Ajax.BeginForm("AdvancedFilter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
+{
+    <div class="col-md-3">
+        <ul class="list-unstyled">
+            <li>@Html.RadioButton("rbCategories", "option_all", true) Afficher tout</li>
+            <li>@Html.RadioButton("rbCategories", "option_band", false) Groupes</li>
+            <li>@Html.RadioButton("rbCategories", "option_musician", false) Musiciens</li>
+            <li>@Html.RadioButton("rbCategories", "option_user", false) Utilisateurs</li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul class="list-unstyled">
+            <li>@Html.RadioButton("rbMisc", "", true) Les plus populaires</li>
+            <li>@Html.RadioButton("rbMisc", "", false) Nouveautés</li>
+            <li>@Html.RadioButton("rbMisc", "", false) Annonces</li>
+        </ul>
+    </div>
+    @Html.Partial("_Searchbar")
+    
+    <div id="search-parameters"></div>
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseOne">
+                        Genres personnalisés
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            @foreach (var genre in (List<String>)ViewData["Genres"])
+                            {
+                                <th>@genre</th>
+                            }
+                        </tr>
+                        <tr>
+                            @foreach (var list in (List<List<String>>)ViewData["Subgenres"])
+                            {
+                                <td>
+                                    <ul class="searchfilter">
+                                        @foreach (var genre in list)
+                                        {
+                                            <li class="searchfilter">
+                                                @Html.CheckBox("cbSubgenres", false, new { @value = @genre })
+                                                <span>@genre</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            }
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseTwo">
+                        Emplacement
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+}

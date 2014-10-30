@@ -1,6 +1,5 @@
-﻿<!--Search Results-->
-<div class="row">
-    <h3 class="col-md-12">@ViewBag.ResultNumber résultats trouvés</h3>
+﻿<div class="row">
+    <h3>@ViewBag.ResultNumber résultats trouvés</h3>
     @foreach (var item in (List<TrouveUnBand.Models.SearchResult>)ViewData["ResultsList"])
     {
         <div class="col-md-3">
@@ -15,17 +14,18 @@
                         @Html.DisplayName(item.Location)
                     </p>
                     @{
-                        if (item.Subgenres != null)
-                        {
-                            foreach (var subgenre in item.Subgenres)
-                            {
-                                <span class="label label-default">@subgenre</span>
-                            }
-                        }
+        if (item.Subgenres != null)
+        {
+            foreach (var subgenre in item.Subgenres)
+            {
+                <span class="label label-default">@subgenre</span>
+            }
+        }
                     }
                     <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                 </div>
             </div>
         </div>
     }
-</div><!--/Search Results-->
+</div>
+
