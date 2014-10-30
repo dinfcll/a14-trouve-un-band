@@ -8,7 +8,7 @@
         <h2>Crée ton band - <small>Les musiciens</small></h2>
 
 
-        <div>
+        <div class="container-fluid">
             @if (((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]) != null)
             {
                     int mTrid = 0;
@@ -17,10 +17,14 @@
                     {
                         mTrid++; 
                         <tr id="@mTrid">
-                            <td>
-                                <p>@item.User.FirstName @item.User.Nickname  @item.User.LastName</p>
+                            <td class="col-md-6">
+                                <div class="display-field">
+                                        @Html.DisplayFor(model => item.User.FirstName)
+                                        @Html.DisplayFor(model => item.User.LastName)
+                                        @Html.DisplayFor(model => item.User.Nickname)
+                                </div>
                             </td>
-                            <td>
+                            <td class="col-md-offset-1">
                                 @if (mTrid > 0)
                                 {
                                     @Ajax.ActionLink(" ", "RemoveMusician", new { MusicianId = item.MusicianId },
@@ -40,7 +44,7 @@
 
 
 
-        <div>
+        <div class="container-fluid" style="margin-top: 1em">
             @using (Ajax.BeginForm("SearchMusician", "Group", FormMethod.Get,
                                                         new AjaxOptions
                                                         {
@@ -49,11 +53,12 @@
                                                         }))
             {
                 @Html.Editor("SearchString", "", new { @class = "form-control glyphicon glyphicon-search" })
-                <button type="submit" value="Search">
+                <button type="submit" value="Search" class="btn btn-default">
                     <span  class="glyphicon glyphicon-search"></span>
                 </button>
             }
-            <div>
+
+            <div class="container-fluid row" style="margin-top: 1em">
                 <table class="table table-striped table-bordered table-hover" data-toggle="table" id="SearchMusiciansTable">
                     <tr>
                         <th>
@@ -75,13 +80,13 @@
                             int sTrid = 0;
                             <tr>
                                 <td>
-                                    @item.User.FirstName
+                                    @Html.DisplayFor(model => item.User.FirstName)
                                 </td>
                                 <td>
-                                    @item.User.LastName
+                                    @Html.DisplayFor(model => item.User.LastName)                                        
                                 </td>
                                 <td>
-                                    @item.User.Nickname
+                                    @Html.DisplayFor(model => item.User.Nickname)
                                 </td>
                                 <td>
                                         @Ajax.ActionLink(" ", "AddMusician", new { MusicianId = item.MusicianId },

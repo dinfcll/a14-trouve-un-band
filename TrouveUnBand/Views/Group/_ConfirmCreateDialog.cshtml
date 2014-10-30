@@ -16,7 +16,7 @@
                 <fieldset>
                     <div class="container-fluid">
                         <div class="display-label">
-                                <h2>@Html.DisplayNameFor(model => model.Name)</h2>
+                            <h2>@Html.DisplayNameFor(model => model.Name)</h2>
                         </div>
                         <blockquote>
                         <div class="display-field">
@@ -85,7 +85,7 @@
                 </fieldset>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn btn-primary">Confirmer</button>
+            <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("ConfirmCreate", "Group")'">Confirmer</button>
           </div>
         </div>
     </div>
