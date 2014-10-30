@@ -118,11 +118,12 @@ namespace TrouveUnBand.Controllers
         }
         
         [HttpPost]
-        public ActionResult ConfirmCreate(Band band)
+        public ActionResult ConfirmCreate()
         {
             string WC = "";
             string RC = "";
 
+            Band band = (Band)Session["myBand"];
             Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
             if (ExistingBand != null)
             {
