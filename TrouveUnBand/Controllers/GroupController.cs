@@ -94,7 +94,7 @@ namespace TrouveUnBand.Controllers
         //
         // POST: /Group/Create
 
-        [HttpPost]
+        [HttpGet]
         public PartialViewResult SubmitInfo(Band band)
         {
             string WC = "";
@@ -114,10 +114,10 @@ namespace TrouveUnBand.Controllers
             Session["myBand"] = BandToUpdate;
 
             TempData["warning"] = WC;
-            return PartialView("_basetab", band);
+            return PartialView("_ConfirmCreateDialog", band);
         }
         
-        [HttpPost]
+        [HttpGet]
         public ActionResult ConfirmCreate()
         {
             string WC = "";
@@ -152,12 +152,28 @@ namespace TrouveUnBand.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public ActionResult UpdateModal()
         {
             Band myBand = (Band)Session["myBand"];
             myBand.Musicians = (List<Musician>)Session["myMusicians"];
-            return PartialView("_ConfirmCreateDialog", myBand);
+            if (// Steven Seagel understands and approves this lenghty condition
+                myBand.Name == "" || myBand.Name== null
+                || myBand.Location == "" || myBand.Location == null
+                || myBand.Description == "" || myBand.Description == null
+                || !myBand.Genres.Any() || myBand.Genres == null
+                || !myBand.Musicians.Any() || myBand.Musicians == null
+                )
+            {
+                TempData["TempDataError"] = "Vous n'avez pas entré toutes les informations";
+                return View("Create");
+            }
+            else
+            {
+                return PartialView("_ConfirmCreateDialog", myBand);
+            }
         }
+
 
         public ActionResult Edit(int id = 0)
         {

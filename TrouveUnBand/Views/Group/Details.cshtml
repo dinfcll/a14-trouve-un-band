@@ -19,16 +19,25 @@
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Genres)
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Genres)
-    </div>
 
+    @foreach (var item in Model.Genres)
+    {
+        <div class="display-field">
+            @Html.DisplayFor(model => item.Name)
+        </div>
+    }
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Musicians)
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Musicians)
-    </div>
+
+    @foreach (var item in Model.Musicians)
+    {
+        <div class="display-field">
+            @Html.DisplayFor(model => item.User.FirstName)
+            @Html.DisplayFor(model => item.User.LastName)
+            @Html.DisplayFor(model => item.User.Nickname)
+        </div>
+    }
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Location)
@@ -52,3 +61,87 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Name != null)
+                {
+                    <div class="form-control">
+                        <div class="editor-label">
+                            @Html.Label("Nom")
+                            <p>@(((TrouveUnBand.Models.Band)Session["myBand"]).Name)</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p>Nom Invalide</p>
+                }
+                        
+
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Genres != null)
+                {
+                <div>
+                        <div class="editor-label">
+                            @Html.Label("Genres")
+                        </div>
+                        <div>
+                        @foreach (var item in ((TrouveUnBand.Models.Band)Session["myBand"]).Genres)
+                        {
+                            <p>@item.Name</p>
+                        }
+                        </div>
+                </div>
+                }
+                else
+                {
+                    <p>Genres Invalide</p>
+                }    
+                    
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Name != null)
+                {                            
+                <div>
+                        <div class="editor-label">
+                            @Html.Label("Musiciens")
+                        </div>
+                        <div>
+                        @foreach (var item in (List<TrouveUnBand.Models.Musician>)Session["myMusicians"])
+                        {
+                            <p>@item.User.FirstName @item.User.LastName</p>
+                        }
+                        </div>
+                </div>
+                }
+                else
+                {
+                    <p>Musiciens Invalide</p>
+                }
+                            
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Location != null)
+                {
+                    <div>
+                        <div class="editor-label">
+                            @Html.Label("Location")
+                            <p>@(((TrouveUnBand.Models.Band)Session["myBand"]).Location)</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p>Location Invalide</p>
+                }
+                            
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Description != null)
+                {
+                    <div>
+                        <div class="editor-label">
+                            @Html.Label("Description")
+                            <p>@(((TrouveUnBand.Models.Band)Session["myBand"]).Description)</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p>Description Invalide</p>
+                }
+                </div>	

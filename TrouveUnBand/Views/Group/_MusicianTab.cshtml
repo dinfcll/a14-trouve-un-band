@@ -5,7 +5,7 @@
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>Crée ton band - Les musiciens</h2>
+        <h2>Crée ton band - <small>Les musiciens</small></h2>
 
 
         <div>
@@ -28,7 +28,7 @@
                                             {
                                                 HttpMethod = "Delete",
                                                 UpdateTargetId = "musiciantab",
-                                                OnComplete = "$('#" + @mTrid + "').remove();"
+                                                OnSuccess = "$('#" + @mTrid + "').remove();"
                                             }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-minus" })
                                 }
                             </td>

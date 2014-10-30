@@ -405,6 +405,7 @@
     <Content Include="Views\Group\_BaseTab.cshtml" />
     <Content Include="Views\Group\_GenreTab.cshtml" />
     <Content Include="Views\Group\_MusicianTab.cshtml" />
+    <Content Include="Views\Group\_error.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

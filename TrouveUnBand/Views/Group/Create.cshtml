@@ -1,8 +1,7 @@
 ﻿@{
     ViewBag.Title = "Création band";
 }
-<div class="row" >
-    <h2>Création de band</h2>
+<div class="row col-md-8 col-md-offset-2" >
     @if (Request.IsAuthenticated)
     {
         <!-- Button trigger modal -->
@@ -12,6 +11,7 @@
                     {
                         HttpMethod = "Get",
                         UpdateTargetId = "ConfirmModalDialog",
+                        OnComplete = "$('#thisdiv').load(document.URL +  '#thisdiv');"
                     }, new { @class = "btn btn-default btn-lg btn-block"})
         </div>
     
@@ -49,5 +49,5 @@
 </div>
 
 <div id="ConfirmModalDialog">
-    @Html.Partial("_ConfirmCreateDialog")
+
 </div>
