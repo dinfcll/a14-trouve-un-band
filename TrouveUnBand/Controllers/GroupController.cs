@@ -58,6 +58,9 @@ namespace TrouveUnBand.Controllers
                         if (Session["myBand"] == null || Session["myMusicians"] == null)
                         {
                             Band myBand = new Band();
+                            myBand.Name = "";
+                            myBand.Location = "";
+                            myBand.Description = "";
                             List<Musician> myMusicians = new List<Musician>();
                             myMusicians.Add(CurrentMusician[0]);
                             /* 
@@ -113,7 +116,6 @@ namespace TrouveUnBand.Controllers
             TempData["warning"] = WC;
             return PartialView("_basetab", band);
         }
-
         
         [HttpPost]
         public ActionResult ConfirmCreate(Band band)
@@ -122,28 +124,38 @@ namespace TrouveUnBand.Controllers
             string RC = "";
 
             Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
-            band.Musicians = (List<Musician>)Session["myMusicians"];
-            if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
+            if (ExistingBand != null)
             {
-                band.Name = band.Name + " (" + band.Location + ")";
-                ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
-                WC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
+                if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
+                {
+                    band.Name = band.Name + " (" + band.Location + ")";
+                    ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
+                    WC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
+                }
             }
             try
             {
+                band.Musicians = (List<Musician>)Session["myMusicians"];
                 db.Bands.Add(band);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                RC = "Une erreur interne s'est produite, Réessayez plus tard";
+                RC = "Une erreur interne s'est produite, Réessayez plus tard " + ex.Message;
                 Console.WriteLine(ex.Message);
             }
 
             TempData["warning"] = WC;
             TempData["TempDataError"] = RC;
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult UpdateModal()
+        {
+            Band myBand = (Band)Session["myBand"];
+            myBand.Musicians = (List<Musician>)Session["myMusicians"];
+            return PartialView("_ConfirmCreateDialog", myBand);
         }
 
         public ActionResult Edit(int id = 0)

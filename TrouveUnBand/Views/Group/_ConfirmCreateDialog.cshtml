@@ -8,66 +8,106 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">        
-        <div class="modal-content">
-            <h2>Confirmation de la création</h2>
+        @using (Html.BeginForm("ConfirmCreate", "Group", FormMethod.Post,
+                new AjaxOptions { HttpMethod = "Post",
+                UpdateTargetId = "ConfirmModalDialog" }))
+        {
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+          </div>
+          <div class="modal-body">        
+            <div class="modal-content">
 
-            @Html.BeginForm("CreateSubmit","Group",FormMethod.Post,
-                    <div class="editor-label">
-                        @Html.Label("Nom")
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Name != null)
+                {
+                    <div class="form-control">
+                        <div class="editor-label">
+                            @Html.Label("Nom")
+                            <p>@(((TrouveUnBand.Models.Band)Session["myBand"]).Name)</p>
+                        </div>
                     </div>
-                    <div>
+                }
+                else
+                {
+                    <p>Nom Invalide</p>
+                }
+                        
 
-                    </div>
-
-                    <div class="editor-label">
-                        @Html.Label("Genre")
-                    </div>
-                    <div>
-                    @if(Session["myBand"] != null)
-                    {
-                        foreach (var item in ((TrouveUnBand.Models.Band)Session["myBand"]).Genres)
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Genres != null)
+                {
+                <div>
+                        <div class="editor-label">
+                            @Html.Label("Genres")
+                        </div>
+                        <div>
+                        @foreach (var item in ((TrouveUnBand.Models.Band)Session["myBand"]).Genres)
                         {
-                            @item.Name
+                            <p>@item.Name @item.Name</p>
                         }
-                    }
-                    </div>
-        
-                    <div>
-                    @if (Session["myMusician"] != null)
-                    {
-                        foreach (var item in (List<TrouveUnBand.Models.Musician>)Session["myMusicians"])
+                        </div>
+                </div>
+                }
+                else
+                {
+                    <p>Genres Invalide</p>
+                }    
+                    
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Name != null)
+                {                            
+                <div>
+                        <div class="editor-label">
+                            @Html.Label("Musiciens")
+                        </div>
+                        <div>
+                        @foreach (var item in (List<TrouveUnBand.Models.Musician>)Session["myMusicians"])
                         {
-                            @item.User.FirstName @item.User.LastName
+                            <p>@item.User.FirstName @item.User.LastName</p>
                         }
-                    }
-                    </div>
-            
-                    <div class="editor-label">
-                        @Html.Label("Location")
-                    </div>
+                        </div>
+                </div>
+                }
+                else
+                {
+                    <p>Musiciens Invalide</p>
+                }
+                            
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Location != null)
+                {
                     <div>
-                        @Html.DisplayFor(model => model.Location)
-                        @Html.ValidationMessageFor(model => model.Location)
+                        <div class="editor-label">
+                            @Html.Label("Location")
+                            <p>@(((TrouveUnBand.Models.Band)Session["myBand"]).Location)</p>
+                        </div>
                     </div>
-
-                    <div class="editor-label">
-                        @Html.Label("Description")
-                    </div>
+                }
+                else
+                {
+                    <p>Location Invalide</p>
+                }
+                            
+                @if (((TrouveUnBand.Models.Band)Session["myBand"]).Description != null)
+                {
                     <div>
-                        @Html.DisplayFor(model => model.Description)
-                        @Html.ValidationMessageFor(model => model.Description)
-                    </div>			
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+                        <div class="editor-label">
+                            @Html.Label("Description")
+                            <p>@(((TrouveUnBand.Models.Band)Session["myBand"]).Description)</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p>Description Invalide</p>
+                }
+                </div>	
+                         <!-- Form -->
+	
+            </div> <!-- Modal Contents -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary">Confirmer</button>
+          </div>
+      }	
     </div>
   </div>
 </div>
