@@ -55,6 +55,7 @@ namespace TrouveUnBand.Controllers
                     return View("BandProfile", BandProfile);
 
                 case "EVENT":
+                    RedirectToAction("EventProfile","Event");
                     break;
 
                 case "PROMOTER":
@@ -74,8 +75,6 @@ namespace TrouveUnBand.Controllers
             {
                 if (userModel.Password == userModel.ConfirmPassword)
                 {
-                    userModel = SetUserLocation(userModel);
-                    userModel.ProfilePicture.byteProfilePicture = StockPhoto();
                     User userBD = CreateUserFromModel(userModel);
                     RC = Insertcontact(userBD);
                     if (RC == "")
@@ -111,7 +110,6 @@ namespace TrouveUnBand.Controllers
                 if (ValidUserQuery == null)
                 {
                     db.Database.Connection.Open();
-                    userbd.Password = Encrypt(userbd.Password);
                     db.Users.Add(userbd);
                     db.SaveChanges();
                     db.Database.Connection.Close();
@@ -196,10 +194,7 @@ namespace TrouveUnBand.Controllers
             try
             {
                 User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
-                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != userModel.Location)
-                {
-                    userModel = SetUserLocation(userModel);
-                }
+
                 LoggedOnUser = CreateUserFromModel(userModel, LoggedOnUser);
 
                 db.SaveChanges();
@@ -267,8 +262,6 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult UserProfileModification(UserValidation userModel)
         {
-            //la modification du user ne marche pas, dans la ligne suivante soit qu'il ne garde pas la photo et les
-            //coordonées soit qu'il perd ses nouvelles info
             userModel.Nickname = User.Identity.Name;
             string RC = "";
 
@@ -656,6 +649,21 @@ namespace TrouveUnBand.Controllers
 
         private User CreateUserFromModel(UserValidation UserValid, User user)
         {
+            if ((user.Latitude == 0.0 || user.Longitude == 0.0) || user.Location != UserValid.Location)
+            {
+                UserValid = SetUserLocation(UserValid);
+            }
+
+            if(user.Photo == null)
+            {
+                user.Photo = StockPhoto();
+            }
+
+            if(user.Password == null)
+            {
+                user.Password = Encrypt(UserValid.Password);
+            }
+
             user.BirthDate = UserValid.BirthDate;
             user.Email = UserValid.Email;
             user.FirstName = UserValid.FirstName;
@@ -666,8 +674,8 @@ namespace TrouveUnBand.Controllers
             user.Longitude = UserValid.Longitude;
             user.Musicians = UserValid.Musicians;
             user.Nickname = UserValid.Nickname;
-            user.Photo = UserValid.ProfilePicture.byteProfilePicture;
             user.UserId = UserValid.UserId;
+
             return user;
         }
     }

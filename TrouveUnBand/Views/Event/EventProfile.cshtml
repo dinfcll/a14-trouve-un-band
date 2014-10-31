@@ -1,0 +1,121 @@
+﻿@model TrouveUnBand.Models.Event
+@{
+    ViewBag.Title = "EventProfile";
+}
+
+<div class="profile-container">
+    <div class="jumbotron col-md-12">
+        <div class="thumbnail card col-md-3">
+            <a href="#" data-toggle="modal" data-target="#PicModal">
+                @{
+                    var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.EventPhoto);
+                    <img id="ProfilePic" alt="" src="@photo" width="250" class="photo" />
+                }
+            </a>
+        </div>
+        <div class="col-md-9 profile-header-info">
+            <ul class="list-unstyled">
+                <li>
+                    <span class="label label-primary pull-right label-profile-type">Événement</span>
+                    <h1>@Model.EventName</h1>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-map-marker"></span><span>@Model.EventLocation, @Model.EventCity</span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-music"></span><span>@Model.EventGender</span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-user"></span><span>@Model.EventCreator</span>
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-eye-open"></span><span>Billet disponible</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="profile-info-container col-md-12">
+        <div class="profile-tab-menu col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item text-center active">
+                    <span class="glyphicon glyphicon-user col-md-12"></span>
+                    <span>Description</span>
+                </a>
+
+                <a href="#" class="list-group-item text-center">
+                    <span class=" glyphicon glyphicon-eye-open col-md-12"></span>
+                    <span>Billeterie</span>
+                </a>
+
+                <a href="#" class="list-group-item text-center">
+                    <span class="glyphicon glyphicon-play col-md-12"></span>
+                    <span>Media (Soundcloud/Youtube)</span>
+                </a>
+
+                <a href="#" class="list-group-item text-center">
+                    <span class="glyphicon glyphicon-picture col-md-12"></span>
+                    <span>Photos</span>
+                </a>
+
+                <a href="#" class="list-group-item text-center">
+                    <span class="glyphicon glyphicon-comment col-md-12"></span>
+                    <span>Commentaires</span>
+                </a>
+            </div>
+        </div>
+        <!--Desccription-->
+        <div class="profile-tab-content col-md-9 active">
+            
+        </div>
+        <!--Desccription end-->
+        <!--Seeking-->
+        <div class="profile-tab-content col-md-9">
+            <center>
+                <h1 class="glyphicon glyphicon-eye-open" style="font-size: 12em; color: #000000"></h1>
+                <h2 style="margin-top: 0; color: #000000">
+                    Bientôt
+                </h2>
+                <h3 style="margin-top: 0; color: #000000">
+                    Disponible
+                </h3>
+            </center>
+        </div>
+        <!--Seeking end-->
+        <!--Media-->
+        <div class="profile-tab-content col-md-9">
+            <center>
+                <h1 class="glyphicon glyphicon-play" style="font-size: 12em; color: #000000"></h1>
+                <h2 style="margin-top: 0; color: #000000">
+                    Bientôt
+                </h2>
+                <h3 style="margin-top: 0; color: #000000">
+                    Disponible
+                </h3>
+            </center>
+        </div>
+        <!--Media end-->
+        <!--Pictures-->
+        <div class="profile-tab-content col-md-9 pictures-tab">
+            
+        </div>
+        <!--Pictures end-->
+        <!--Comment-->
+        <div class="profile-tab-content col-md-9">
+            <center>
+                <h1 class="glyphicon glyphicon-comment" style="font-size: 12em; color: #000000"></h1>
+                <h2 style="margin-top: 0; color: #000000">
+                    Bientôt
+                </h2>
+                <h3 style="margin-top: 0; color: #000000">
+                    Disponible
+                </h3>
+            </center>
+        </div>
+        <!--Comment end-->
+    </div>
+</div>
+
+<div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
+     aria-hidden="true">
+    @Html.Partial("../Users/ViewPictureDialog")
+</div>

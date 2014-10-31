@@ -269,7 +269,6 @@ namespace TrouveUnBand.Controllers
                 eventList.Where(events => events.EventLocation.Contains(Location));
             }
 
-
             lstResults.AddRange(eventList);
 
             return lstResults;

@@ -30,6 +30,16 @@ namespace TrouveUnBand.Controllers
             return View(events);
         }
 
+        public ActionResult EventProfile(int id = 0)
+        {
+            Event events = db.Events.Find(id);
+            if (events == null)
+            {
+                return HttpNotFound();
+            }
+            return View(events);
+        }
+
         public ActionResult Create()
         {
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
