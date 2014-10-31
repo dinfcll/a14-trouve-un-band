@@ -18,13 +18,13 @@ namespace TrouveUnBand.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                List<Musician> CurrentMusician = new List<Musician>();
                 bool b = false;
-                b = CurrentUserIsMusician(GetCurrentUser(), out CurrentMusician);
+                b = CurrentUserIsMusician(GetCurrentUser());
 
                 if (b)
                 {
-                    return View(CurrentMusician[0].Bands);
+                    Musician CurrentMusician = GetCurrentMusician();
+                    return View(CurrentMusician.Bands);
                 }
 
             }
@@ -50,9 +50,8 @@ namespace TrouveUnBand.Controllers
             if (Request.IsAuthenticated)
             {
                     User CurrentUser = GetCurrentUser();
-                    List<Musician> CurrentMusician = new List<Musician>();
-                    ViewBag.CurrentUser = CurrentUser;
-                    bool b = CurrentUserIsMusician(CurrentUser, out CurrentMusician);
+                    Musician CurrentMusician = GetCurrentMusician();
+                    bool b = CurrentUserIsMusician(CurrentUser);
                     if (b)
                     {
                         if (Session["myBand"] == null || Session["myMusicians"] == null)
@@ -62,7 +61,7 @@ namespace TrouveUnBand.Controllers
                             myBand.Location = "";
                             myBand.Description = "";
                             List<Musician> myMusicians = new List<Musician>();
-                            myMusicians.Add(CurrentMusician[0]);
+                            myMusicians.Add(CurrentMusician);
                             /* 
                                 Il faut utilisé une list de musiciens à part du band car l'exécution différée de LINQ entre en conflit. 
                                 Lors d'une boucle foreach, l'objet est disposé apres la première lecture, donc n'a plus d'instance a la 
@@ -71,7 +70,7 @@ namespace TrouveUnBand.Controllers
                             Session["myMusicians"] = myMusicians;
                             Session["myBand"] = myBand;
                             // À la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
-                            ViewBag.CurrentMusician = CurrentMusician[0];
+                            ViewBag.CurrentMusician = CurrentMusician;
                         }
                         ViewBag.GenrelistDD = new List<Genre>(db.Genres);
                         return View("Create");
@@ -122,9 +121,13 @@ namespace TrouveUnBand.Controllers
         {
             string WC = "";
             string RC = "";
+            string SC = "";
 
             Band band = (Band)Session["myBand"];
-            Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
+            Band ExistingBand = db.Bands.Find(band.BandId);
+            User CurrentUser = GetCurrentUser();
+            Musician CurrentMusician = GetCurrentMusician();
+            CurrentUserIsMusician(CurrentUser);
             if (ExistingBand != null)
             {
                 if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
@@ -137,8 +140,13 @@ namespace TrouveUnBand.Controllers
             try
             {
                 band.Musicians = (List<Musician>)Session["myMusicians"];
+                
+                db.Database.Connection.Open();
                 db.Bands.Add(band);
                 db.SaveChanges();
+                db.Database.Connection.Close();
+                SC = "Vous avez créé un band!";
+                TempData["Success"] = SC;
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -222,10 +230,10 @@ namespace TrouveUnBand.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CurrentUserIsMusician(User CurrentUser, out List<Musician> CurrentMusician)
+        private bool CurrentUserIsMusician(User CurrentUser)
         {
             bool b = false;
-            CurrentMusician = CurrentUser.Musicians.ToList();
+            Musician CurrentMusician = GetCurrentMusician();
             if (CurrentMusician == null)
                 b = false;
             else
@@ -239,6 +247,12 @@ namespace TrouveUnBand.Controllers
             var iQUser = db.Users.Where(x => x.Nickname == Username);
             User CurrentUser = (iQUser.ToList())[0];
             return CurrentUser;
+        }
+
+        public Musician GetCurrentMusician()
+        {
+            Musician CurrentMusician = GetCurrentUser().Musicians.FirstOrDefault();
+            return CurrentMusician;
         }
 
         [HttpPut]
@@ -321,11 +335,6 @@ namespace TrouveUnBand.Controllers
             ViewData["SearchMusicians"] = musicians;
             TempData["TempDataError"] = RC;
             return PartialView("_MusicianTab");
-        }
-
-        public ActionResult BaseSubmit(Band myBand)
-        {
-            return View();
         }
     }
 }
