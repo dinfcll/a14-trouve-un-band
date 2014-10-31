@@ -30,14 +30,4 @@
         $('#basic-filter').toggle();
         $('#advanced-filter').toggle();
     });
-
-    $('li.searchfilter').on('click', function () {
-        var genre = $(this).children('span').text();
-        var label = '<li id="tags" class="label label-default">' + genre + '<span class="glyphicon-remove"></span></li>';
-        $('#search-parameters').append(label);
-    });
-
-    $('#search-parameters').on('click', function () {
-        alert("yo");
-    });
 });
