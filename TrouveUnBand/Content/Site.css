@@ -41,12 +41,12 @@
 
 .navbar-login
 {
-    width: 305px;
+    width: 315px;
     padding: 10px;
     padding-bottom: 0px;
 }
 
-.navbar-login-session
+.navbar-footer
 {
     padding: 10px;
     padding-bottom: 0px;
@@ -56,6 +56,10 @@
 .icon-size
 {
     height: 87px;
+}
+
+.navbar-login a{
+    font-weight:600;
 }
 
 .normal-font {
@@ -161,7 +165,408 @@ tr.instTable > td{
     margin-top: 40px;
 }
 
-/* css for timepicker */
+/* jquery.Jcrop.css v0.9.12 - MIT License */
+/*
+  The outer-most container in a typical Jcrop instance
+  If you are having difficulty with formatting related to styles
+  on a parent element, place any fixes here or in a like selector
+
+  You can also style this element if you want to add a border, etc
+  A better method for styling can be seen below with .jcrop-light
+  (Add a class to the holder and style elements for that extended class)
+*/
+
+.jcrop-holder {
+  margin: 0 auto;
+}
+/* Selection Border */
+.jcrop-vline,
+.jcrop-hline {
+  background: #ffffff url("../Images/Jcrop.gif");
+  font-size: 0;
+  position: absolute;
+}
+.jcrop-vline {
+  height: 100%;
+  width: 1px !important;
+}
+.jcrop-vline.right {
+  right: 0;
+}
+.jcrop-hline {
+  height: 1px !important;
+  width: 100%;
+}
+.jcrop-hline.bottom {
+  bottom: 0;
+}
+/* Invisible click targets */
+.jcrop-tracker {
+  height: 100%;
+  width: 100%;
+  /* "turn off" link highlight */
+  -webkit-tap-highlight-color: transparent;
+  /* disable callout, image save panel */
+  -webkit-touch-callout: none;
+  /* disable cut copy paste */
+  -webkit-user-select: none;
+}
+/* Selection Handles */
+.jcrop-handle {
+  background-color: #333333;
+  border: 1px #eeeeee solid;
+  width: 7px;
+  height: 7px;
+  font-size: 1px;
+}
+.jcrop-handle.ord-n {
+  left: 50%;
+  margin-left: -4px;
+  margin-top: -4px;
+  top: 0;
+}
+.jcrop-handle.ord-s {
+  bottom: 0;
+  left: 50%;
+  margin-bottom: -4px;
+  margin-left: -4px;
+}
+.jcrop-handle.ord-e {
+  margin-right: -4px;
+  margin-top: -4px;
+  right: 0;
+  top: 50%;
+}
+.jcrop-handle.ord-w {
+  left: 0;
+  margin-left: -4px;
+  margin-top: -4px;
+  top: 50%;
+}
+.jcrop-handle.ord-nw {
+  left: 0;
+  margin-left: -4px;
+  margin-top: -4px;
+  top: 0;
+}
+.jcrop-handle.ord-ne {
+  margin-right: -4px;
+  margin-top: -4px;
+  right: 0;
+  top: 0;
+}
+.jcrop-handle.ord-se {
+  bottom: 0;
+  margin-bottom: -4px;
+  margin-right: -4px;
+  right: 0;
+}
+.jcrop-handle.ord-sw {
+  bottom: 0;
+  left: 0;
+  margin-bottom: -4px;
+  margin-left: -4px;
+}
+/* Dragbars */
+.jcrop-dragbar.ord-n,
+.jcrop-dragbar.ord-s {
+  height: 7px;
+  width: 100%;
+}
+.jcrop-dragbar.ord-e,
+.jcrop-dragbar.ord-w {
+  height: 100%;
+  width: 7px;
+}
+.jcrop-dragbar.ord-n {
+  margin-top: -4px;
+}
+.jcrop-dragbar.ord-s {
+  bottom: 0;
+  margin-bottom: -4px;
+}
+.jcrop-dragbar.ord-e {
+  margin-right: -4px;
+  right: 0;
+}
+.jcrop-dragbar.ord-w {
+  margin-left: -4px;
+}
+/* The "jcrop-light" class/extension */
+.jcrop-light .jcrop-vline,
+.jcrop-light .jcrop-hline {
+  background: #ffffff;
+  filter: alpha(opacity=70) !important;
+  opacity: .70!important;
+}
+.jcrop-light .jcrop-handle {
+   background-color: #333333;
+  border: 1px #eeeeee solid;
+  width: 10px;
+  height: 10px;
+  font-size: 1px;
+}
+/* The "jcrop-dark" class/extension */
+.jcrop-dark .jcrop-vline,
+.jcrop-dark .jcrop-hline {
+  background: #000000;
+  filter: alpha(opacity=70) !important;
+  opacity: 0.7 !important;
+}
+.jcrop-dark .jcrop-handle {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #ffffff;
+  border-color: #000000;
+  border-radius: 3px;
+}
+/* Simple macro to turn off the antlines */
+.solid-line .jcrop-vline,
+.solid-line .jcrop-hline {
+  background: #ffffff;
+}
+/* Fix for twitter bootstrap et al. */
+.jcrop-holder img,
+img.jcrop-preview {
+  max-width: none;
+}
+
+.CropProfilPicture{
+    max-height:600px;
+    max-width:600px;
+    min-height:200px;
+    min-width:200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.CropThumbNail{
+    max-height:413px;
+    max-width:600px;
+    min-height:172px;
+    min-width:250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+  .modal-crop {
+    width: 700px;
+  }
+
+  .btn-tic-tac-toe
+  {
+      width:60px;
+      height:60px;
+      margin-bottom:20px;
+      margin-left:5px;
+      font-size:35px;
+      line-height: 30px;
+  }
+
+.profile-container{
+    background-clip: padding-box;
+}
+
+.profile-header-info>ul>li{
+    color:White;
+}
+
+.profile-header-info>ul>li>span{
+    font-size:115%;
+    color:#CDCDCD;
+    margin-bottom:10px;
+}
+
+.profile-header-info>ul>li>div>span{
+    font-size:115%;
+    color:#CDCDCD;
+    margin-bottom:10px;
+}
+
+.profile-header-info span:not(.glyphicon):not(.label){
+   padding-left: 5px;
+}
+    
+.profile-header-info>ul>li>span.label{
+    font-size:100%;
+    color:White;
+    margin-left:5px;
+     display: inline-block;
+    vertical-align:top;
+    cursor:pointer;
+}
+
+.profile-header-info>ul>li>span.label-profile-type{
+    font-size:125%;
+    color:White;
+    cursor:default;
+}
+
+.profile-container>div.jumbotron{
+    background-color:#222222;
+    margin-bottom:0;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.profile-tab-menu{
+   padding-left:0;
+}
+
+div.profile-tab-menu div.list-group > a {
+    background-color:#222222;
+    border:0;
+    border-left: 8px solid transparent;
+}
+
+div.profile-tab-menu div.list-group > a:hover {
+    background-color:#525252;
+    border:0;
+    border-left: 8px solid #428BCA;
+    color:white;
+}
+
+div.profile-tab-menu div.list-group > a:first-child {
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+div.profile-tab-menu div.list-group > a:last-child {
+    border-bottom-right-radius: 0 !important;
+}
+
+div.profile-tab-menu div.list-group>a.active{
+    background-color:#525252;
+    border:0;
+    border-left: 8px solid #428BCA;
+}
+
+.profile-tab-content:not(.active) {
+    display: none;
+}
+
+.profile-info-container{
+     padding:0;
+     background-color:#F5F5F5;
+     color:black;    
+     border-right: 1px solid #e3e3e3;
+     border-bottom: 1px solid #e3e3e3;
+}
+
+div.profile-tab-menu div.list-group{
+  margin-bottom: 0;
+}
+
+.profile-info-container span.glyphicon{
+    font-size:18px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.profile-tab-content:not(.pictures-tab){
+    height:386px;
+    overflow: auto;
+}
+
+.profile-info-row{
+    margin-top:10px;
+}
+
+.profile-info-row .panel{
+    margin-bottom:25px;
+}
+
+.profile-info-row i.chevron{
+    margin-top: 30px;
+}
+
+.profile-info-header>strong,
+.profile-info-header>span,
+.profile-info-row i.chevron:hover{
+    cursor:pointer;
+}
+
+.profile-info-header{
+    margin-bottom:20px;
+}
+
+.profile-info-panel .panel{
+    border: 1px solid #222222;
+}
+
+.profile-info-panel .panel .panel-heading{
+    background-color:#222222;
+    color:white;
+}
+
+.pictures-tab{
+    padding-right:0;
+    padding-left:30px;
+}
+
+.carousel {
+    width: initial;
+}
+
+.profile-photo-list{
+    height:386px;
+    overflow: auto;
+}
+
+.profile-photo-list ul{
+    margin-bottom:0;
+}
+
+.profile-photo-list li{
+    margin-left:15px;
+    margin-right:15px;
+}
+
+.profile-photo-list li img:hover{
+    cursor:pointer;
+}
+
+.profile-photo-list .active img{
+    border: 2px solid #428BCA;
+    opacity: 0.7;
+}
+
+#profile-photo-carousel{
+    padding-right:0;
+}
+
+#profile-photo-carousel img{
+    width:561px;
+    height:386px;
+}
+
+#PicModal .modal-content {
+    display: inline-block;
+    text-align: center;  
+    background-color:transparent;
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0); 
+    border:0;
+}
+
+#PicModal .close {
+    opacity: 1;
+    color: rgb(255, 255, 255);
+    background-color: rgb(25, 25, 25);
+    padding: 5px 8px;
+    border-radius: 30px;
+    border: 2px solid rgb(255, 255, 255);
+    position: absolute;
+    top: -15px;
+    right: -55px;
+    
+    z-index:1032;
+}
+
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }
 .ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }

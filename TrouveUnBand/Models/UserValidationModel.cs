@@ -12,10 +12,12 @@ namespace TrouveUnBand.Models
         public UserValidation()
         {
             this.Musicians = new HashSet<Musician>();
+            ProfilePicture = new Photo();
         }
 
         public UserValidation(User user)
         {
+            ProfilePicture = new Photo();
             UserId = user.UserId;
             FirstName = user.FirstName;
             BirthDate = user.BirthDate;
@@ -28,7 +30,11 @@ namespace TrouveUnBand.Models
             Musicians = user.Musicians;
             Nickname = user.Nickname;
             Password = user.Password;
-            Photo = user.Photo;
+            ProfilePicture.byteProfilePicture = user.Photo;
+            if (user.Photo != null)
+            {
+                ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+            }
             UserId = user.UserId;
         }
 
@@ -66,9 +72,7 @@ namespace TrouveUnBand.Models
         public string ConfirmPassword { get; set; }
 
         [NotMapped]
-        public string PhotoName { get; set; }
-
-        new public byte[] Photo { get; set; }
+        public Photo ProfilePicture { get; set; }
 
         [Required(ErrorMessage = "Ce champ est requis")]
         new public string Gender { get; set; }
@@ -76,10 +80,5 @@ namespace TrouveUnBand.Models
         new public double Latitude { get; set; }
 
         new public double Longitude { get; set; }
-
-        public int PicX { get; set; }
-        public int PicY { get; set; }
-        public int PicWidth { get; set; }
-        public int PicHeight { get; set; }
     }
 }

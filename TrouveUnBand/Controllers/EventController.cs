@@ -30,6 +30,16 @@ namespace TrouveUnBand.Controllers
             return View(events);
         }
 
+        public ActionResult EventProfile(int id = 0)
+        {
+            Event events = db.Events.Find(id);
+            if (events == null)
+            {
+                return HttpNotFound();
+            }
+            return View(events);
+        }
+
         public ActionResult Create()
         {
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
@@ -130,9 +140,9 @@ namespace TrouveUnBand.Controllers
                             Events.EventId.Equals(eventID)
                             select new Photo
                             {
-                                ProfilePicture = Events.EventPhoto
+                                byteProfilePicture = Events.EventPhoto
                             }).FirstOrDefault();
-            return PicQuery.ProfilePicture;
+            return PicQuery.byteProfilePicture;
         }
 
         private Event CreateEventFromModel(EventValidation EventValid)

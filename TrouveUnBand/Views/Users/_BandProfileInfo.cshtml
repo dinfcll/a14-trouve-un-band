@@ -1,0 +1,105 @@
+﻿@model TrouveUnBand.Models.BandProfileViewModel
+
+<div class="profile-info-row row" data-panel-id="description-panel">
+    <div class="profile-info-header col-xs-8 col-sm-9 col-md-10 col-lg-10 col-md-push-1">
+        <strong class="row ">Description</strong>
+        <span class="text-muted col-md-12 row">Description détaillée du groupe</span>
+    </div>
+    <i class="chevron glyphicon glyphicon-chevron-down text-muted col-md-offset-1"></i>
+</div>
+
+<div id="description-panel" class="profile-info-panel row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
+        <div class="panel ">
+            <div class="panel-heading">
+                <h3 class="panel-title">Description</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-12 col-lg-12">
+                        <span>@Model.Description</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-info-row row" data-panel-id="instrument-panel">
+    <div class="profile-info-header col-xs-8 col-sm-9 col-md-10 col-lg-10 col-md-push-1">
+        <strong class="row ">Membres</strong>
+        <span class="text-muted col-md-12 row">Liste des imembres du groupe</span>
+    </div>
+    <i class="chevron glyphicon glyphicon-chevron-down text-muted col-md-offset-1"></i>
+</div>
+
+<div id="instrument-panel" class="profile-info-panel row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Membres</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-12 col-lg-12">
+                        <table class="table table-musician-info">
+                            <thead>
+                                <tr>
+                                    <th>Membre:</th>
+                                    <th>Instrument:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jean</td>
+                                    <td>Guitare</td>
+                                </tr>
+                                <tr>
+                                    <td>Steven</td>
+                                    <td>Guitare à pouce</td>
+                                </tr>
+                                <tr>
+                                    <td>Luc</td>
+                                    <td>Drum</td>
+                                </tr>
+                                <tr>
+                                    <td>Yoda</td>
+                                    <td>Bass</td>
+                                </tr>
+                                <tr>
+                                    <td>Richard Wagner</td>
+                                    <td>Triangle</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-info-row row" data-panel-id="event-panel">
+    <div class="profile-info-header col-xs-8 col-sm-9 col-md-10 col-lg-10 col-md-push-1">
+        <strong class="row ">Évènements</strong>
+        <span class="text-muted col-md-12 row">Évènements passés et futurs du groupe</span>
+    </div>
+    <i class="chevron glyphicon glyphicon-chevron-down text-muted col-md-offset-1"></i>
+</div>
+
+<div id="event-panel" class="profile-info-panel row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Évènements</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-12 col-lg-12">
+                        <strong>contenue</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

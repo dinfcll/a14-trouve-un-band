@@ -165,9 +165,9 @@ namespace TrouveUnBand.Controllers
                             Adverts.AdvertId.Equals(AdvertIDView)
                             select new Photo
                             {
-                                ProfilePicture = Adverts.AdvertPhoto
+                                byteProfilePicture = Adverts.AdvertPhoto
                             }).FirstOrDefault();
-            return PicQuery.ProfilePicture;
+            return PicQuery.byteProfilePicture;
         }
 
         private byte[] GetPostedAdvertPhoto()

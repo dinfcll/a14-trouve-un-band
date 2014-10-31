@@ -182,6 +182,7 @@
     <Compile Include="Models\Band.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BandProfileViewModel.cs" />
     <Compile Include="Models\Event.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
@@ -190,17 +191,15 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LocationModel.cs" />
+    <Compile Include="Models\MusicianProfileViewModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
-    <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Join_Musician_Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Musician_Instrument.cs" />
-    <Compile Include="Models\Style.cs" />
     <Compile Include="Models\TUBModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -295,13 +294,17 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
+    <Content Include="Images\Jcrop.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
     <Content Include="Scripts\holder.js" />
+    <Content Include="Scripts\ImageUpload.js" />
+    <Content Include="Scripts\jquery-1.11.1.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -314,6 +317,10 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
+    <Content Include="Scripts\NavBarActive.js" />
+    <Content Include="Scripts\PictureDialog.js" />
+    <Content Include="Scripts\ProfilePage.js" />
+    <Content Include="Scripts\TopSecret.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -410,10 +417,18 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Users\ImageCropperDialog.cshtml" />
+    <Content Include="Views\Users\ViewPictureDialog.cshtml" />
+    <Content Include="Views\Users\MusicianProfile.cshtml" />
+    <Content Include="Views\Users\_MusicianProfileInfo.cshtml" />
+    <Content Include="Views\Users\_MusicianProfilePhoto.cshtml" />
+    <Content Include="Views\Users\BandProfile.cshtml" />
+    <Content Include="Views\Users\_BandProfileInfo.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Delete.cshtml" />
+    <Content Include="Views\Event\EventProfile.cshtml" />
     <Content Include="Views\Advert\Index.cshtml" />
     <Content Include="Views\Advert\Create.cshtml" />
     <Content Include="Views\Advert\Edit.cshtml" />

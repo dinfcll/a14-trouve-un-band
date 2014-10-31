@@ -46,7 +46,7 @@
                     </p>
                     <b>@Html.DisplayName(item.EventGender)</b>
                     <p>
-                        @Html.ActionLink("Détails", "Details", new { id = item.EventId }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Détails", "EventProfile", new { id = item.EventId }, new { @class = "btn btn-default" })
                         @if (item.EventCreator == User.Identity.Name)
                         {
                             @Html.ActionLink("Modifier", "Edit", new { id = item.EventId }, new { @class = "btn btn-primary" })

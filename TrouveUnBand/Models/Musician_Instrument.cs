@@ -7,7 +7,15 @@ namespace TrouveUnBand.Models
 {
     public class Musician_Instrument
     {
-        public Musician Musician { get; set; }
-        public Instrument Instrument { get; set; }
+        public int MusicianId { get; set; }
+        public string MusicianName { get; set; }
+        public List<string> InstrumentNames { get; set; }
+        public List<string> Skills { get; set; }
+
+        public Musician_Instrument()
+        {
+            InstrumentNames = new List<string>();
+            Skills = new List<string>();
+        }
     }
 }

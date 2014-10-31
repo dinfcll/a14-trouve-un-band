@@ -13,6 +13,7 @@ using WebMatrix.WebData;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Web.Script.Serialization;
@@ -39,6 +40,33 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
+        public ActionResult ViewProfile(string type, int Id)
+        {
+            switch (type.ToUpper())
+            {
+                case "MUSICIEN": //view model
+                    Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
+                    MusicianProfileViewModel MusicianProfile = CreateMusicianProfileView(musician);
+                    return View("MusicianProfile", MusicianProfile);
+
+                case "BAND":
+                    Band band = db.Bands.FirstOrDefault(x => x.BandId == Id);
+                    BandProfileViewModel BandProfile = CreateBandProfileView(band);
+                    return View("BandProfile", BandProfile);
+
+                case "EVENT":
+                    RedirectToAction("EventProfile","Event");
+                    break;
+
+                case "PROMOTER":
+                    break;
+
+                default:
+                    break;
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public ActionResult Register(UserValidation userModel)
         {
@@ -47,8 +75,6 @@ namespace TrouveUnBand.Controllers
             {
                 if (userModel.Password == userModel.ConfirmPassword)
                 {
-                    userModel = SetUserLocation(userModel);
-                    userModel.Photo = StockPhoto();
                     User userBD = CreateUserFromModel(userModel);
                     RC = Insertcontact(userBD);
                     if (RC == "")
@@ -84,7 +110,6 @@ namespace TrouveUnBand.Controllers
                 if (ValidUserQuery == null)
                 {
                     db.Database.Connection.Open();
-                    userbd.Password = Encrypt(userbd.Password);
                     db.Users.Add(userbd);
                     db.SaveChanges();
                     db.Database.Connection.Close();
@@ -169,12 +194,9 @@ namespace TrouveUnBand.Controllers
             try
             {
                 User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
-                if ((LoggedOnUser.Latitude == 0.0 || LoggedOnUser.Longitude == 0.0) || LoggedOnUser.Location != userModel.Location)
-                {
-                    userModel = SetUserLocation(userModel);
-                }
+
                 LoggedOnUser = CreateUserFromModel(userModel, LoggedOnUser);
-                
+
                 db.SaveChanges();
 
                 return "";
@@ -224,7 +246,7 @@ namespace TrouveUnBand.Controllers
             UserValidation LoggedOnUserValid = GetUserInfo(User.Identity.Name);
             if (LoggedOnUserValid.Photo != null)
             {
-                LoggedOnUserValid.PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUserValid.Photo);
+                LoggedOnUserValid.ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUserValid.Photo);
             }
             ViewData["UserData"] = LoggedOnUserValid;
 
@@ -240,40 +262,21 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult UserProfileModification(UserValidation userModel)
         {
-                userModel.Nickname = User.Identity.Name;
-                string RC = "";
-                if (Request.Files[0].ContentLength == 0)
-                {
-                    userModel.Photo = GetProfilePicByte(userModel.Nickname);
-                    RC = UpdateProfil(userModel);
-                }
-                else
-                {
-                    HttpPostedFileBase PostedPhoto = Request.Files[0];
-                    try
-                    {
-                        Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-                        byte[] bytephoto = imageToByteArray(img);
-                        userModel.PhotoName = PostedPhoto.FileName;
-                        userModel.Photo = bytephoto;
-                    }
-                    catch
-                    {
-                        userModel.Photo = StockPhoto();
-                    }
-                    RC = UpdateProfil(userModel);
-                }
+            userModel.Nickname = User.Identity.Name;
+            string RC = "";
 
-                if (RC == "")
-                {
-                    TempData["success"] = "Le profil a été mis à jour.";
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    TempData["TempDataError"] = "Une erreur interne s'est produite";
-                    return RedirectToAction("ProfileModification", "Users");
-                }
+            RC = UpdateProfil(userModel);
+
+            if (RC == "")
+            {
+                TempData["success"] = "Le profil a été mis à jour.";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["TempDataError"] = "Une erreur interne s'est produite";
+                return RedirectToAction("ProfileModification", "Users");
+            }
         }
 
         [HttpPost]
@@ -288,14 +291,18 @@ namespace TrouveUnBand.Controllers
                 string SkillList = Request["SkillsList"];
                 string[] SkillArray = SkillList.Split(',');
                 string DescriptionMusician = Request["TextArea"];
-                musician.Description = DescriptionMusician;
 
+                musician.Description = DescriptionMusician;
                 for (int i = 0; i < InstrumentArray.Length; i++)
                 {
+                    int currentInstrumentID = Convert.ToInt32(InstrumentArray[i]);
+                    var instrument = db.Instruments.FirstOrDefault(x => x.InstrumentId == currentInstrumentID);
                     Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
-                    InstrumentsMusician.InstrumentId = Convert.ToInt32(InstrumentArray[i]);
+
+                    InstrumentsMusician.InstrumentId = instrument.InstrumentId;
                     InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
                     InstrumentsMusician.MusicianId = musician.MusicianId;
+
                     musician.Join_Musician_Instrument.Add(InstrumentsMusician);
                 }
 
@@ -361,21 +368,21 @@ namespace TrouveUnBand.Controllers
                             User.Nickname.Equals(nickname)
                             select new Photo
                             {
-                                ProfilePicture = User.Photo
+                                byteProfilePicture = User.Photo
                             }).FirstOrDefault();
-            return PicQuery.ProfilePicture;
+            return PicQuery.byteProfilePicture;
         }
 
         public string GetUserFullName()
         {
-            User LoggedOnUser = GetUserInfo(User.Identity.Name);
+            var LoggedOnUser = GetUserInfo(User.Identity.Name);
             return LoggedOnUser.FirstName + " " + LoggedOnUser.LastName;
         }
 
         public string GetPhotoName()
         {
             UserValidation LoggedOnUser = GetUserInfo(User.Identity.Name);
-            string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.Photo);
+            string PhotoName = "data:image/jpeg;base64," + Convert.ToBase64String(LoggedOnUser.ProfilePicture.byteProfilePicture);
             return PhotoName;
         }
 
@@ -385,7 +392,10 @@ namespace TrouveUnBand.Controllers
 
             client.BaseAddress = new Uri("https://maps.googleapis.com");
 
-            var response = client.GetAsync("/maps/api/geocode/json?address=" + user.Location + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds").Result;
+            var response = client.GetAsync("/maps/api/geocode/json?address="
+                                            + user.Location
+                                            + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
+                                            ).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -401,17 +411,17 @@ namespace TrouveUnBand.Controllers
             return user;
         }
 
-        public string GetDistance(double LatitudeP1,double LongitudeP1, double LatitudeP2, double LongitudeP2)
+        public string GetDistance(double LatitudeP1, double LongitudeP1, double LatitudeP2, double LongitudeP2)
         {
-                double R = 6378.137; // Earth’s mean radius in kilometer
-                var lat = ToRadians(LatitudeP2 - LatitudeP1);
-                var lng = ToRadians(LongitudeP2 - LongitudeP1);
-                var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
-                              Math.Cos(ToRadians(LatitudeP1)) * Math.Cos(ToRadians(LatitudeP2)) *
-                              Math.Sin(lng / 2) * Math.Sin(lng / 2);
-                var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
-                int d=  (int)(R * h2);
-                return d.ToString() + " kilomètres";
+            double EARTHS_MEAN_RADIUS_IN_KM = 6378.137; // Earth’s mean radius in kilometer
+            var lat = ToRadians(LatitudeP2 - LatitudeP1);
+            var lng = ToRadians(LongitudeP2 - LongitudeP1);
+            var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
+                          Math.Cos(ToRadians(LatitudeP1)) * Math.Cos(ToRadians(LatitudeP2)) *
+                          Math.Sin(lng / 2) * Math.Sin(lng / 2);
+            var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
+            int d = (int)(EARTHS_MEAN_RADIUS_IN_KM * h2);
+            return d.ToString() + " kilomètres";
         }
 
         private static double ToRadians(double val)
@@ -419,27 +429,239 @@ namespace TrouveUnBand.Controllers
             return (Math.PI / 180) * val;
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult CropImage(UserValidation UserPicture)
+        {
+            User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
+            if (Request.Files[0].ContentLength == 0)
+            {
+                TempData["TempDataError"] = "Une erreur s'est produite lors de l'ouverture du fichier. Veuillez réessayer. ";
+            }
+            else
+            {
+                HttpPostedFileBase PostedPhoto = Request.Files[0];
+                try
+                {
+                    string extension = Path.GetExtension(PostedPhoto.FileName).ToLower();
+
+                    if (extension != ".jpe" && extension != ".jpg" && extension != ".jpeg" && extension != ".gif" && extension != ".png" &&
+                        extension != ".pns" && extension != ".bmp" && extension != ".ico" && extension != ".psd" && extension != ".pdd")
+                    {
+                        TempData["TempDataError"] = "Le type du fichier n'est pas valide. Assurez-vous que le fichier soit bien une image. ";
+                        return RedirectToAction("ProfileModification");
+                    }
+
+                    Image image = Image.FromStream(PostedPhoto.InputStream, true, true);
+
+                    if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
+                    {
+                        image = ResizeOriginalImage(image, 172, 250, 413, 600);
+                    }
+
+                    byte[] croppedImage = CropImage(image,
+                                          UserPicture.ProfilePicture.PicX,
+                                          UserPicture.ProfilePicture.PicY,
+                                          UserPicture.ProfilePicture.PicWidth,
+                                          UserPicture.ProfilePicture.PicHeight);
+
+                    LoggedOnUser.Photo = croppedImage;
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    TempData["TempDataError"] = "Une erreur inattendue s'est produite. Veuillez réessayer plus tard. ";
+                }
+            }
+            TempData["success"] = "La photo de profil a été modifiée avec succès.";
+            return RedirectToAction("ProfileModification", "Users");
+        }
+
+        private static byte[] CropImage(Image image, int x, int y, int width, int height)
+        {
+            var CropRect = new Rectangle(x, y, width, height);
+            Bitmap btmOriginalImage = new Bitmap(image);
+            Bitmap btmNewImage = new Bitmap(CropRect.Width, CropRect.Height);
+            byte[] CroppedImage;
+
+            using (Graphics g = Graphics.FromImage(btmNewImage))
+            {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.CompositingQuality = CompositingQuality.HighQuality;
+
+                g.DrawImage(btmOriginalImage, new Rectangle(0, 0, btmNewImage.Width, btmNewImage.Height), CropRect, GraphicsUnit.Pixel);
+            }
+
+            CroppedImage = GetBitmapBytes(btmNewImage);
+            return CroppedImage;
+        }
+
+        private static byte[] GetBitmapBytes(Bitmap source)
+        {
+            ImageCodecInfo codec = ImageCodecInfo.GetImageEncoders()[4];
+            EncoderParameters parameters = new EncoderParameters(1);
+            parameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+
+            using (MemoryStream tmpStream = new MemoryStream())
+            {
+                source.Save(tmpStream, codec, parameters);
+
+                byte[] result = new byte[tmpStream.Length];
+                tmpStream.Seek(0, SeekOrigin.Begin);
+                tmpStream.Read(result, 0, (int)tmpStream.Length);
+
+                return result;
+            }
+        }
+
+        private Image ResizeOriginalImage(Image ImageToResize, int MinHeight, int MinWidth, int MaxHeight, int MaxWidth)
+        {
+            Bitmap NewImage;
+
+            int OriginalHeight = ImageToResize.Height;
+            int OriginalWidth = ImageToResize.Width;
+            int NewHeight;
+            int NewWidth;
+
+            if (OriginalHeight < MinHeight || OriginalWidth < MinWidth)
+            {
+                if (OriginalHeight < MinHeight)
+                {
+                    NewHeight = MinHeight;
+                }
+                else
+                {
+                    NewHeight = ImageToResize.Height;
+                }
+
+                if (OriginalWidth < MinWidth)
+                {
+                    NewWidth = MinWidth;
+                }
+                else
+                {
+                    NewWidth = ImageToResize.Width;
+                }
+            }
+            else
+            {
+                if (OriginalHeight > MaxHeight)
+                {
+                    NewHeight = MaxHeight;
+                }
+                else
+                {
+                    NewHeight = ImageToResize.Height;
+                }
+
+                if (OriginalWidth > MaxWidth)
+                {
+                    NewWidth = MaxWidth;
+                }
+                else
+                {
+                    NewWidth = ImageToResize.Width;
+                }
+            }
+
+            NewImage = new Bitmap(NewWidth, NewHeight);
+            using (Graphics gr = Graphics.FromImage(NewImage))
+            {
+                gr.SmoothingMode = SmoothingMode.HighQuality;
+                gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                gr.DrawImage(ImageToResize, new Rectangle(0, 0, NewWidth, NewHeight));
+            }
+
+            return (Image)NewImage;
+
+        }
+
+        private List<Musician_Instrument> SetMusician_Instrument(List<Musician> musicians)
+        {
+            List<Musician_Instrument> InstrumentInfoList = new List<Musician_Instrument>();
+            ICollection<Join_Musician_Instrument> ListOfInstruments;
+            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
+
+            foreach(var musician in musicians)
+            {
+                ListOfInstruments = musician
+                                    .Join_Musician_Instrument
+                                    .OrderByDescending(x => (x.Skills))
+                                    .ToList();
+
+                var InstrumentInfo = new Musician_Instrument();
+
+                foreach (var instrument in ListOfInstruments)
+                {
+                    InstrumentInfo.InstrumentNames
+                       .Add(instrument.Instrument.Name);
+
+                    InstrumentInfo.Skills
+                        .Add(SkillList[instrument.Skills]);
+                }
+                InstrumentInfoList.Add(InstrumentInfo);
+            }
+
+            return InstrumentInfoList;
+        }
+
+        private MusicianProfileViewModel CreateMusicianProfileView(Musician musician)
+        {
+            MusicianProfileViewModel MusicianView = new MusicianProfileViewModel();
+            User user = db.Users.FirstOrDefault(x => x.UserId == musician.UserId);
+
+            List<Musician> MusicianList = new List<Musician>();
+            MusicianList.Add(musician);
+            List<Musician_Instrument> InstrumentInfos = SetMusician_Instrument(MusicianList);
+
+            MusicianView.InstrumentInfo = InstrumentInfos[0];
+            MusicianView.Description = musician.Description;
+            MusicianView.Name = user.FirstName + " " + user.LastName;
+            MusicianView.Location = user.Location;
+            MusicianView.ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+
+            return MusicianView;
+        }
+
+        private BandProfileViewModel CreateBandProfileView(Band band)
+        {
+            BandProfileViewModel BandView = new BandProfileViewModel();
+
+            BandView.InstrumentInfoList = SetMusician_Instrument(band.Musicians.ToList());
+            BandView.Name = band.Name;
+            BandView.Description = band.Description;
+            BandView.Location = band.Location;
+
+            return BandView;
+        }
+
         private User CreateUserFromModel(UserValidation UserValid)
         {
             User user = new User();
-            user.BirthDate = UserValid.BirthDate;
-            user.Email = UserValid.Email;
-            user.FirstName = UserValid.FirstName;
-            user.Gender = UserValid.Gender;
-            user.LastName = UserValid.LastName;
-            user.Latitude = UserValid.Latitude;
-            user.Location = UserValid.Location;
-            user.Longitude = UserValid.Longitude;
-            user.Musicians = UserValid.Musicians;
-            user.Nickname = UserValid.Nickname;
-            user.Password = UserValid.Password;
-            user.Photo = UserValid.Photo;
-            user.UserId = UserValid.UserId;
+            user = CreateUserFromModel(UserValid, user);
             return user;
         }
 
         private User CreateUserFromModel(UserValidation UserValid, User user)
         {
+            if ((user.Latitude == 0.0 || user.Longitude == 0.0) || user.Location != UserValid.Location)
+            {
+                UserValid = SetUserLocation(UserValid);
+            }
+
+            if(user.Photo == null)
+            {
+                user.Photo = StockPhoto();
+            }
+
+            if(user.Password == null)
+            {
+                user.Password = Encrypt(UserValid.Password);
+            }
+
             user.BirthDate = UserValid.BirthDate;
             user.Email = UserValid.Email;
             user.FirstName = UserValid.FirstName;
@@ -450,8 +672,8 @@ namespace TrouveUnBand.Controllers
             user.Longitude = UserValid.Longitude;
             user.Musicians = UserValid.Musicians;
             user.Nickname = UserValid.Nickname;
-            user.Photo = UserValid.Photo;
             user.UserId = UserValid.UserId;
+
             return user;
         }
     }
