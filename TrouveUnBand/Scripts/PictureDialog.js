@@ -1,3 +1,4 @@
+
 ﻿var $lightbox = $('#PicModal');
 
 $('[data-target="#PicModal"]').on('click', function (event) {

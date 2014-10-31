@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdvertController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -174,6 +175,9 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Advert.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Band.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
@@ -189,16 +193,13 @@
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\MusicianProfileViewModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
-    <Compile Include="Models\GroupModels.cs" />
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Join_Musician_Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Musician_Instrument.cs" />
-    <Compile Include="Models\Style.cs" />
     <Compile Include="Models\TUBModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -208,6 +209,7 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserValidationModel.cs" />
+    <Compile Include="Models\_Advert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -423,11 +425,17 @@
     <Content Include="Views\Users\BandProfile.cshtml" />
     <Content Include="Views\Users\_BandProfileInfo.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
-    <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Delete.cshtml" />
     <Content Include="Views\Event\EventProfile.cshtml" />
+    <Content Include="Views\Advert\Index.cshtml" />
+    <Content Include="Views\Advert\Create.cshtml" />
+    <Content Include="Views\Advert\Edit.cshtml" />
+    <Content Include="Views\Advert\Delete.cshtml" />
+    <Content Include="Views\Event\Details.cshtml" />
+    <Content Include="Views\Advert\MyAdverts.cshtml" />
+    <Content Include="Views\Advert\Close.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />

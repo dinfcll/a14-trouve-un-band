@@ -20,7 +20,7 @@ $(function() {
 
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="titre">
             <!--NAVBAR-->
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -30,7 +30,7 @@ $(function() {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("TrouveUnBand.com", "Index", new { controller = "Home" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("TrouverUnBand.com", "Index", new { controller = "Home" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse" id="tocollapse">
                     <ul class="nav navbar-nav">
@@ -39,6 +39,7 @@ $(function() {
                         <li id="contact">@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li id="groupe">@Html.ActionLink("Groupes", "Index", "Group")</li>
                         <li id="event">@Html.ActionLink("Événements", "Index", "Event")</li>
+                        <li id="Advert">@Html.ActionLink("Annonces", "Index", "Advert")</li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" >
                         <li>@Html.Partial("_LoginPartial")</li>
@@ -70,15 +71,13 @@ $(function() {
             }
         </div>
         <div class="container" style="padding-top:100px">
-
             <script src="~/Scripts/jquery-1.7.1.min.js"></script>
             <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-            
+
             @RenderSection("featured", required: false)
             @RenderSection("scripts", required: false)
             @RenderBody()
         </div><!-- /.container -->
-
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
         @Scripts.Render("~/Scripts/jquery-ui-timepicker-addon.js")

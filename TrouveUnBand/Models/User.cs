@@ -23,6 +23,7 @@ namespace TrouveUnBand.Models
         public User()
         {
             this.Musicians = new HashSet<Musician>();
+            this.Adverts = new HashSet<Advert>();
         }
 
         public int UserId { get; set; }
@@ -38,6 +39,9 @@ namespace TrouveUnBand.Models
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longitude { get; set; }
     
-        public virtual ICollection<Musician> Musicians { get; set; }
-    }    
+        public virtual ICollection<Musician> Musicians { get; set; }  
+        public virtual ICollection<Advert> Adverts { get; set; }
+    }
+    
+
 }
