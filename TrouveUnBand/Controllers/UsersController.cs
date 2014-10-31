@@ -295,8 +295,8 @@ namespace TrouveUnBand.Controllers
                 musician.Description = DescriptionMusician;
                 for (int i = 0; i < InstrumentArray.Length; i++)
                 {
-                    int CurrentInstrumentID = Convert.ToInt32(InstrumentArray[i]);
-                    Instrument instrument = db.Instruments.FirstOrDefault(x => x.InstrumentId == CurrentInstrumentID);
+                    int currentInstrumentID = Convert.ToInt32(InstrumentArray[i]);
+                    var instrument = db.Instruments.FirstOrDefault(x => x.InstrumentId == currentInstrumentID);
                     Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
 
                     InstrumentsMusician.InstrumentId = instrument.InstrumentId;
@@ -375,7 +375,7 @@ namespace TrouveUnBand.Controllers
 
         public string GetUserFullName()
         {
-            UserValidation LoggedOnUser = GetUserInfo(User.Identity.Name);
+            var LoggedOnUser = GetUserInfo(User.Identity.Name);
             return LoggedOnUser.FirstName + " " + LoggedOnUser.LastName;
         }
 
@@ -413,14 +413,14 @@ namespace TrouveUnBand.Controllers
 
         public string GetDistance(double LatitudeP1, double LongitudeP1, double LatitudeP2, double LongitudeP2)
         {
-            double R = 6378.137; // Earth’s mean radius in kilometer
+            double EARTHS_MEAN_RADIUS_IN_KM = 6378.137; // Earth’s mean radius in kilometer
             var lat = ToRadians(LatitudeP2 - LatitudeP1);
             var lng = ToRadians(LongitudeP2 - LongitudeP1);
             var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
                           Math.Cos(ToRadians(LatitudeP1)) * Math.Cos(ToRadians(LatitudeP2)) *
                           Math.Sin(lng / 2) * Math.Sin(lng / 2);
             var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
-            int d = (int)(R * h2);
+            int d = (int)(EARTHS_MEAN_RADIUS_IN_KM * h2);
             return d.ToString() + " kilomètres";
         }
 
@@ -479,7 +479,7 @@ namespace TrouveUnBand.Controllers
 
         private static byte[] CropImage(Image image, int x, int y, int width, int height)
         {
-            Rectangle CropRect = new Rectangle(x, y, width, height);
+            var CropRect = new Rectangle(x, y, width, height);
             Bitmap btmOriginalImage = new Bitmap(image);
             Bitmap btmNewImage = new Bitmap(CropRect.Width, CropRect.Height);
             byte[] CroppedImage;
@@ -518,7 +518,7 @@ namespace TrouveUnBand.Controllers
 
         private Image ResizeOriginalImage(Image ImageToResize, int MinHeight, int MinWidth, int MaxHeight, int MaxWidth)
         {
-            Bitmap btmNewImage;
+            Bitmap NewImage;
 
             int OriginalHeight = ImageToResize.Height;
             int OriginalWidth = ImageToResize.Width;
@@ -566,8 +566,8 @@ namespace TrouveUnBand.Controllers
                 }
             }
 
-            btmNewImage = new Bitmap(NewWidth, NewHeight);
-            using (Graphics gr = Graphics.FromImage(btmNewImage))
+            NewImage = new Bitmap(NewWidth, NewHeight);
+            using (Graphics gr = Graphics.FromImage(NewImage))
             {
                 gr.SmoothingMode = SmoothingMode.HighQuality;
                 gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -575,7 +575,7 @@ namespace TrouveUnBand.Controllers
                 gr.DrawImage(ImageToResize, new Rectangle(0, 0, NewWidth, NewHeight));
             }
 
-            return (Image)btmNewImage;
+            return (Image)NewImage;
 
         }
 
@@ -585,24 +585,22 @@ namespace TrouveUnBand.Controllers
             ICollection<Join_Musician_Instrument> ListOfInstruments;
             List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
 
-            //Pass through each musician
-            for (int i = 0; i < musicians.Count; i++)
+            foreach(var musician in musicians)
             {
-                ListOfInstruments = musicians.ElementAt(i)
+                ListOfInstruments = musician
                                     .Join_Musician_Instrument
                                     .OrderByDescending(x => (x.Skills))
                                     .ToList();
 
-                Musician_Instrument InstrumentInfo = new Musician_Instrument();
+                var InstrumentInfo = new Musician_Instrument();
 
-                //for each musician, pass through each instrument
-                for (int j = 0; j < ListOfInstruments.Count; j++)
+                foreach (var instrument in ListOfInstruments)
                 {
                     InstrumentInfo.InstrumentNames
-                        .Add(ListOfInstruments.ElementAt(j).Instrument.Name);
+                       .Add(instrument.Instrument.Name);
 
                     InstrumentInfo.Skills
-                        .Add(SkillList[ListOfInstruments.ElementAt(j).Skills]);
+                        .Add(SkillList[instrument.Skills]);
                 }
                 InstrumentInfoList.Add(InstrumentInfo);
             }
@@ -632,7 +630,7 @@ namespace TrouveUnBand.Controllers
         {
             BandProfileViewModel BandView = new BandProfileViewModel();
 
-            //BandView.InstrumentInfoList = SetMusician_Instrument(band.Musicians.ToList());
+            BandView.InstrumentInfoList = SetMusician_Instrument(band.Musicians.ToList());
             BandView.Name = band.Name;
             BandView.Description = band.Description;
             BandView.Location = band.Location;

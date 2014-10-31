@@ -1,8 +1,8 @@
 ﻿@model TrouveUnBand.Models.MusicianProfileViewModel
 @{
     ViewBag.Title = "MusicianProfil";
+    int i;
 }
-@{int i;}
 
 <div class="profile-container">
     <div class="jumbotron col-md-12">
@@ -88,7 +88,7 @@
         <div class="profile-tab-content col-md-9 active">
             @Html.Partial("_MusicianProfileInfo", Model)
         </div>
-        <!--Desccription end-->
+        <!--Description end-->
         <!--Seeking-->
         <div class="profile-tab-content col-md-9">
             <center>
