@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Delete";
 }
+@if (User.Identity.Name != Model.User.Nickname)
+{
+    <h3>Veuillez vous identifier svp</h3>
+}
+else
+{
 <div class="top-80">
     <h3>Voulez-vous vraiment fermer cette annonce?</h3>
 
@@ -43,7 +49,8 @@
                 </div>
                 <div class="col-md-12">
                     <hr class="colorgraph">
-                    @using (Html.BeginForm()) {
+                    @using (Html.BeginForm())
+                    {
                     <p>
                         <div class="col-md-6">
                             <div class="col-md-6">
@@ -55,8 +62,8 @@
                             </div>
                         </div>
                     </p>
-                }   
+                    }   
                 </div>
     </fieldset>
-    
 </div>
+}

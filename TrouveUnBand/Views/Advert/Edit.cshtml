@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-@if (User.Identity.Name == "")
+@if (User.Identity.Name != Model.User.Nickname)
 {
     <h3>Veuillez vous identifier svp</h3>
 }
