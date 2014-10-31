@@ -174,10 +174,6 @@ tr.instTable > td{
 .ui-timepicker-rtl dl dt{ float: right; clear: right; }
 .ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
 
-#AdvertButton{
-    padding-top:25px;
-}
-
 #AdvertDesc{
     margin-top: -25px;
 }

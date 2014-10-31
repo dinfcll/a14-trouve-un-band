@@ -135,11 +135,9 @@ namespace TrouveUnBand.Controllers
             {
                 return HttpNotFound();
             }
-            else
-            {
-                advert.Status = "En cours";
-                db.SaveChanges();
-            }
+            advert.Status = "En cours";
+            db.SaveChanges();
+
             return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
         }
 
@@ -170,7 +168,7 @@ namespace TrouveUnBand.Controllers
 
         public byte[] imageToByteArray(System.Drawing.Image imageIn)
         {
-            MemoryStream ms = new MemoryStream();
+            var ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             return ms.ToArray();
         }
