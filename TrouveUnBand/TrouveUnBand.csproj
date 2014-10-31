@@ -218,6 +218,7 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserValidationViewModel.cs" />
+    <Compile Include="POCO\Validation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
