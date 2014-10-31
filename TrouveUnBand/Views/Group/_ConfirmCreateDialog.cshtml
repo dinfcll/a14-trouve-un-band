@@ -30,15 +30,12 @@
                             <h2>@Html.DisplayNameFor(model => model.Genres)</h2>
                         </div>
                         <blockquote>
-                            @if (Model != null)
-                            {
-                                foreach (var item in Model.Genres)
+                                @foreach (var item in Model.Genres)
                                 {
                                     <div class="display-field">
                                         @Html.DisplayFor(model => item.Name)
                                     </div>
                                 }
-                            }
                         </blockquote>
                     </div>
 
@@ -47,9 +44,7 @@
                             <h2>@Html.DisplayNameFor(model => model.Musicians)</h2>
                         </div>
                         <blockquote>
-                            @if (Model != null)
-                            {
-                                foreach (var item in Model.Musicians)
+                                @foreach (var item in Model.Musicians)
                                 {
                                     <div class="display-field">
                                         @Html.DisplayFor(model => item.User.FirstName)
@@ -57,7 +52,6 @@
                                         @Html.DisplayFor(model => item.User.Nickname)
                                     </div>
                                 }
-                            }
                         </blockquote>
                     </div>
 

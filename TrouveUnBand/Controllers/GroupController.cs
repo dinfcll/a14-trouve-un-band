@@ -140,7 +140,8 @@ namespace TrouveUnBand.Controllers
             try
             {
                 band.Musicians = (List<Musician>)Session["myMusicians"];
-                
+                band.Musicians = null;
+                CurrentMusician.Bands.Add(band);
                 db.Database.Connection.Open();
                 db.Bands.Add(band);
                 db.SaveChanges();
@@ -243,10 +244,13 @@ namespace TrouveUnBand.Controllers
 
         public User GetCurrentUser()
         {
+            db.Database.Connection.Open();
             string Username = User.Identity.Name;
             var iQUser = db.Users.Where(x => x.Nickname == Username);
             User CurrentUser = (iQUser.ToList())[0];
+            db.Database.Connection.Close();
             return CurrentUser;
+            
         }
 
         public Musician GetCurrentMusician()
@@ -265,8 +269,10 @@ namespace TrouveUnBand.Controllers
             }
             else
             {
+                db.Database.Connection.Open();
                 var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
                 ((List<Musician>)Session["myMusicians"]).Add(Query);
+                db.Database.Connection.Close();
             }
             TempData["TempDataError"] = RC;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
@@ -276,17 +282,20 @@ namespace TrouveUnBand.Controllers
         [HttpDelete]
         public ActionResult RemoveMusician(int Musicianid)
         {
+            db.Database.Connection.Open();
             Musician Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
             List<Musician> myMusician = (List<Musician>)Session["myMusicians"];
             myMusician.Remove(myMusician.Single(s => s.MusicianId == Query.MusicianId));
             Session["myMusicians"] = myMusician;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            db.Database.Connection.Close();
             return PartialView("_MusicianTab");
         }
 
         [HttpPut]
         public ActionResult AddGenre(int Genrelist)
         {
+            db.Database.Connection.Open();
             string RC = "";
             if (((Band)Session["myBand"]).Genres.Any(x => x.GenreId == Genrelist))
             {
@@ -299,23 +308,27 @@ namespace TrouveUnBand.Controllers
             }
             TempData["TempDataError"] = RC;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            db.Database.Connection.Close();
             return PartialView("_GenreTab");
         }
 
         [HttpDelete]
         public ActionResult RemoveGenre(int GenreId)
         {
+            db.Database.Connection.Open();
             Genre Query = db.Genres.FirstOrDefault(x => x.GenreId == GenreId);
             Band myBand = ((Band)Session["myBand"]);
             myBand.Genres.Remove(myBand.Genres.Single( s => s.GenreId == Query.GenreId));
             Session["myBand"] = myBand;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            db.Database.Connection.Close();
             return PartialView("_GenreTab");
         }
 
         [HttpGet]
         public ActionResult SearchMusician(string SearchString)
         {
+            db.Database.Connection.Open();
             string RC = "";
             List<Musician> musicians = new List<Musician>();
             if (String.IsNullOrEmpty(SearchString))
@@ -334,6 +347,7 @@ namespace TrouveUnBand.Controllers
 
             ViewData["SearchMusicians"] = musicians;
             TempData["TempDataError"] = RC;
+            db.Database.Connection.Close();
             return PartialView("_MusicianTab");
         }
     }
