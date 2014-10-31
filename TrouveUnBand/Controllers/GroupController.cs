@@ -11,29 +11,25 @@ namespace TrouveUnBand.Controllers
 {
     public class GroupController : Controller
     {
-	
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index()
         {
+            List<Band> myBands = new List<Band>();
             if (Request.IsAuthenticated)
             {
-                bool b = false;
-                b = CurrentUserIsMusician(GetCurrentUser());
-
-                if (b)
+                if (CurrentUserIsMusician(GetCurrentUser()))
                 {
-                    Musician CurrentMusician = GetCurrentMusician();
-                    return View(CurrentMusician.Bands);
+                    var CurrentMusician = GetCurrentMusician();
+                    myBands = CurrentMusician.Bands.ToList();
                 }
-
             }
-                return View(new List<Band>());
+                return View(myBands);
         }
 
         public ActionResult Details(int id = 0)
         {
-            Band band = db.Bands.Find(id);
+            var band = db.Bands.Find(id);
             if (band == null)
             {
                 return HttpNotFound();
@@ -49,8 +45,8 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             if (Request.IsAuthenticated)
             {
-                    User CurrentUser = GetCurrentUser();
-                    Musician CurrentMusician = GetCurrentMusician();
+                    var CurrentUser = GetCurrentUser();
+                    var CurrentMusician = GetCurrentMusician();
                     bool b = CurrentUserIsMusician(CurrentUser);
                     if (b)
                     {
@@ -97,7 +93,7 @@ namespace TrouveUnBand.Controllers
         public PartialViewResult SubmitInfo(Band band)
         {
             string WC = "";
-            Band ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
+            var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
             if (ExistingBand != null)
             {
                 if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
@@ -106,7 +102,7 @@ namespace TrouveUnBand.Controllers
                 }
             }
 
-            Band BandToUpdate = (Band)Session["myBand"];
+            var BandToUpdate = (Band)Session["myBand"];
             BandToUpdate.Name = band.Name;
             BandToUpdate.Location = band.Location;
             BandToUpdate.Description = band.Description;
@@ -123,10 +119,10 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             string SC = "";
 
-            Band band = (Band)Session["myBand"];
-            Band ExistingBand = db.Bands.Find(band.BandId);
-            User CurrentUser = GetCurrentUser();
-            Musician CurrentMusician = GetCurrentMusician();
+            var band = (Band)Session["myBand"];
+            var ExistingBand = db.Bands.Find(band.BandId);
+            var CurrentUser = GetCurrentUser();
+            var CurrentMusician = GetCurrentMusician();
             CurrentUserIsMusician(CurrentUser);
             if (ExistingBand != null)
             {
@@ -164,15 +160,9 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult UpdateModal()
         {
-            Band myBand = (Band)Session["myBand"];
+            var myBand = (Band)Session["myBand"];
             myBand.Musicians = (List<Musician>)Session["myMusicians"];
-            if (// Steven Seagel understands and approves this lenghty condition
-                myBand.Name == "" || myBand.Name== null
-                || myBand.Location == "" || myBand.Location == null
-                || myBand.Description == "" || myBand.Description == null
-                || !myBand.Genres.Any() || myBand.Genres == null
-                || !myBand.Musicians.Any() || myBand.Musicians == null
-                )
+            if (IsValidBand(myBand))
             {
                 TempData["TempDataError"] = "Vous n'avez pas entré toutes les informations";
                 return View("Create");
@@ -186,7 +176,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Band band = db.Bands.Find(id);
+            var band = db.Bands.Find(id);
             if (band == null)
             {
                 return HttpNotFound();
@@ -208,7 +198,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Band band = db.Bands.Find(id);
+            var band = db.Bands.Find(id);
             if (band == null)
             {
                 return HttpNotFound();
@@ -219,7 +209,7 @@ namespace TrouveUnBand.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Band band = db.Bands.Find(id);
+            var band = db.Bands.Find(id);
             db.Bands.Remove(band);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -234,7 +224,7 @@ namespace TrouveUnBand.Controllers
         private bool CurrentUserIsMusician(User CurrentUser)
         {
             bool b = false;
-            Musician CurrentMusician = GetCurrentMusician();
+            var CurrentMusician = GetCurrentMusician();
             if (CurrentMusician == null)
                 b = false;
             else
@@ -257,6 +247,32 @@ namespace TrouveUnBand.Controllers
         {
             Musician CurrentMusician = GetCurrentUser().Musicians.FirstOrDefault();
             return CurrentMusician;
+        }
+
+        public bool IsValidBand(Band myBand)
+        {
+            bool Retour = false;
+
+            if (// Steven Seagel understands and approves this lenghty condition
+                myBand.Name == "" 
+                || myBand.Name == null
+                || myBand.Location == "" 
+                || myBand.Location == null
+                || myBand.Description == "" 
+                || myBand.Description == null
+                || !myBand.Genres.Any() 
+                || myBand.Genres == null
+                || !myBand.Musicians.Any() 
+                || myBand.Musicians == null
+            )
+            {
+                Retour = true;
+            }
+            else
+            {
+                Retour = false;
+            }
+            return Retour;
         }
 
         [HttpPut]
@@ -283,8 +299,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult RemoveMusician(int Musicianid)
         {
             db.Database.Connection.Open();
-            Musician Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
-            List<Musician> myMusician = (List<Musician>)Session["myMusicians"];
+            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
+            var myMusician = (List<Musician>)Session["myMusicians"];
             myMusician.Remove(myMusician.Single(s => s.MusicianId == Query.MusicianId));
             Session["myMusicians"] = myMusician;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
@@ -299,11 +315,11 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             if (((Band)Session["myBand"]).Genres.Any(x => x.GenreId == Genrelist))
             {
-                RC = "Vous avez déja sélectionner ce genre";
+                RC = "Vous avez déja sélectionné ce genre";
             }
             else
             {
-                Genre Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
+                var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
                 ((Band)Session["myBand"]).Genres.Add(Query);
             }
             TempData["TempDataError"] = RC;
@@ -316,8 +332,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult RemoveGenre(int GenreId)
         {
             db.Database.Connection.Open();
-            Genre Query = db.Genres.FirstOrDefault(x => x.GenreId == GenreId);
-            Band myBand = ((Band)Session["myBand"]);
+            var Query = db.Genres.FirstOrDefault(x => x.GenreId == GenreId);
+            var myBand = ((Band)Session["myBand"]);
             myBand.Genres.Remove(myBand.Genres.Single( s => s.GenreId == Query.GenreId));
             Session["myBand"] = myBand;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);

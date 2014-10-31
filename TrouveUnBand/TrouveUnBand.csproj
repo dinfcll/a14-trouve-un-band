@@ -191,7 +191,6 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NewsfeedModel.cs" />
-    <Compile Include="Models\BandCreation.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Musician_Instrument.cs" />
     <Compile Include="Models\Style.cs" />

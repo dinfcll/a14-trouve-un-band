@@ -4,9 +4,9 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <title>@ViewBag.Title</title>
-        @Styles.Render("~/Content/signin.css")
-        @Styles.Render("~/Content/bootstrap.css")
-        @Styles.Render("~/Content/Site.css")
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/themes/base/css")
+        @Styles.Render("~/Content/bootstrapcss")
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -76,14 +76,10 @@
         </div><!-- /.container -->
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrapjs")
-        @Scripts.Render("~/Scripts/alert.js")
-        @Scripts.Render("~/Scripts/bootstrap-validation.js")
-        @Scripts.Render("~/Scripts/star-rating.js")
-        @Scripts.Render("~/Scripts/tooltips.js")
-        @Scripts.Render("~/Scripts/ModifProfil.js")
-        @Scripts.Render("~/Scripts/disable-search-ddl.js")
-        @Scripts.Render("~/Scripts/jquery.Jcrop.js")
-        @Scripts.Render("~/Scripts/ImageUpload.js")
-        @Scripts.Render("~/Scripts/NavBarActive.js")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/customjs")
+        @Scripts.Render("~/bundles/modernizr")
+
     </body>
 </html>
