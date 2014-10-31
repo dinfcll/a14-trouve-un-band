@@ -11,10 +11,8 @@
             @using (Ajax.BeginForm("SubmitInfo", "Group", FormMethod.Get, new AjaxOptions
             {
                 HttpMethod = "Get",
-                UpdateTargetId = "ConfirmModalDialog"
-            },
-                new { @class = "col-md-offset-1"}
-                ))
+                UpdateTargetId = "ConfirmModalDialog"},
+                new { @class = "col-md-offset-1"}))
             {
         
                 <div>
