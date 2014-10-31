@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "BandProfile";
 }
-<canvas id="canvas" width="825" height="375"></canvas>
 <div class="profile-container">
     <div class="jumbotron col-md-12">
         <div class="thumbnail card col-md-3">
@@ -31,6 +30,11 @@
     <div class="profile-info-container col-md-12">
         <div class="profile-tab-menu col-md-3">
             <div class="list-group">
+            <a href="#" class="list-group-item text-center">
+                    <span class="glyphicon glyphicon-play col-md-12"></span>
+                    <span>Media (Soundcloud/Youtube)</span>
+                </a>
+
                 <a href="#" class="list-group-item text-center active">
                     <span class="glyphicon glyphicon-user col-md-12"></span>
                     <span>Description</span>
@@ -39,11 +43,6 @@
                 <a href="#" class="list-group-item text-center">
                     <span class=" glyphicon glyphicon-eye-open col-md-12"></span>
                     <span>Recherche </span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class="glyphicon glyphicon-play col-md-12"></span>
-                    <span>Media (Soundcloud/Youtube)</span>
                 </a>
 
                 <a href="#" class="list-group-item text-center">
@@ -57,6 +56,11 @@
                 </a>
             </div>
         </div>
+        <!--Media-->
+        <div class="profile-tab-content col-md-9">
+            <canvas id="canvas" width="825" height="375"></canvas>
+        </div>
+        <!--Media end-->
         <!--Desccription-->
         <div class="profile-tab-content col-md-9 active">
             @Html.Partial("_BandProfileInfo")
@@ -75,11 +79,6 @@
             </center>
         </div>
         <!--Seeking end-->
-        <!--Media-->
-        <div class="profile-tab-content col-md-9">
-            <canvas id="canvas" width="825" height="375"></canvas>
-        </div>
-        <!--Media end-->
         <!--Pictures-->
         <div class="profile-tab-content col-md-9 pictures-tab">
             <span>Photo</span>

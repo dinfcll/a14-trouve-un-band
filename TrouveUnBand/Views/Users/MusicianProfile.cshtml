@@ -45,6 +45,11 @@
     <div class="profile-info-container col-md-12">
         <div class="profile-tab-menu col-md-3">
             <div class="list-group">
+                <a href="#" class="list-group-item text-center">
+                    <span class="glyphicon glyphicon-play col-md-12"></span>
+                    <span>Media (Soundcloud/Youtube)</span>
+                </a>
+
                 <a href="#" class="list-group-item text-center active">
                     <span class="glyphicon glyphicon-user col-md-12"></span>
                     <span>Description</span>
@@ -53,11 +58,6 @@
                 <a href="#" class="list-group-item text-center">
                     <span class=" glyphicon glyphicon-eye-open col-md-12"></span>
                     <span>Recherche </span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class="glyphicon glyphicon-play col-md-12"></span>
-                    <span>Media (Soundcloud/Youtube)</span>
                 </a>
 
                 <a href="#" class="list-group-item text-center">
@@ -71,6 +71,19 @@
                 </a>
             </div>
         </div>
+        <!--Media-->
+        <div class="profile-tab-content col-md-9">
+            <center>
+                <h1 class="glyphicon glyphicon-play" style="font-size: 12em; color: #000000"></h1>
+                <h2 style="margin-top: 0; color: #000000">
+                    Bientôt
+                </h2>
+                <h3 style="margin-top: 0; color: #000000">
+                    Disponible
+                </h3>
+            </center>
+        </div>
+        <!--Media end-->
         <!--Desccription-->
         <div class="profile-tab-content col-md-9 active">
             @Html.Partial("_MusicianProfileInfo", Model)
@@ -89,19 +102,6 @@
             </center>
         </div>
         <!--Seeking end-->
-        <!--Media-->
-        <div class="profile-tab-content col-md-9">
-            <center>
-                <h1 class="glyphicon glyphicon-play" style="font-size: 12em; color: #000000"></h1>
-                <h2 style="margin-top: 0; color: #000000">
-                    Bientôt
-                </h2>
-                <h3 style="margin-top: 0; color: #000000">
-                    Disponible
-                </h3>
-            </center>
-        </div>
-        <!--Media end-->
         <!--Pictures-->
         <div class="profile-tab-content col-md-9 pictures-tab">
             @Html.Partial("_MusicianProfilePhoto",Model)
