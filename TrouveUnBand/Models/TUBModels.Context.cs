@@ -32,5 +32,6 @@ namespace TrouveUnBand.Models
         public DbSet<Musician> Musicians { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<Advert> Adverts { get; set; }
     }
 }
