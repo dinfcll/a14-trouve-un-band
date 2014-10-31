@@ -15,9 +15,6 @@ namespace TrouveUnBand.Controllers
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-        //
-        // GET: /Advert/
-
         public ActionResult Index()
         {
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genre);
@@ -30,17 +27,11 @@ namespace TrouveUnBand.Controllers
             return View(adverts.ToList());
         }
 
-        //
-        // GET: /Advert/Create
-
         public ActionResult Create()
         {
             ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name");
             return View();
         }
-
-        //
-        // POST: /Advert/Create
 
         [HttpPost]
         public ActionResult Create(Advert advert)
@@ -65,9 +56,6 @@ namespace TrouveUnBand.Controllers
             return View(advert);
         }
 
-        //
-        // GET: /Advert/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
             Advert advert = db.Adverts.Find(id);
@@ -80,9 +68,6 @@ namespace TrouveUnBand.Controllers
             ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.GenresAdvert);
             return View(advert);
         }
-
-        //
-        // POST: /Advert/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Advert advert)
