@@ -13,7 +13,7 @@ namespace TrouveUnBand.Controllers
 {
     public class EventController : Controller
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
+        private TrouveUnBandEntities1 db = new TrouveUnBandEntities1();
 
         public ActionResult Index()
         {

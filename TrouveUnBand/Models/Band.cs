@@ -18,6 +18,7 @@ namespace TrouveUnBand.Models
         {
             this.Genres = new HashSet<Genre>();
             this.Musicians = new HashSet<Musician>();
+            this.Users = new HashSet<User>();
         }
     
         public int BandId { get; set; }
@@ -27,6 +28,7 @@ namespace TrouveUnBand.Models
     
         public virtual ICollection<Genre> Genres { get; set; }
         public virtual ICollection<Musician> Musicians { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
     
 }

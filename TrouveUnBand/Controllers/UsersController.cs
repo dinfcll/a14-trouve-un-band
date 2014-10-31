@@ -21,7 +21,7 @@ namespace TrouveUnBand.Controllers
 {
 public class UsersController : Controller
 {
-private TrouveUnBandEntities db = new TrouveUnBandEntities();
+private TrouveUnBandEntities1 db = new TrouveUnBandEntities1();
 public ActionResult Index()
 {
 return View();
@@ -181,7 +181,7 @@ if (MusicianQuery == null)
 MusicianQuery = new User();
 MusicianQuery.Description = user.Description;
 MusicianQuery.UserId = LoggedOnUser.UserId;
-MusicianQuery.Join_User_Instrument = user.Join_User_Instrument;
+MusicianQuery.Join_Musician_Instrument = user.Join_Musician_Instrument;
 db.Users.Add(MusicianQuery);
 db.SaveChanges();
 }

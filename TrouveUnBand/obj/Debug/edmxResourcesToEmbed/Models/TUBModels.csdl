@@ -32,6 +32,39 @@
       <End Role="Musicians" EntitySet="Musicians" />
     </AssociationSet>
     <EntitySet Name="Events" EntityType="TrouveUnBandModel.Event" />
+    <EntitySet Name="Adverts" EntityType="TrouveUnBandModel.Advert" />
+    <AssociationSet Name="FK__Advert__Creator__2E1BDC42" Association="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Advert" EntitySet="Adverts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Advert__GenresAd__2F10007B" Association="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="Advert" EntitySet="Adverts" />
+    </AssociationSet>
+    <EntitySet Name="Evenements" EntityType="TrouveUnBandModel.Evenement" />
+    <EntitySet Name="MSreplication_options" EntityType="TrouveUnBandModel.MSreplication_options" />
+    <EntitySet Name="spt_fallback_db" EntityType="TrouveUnBandModel.spt_fallback_db" />
+    <EntitySet Name="spt_fallback_dev" EntityType="TrouveUnBandModel.spt_fallback_dev" />
+    <EntitySet Name="spt_fallback_usg" EntityType="TrouveUnBandModel.spt_fallback_usg" />
+    <EntitySet Name="spt_monitor" EntityType="TrouveUnBandModel.spt_monitor" />
+    <EntitySet Name="spt_values" EntityType="TrouveUnBandModel.spt_values" />
+    <EntitySet Name="Join_Users_Instrument" EntityType="TrouveUnBandModel.Join_Users_Instrument" />
+    <AssociationSet Name="FK__Join_User__Instr__38B96646" Association="TrouveUnBandModel.FK__Join_User__Instr__38B96646">
+      <End Role="Instrument" EntitySet="Instruments" />
+      <End Role="Join_Users_Instrument" EntitySet="Join_Users_Instrument" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Join_User__UserI__37C5420D" Association="TrouveUnBandModel.FK__Join_User__UserI__37C5420D">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Join_Users_Instrument" EntitySet="Join_Users_Instrument" />
+    </AssociationSet>
+    <AssociationSet Name="Join_Band_Users" Association="TrouveUnBandModel.Join_Band_Users">
+      <End Role="Band" EntitySet="Bands" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="Join_Users_Genre" Association="TrouveUnBandModel.Join_Users_Genre">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Band">
     <Key>
@@ -43,6 +76,7 @@
     <Property Name="Location" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="Genres" Relationship="TrouveUnBandModel.Join_Band_Genre" FromRole="Bands" ToRole="Genres" />
     <NavigationProperty Name="Musicians" Relationship="TrouveUnBandModel.Join_Band_Musician" FromRole="Bands" ToRole="Musicians" />
+    <NavigationProperty Name="Users" Relationship="TrouveUnBandModel.Join_Band_Users" FromRole="Band" ToRole="User" />
   </EntityType>
   <EntityType Name="Genre">
     <Key>
@@ -52,6 +86,8 @@
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="Bands" Relationship="TrouveUnBandModel.Join_Band_Genre" FromRole="Genres" ToRole="Bands" />
     <NavigationProperty Name="Musicians" Relationship="TrouveUnBandModel.Join_Musician_Genre" FromRole="Genres" ToRole="Musicians" />
+    <NavigationProperty Name="Adverts" Relationship="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B" FromRole="Genre" ToRole="Advert" />
+    <NavigationProperty Name="Users" Relationship="TrouveUnBandModel.Join_Users_Genre" FromRole="Genre" ToRole="User" />
   </EntityType>
   <EntityType Name="Instrument">
     <Key>
@@ -60,6 +96,7 @@
     <Property Name="InstrumentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="Join_Musician_Instrument" Relationship="TrouveUnBandModel.FK__Join_Musi__Instr__02084FDA" FromRole="Instruments" ToRole="Join_Musician_Instrument" />
+    <NavigationProperty Name="Join_Users_Instrument" Relationship="TrouveUnBandModel.FK__Join_User__Instr__38B96646" FromRole="Instrument" ToRole="Join_Users_Instrument" />
   </EntityType>
   <EntityType Name="Join_Musician_Instrument">
     <Key>
@@ -101,6 +138,11 @@
     <NavigationProperty Name="Musicians" Relationship="TrouveUnBandModel.fk_musicians_users" FromRole="Users" ToRole="Musicians" />
     <Property Type="Double" Name="Latitude" />
     <Property Type="Double" Name="Longitude" />
+    <NavigationProperty Name="Adverts" Relationship="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42" FromRole="User" ToRole="Advert" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Join_Users_Instrument" Relationship="TrouveUnBandModel.FK__Join_User__UserI__37C5420D" FromRole="User" ToRole="Join_Users_Instrument" />
+    <NavigationProperty Name="Bands" Relationship="TrouveUnBandModel.Join_Band_Users" FromRole="User" ToRole="Band" />
+    <NavigationProperty Name="Genres" Relationship="TrouveUnBandModel.Join_Users_Genre" FromRole="User" ToRole="Genre" />
   </EntityType>
   <Association Name="FK__Join_Musi__Instr__02084FDA">
     <End Role="Instruments" Type="TrouveUnBandModel.Instrument" Multiplicity="1" />
@@ -167,4 +209,218 @@
     <Property Type="Binary" Name="EventPhoto" MaxLength="Max" FixedLength="false" />
     <Property Type="String" Name="EventCreator" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="Advert">
+    <Key>
+      <PropertyRef Name="AdvertId" />
+    </Key>
+    <Property Type="Int32" Name="AdvertId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Type" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Creator" Nullable="false" />
+    <Property Type="Int32" Name="GenresAdvert" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="false" />
+    <Property Type="DateTime" Name="ExpirationDate" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42" FromRole="Advert" ToRole="User" />
+    <NavigationProperty Name="Genre" Relationship="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B" FromRole="Advert" ToRole="Genre" />
+    <Property Type="String" Name="Location" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Binary" Name="AdvertPhoto" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__Advert__Creator__2E1BDC42">
+    <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="1" />
+    <End Type="TrouveUnBandModel.Advert" Role="Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="Creator" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Advert__GenresAd__2F10007B">
+    <End Type="TrouveUnBandModel.Genre" Role="Genre" Multiplicity="1" />
+    <End Type="TrouveUnBandModel.Advert" Role="Advert" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="GenresAdvert" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Evenement">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Type="Int32" Name="EventId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="EventName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventLocation" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventAddress" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventDate" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventMaxAudience" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventSalary" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventGender" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="EventStageSize" />
+  </EntityType>
+  <EntityType Name="MSreplication_options">
+    <Key>
+      <PropertyRef Name="optname" />
+      <PropertyRef Name="value" />
+      <PropertyRef Name="major_version" />
+      <PropertyRef Name="minor_version" />
+      <PropertyRef Name="revision" />
+      <PropertyRef Name="install_failures" />
+    </Key>
+    <Property Type="String" Name="optname" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="value" Nullable="false" />
+    <Property Type="Int32" Name="major_version" Nullable="false" />
+    <Property Type="Int32" Name="minor_version" Nullable="false" />
+    <Property Type="Int32" Name="revision" Nullable="false" />
+    <Property Type="Int32" Name="install_failures" Nullable="false" />
+  </EntityType>
+  <EntityType Name="spt_fallback_db">
+    <Key>
+      <PropertyRef Name="xserver_name" />
+      <PropertyRef Name="xdttm_ins" />
+      <PropertyRef Name="xdttm_last_ins_upd" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="dbid" />
+      <PropertyRef Name="status" />
+      <PropertyRef Name="version" />
+    </Key>
+    <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
+    <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
+    <Property Type="Int16" Name="xfallback_dbid" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int16" Name="dbid" Nullable="false" />
+    <Property Type="Int16" Name="status" Nullable="false" />
+    <Property Type="Int16" Name="version" Nullable="false" />
+  </EntityType>
+  <EntityType Name="spt_fallback_dev">
+    <Key>
+      <PropertyRef Name="xserver_name" />
+      <PropertyRef Name="xdttm_ins" />
+      <PropertyRef Name="xdttm_last_ins_upd" />
+      <PropertyRef Name="low" />
+      <PropertyRef Name="high" />
+      <PropertyRef Name="status" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="phyname" />
+    </Key>
+    <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
+    <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
+    <Property Type="Int32" Name="xfallback_low" />
+    <Property Type="String" Name="xfallback_drive" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="low" Nullable="false" />
+    <Property Type="Int32" Name="high" Nullable="false" />
+    <Property Type="Int16" Name="status" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="phyname" Nullable="false" MaxLength="127" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="spt_fallback_usg">
+    <Key>
+      <PropertyRef Name="xserver_name" />
+      <PropertyRef Name="xdttm_ins" />
+      <PropertyRef Name="xdttm_last_ins_upd" />
+      <PropertyRef Name="dbid" />
+      <PropertyRef Name="segmap" />
+      <PropertyRef Name="lstart" />
+      <PropertyRef Name="sizepg" />
+      <PropertyRef Name="vstart" />
+    </Key>
+    <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
+    <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
+    <Property Type="Int32" Name="xfallback_vstart" />
+    <Property Type="Int16" Name="dbid" Nullable="false" />
+    <Property Type="Int32" Name="segmap" Nullable="false" />
+    <Property Type="Int32" Name="lstart" Nullable="false" />
+    <Property Type="Int32" Name="sizepg" Nullable="false" />
+    <Property Type="Int32" Name="vstart" Nullable="false" />
+  </EntityType>
+  <EntityType Name="spt_monitor">
+    <Key>
+      <PropertyRef Name="lastrun" />
+      <PropertyRef Name="cpu_busy" />
+      <PropertyRef Name="io_busy" />
+      <PropertyRef Name="idle" />
+      <PropertyRef Name="pack_received" />
+      <PropertyRef Name="pack_sent" />
+      <PropertyRef Name="connections" />
+      <PropertyRef Name="pack_errors" />
+      <PropertyRef Name="total_read" />
+      <PropertyRef Name="total_write" />
+      <PropertyRef Name="total_errors" />
+    </Key>
+    <Property Type="DateTime" Name="lastrun" Nullable="false" />
+    <Property Type="Int32" Name="cpu_busy" Nullable="false" />
+    <Property Type="Int32" Name="io_busy" Nullable="false" />
+    <Property Type="Int32" Name="idle" Nullable="false" />
+    <Property Type="Int32" Name="pack_received" Nullable="false" />
+    <Property Type="Int32" Name="pack_sent" Nullable="false" />
+    <Property Type="Int32" Name="connections" Nullable="false" />
+    <Property Type="Int32" Name="pack_errors" Nullable="false" />
+    <Property Type="Int32" Name="total_read" Nullable="false" />
+    <Property Type="Int32" Name="total_write" Nullable="false" />
+    <Property Type="Int32" Name="total_errors" Nullable="false" />
+  </EntityType>
+  <EntityType Name="spt_values">
+    <Key>
+      <PropertyRef Name="number" />
+      <PropertyRef Name="type" />
+    </Key>
+    <Property Type="String" Name="name" MaxLength="35" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="number" Nullable="false" />
+    <Property Type="String" Name="type" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Type="Int32" Name="low" />
+    <Property Type="Int32" Name="high" />
+    <Property Type="Int32" Name="status" />
+  </EntityType>
+  <EntityType Name="Join_Users_Instrument">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="InstrumentId" />
+    </Key>
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="Int32" Name="InstrumentId" Nullable="false" />
+    <Property Type="Int32" Name="Skills" Nullable="false" />
+    <NavigationProperty Name="Instrument" Relationship="TrouveUnBandModel.FK__Join_User__Instr__38B96646" FromRole="Join_Users_Instrument" ToRole="Instrument" />
+    <NavigationProperty Name="User" Relationship="TrouveUnBandModel.FK__Join_User__UserI__37C5420D" FromRole="Join_Users_Instrument" ToRole="User" />
+  </EntityType>
+  <Association Name="FK__Join_User__Instr__38B96646">
+    <End Type="TrouveUnBandModel.Instrument" Role="Instrument" Multiplicity="1" />
+    <End Type="TrouveUnBandModel.Join_Users_Instrument" Role="Join_Users_Instrument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instrument">
+        <PropertyRef Name="InstrumentId" />
+      </Principal>
+      <Dependent Role="Join_Users_Instrument">
+        <PropertyRef Name="InstrumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Join_User__UserI__37C5420D">
+    <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="1" />
+    <End Type="TrouveUnBandModel.Join_Users_Instrument" Role="Join_Users_Instrument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Join_Users_Instrument">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Join_Band_Users">
+    <End Type="TrouveUnBandModel.Band" Role="Band" Multiplicity="*" />
+    <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="*" />
+  </Association>
+  <Association Name="Join_Users_Genre">
+    <End Type="TrouveUnBandModel.Genre" Role="Genre" Multiplicity="*" />
+    <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="*" />
+  </Association>
 </Schema>

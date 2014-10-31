@@ -12,54 +12,123 @@
           <EntitySet Name="Genres" EntityType="TrouveUnBandModel.Store.Genres" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Instruments" EntityType="TrouveUnBandModel.Store.Instruments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Join_Band_Genre" EntityType="TrouveUnBandModel.Store.Join_Band_Genre" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Join_Band_Musician" EntityType="TrouveUnBandModel.Store.Join_Band_Musician" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Join_Musician_Genre" EntityType="TrouveUnBandModel.Store.Join_Musician_Genre" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Join_Musician_Instrument" EntityType="TrouveUnBandModel.Store.Join_Musician_Instrument" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Musicians" EntityType="TrouveUnBandModel.Store.Musicians" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Join_Band_Users" EntityType="TrouveUnBandModel.Store.Join_Band_Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Join_Users_Genre" EntityType="TrouveUnBandModel.Store.Join_Users_Genre" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Join_Users_Instrument" EntityType="TrouveUnBandModel.Store.Join_Users_Instrument" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MSreplication_options" EntityType="TrouveUnBandModel.Store.MSreplication_options" store:Type="Tables" store:Schema="dbo" store:Name="MSreplication_options">
+            <DefiningQuery>SELECT 
+      [MSreplication_options].[optname] AS [optname], 
+      [MSreplication_options].[value] AS [value], 
+      [MSreplication_options].[major_version] AS [major_version], 
+      [MSreplication_options].[minor_version] AS [minor_version], 
+      [MSreplication_options].[revision] AS [revision], 
+      [MSreplication_options].[install_failures] AS [install_failures]
+      FROM [dbo].[MSreplication_options] AS [MSreplication_options]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="spt_fallback_db" EntityType="TrouveUnBandModel.Store.spt_fallback_db" store:Type="Tables" store:Schema="dbo" store:Name="spt_fallback_db">
+            <DefiningQuery>SELECT 
+      [spt_fallback_db].[xserver_name] AS [xserver_name], 
+      [spt_fallback_db].[xdttm_ins] AS [xdttm_ins], 
+      [spt_fallback_db].[xdttm_last_ins_upd] AS [xdttm_last_ins_upd], 
+      [spt_fallback_db].[xfallback_dbid] AS [xfallback_dbid], 
+      [spt_fallback_db].[name] AS [name], 
+      [spt_fallback_db].[dbid] AS [dbid], 
+      [spt_fallback_db].[status] AS [status], 
+      [spt_fallback_db].[version] AS [version]
+      FROM [dbo].[spt_fallback_db] AS [spt_fallback_db]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="spt_fallback_dev" EntityType="TrouveUnBandModel.Store.spt_fallback_dev" store:Type="Tables" store:Schema="dbo" store:Name="spt_fallback_dev">
+            <DefiningQuery>SELECT 
+      [spt_fallback_dev].[xserver_name] AS [xserver_name], 
+      [spt_fallback_dev].[xdttm_ins] AS [xdttm_ins], 
+      [spt_fallback_dev].[xdttm_last_ins_upd] AS [xdttm_last_ins_upd], 
+      [spt_fallback_dev].[xfallback_low] AS [xfallback_low], 
+      [spt_fallback_dev].[xfallback_drive] AS [xfallback_drive], 
+      [spt_fallback_dev].[low] AS [low], 
+      [spt_fallback_dev].[high] AS [high], 
+      [spt_fallback_dev].[status] AS [status], 
+      [spt_fallback_dev].[name] AS [name], 
+      [spt_fallback_dev].[phyname] AS [phyname]
+      FROM [dbo].[spt_fallback_dev] AS [spt_fallback_dev]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="spt_fallback_usg" EntityType="TrouveUnBandModel.Store.spt_fallback_usg" store:Type="Tables" store:Schema="dbo" store:Name="spt_fallback_usg">
+            <DefiningQuery>SELECT 
+      [spt_fallback_usg].[xserver_name] AS [xserver_name], 
+      [spt_fallback_usg].[xdttm_ins] AS [xdttm_ins], 
+      [spt_fallback_usg].[xdttm_last_ins_upd] AS [xdttm_last_ins_upd], 
+      [spt_fallback_usg].[xfallback_vstart] AS [xfallback_vstart], 
+      [spt_fallback_usg].[dbid] AS [dbid], 
+      [spt_fallback_usg].[segmap] AS [segmap], 
+      [spt_fallback_usg].[lstart] AS [lstart], 
+      [spt_fallback_usg].[sizepg] AS [sizepg], 
+      [spt_fallback_usg].[vstart] AS [vstart]
+      FROM [dbo].[spt_fallback_usg] AS [spt_fallback_usg]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="spt_monitor" EntityType="TrouveUnBandModel.Store.spt_monitor" store:Type="Tables" store:Schema="dbo" store:Name="spt_monitor">
+            <DefiningQuery>SELECT 
+      [spt_monitor].[lastrun] AS [lastrun], 
+      [spt_monitor].[cpu_busy] AS [cpu_busy], 
+      [spt_monitor].[io_busy] AS [io_busy], 
+      [spt_monitor].[idle] AS [idle], 
+      [spt_monitor].[pack_received] AS [pack_received], 
+      [spt_monitor].[pack_sent] AS [pack_sent], 
+      [spt_monitor].[connections] AS [connections], 
+      [spt_monitor].[pack_errors] AS [pack_errors], 
+      [spt_monitor].[total_read] AS [total_read], 
+      [spt_monitor].[total_write] AS [total_write], 
+      [spt_monitor].[total_errors] AS [total_errors]
+      FROM [dbo].[spt_monitor] AS [spt_monitor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="spt_values" EntityType="TrouveUnBandModel.Store.spt_values" store:Type="Tables" store:Schema="dbo" store:Name="spt_values">
+            <DefiningQuery>SELECT 
+      [spt_values].[name] AS [name], 
+      [spt_values].[number] AS [number], 
+      [spt_values].[type] AS [type], 
+      [spt_values].[low] AS [low], 
+      [spt_values].[high] AS [high], 
+      [spt_values].[status] AS [status]
+      FROM [dbo].[spt_values] AS [spt_values]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Users" EntityType="TrouveUnBandModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__Advert__Creator__34C8D9D1" Association="TrouveUnBandModel.Store.FK__Advert__Creator__34C8D9D1">
+          <AssociationSet Name="FK__Advert__Creator__451F3D2B" Association="TrouveUnBandModel.Store.FK__Advert__Creator__451F3D2B">
             <End Role="Users" EntitySet="Users" />
             <End Role="Advert" EntitySet="Advert" />
           </AssociationSet>
-          <AssociationSet Name="FK__Advert__GenresAd__35BCFE0A" Association="TrouveUnBandModel.Store.FK__Advert__GenresAd__35BCFE0A">
+          <AssociationSet Name="FK__Advert__GenresAd__46136164" Association="TrouveUnBandModel.Store.FK__Advert__GenresAd__46136164">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Advert" EntitySet="Advert" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__BandI__1ED998B2" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__1ED998B2">
+          <AssociationSet Name="FK__Join_Band__BandI__3B95D2F1" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__3B95D2F1">
             <End Role="Bands" EntitySet="Bands" />
             <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__BandI__22AA2996" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__22AA2996">
+          <AssociationSet Name="FK__Join_Band__BandI__3F6663D5" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__3F6663D5">
             <End Role="Bands" EntitySet="Bands" />
-            <End Role="Join_Band_Musician" EntitySet="Join_Band_Musician" />
+            <End Role="Join_Band_Users" EntitySet="Join_Band_Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__Genre__1FCDBCEB" Association="TrouveUnBandModel.Store.FK__Join_Band__Genre__1FCDBCEB">
+          <AssociationSet Name="FK__Join_Band__Genre__3C89F72A" Association="TrouveUnBandModel.Store.FK__Join_Band__Genre__3C89F72A">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__Music__239E4DCF" Association="TrouveUnBandModel.Store.FK__Join_Band__Music__239E4DCF">
-            <End Role="Musicians" EntitySet="Musicians" />
-            <End Role="Join_Band_Musician" EntitySet="Join_Band_Musician" />
+          <AssociationSet Name="FK__Join_Band__UserI__405A880E" Association="TrouveUnBandModel.Store.FK__Join_Band__UserI__405A880E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Join_Band_Users" EntitySet="Join_Band_Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Genre__182C9B23" Association="TrouveUnBandModel.Store.FK__Join_Musi__Genre__182C9B23">
+          <AssociationSet Name="FK__Join_User__Genre__34E8D562" Association="TrouveUnBandModel.Store.FK__Join_User__Genre__34E8D562">
             <End Role="Genres" EntitySet="Genres" />
-            <End Role="Join_Musician_Genre" EntitySet="Join_Musician_Genre" />
+            <End Role="Join_Users_Genre" EntitySet="Join_Users_Genre" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Instr__1BFD2C07" Association="TrouveUnBandModel.Store.FK__Join_Musi__Instr__1BFD2C07">
+          <AssociationSet Name="FK__Join_User__Instr__38B96646" Association="TrouveUnBandModel.Store.FK__Join_User__Instr__38B96646">
             <End Role="Instruments" EntitySet="Instruments" />
-            <End Role="Join_Musician_Instrument" EntitySet="Join_Musician_Instrument" />
+            <End Role="Join_Users_Instrument" EntitySet="Join_Users_Instrument" />
           </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Music__173876EA" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__173876EA">
-            <End Role="Musicians" EntitySet="Musicians" />
-            <End Role="Join_Musician_Genre" EntitySet="Join_Musician_Genre" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Music__1B0907CE" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__1B0907CE">
-            <End Role="Musicians" EntitySet="Musicians" />
-            <End Role="Join_Musician_Instrument" EntitySet="Join_Musician_Instrument" />
-          </AssociationSet>
-          <AssociationSet Name="fk_musicians_users" Association="TrouveUnBandModel.Store.fk_musicians_users">
+          <AssociationSet Name="FK__Join_User__UserI__33F4B129" Association="TrouveUnBandModel.Store.FK__Join_User__UserI__33F4B129">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Musicians" EntitySet="Musicians" />
+            <End Role="Join_Users_Genre" EntitySet="Join_Users_Genre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Join_User__UserI__37C5420D" Association="TrouveUnBandModel.Store.FK__Join_User__UserI__37C5420D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Join_Users_Instrument" EntitySet="Join_Users_Instrument" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Advert">
@@ -125,38 +194,164 @@
           <Property Name="BandId" Type="int" Nullable="false" />
           <Property Name="GenreId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Join_Band_Musician">
+        <EntityType Name="Join_Band_Users">
           <Key>
             <PropertyRef Name="BandId" />
-            <PropertyRef Name="MusicianId" />
+            <PropertyRef Name="UserId" />
           </Key>
           <Property Name="BandId" Type="int" Nullable="false" />
-          <Property Name="MusicianId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Join_Musician_Genre">
+        <EntityType Name="Join_Users_Genre">
           <Key>
-            <PropertyRef Name="MusicianId" />
+            <PropertyRef Name="UserId" />
             <PropertyRef Name="GenreId" />
           </Key>
-          <Property Name="MusicianId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="GenreId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Join_Musician_Instrument">
+        <EntityType Name="Join_Users_Instrument">
           <Key>
-            <PropertyRef Name="MusicianId" />
+            <PropertyRef Name="UserId" />
             <PropertyRef Name="InstrumentId" />
           </Key>
-          <Property Name="MusicianId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="InstrumentId" Type="int" Nullable="false" />
           <Property Name="Skills" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Musicians">
+        <!--Erreurs détectées durant la génération :
+      Avertissement 6002: La table/vue « master.dbo.MSreplication_options » n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.
+      -->
+        <EntityType Name="MSreplication_options">
           <Key>
-            <PropertyRef Name="MusicianId" />
+            <PropertyRef Name="optname" />
+            <PropertyRef Name="value" />
+            <PropertyRef Name="major_version" />
+            <PropertyRef Name="minor_version" />
+            <PropertyRef Name="revision" />
+            <PropertyRef Name="install_failures" />
           </Key>
-          <Property Name="MusicianId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="text" />
+          <Property Name="optname" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="value" Type="bit" Nullable="false" />
+          <Property Name="major_version" Type="int" Nullable="false" />
+          <Property Name="minor_version" Type="int" Nullable="false" />
+          <Property Name="revision" Type="int" Nullable="false" />
+          <Property Name="install_failures" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+      Avertissement 6002: La table/vue « master.dbo.spt_fallback_db » n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.
+      -->
+        <EntityType Name="spt_fallback_db">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="dbid" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="xserver_name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
+          <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
+          <Property Name="xfallback_dbid" Type="smallint" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="dbid" Type="smallint" Nullable="false" />
+          <Property Name="status" Type="smallint" Nullable="false" />
+          <Property Name="version" Type="smallint" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+      Avertissement 6002: La table/vue « master.dbo.spt_fallback_dev » n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.
+      -->
+        <EntityType Name="spt_fallback_dev">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="low" />
+            <PropertyRef Name="high" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="phyname" />
+          </Key>
+          <Property Name="xserver_name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
+          <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
+          <Property Name="xfallback_low" Type="int" />
+          <Property Name="xfallback_drive" Type="char" MaxLength="2" />
+          <Property Name="low" Type="int" Nullable="false" />
+          <Property Name="high" Type="int" Nullable="false" />
+          <Property Name="status" Type="smallint" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="phyname" Type="varchar" Nullable="false" MaxLength="127" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+      Avertissement 6002: La table/vue « master.dbo.spt_fallback_usg » n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.
+      -->
+        <EntityType Name="spt_fallback_usg">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="dbid" />
+            <PropertyRef Name="segmap" />
+            <PropertyRef Name="lstart" />
+            <PropertyRef Name="sizepg" />
+            <PropertyRef Name="vstart" />
+          </Key>
+          <Property Name="xserver_name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
+          <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
+          <Property Name="xfallback_vstart" Type="int" />
+          <Property Name="dbid" Type="smallint" Nullable="false" />
+          <Property Name="segmap" Type="int" Nullable="false" />
+          <Property Name="lstart" Type="int" Nullable="false" />
+          <Property Name="sizepg" Type="int" Nullable="false" />
+          <Property Name="vstart" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+      Avertissement 6002: La table/vue « master.dbo.spt_monitor » n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.
+      -->
+        <EntityType Name="spt_monitor">
+          <Key>
+            <PropertyRef Name="lastrun" />
+            <PropertyRef Name="cpu_busy" />
+            <PropertyRef Name="io_busy" />
+            <PropertyRef Name="idle" />
+            <PropertyRef Name="pack_received" />
+            <PropertyRef Name="pack_sent" />
+            <PropertyRef Name="connections" />
+            <PropertyRef Name="pack_errors" />
+            <PropertyRef Name="total_read" />
+            <PropertyRef Name="total_write" />
+            <PropertyRef Name="total_errors" />
+          </Key>
+          <Property Name="lastrun" Type="datetime" Nullable="false" />
+          <Property Name="cpu_busy" Type="int" Nullable="false" />
+          <Property Name="io_busy" Type="int" Nullable="false" />
+          <Property Name="idle" Type="int" Nullable="false" />
+          <Property Name="pack_received" Type="int" Nullable="false" />
+          <Property Name="pack_sent" Type="int" Nullable="false" />
+          <Property Name="connections" Type="int" Nullable="false" />
+          <Property Name="pack_errors" Type="int" Nullable="false" />
+          <Property Name="total_read" Type="int" Nullable="false" />
+          <Property Name="total_write" Type="int" Nullable="false" />
+          <Property Name="total_errors" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+      Avertissement 6002: La table/vue « master.dbo.spt_values » n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.
+      -->
+        <EntityType Name="spt_values">
+          <Key>
+            <PropertyRef Name="number" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="35" />
+          <Property Name="number" Type="int" Nullable="false" />
+          <Property Name="type" Type="nchar" Nullable="false" MaxLength="3" />
+          <Property Name="low" Type="int" />
+          <Property Name="high" Type="int" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -170,12 +365,13 @@
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="text" />
           <Property Name="Photo" Type="varbinary(max)" />
           <Property Name="Gender" Type="nvarchar" MaxLength="100" />
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
         </EntityType>
-        <Association Name="FK__Advert__Creator__34C8D9D1">
+        <Association Name="FK__Advert__Creator__451F3D2B">
           <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
           <End Role="Advert" Type="TrouveUnBandModel.Store.Advert" Multiplicity="*" />
           <ReferentialConstraint>
@@ -187,7 +383,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Advert__GenresAd__35BCFE0A">
+        <Association Name="FK__Advert__GenresAd__46136164">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Advert" Type="TrouveUnBandModel.Store.Advert" Multiplicity="*" />
           <ReferentialConstraint>
@@ -199,7 +395,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Band__BandI__1ED998B2">
+        <Association Name="FK__Join_Band__BandI__3B95D2F1">
           <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
           <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -211,19 +407,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Band__BandI__22AA2996">
+        <Association Name="FK__Join_Band__BandI__3F6663D5">
           <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
-          <End Role="Join_Band_Musician" Type="TrouveUnBandModel.Store.Join_Band_Musician" Multiplicity="*" />
+          <End Role="Join_Band_Users" Type="TrouveUnBandModel.Store.Join_Band_Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bands">
               <PropertyRef Name="BandId" />
             </Principal>
-            <Dependent Role="Join_Band_Musician">
+            <Dependent Role="Join_Band_Users">
               <PropertyRef Name="BandId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Band__Genre__1FCDBCEB">
+        <Association Name="FK__Join_Band__Genre__3C89F72A">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
           <ReferentialConstraint>
@@ -235,74 +431,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Join_Band__Music__239E4DCF">
-          <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
-          <End Role="Join_Band_Musician" Type="TrouveUnBandModel.Store.Join_Band_Musician" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Musicians">
-              <PropertyRef Name="MusicianId" />
-            </Principal>
-            <Dependent Role="Join_Band_Musician">
-              <PropertyRef Name="MusicianId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Musi__Genre__182C9B23">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
-          <End Role="Join_Musician_Genre" Type="TrouveUnBandModel.Store.Join_Musician_Genre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Genres">
-              <PropertyRef Name="GenreId" />
-            </Principal>
-            <Dependent Role="Join_Musician_Genre">
-              <PropertyRef Name="GenreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Musi__Instr__1BFD2C07">
-          <End Role="Instruments" Type="TrouveUnBandModel.Store.Instruments" Multiplicity="1" />
-          <End Role="Join_Musician_Instrument" Type="TrouveUnBandModel.Store.Join_Musician_Instrument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Instruments">
-              <PropertyRef Name="InstrumentId" />
-            </Principal>
-            <Dependent Role="Join_Musician_Instrument">
-              <PropertyRef Name="InstrumentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Musi__Music__173876EA">
-          <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
-          <End Role="Join_Musician_Genre" Type="TrouveUnBandModel.Store.Join_Musician_Genre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Musicians">
-              <PropertyRef Name="MusicianId" />
-            </Principal>
-            <Dependent Role="Join_Musician_Genre">
-              <PropertyRef Name="MusicianId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Musi__Music__1B0907CE">
-          <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
-          <End Role="Join_Musician_Instrument" Type="TrouveUnBandModel.Store.Join_Musician_Instrument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Musicians">
-              <PropertyRef Name="MusicianId" />
-            </Principal>
-            <Dependent Role="Join_Musician_Instrument">
-              <PropertyRef Name="MusicianId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_musicians_users">
+        <Association Name="FK__Join_Band__UserI__405A880E">
           <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
-          <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="*" />
+          <End Role="Join_Band_Users" Type="TrouveUnBandModel.Store.Join_Band_Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Musicians">
+            <Dependent Role="Join_Band_Users">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_User__Genre__34E8D562">
+          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
+          <End Role="Join_Users_Genre" Type="TrouveUnBandModel.Store.Join_Users_Genre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="GenreId" />
+            </Principal>
+            <Dependent Role="Join_Users_Genre">
+              <PropertyRef Name="GenreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_User__Instr__38B96646">
+          <End Role="Instruments" Type="TrouveUnBandModel.Store.Instruments" Multiplicity="1" />
+          <End Role="Join_Users_Instrument" Type="TrouveUnBandModel.Store.Join_Users_Instrument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instruments">
+              <PropertyRef Name="InstrumentId" />
+            </Principal>
+            <Dependent Role="Join_Users_Instrument">
+              <PropertyRef Name="InstrumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_User__UserI__33F4B129">
+          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
+          <End Role="Join_Users_Genre" Type="TrouveUnBandModel.Store.Join_Users_Genre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Join_Users_Genre">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_User__UserI__37C5420D">
+          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
+          <End Role="Join_Users_Instrument" Type="TrouveUnBandModel.Store.Join_Users_Instrument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Join_Users_Instrument">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -352,6 +536,30 @@
             <End Role="Genre" EntitySet="Genres" />
             <End Role="Advert" EntitySet="Adverts" />
           </AssociationSet>
+          <EntitySet Name="Evenements" EntityType="TrouveUnBandModel.Evenement" />
+          <EntitySet Name="MSreplication_options" EntityType="TrouveUnBandModel.MSreplication_options" />
+          <EntitySet Name="spt_fallback_db" EntityType="TrouveUnBandModel.spt_fallback_db" />
+          <EntitySet Name="spt_fallback_dev" EntityType="TrouveUnBandModel.spt_fallback_dev" />
+          <EntitySet Name="spt_fallback_usg" EntityType="TrouveUnBandModel.spt_fallback_usg" />
+          <EntitySet Name="spt_monitor" EntityType="TrouveUnBandModel.spt_monitor" />
+          <EntitySet Name="spt_values" EntityType="TrouveUnBandModel.spt_values" />
+          <EntitySet Name="Join_Users_Instrument" EntityType="TrouveUnBandModel.Join_Users_Instrument" />
+          <AssociationSet Name="FK__Join_User__Instr__38B96646" Association="TrouveUnBandModel.FK__Join_User__Instr__38B96646">
+            <End Role="Instrument" EntitySet="Instruments" />
+            <End Role="Join_Users_Instrument" EntitySet="Join_Users_Instrument" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Join_User__UserI__37C5420D" Association="TrouveUnBandModel.FK__Join_User__UserI__37C5420D">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Join_Users_Instrument" EntitySet="Join_Users_Instrument" />
+          </AssociationSet>
+          <AssociationSet Name="Join_Band_Users" Association="TrouveUnBandModel.Join_Band_Users">
+            <End Role="Band" EntitySet="Bands" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Join_Users_Genre" Association="TrouveUnBandModel.Join_Users_Genre">
+            <End Role="Genre" EntitySet="Genres" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Band">
           <Key>
@@ -363,6 +571,7 @@
           <Property Name="Location" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Genres" Relationship="TrouveUnBandModel.Join_Band_Genre" FromRole="Bands" ToRole="Genres" />
           <NavigationProperty Name="Musicians" Relationship="TrouveUnBandModel.Join_Band_Musician" FromRole="Bands" ToRole="Musicians" />
+          <NavigationProperty Name="Users" Relationship="TrouveUnBandModel.Join_Band_Users" FromRole="Band" ToRole="User" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -373,6 +582,7 @@
           <NavigationProperty Name="Bands" Relationship="TrouveUnBandModel.Join_Band_Genre" FromRole="Genres" ToRole="Bands" />
           <NavigationProperty Name="Musicians" Relationship="TrouveUnBandModel.Join_Musician_Genre" FromRole="Genres" ToRole="Musicians" />
           <NavigationProperty Name="Adverts" Relationship="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B" FromRole="Genre" ToRole="Advert" />
+          <NavigationProperty Name="Users" Relationship="TrouveUnBandModel.Join_Users_Genre" FromRole="Genre" ToRole="User" />
         </EntityType>
         <EntityType Name="Instrument">
           <Key>
@@ -381,6 +591,7 @@
           <Property Name="InstrumentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Join_Musician_Instrument" Relationship="TrouveUnBandModel.FK__Join_Musi__Instr__02084FDA" FromRole="Instruments" ToRole="Join_Musician_Instrument" />
+          <NavigationProperty Name="Join_Users_Instrument" Relationship="TrouveUnBandModel.FK__Join_User__Instr__38B96646" FromRole="Instrument" ToRole="Join_Users_Instrument" />
         </EntityType>
         <EntityType Name="Join_Musician_Instrument">
           <Key>
@@ -423,6 +634,10 @@
           <Property Type="Double" Name="Latitude" />
           <Property Type="Double" Name="Longitude" />
           <NavigationProperty Name="Adverts" Relationship="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42" FromRole="User" ToRole="Advert" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Join_Users_Instrument" Relationship="TrouveUnBandModel.FK__Join_User__UserI__37C5420D" FromRole="User" ToRole="Join_Users_Instrument" />
+          <NavigationProperty Name="Bands" Relationship="TrouveUnBandModel.Join_Band_Users" FromRole="User" ToRole="Band" />
+          <NavigationProperty Name="Genres" Relationship="TrouveUnBandModel.Join_Users_Genre" FromRole="User" ToRole="Genre" />
         </EntityType>
         <Association Name="FK__Join_Musi__Instr__02084FDA">
           <End Role="Instruments" Type="TrouveUnBandModel.Instrument" Multiplicity="1" />
@@ -530,6 +745,179 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Evenement">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Type="Int32" Name="EventId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="EventName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventLocation" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventAddress" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventDate" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventMaxAudience" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventSalary" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventGender" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="EventStageSize" />
+        </EntityType>
+        <EntityType Name="MSreplication_options">
+          <Key>
+            <PropertyRef Name="optname" />
+            <PropertyRef Name="value" />
+            <PropertyRef Name="major_version" />
+            <PropertyRef Name="minor_version" />
+            <PropertyRef Name="revision" />
+            <PropertyRef Name="install_failures" />
+          </Key>
+          <Property Type="String" Name="optname" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="value" Nullable="false" />
+          <Property Type="Int32" Name="major_version" Nullable="false" />
+          <Property Type="Int32" Name="minor_version" Nullable="false" />
+          <Property Type="Int32" Name="revision" Nullable="false" />
+          <Property Type="Int32" Name="install_failures" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_fallback_db">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="dbid" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
+          <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
+          <Property Type="Int16" Name="xfallback_dbid" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="dbid" Nullable="false" />
+          <Property Type="Int16" Name="status" Nullable="false" />
+          <Property Type="Int16" Name="version" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_fallback_dev">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="low" />
+            <PropertyRef Name="high" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="phyname" />
+          </Key>
+          <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
+          <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
+          <Property Type="Int32" Name="xfallback_low" />
+          <Property Type="String" Name="xfallback_drive" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="low" Nullable="false" />
+          <Property Type="Int32" Name="high" Nullable="false" />
+          <Property Type="Int16" Name="status" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="phyname" Nullable="false" MaxLength="127" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="spt_fallback_usg">
+          <Key>
+            <PropertyRef Name="xserver_name" />
+            <PropertyRef Name="xdttm_ins" />
+            <PropertyRef Name="xdttm_last_ins_upd" />
+            <PropertyRef Name="dbid" />
+            <PropertyRef Name="segmap" />
+            <PropertyRef Name="lstart" />
+            <PropertyRef Name="sizepg" />
+            <PropertyRef Name="vstart" />
+          </Key>
+          <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
+          <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
+          <Property Type="Int32" Name="xfallback_vstart" />
+          <Property Type="Int16" Name="dbid" Nullable="false" />
+          <Property Type="Int32" Name="segmap" Nullable="false" />
+          <Property Type="Int32" Name="lstart" Nullable="false" />
+          <Property Type="Int32" Name="sizepg" Nullable="false" />
+          <Property Type="Int32" Name="vstart" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_monitor">
+          <Key>
+            <PropertyRef Name="lastrun" />
+            <PropertyRef Name="cpu_busy" />
+            <PropertyRef Name="io_busy" />
+            <PropertyRef Name="idle" />
+            <PropertyRef Name="pack_received" />
+            <PropertyRef Name="pack_sent" />
+            <PropertyRef Name="connections" />
+            <PropertyRef Name="pack_errors" />
+            <PropertyRef Name="total_read" />
+            <PropertyRef Name="total_write" />
+            <PropertyRef Name="total_errors" />
+          </Key>
+          <Property Type="DateTime" Name="lastrun" Nullable="false" />
+          <Property Type="Int32" Name="cpu_busy" Nullable="false" />
+          <Property Type="Int32" Name="io_busy" Nullable="false" />
+          <Property Type="Int32" Name="idle" Nullable="false" />
+          <Property Type="Int32" Name="pack_received" Nullable="false" />
+          <Property Type="Int32" Name="pack_sent" Nullable="false" />
+          <Property Type="Int32" Name="connections" Nullable="false" />
+          <Property Type="Int32" Name="pack_errors" Nullable="false" />
+          <Property Type="Int32" Name="total_read" Nullable="false" />
+          <Property Type="Int32" Name="total_write" Nullable="false" />
+          <Property Type="Int32" Name="total_errors" Nullable="false" />
+        </EntityType>
+        <EntityType Name="spt_values">
+          <Key>
+            <PropertyRef Name="number" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Type="String" Name="name" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="number" Nullable="false" />
+          <Property Type="String" Name="type" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="low" />
+          <Property Type="Int32" Name="high" />
+          <Property Type="Int32" Name="status" />
+        </EntityType>
+        <EntityType Name="Join_Users_Instrument">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="InstrumentId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="InstrumentId" Nullable="false" />
+          <Property Type="Int32" Name="Skills" Nullable="false" />
+          <NavigationProperty Name="Instrument" Relationship="TrouveUnBandModel.FK__Join_User__Instr__38B96646" FromRole="Join_Users_Instrument" ToRole="Instrument" />
+          <NavigationProperty Name="User" Relationship="TrouveUnBandModel.FK__Join_User__UserI__37C5420D" FromRole="Join_Users_Instrument" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Join_User__Instr__38B96646">
+          <End Type="TrouveUnBandModel.Instrument" Role="Instrument" Multiplicity="1" />
+          <End Type="TrouveUnBandModel.Join_Users_Instrument" Role="Join_Users_Instrument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrument">
+              <PropertyRef Name="InstrumentId" />
+            </Principal>
+            <Dependent Role="Join_Users_Instrument">
+              <PropertyRef Name="InstrumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_User__UserI__37C5420D">
+          <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="1" />
+          <End Type="TrouveUnBandModel.Join_Users_Instrument" Role="Join_Users_Instrument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Join_Users_Instrument">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Join_Band_Users">
+          <End Type="TrouveUnBandModel.Band" Role="Band" Multiplicity="*" />
+          <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="Join_Users_Genre">
+          <End Type="TrouveUnBandModel.Genre" Role="Genre" Multiplicity="*" />
+          <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -562,27 +950,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Join_Musician_Instrument">
-            <EntityTypeMapping TypeName="TrouveUnBandModel.Join_Musician_Instrument">
-              <MappingFragment StoreEntitySet="Join_Musician_Instrument">
-                <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
-                <ScalarProperty Name="InstrumentId" ColumnName="InstrumentId" />
-                <ScalarProperty Name="Skills" ColumnName="Skills" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Musicians">
-            <EntityTypeMapping TypeName="TrouveUnBandModel.Musician">
-              <MappingFragment StoreEntitySet="Musicians">
-                <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TrouveUnBandModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -604,22 +975,6 @@
             </EndProperty>
             <EndProperty Name="Genres">
               <ScalarProperty Name="GenreId" ColumnName="GenreId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Join_Band_Musician" TypeName="TrouveUnBandModel.Join_Band_Musician" StoreEntitySet="Join_Band_Musician">
-            <EndProperty Name="Bands">
-              <ScalarProperty Name="BandId" ColumnName="BandId" />
-            </EndProperty>
-            <EndProperty Name="Musicians">
-              <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Join_Musician_Genre" TypeName="TrouveUnBandModel.Join_Musician_Genre" StoreEntitySet="Join_Musician_Genre">
-            <EndProperty Name="Genres">
-              <ScalarProperty Name="GenreId" ColumnName="GenreId" />
-            </EndProperty>
-            <EndProperty Name="Musicians">
-              <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
             </EndProperty>
           </AssociationSetMapping>
           <EntitySetMapping Name="Events">
@@ -656,6 +1011,117 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MSreplication_options">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.MSreplication_options">
+              <MappingFragment StoreEntitySet="MSreplication_options">
+                <ScalarProperty Name="install_failures" ColumnName="install_failures" />
+                <ScalarProperty Name="revision" ColumnName="revision" />
+                <ScalarProperty Name="minor_version" ColumnName="minor_version" />
+                <ScalarProperty Name="major_version" ColumnName="major_version" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="optname" ColumnName="optname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spt_fallback_db">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.spt_fallback_db">
+              <MappingFragment StoreEntitySet="spt_fallback_db">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="dbid" ColumnName="dbid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="xfallback_dbid" ColumnName="xfallback_dbid" />
+                <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
+                <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
+                <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spt_fallback_dev">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.spt_fallback_dev">
+              <MappingFragment StoreEntitySet="spt_fallback_dev">
+                <ScalarProperty Name="phyname" ColumnName="phyname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="high" ColumnName="high" />
+                <ScalarProperty Name="low" ColumnName="low" />
+                <ScalarProperty Name="xfallback_drive" ColumnName="xfallback_drive" />
+                <ScalarProperty Name="xfallback_low" ColumnName="xfallback_low" />
+                <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
+                <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
+                <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spt_fallback_usg">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.spt_fallback_usg">
+              <MappingFragment StoreEntitySet="spt_fallback_usg">
+                <ScalarProperty Name="vstart" ColumnName="vstart" />
+                <ScalarProperty Name="sizepg" ColumnName="sizepg" />
+                <ScalarProperty Name="lstart" ColumnName="lstart" />
+                <ScalarProperty Name="segmap" ColumnName="segmap" />
+                <ScalarProperty Name="dbid" ColumnName="dbid" />
+                <ScalarProperty Name="xfallback_vstart" ColumnName="xfallback_vstart" />
+                <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
+                <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
+                <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spt_monitor">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.spt_monitor">
+              <MappingFragment StoreEntitySet="spt_monitor">
+                <ScalarProperty Name="total_errors" ColumnName="total_errors" />
+                <ScalarProperty Name="total_write" ColumnName="total_write" />
+                <ScalarProperty Name="total_read" ColumnName="total_read" />
+                <ScalarProperty Name="pack_errors" ColumnName="pack_errors" />
+                <ScalarProperty Name="connections" ColumnName="connections" />
+                <ScalarProperty Name="pack_sent" ColumnName="pack_sent" />
+                <ScalarProperty Name="pack_received" ColumnName="pack_received" />
+                <ScalarProperty Name="idle" ColumnName="idle" />
+                <ScalarProperty Name="io_busy" ColumnName="io_busy" />
+                <ScalarProperty Name="cpu_busy" ColumnName="cpu_busy" />
+                <ScalarProperty Name="lastrun" ColumnName="lastrun" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spt_values">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.spt_values">
+              <MappingFragment StoreEntitySet="spt_values">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="high" ColumnName="high" />
+                <ScalarProperty Name="low" ColumnName="low" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Join_Users_Instrument">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.Join_Users_Instrument">
+              <MappingFragment StoreEntitySet="Join_Users_Instrument">
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="InstrumentId" ColumnName="InstrumentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Join_Band_Users" TypeName="TrouveUnBandModel.Join_Band_Users" StoreEntitySet="Join_Band_Users">
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Band">
+              <ScalarProperty Name="BandId" ColumnName="BandId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Join_Users_Genre" TypeName="TrouveUnBandModel.Join_Users_Genre" StoreEntitySet="Join_Users_Genre">
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Genre">
+              <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -685,8 +1151,8 @@
         <EntityTypeShape EntityType="TrouveUnBandModel.Musician" Width="1.5" PointX="5.25" PointY="1" Height="2.3648893229166656" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.User" Width="1.5" PointX="3" PointY="6" Height="3.5186979166666656" IsExpanded="true" />
         <AssociationConnector Association="TrouveUnBandModel.FK__Join_Musi__Instr__02084FDA" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="6.172841796875" />
-          <ConnectorPoint PointX="7.125" PointY="6.172841796875" />
+          <ConnectorPoint PointX="6.75" PointY="6.2689925130208328" />
+          <ConnectorPoint PointX="7.125" PointY="6.2689925130208328" />
           <ConnectorPoint PointX="7.125" PointY="4.5" />
           <ConnectorPoint PointX="8.25" PointY="4.5" />
           <ConnectorPoint PointX="8.25" PointY="3.1052864583333335" />
@@ -698,32 +1164,63 @@
         <AssociationConnector Association="TrouveUnBandModel.fk_musicians_users" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="6" />
           <ConnectorPoint PointX="4.875" PointY="5.625" />
-          <ConnectorPoint PointX="4.875" PointY="2.5405578268229165" />
-          <ConnectorPoint PointX="5.25" PointY="2.5405578268229165" />
+          <ConnectorPoint PointX="4.875" PointY="2.6524681909993495" />
+          <ConnectorPoint PointX="5.25" PointY="2.6524681909993495" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Join_Band_Genre" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.2112939453125002" />
-          <ConnectorPoint PointX="3" PointY="2.2112939453125002" />
+          <ConnectorPoint PointX="2.25" PointY="2.2569660872395834" />
+          <ConnectorPoint PointX="3" PointY="2.2569660872395834" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Join_Band_Musician" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="1.09375" />
-          <ConnectorPoint PointX="5.25" PointY="1.09375" />
+          <ConnectorPoint PointX="2.25" PointY="1.0937500000000002" />
+          <ConnectorPoint PointX="5.25" PointY="1.0937500000000002" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Join_Musician_Genre" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="1.8327789134114583" />
-          <ConnectorPoint PointX="5.25" PointY="1.8327789134114583" />
+          <ConnectorPoint PointX="4.5" PointY="1.8887340954996748" />
+          <ConnectorPoint PointX="5.25" PointY="1.8887340954996748" />
         </AssociationConnector>
         <EntityTypeShape EntityType="TrouveUnBandModel.Event" Width="1.5" PointX="7.375" PointY="4.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="TrouveUnBandModel.Advert" Width="1.5" PointX="0.75" PointY="4.125" Height="2.9417936197916674" />
         <AssociationConnector Association="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42" >
-          <ConnectorPoint PointX="3" PointY="6.5333968098958337" />
-          <ConnectorPoint PointX="2.25" PointY="6.5333968098958337" />
+          <ConnectorPoint PointX="3" PointY="6.7256982421875" />
+          <ConnectorPoint PointX="2.7708333333333335" PointY="6.7256982421874989" />
+          <ConnectorPoint PointX="2.6041666666666665" PointY="6.7256982421875" />
+          <ConnectorPoint PointX="2.25" PointY="6.7256982421875" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B" >
-          <ConnectorPoint PointX="3" PointY="3.2302864583333335" />
-          <ConnectorPoint PointX="2.625" PointY="3.6052864583333335" />
-          <ConnectorPoint PointX="2.625" PointY="5.2979464049479166" />
-          <ConnectorPoint PointX="2.25" PointY="5.2979464049479166" />
+          <ConnectorPoint PointX="2.9999999999999996" PointY="3.422587890625" />
+          <ConnectorPoint PointX="2.625" PointY="3.7975878906249996" />
+          <ConnectorPoint PointX="2.625" PointY="5.3940971210937487" />
+          <ConnectorPoint PointX="2.25" PointY="5.3940971210937487" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="TrouveUnBandModel.Evenement" Width="1.5" PointX="9.75" PointY="4.75" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.MSreplication_options" Width="1.5" PointX="5.75" PointY="9.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.spt_fallback_db" Width="1.5" PointX="7.75" PointY="9.75" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.spt_fallback_dev" Width="1.5" PointX="9.75" PointY="8.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.spt_fallback_usg" Width="1.5" PointX="10.75" PointY="0.75" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.spt_monitor" Width="1.5" PointX="0.75" PointY="10.75" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.spt_values" Width="1.5" PointX="2.75" PointY="10.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Join_Users_Instrument" Width="1.5" PointX="12.5" PointY="6.875" Height="1.9802864583333388" />
+        <AssociationConnector Association="TrouveUnBandModel.FK__Join_User__Instr__38B96646" >
+          <ConnectorPoint PointX="6" PointY="7.1629850260416656" />
+          <ConnectorPoint PointX="6" PointY="8.4131982421875" />
+          <ConnectorPoint PointX="12.5" PointY="8.4131982421875" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrouveUnBandModel.FK__Join_User__UserI__37C5420D" >
+          <ConnectorPoint PointX="4.5" PointY="8.21354736328125" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="8.21354736328125" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="8.21354736328125" />
+          <ConnectorPoint PointX="12.5" PointY="8.21354736328125" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrouveUnBandModel.Join_Band_Users" >
+          <ConnectorPoint PointX="2.25" PointY="3.3025806306089742" />
+          <ConnectorPoint PointX="2.6875" PointY="3.7400806306089742" />
+          <ConnectorPoint PointX="2.6875" PointY="8.63420366015625" />
+          <ConnectorPoint PointX="3" PointY="8.63420366015625" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrouveUnBandModel.Join_Users_Genre" >
+          <ConnectorPoint PointX="3.75" PointY="3.422587890625" />
+          <ConnectorPoint PointX="3.75" PointY="6" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

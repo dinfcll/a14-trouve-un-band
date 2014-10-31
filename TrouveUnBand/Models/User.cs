@@ -18,6 +18,9 @@ namespace TrouveUnBand.Models
         {
             this.Musicians = new HashSet<Musician>();
             this.Adverts = new HashSet<Advert>();
+            this.Join_Users_Instrument = new HashSet<Join_Users_Instrument>();
+            this.Bands = new HashSet<Band>();
+            this.Genres = new HashSet<Genre>();
         }
     
         public int UserId { get; set; }
@@ -32,9 +35,13 @@ namespace TrouveUnBand.Models
         public string Gender { get; set; }
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longitude { get; set; }
+        public string Description { get; set; }
     
         public virtual ICollection<Musician> Musicians { get; set; }
         public virtual ICollection<Advert> Adverts { get; set; }
+        public virtual ICollection<Join_Users_Instrument> Join_Users_Instrument { get; set; }
+        public virtual ICollection<Band> Bands { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
     }
     
 }

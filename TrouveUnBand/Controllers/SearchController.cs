@@ -9,7 +9,7 @@ namespace TrouveUnBand.Controllers
 {
     public class SearchController : Controller
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
+        private TrouveUnBandEntities1 db = new TrouveUnBandEntities1();
 
         private const string OPTION_ALL      = "option_all";
         private const string OPTION_BAND     = "option_band";
