@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TrouveUnBand.POCO;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Controllers
@@ -19,9 +18,9 @@ namespace TrouveUnBand.Controllers
             List<Band> myBands = new List<Band>();
             if (Request.IsAuthenticated)
             {
-                if (Validation.CurrentUserIsMusician(Validation.GetCurrentUser(User.Identity.Name)))
+                if (CurrentUserIsMusician(GetCurrentUser()))
                 {
-                    var CurrentMusician = Validation.GetCurrentMusician(User.Identity.Name);
+                    var CurrentMusician = GetCurrentMusician();
                     myBands = CurrentMusician.Bands.ToList();
                 }
             }
@@ -46,9 +45,9 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             if (Request.IsAuthenticated)
             {
-                var CurrentUser = Validation.GetCurrentUser(User.Identity.Name);
-                var CurrentMusician = Validation.GetCurrentMusician(User.Identity.Name);
-                bool b = Validation.CurrentUserIsMusician(CurrentUser);
+                    var CurrentUser = GetCurrentUser();
+                    var CurrentMusician = GetCurrentMusician();
+                    bool b = CurrentUserIsMusician(CurrentUser);
                     if (b)
                     {
                         if (Session["myBand"] == null || Session["myMusicians"] == null)
@@ -97,7 +96,7 @@ namespace TrouveUnBand.Controllers
             var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
             if (ExistingBand != null)
             {
-                if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((Validation.GetCurrentUser(User.Identity.Name)).Musicians.ToList()[0]).MusicianId))
+                if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
                 {
                     WC = "Le Band existe déja. Votre band sera renommé par: " + band.Name;
                 }
@@ -122,12 +121,12 @@ namespace TrouveUnBand.Controllers
 
             var band = (Band)Session["myBand"];
             var ExistingBand = db.Bands.Find(band.BandId);
-            var CurrentUser = Validation.GetCurrentUser(User.Identity.Name);
-            var CurrentMusician = Validation.GetCurrentMusician(User.Identity.Name);
-            Validation.CurrentUserIsMusician(CurrentUser);
+            var CurrentUser = GetCurrentUser();
+            var CurrentMusician = GetCurrentMusician();
+            CurrentUserIsMusician(CurrentUser);
             if (ExistingBand != null)
             {
-                if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((Validation.GetCurrentUser(User.Identity.Name)).Musicians.ToList()[0]).MusicianId))
+                if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
                 {
                     band.Name = band.Name + " (" + band.Location + ")";
                     ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
@@ -163,7 +162,7 @@ namespace TrouveUnBand.Controllers
         {
             var myBand = (Band)Session["myBand"];
             myBand.Musicians = (List<Musician>)Session["myMusicians"];
-            if (Validation.IsValidBand(myBand))
+            if (IsValidBand(myBand))
             {
                 TempData["TempDataError"] = "Vous n'avez pas entré toutes les informations";
                 return View("Create");
@@ -174,19 +173,115 @@ namespace TrouveUnBand.Controllers
             }
         }
 
+
+        public ActionResult Edit(int id = 0)
+        {
+            var band = db.Bands.Find(id);
+            if (band == null)
+            {
+                return HttpNotFound();
+            }
+            return View(band);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Band band)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(band).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(band);
+        }
+
+        public ActionResult Delete(int id = 0)
+        {
+            var band = db.Bands.Find(id);
+            if (band == null)
+            {
+                return HttpNotFound();
+            }
+            return View(band);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var band = db.Bands.Find(id);
+            db.Bands.Remove(band);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
-        
+
+        private bool CurrentUserIsMusician(User CurrentUser)
+        {
+            bool b = false;
+            var CurrentMusician = GetCurrentMusician();
+            if (CurrentMusician == null)
+                b = false;
+            else
+                b = true;
+            return b;
+        }
+
+        public User GetCurrentUser()
+        {
+            db.Database.Connection.Open();
+            string Username = User.Identity.Name;
+            var iQUser = db.Users.Where(x => x.Nickname == Username);
+            User CurrentUser = (iQUser.ToList())[0];
+            db.Database.Connection.Close();
+            return CurrentUser;
+            
+        }
+
+        public Musician GetCurrentMusician()
+        {
+            Musician CurrentMusician = GetCurrentUser().Musicians.FirstOrDefault();
+            return CurrentMusician;
+        }
+
+        public bool IsValidBand(Band myBand)
+        {
+            bool Retour = false;
+
+            if (// Steven Seagel understands and approves this lenghty condition
+                myBand.Name == "" 
+                || myBand.Name == null
+                || myBand.Location == "" 
+                || myBand.Location == null
+                || myBand.Description == "" 
+                || myBand.Description == null
+                || !myBand.Genres.Any() 
+                || myBand.Genres == null
+                || !myBand.Musicians.Any() 
+                || myBand.Musicians == null
+            )
+            {
+                Retour = true;
+            }
+            else
+            {
+                Retour = false;
+            }
+            return Retour;
+        }
+
         [HttpPut]
         public ActionResult AddMusician(int MusicianId)
         {
             string RC = "";
             if (((List<Musician>)Session["myMusicians"]).Any(x => x.MusicianId == MusicianId))
             {
-                RC = "Vous avez déja sélectionné ce musiciens";
+                RC = "Vous avez déja sélectionner ce musiciens";
             }
             else
             {
