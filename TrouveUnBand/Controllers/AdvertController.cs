@@ -109,9 +109,6 @@ namespace TrouveUnBand.Controllers
             return View(advert);
         }
 
-        //
-        // GET: /Advert/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             Advert advert = db.Adverts.Find(id);
@@ -122,16 +119,28 @@ namespace TrouveUnBand.Controllers
             return View(advert);
         }
 
-        //
-        // POST: /Advert/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             Advert advert = db.Adverts.Find(id);
             db.Adverts.Remove(advert);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
+        }
+
+        public ActionResult ReOpen(int id = 0)
+        {
+            Advert advert = db.Adverts.Find(id);
+            if (advert == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                advert.Status = "En cours";
+                db.SaveChanges();
+            }
+            return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
         }
 
         public ActionResult Close(int id = 0)
@@ -144,16 +153,13 @@ namespace TrouveUnBand.Controllers
             return View(advert);
         }
 
-        //
-        // POST: /Advert/Delete/5
-
         [HttpPost, ActionName("Close")]
         public ActionResult CloseConfirmed(int id)
         {
             Advert advert = db.Adverts.Find(id);
             db.Adverts.FirstOrDefault(x => x.AdvertId == advert.AdvertId).Status = "Fermée";
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
         }
 
         protected override void Dispose(bool disposing)

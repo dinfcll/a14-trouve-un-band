@@ -46,8 +46,13 @@
                     @using (Html.BeginForm()) {
                     <p>
                         <div class="col-md-6">
-                            @Html.ActionLink("Retour", "Index", new { controller = "Advert" }, new { @Class = "btn btn-default col-md-6" })
-                            <input type="submit" value="Supprimer l'Annonce" class="btn btn-danger col-md-6 col-md-push-10" />
+                            <div class="col-md-6">
+                                @Html.ActionLink("Retour", "Index", new { controller = "Advert" }, new { @Class = "btn btn-default col-md-12" })
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" value="Supprimer l'Annonce" class="btn btn-danger col-md-12" />
+                            
+                            </div>
                         </div>
                     </p>
                 }   

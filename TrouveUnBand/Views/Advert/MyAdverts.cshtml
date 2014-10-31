@@ -9,14 +9,14 @@
         ViewBag.Title = "Annonces";
     }
     <div class="form-group col-md-12">
-        <div class="col-md-10">
+        <div class="col-md-8">
             <h2>Annonces</h2>
         </div>
         <div class="col-md-4">
             @if(User.Identity.Name != "")
             {
-                @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class="btn btn-primary col-md-6 col-md-pull-1" })
-                @Html.ActionLink("Mes Annonces", "MyAdverts", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
+                @Html.ActionLink("Toutes les annonces", "Index", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6 col-md-pull-1" })
+                @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
             }
         </div>
     </div>
@@ -30,17 +30,16 @@
             if (User.Identity.Name == item.User.Nickname)
             {
                 <div class="col-md-12">
-                    <div class="col-md-4 form-group">
+                    <div class="row col-md-4 form-group">
                         @if (item.AdvertPhoto == null)
                         {
-                            <img src="http://placehold.it/230x175" alt="Image">
+                            <img src="http://placehold.it/250x200" alt="Image">
                         }
                         else
                         {
                             var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.AdvertPhoto);
-                            <img src="@photo" width="230" height="172" class="photo" alt="Image">
+                            <img src="@photo" width="250" class="photo" alt="Image">
                         }
-                        
                     </div>
                     <div class="col-md-8 col-md-pull-1" id="AdvertDesc">
                         <div class="col-md-12 form-group">
@@ -56,7 +55,7 @@
                             <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(item.Location)
                         </div>
                         <div class="col-md-3 form-group col-md-pull-2">
-                        @if(item.Status == "En cours")
+                        @if (item.Status == "En cours")
                         {
                             <span class="glyphicon glyphicon-ok"></span> @Html.DisplayName(item.Status)
                         }
@@ -80,7 +79,14 @@
                                     @Html.ActionLink("Modifier l'annonce", "Edit", new { id = item.AdvertId }, new { @class = "btn btn-primary col-md-12" })
                                 </div>
                                 <div class="col-md-4">
-                                    @Html.ActionLink("Fermer l'annonce", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-warning col-md-12" })
+                                @if (item.Status != "Fermée")
+                                {
+                                    @Html.ActionLink("Fermer l'annonce", "Close", new { id = item.AdvertId }, new { @class = "btn btn-warning col-md-12" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Réouvrir l'annonce", "ReOpen", new { id = item.AdvertId }, new { @class = "btn btn-warning col-md-12" })
+                                }
                                 </div>
                                 <div class="col-md-4">          
                                     @Html.ActionLink("Supprimer l'annonce", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-danger col-md-12" })
