@@ -66,3 +66,12 @@ $(function () {
     });
 });
 
+
+$(function () {
+    $('#datepickernotime2').datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true,
+        yearRange: '-90:+0'
+    });
+});
+

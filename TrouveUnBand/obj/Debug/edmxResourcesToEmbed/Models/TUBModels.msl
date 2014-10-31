@@ -87,5 +87,23 @@
         <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="TrouveUnBandModel.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="EventCreator" ColumnName="EventCreator" />
+          <ScalarProperty Name="EventPhoto" ColumnName="EventPhoto" />
+          <ScalarProperty Name="EventStageSize" ColumnName="EventStageSize" />
+          <ScalarProperty Name="EventGender" ColumnName="EventGender" />
+          <ScalarProperty Name="EventSalary" ColumnName="EventSalary" />
+          <ScalarProperty Name="EventMaxAudience" ColumnName="EventMaxAudience" />
+          <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+          <ScalarProperty Name="EventCity" ColumnName="EventCity" />
+          <ScalarProperty Name="EventAddress" ColumnName="EventAddress" />
+          <ScalarProperty Name="EventLocation" ColumnName="EventLocation" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

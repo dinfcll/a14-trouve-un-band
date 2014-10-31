@@ -27,7 +27,7 @@
 >>>>>>> master
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="titre">
             <!--NAVBAR-->
             <div class="container">
                 <div class="navbar-header">
@@ -49,7 +49,11 @@
 =======
                         <li id="groupe">@Html.ActionLink("Groupes", "Index", "Group")</li>
                         <li id="event">@Html.ActionLink("Événements", "Index", "Event")</li>
+<<<<<<< HEAD
 >>>>>>> master
+=======
+                        <li id="Advert">@Html.ActionLink("Annonces", "Index", "Advert")</li>
+>>>>>>> origin/master
                     </ul>
                     <ul class="nav navbar-nav navbar-right" >
                         <li>@Html.Partial("_LoginPartial")</li>
@@ -89,14 +93,18 @@
             }
         </div>
         <div class="container" style="padding-top:100px">
+<<<<<<< HEAD
 
             <script src="~/Scripts/jquery-1.7.1.min.js"></script>
             <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
             
+=======
+>>>>>>> origin/master
             @RenderSection("featured", required: false)
             @RenderSection("scripts", required: false)
             @RenderBody()
         </div><!-- /.container -->
+<<<<<<< HEAD
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrapjs")
         @Scripts.Render("~/bundles/jqueryui")
@@ -104,5 +112,8 @@
         @Scripts.Render("~/bundles/customjs")
         @Scripts.Render("~/bundles/modernizr")
 
+=======
+ 
+>>>>>>> origin/master
     </body>
 </html>

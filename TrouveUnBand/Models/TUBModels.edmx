@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="TrouveUnBandModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TrouveUnBandModelStoreContainer">
+          <EntitySet Name="Advert" EntityType="TrouveUnBandModel.Store.Advert" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Bands" EntityType="TrouveUnBandModel.Store.Bands" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Event" EntityType="TrouveUnBandModel.Store.Event" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Genres" EntityType="TrouveUnBandModel.Store.Genres" store:Type="Tables" Schema="dbo" />
@@ -16,6 +17,14 @@
           <EntitySet Name="Join_Musician_Instrument" EntityType="TrouveUnBandModel.Store.Join_Musician_Instrument" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Musicians" EntityType="TrouveUnBandModel.Store.Musicians" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="TrouveUnBandModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Advert__Creator__34C8D9D1" Association="TrouveUnBandModel.Store.FK__Advert__Creator__34C8D9D1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Advert" EntitySet="Advert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Advert__GenresAd__35BCFE0A" Association="TrouveUnBandModel.Store.FK__Advert__GenresAd__35BCFE0A">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Advert" EntitySet="Advert" />
+          </AssociationSet>
           <AssociationSet Name="FK__Join_Band__BandI__1ED998B2" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__1ED998B2">
             <End Role="Bands" EntitySet="Bands" />
             <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
@@ -53,6 +62,21 @@
             <End Role="Musicians" EntitySet="Musicians" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Advert">
+          <Key>
+            <PropertyRef Name="AdvertId" />
+          </Key>
+          <Property Name="AdvertId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Creator" Type="int" Nullable="false" />
+          <Property Name="GenresAdvert" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="100" />
+          <Property Name="AdvertPhoto" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Bands">
           <Key>
             <PropertyRef Name="BandId" />
@@ -71,10 +95,10 @@
           <Property Name="EventLocation" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="EventAddress" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="EventCity" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="EventDate" Type="date" Nullable="false" />
+          <Property Name="EventDate" Type="datetime" Nullable="false" />
           <Property Name="EventMaxAudience" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="EventSalary" Type="real" Nullable="false" />
-          <Property Name="EventGender" Type="nvarchar" MaxLength="100" />
+          <Property Name="EventGender" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="EventStageSize" Type="int" />
           <Property Name="EventPhoto" Type="varbinary(max)" />
           <Property Name="EventCreator" Type="nvarchar" MaxLength="100" />
@@ -151,6 +175,30 @@
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
         </EntityType>
+        <Association Name="FK__Advert__Creator__34C8D9D1">
+          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
+          <End Role="Advert" Type="TrouveUnBandModel.Store.Advert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Advert">
+              <PropertyRef Name="Creator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Advert__GenresAd__35BCFE0A">
+          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
+          <End Role="Advert" Type="TrouveUnBandModel.Store.Advert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="GenreId" />
+            </Principal>
+            <Dependent Role="Advert">
+              <PropertyRef Name="GenresAdvert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Join_Band__BandI__1ED998B2">
           <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
           <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
@@ -295,6 +343,15 @@
             <End Role="Musicians" EntitySet="Musicians" />
           </AssociationSet>
           <EntitySet Name="Events" EntityType="TrouveUnBandModel.Event" />
+          <EntitySet Name="Adverts" EntityType="TrouveUnBandModel.Advert" />
+          <AssociationSet Name="FK__Advert__Creator__2E1BDC42" Association="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Advert" EntitySet="Adverts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Advert__GenresAd__2F10007B" Association="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B">
+            <End Role="Genre" EntitySet="Genres" />
+            <End Role="Advert" EntitySet="Adverts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Band">
           <Key>
@@ -315,6 +372,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Bands" Relationship="TrouveUnBandModel.Join_Band_Genre" FromRole="Genres" ToRole="Bands" />
           <NavigationProperty Name="Musicians" Relationship="TrouveUnBandModel.Join_Musician_Genre" FromRole="Genres" ToRole="Musicians" />
+          <NavigationProperty Name="Adverts" Relationship="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B" FromRole="Genre" ToRole="Advert" />
         </EntityType>
         <EntityType Name="Instrument">
           <Key>
@@ -364,6 +422,7 @@
           <NavigationProperty Name="Musicians" Relationship="TrouveUnBandModel.fk_musicians_users" FromRole="Users" ToRole="Musicians" />
           <Property Type="Double" Name="Latitude" />
           <Property Type="Double" Name="Longitude" />
+          <NavigationProperty Name="Adverts" Relationship="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42" FromRole="User" ToRole="Advert" />
         </EntityType>
         <Association Name="FK__Join_Musi__Instr__02084FDA">
           <End Role="Instruments" Type="TrouveUnBandModel.Instrument" Multiplicity="1" />
@@ -430,6 +489,47 @@
           <Property Type="Binary" Name="EventPhoto" MaxLength="Max" FixedLength="false" />
           <Property Type="String" Name="EventCreator" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Advert">
+          <Key>
+            <PropertyRef Name="AdvertId" />
+          </Key>
+          <Property Type="Int32" Name="AdvertId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Creator" Nullable="false" />
+          <Property Type="Int32" Name="GenresAdvert" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" />
+          <Property Type="DateTime" Name="ExpirationDate" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42" FromRole="Advert" ToRole="User" />
+          <NavigationProperty Name="Genre" Relationship="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B" FromRole="Advert" ToRole="Genre" />
+          <Property Type="String" Name="Location" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="AdvertPhoto" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Advert__Creator__2E1BDC42">
+          <End Type="TrouveUnBandModel.User" Role="User" Multiplicity="1" />
+          <End Type="TrouveUnBandModel.Advert" Role="Advert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Advert">
+              <PropertyRef Name="Creator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Advert__GenresAd__2F10007B">
+          <End Type="TrouveUnBandModel.Genre" Role="Genre" Multiplicity="1" />
+          <End Type="TrouveUnBandModel.Advert" Role="Advert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="GenreId" />
+            </Principal>
+            <Dependent Role="Advert">
+              <PropertyRef Name="GenresAdvert" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -540,6 +640,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Adverts">
+            <EntityTypeMapping TypeName="TrouveUnBandModel.Advert">
+              <MappingFragment StoreEntitySet="Advert">
+                <ScalarProperty Name="AdvertPhoto" ColumnName="AdvertPhoto" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="GenresAdvert" ColumnName="GenresAdvert" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="AdvertId" ColumnName="AdvertId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -582,22 +698,33 @@
         <AssociationConnector Association="TrouveUnBandModel.fk_musicians_users" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="6" />
           <ConnectorPoint PointX="4.875" PointY="5.625" />
-          <ConnectorPoint PointX="4.875" PointY="2.1824446614583328" />
-          <ConnectorPoint PointX="5.25" PointY="2.1824446614583328" />
+          <ConnectorPoint PointX="4.875" PointY="2.5405578268229165" />
+          <ConnectorPoint PointX="5.25" PointY="2.5405578268229165" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Join_Band_Genre" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.1439925130208328" />
-          <ConnectorPoint PointX="3" PointY="2.1439925130208328" />
+          <ConnectorPoint PointX="2.25" PointY="2.2112939453125002" />
+          <ConnectorPoint PointX="3" PointY="2.2112939453125002" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Join_Band_Musician" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="1.09375" />
           <ConnectorPoint PointX="5.25" PointY="1.09375" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Join_Musician_Genre" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="1.6537223307291664" />
-          <ConnectorPoint PointX="5.25" PointY="1.6537223307291664" />
+          <ConnectorPoint PointX="4.5" PointY="1.8327789134114583" />
+          <ConnectorPoint PointX="5.25" PointY="1.8327789134114583" />
         </AssociationConnector>
         <EntityTypeShape EntityType="TrouveUnBandModel.Event" Width="1.5" PointX="7.375" PointY="4.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Advert" Width="1.5" PointX="0.75" PointY="4.125" Height="2.9417936197916674" />
+        <AssociationConnector Association="TrouveUnBandModel.FK__Advert__Creator__2E1BDC42" >
+          <ConnectorPoint PointX="3" PointY="6.5333968098958337" />
+          <ConnectorPoint PointX="2.25" PointY="6.5333968098958337" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrouveUnBandModel.FK__Advert__GenresAd__2F10007B" >
+          <ConnectorPoint PointX="3" PointY="3.2302864583333335" />
+          <ConnectorPoint PointX="2.625" PointY="3.6052864583333335" />
+          <ConnectorPoint PointX="2.625" PointY="5.2979464049479166" />
+          <ConnectorPoint PointX="2.25" PointY="5.2979464049479166" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

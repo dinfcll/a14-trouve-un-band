@@ -31,6 +31,7 @@
       <End Role="Genres" EntitySet="Genres" />
       <End Role="Musicians" EntitySet="Musicians" />
     </AssociationSet>
+    <EntitySet Name="Events" EntityType="TrouveUnBandModel.Event" />
   </EntityContainer>
   <EntityType Name="Band">
     <Key>
@@ -149,4 +150,21 @@
     <End Role="Genres" Type="TrouveUnBandModel.Genre" Multiplicity="*" />
     <End Role="Musicians" Type="TrouveUnBandModel.Musician" Multiplicity="*" />
   </Association>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Type="Int32" Name="EventId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="EventName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventLocation" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventAddress" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EventCity" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="EventDate" Nullable="false" />
+    <Property Type="String" Name="EventMaxAudience" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Single" Name="EventSalary" Nullable="false" />
+    <Property Type="String" Name="EventGender" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="EventStageSize" />
+    <Property Type="Binary" Name="EventPhoto" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="EventCreator" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>
