@@ -30,10 +30,10 @@ namespace TrouveUnBand.Models
             Musicians = user.Musicians;
             Nickname = user.Nickname;
             Password = user.Password;
-            ProfilePicture.byteProfilePicture = user.Photo;
+            ProfilePicture.PhotoArray = user.Photo;
             if (user.Photo != null)
             {
-                ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+                ProfilePicture.PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
             }
             UserId = user.UserId;
         }
