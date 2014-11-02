@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using TrouveUnBand.Models;
 using System.IO;
 using System.Drawing;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {

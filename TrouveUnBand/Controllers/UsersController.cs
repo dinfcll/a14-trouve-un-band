@@ -18,6 +18,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Web.Script.Serialization;
 using System.Net.Http;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {
@@ -381,24 +382,6 @@ namespace TrouveUnBand.Controllers
             return user;
         }
 
-        public string GetDistance(double LatitudeP1, double LongitudeP1, double LatitudeP2, double LongitudeP2)
-        {
-            double EARTHS_MEAN_RADIUS_IN_KM = 6378.137;
-            var lat = ToRadians(LatitudeP2 - LatitudeP1);
-            var lng = ToRadians(LongitudeP2 - LongitudeP1);
-            var h1 = Math.Sin(lat / 2) * Math.Sin(lat / 2) +
-                          Math.Cos(ToRadians(LatitudeP1)) * Math.Cos(ToRadians(LatitudeP2)) *
-                          Math.Sin(lng / 2) * Math.Sin(lng / 2);
-            var h2 = 2 * Math.Asin(Math.Min(1, Math.Sqrt(h1)));
-            int d = (int)(EARTHS_MEAN_RADIUS_IN_KM * h2);
-            return d.ToString() + " kilomètres";
-        }
-
-        private static double ToRadians(double val)
-        {
-            return (Math.PI / 180) * val;
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult CropImage(UserValidation UserPicture)
@@ -424,10 +407,11 @@ namespace TrouveUnBand.Controllers
                 }
 
                 Image image = Image.FromStream(PostedPhoto.InputStream, true, true);
+                PhotoCropper photoCropper = new PhotoCropper();
 
-                UserPicture.ProfilePicture.CropImage(image);
+                byte[] croppedPhoto = photoCropper.CropImage(image, UserPicture.ProfilePicture.CropRect);
 
-                LoggedOnUser.Photo = UserPicture.ProfilePicture.PhotoArray;
+                LoggedOnUser.Photo = croppedPhoto;
                 db.SaveChanges();
             }
             catch

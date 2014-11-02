@@ -6,78 +6,19 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
+using TrouveUnBand.Models;
 
-namespace TrouveUnBand.Models
+namespace TrouveUnBand.Classes
 {
-    public class Photo
+    public class PhotoCropper
     {
-        byte[] m_PhotoArray;
-
-        string m_PhotoSrc;
-
-        public int PicX { get; set; }
-
-        public int PicY { get; set; }
-
-        public int PicWidth { get; set; }
-
-        public int PicHeight { get; set; }
-
-        public byte[] PhotoArray
-        {
-            get
-            {
-                return m_PhotoArray;
-            }
-            set
-            {
-                m_PhotoArray = value;
-                m_PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(value);
-            }
-        }
-
-        public string PhotoSrc
-        {
-            get
-            {
-                return m_PhotoSrc;
-            }
-            set
-            {
-                m_PhotoSrc = value;
-            }
-        }
-
-        public byte[] StockPhoto
-        {
-            get
-            {
-                return getStockPhoto();
-            }
-        }
-
-        private byte[] getStockPhoto()
-        {
-            string path = HttpContext.Current.Server.MapPath("~/Images/stock_user.jpg");
-            Image stock = Image.FromFile(path);
-            return imageToByteArray(stock);
-        }
-
-        private byte[] imageToByteArray(Image imageIn)
-        {
-            MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, ImageFormat.Jpeg);
-            return ms.ToArray();
-        }
-
-        public void CropImage(Image image)
+        public byte[] CropImage(Image image, Rectangle CropRect)
         {
             if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
             {
                 image = ResizeOriginalImage(image, 172, 250, 413, 600);
             }
-            
-            var CropRect = new Rectangle(PicX, PicY, PicWidth, PicHeight);
+
             Bitmap btmOriginalImage = new Bitmap(image);
             Bitmap btmNewImage = new Bitmap(CropRect.Width, CropRect.Height);
 
@@ -91,7 +32,7 @@ namespace TrouveUnBand.Models
                 g.DrawImage(btmOriginalImage, new Rectangle(0, 0, btmNewImage.Width, btmNewImage.Height), CropRect, GraphicsUnit.Pixel);
             }
 
-            m_PhotoArray = GetBitmapBytes(btmNewImage);
+            return GetBitmapBytes(btmNewImage);
         }
 
         private static byte[] GetBitmapBytes(Bitmap source)
