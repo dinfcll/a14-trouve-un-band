@@ -5,310 +5,309 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TrouveUnBandModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="TrouveUnBandModelStoreContainer">
-          <EntitySet Name="Advert" EntityType="TrouveUnBandModel.Store.Advert" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Bands" EntityType="TrouveUnBandModel.Store.Bands" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Event" EntityType="TrouveUnBandModel.Store.Event" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Genres" EntityType="TrouveUnBandModel.Store.Genres" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Instruments" EntityType="TrouveUnBandModel.Store.Instruments" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Join_Band_Genre" EntityType="TrouveUnBandModel.Store.Join_Band_Genre" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Join_Band_Musician" EntityType="TrouveUnBandModel.Store.Join_Band_Musician" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Join_Musician_Genre" EntityType="TrouveUnBandModel.Store.Join_Musician_Genre" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Join_Musician_Instrument" EntityType="TrouveUnBandModel.Store.Join_Musician_Instrument" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Musicians" EntityType="TrouveUnBandModel.Store.Musicians" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users" EntityType="TrouveUnBandModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__Advert__Creator__34C8D9D1" Association="TrouveUnBandModel.Store.FK__Advert__Creator__34C8D9D1">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Advert" EntitySet="Advert" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Advert__GenresAd__35BCFE0A" Association="TrouveUnBandModel.Store.FK__Advert__GenresAd__35BCFE0A">
-            <End Role="Genres" EntitySet="Genres" />
-            <End Role="Advert" EntitySet="Advert" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__BandI__1ED998B2" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__1ED998B2">
-            <End Role="Bands" EntitySet="Bands" />
-            <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__BandI__22AA2996" Association="TrouveUnBandModel.Store.FK__Join_Band__BandI__22AA2996">
-            <End Role="Bands" EntitySet="Bands" />
-            <End Role="Join_Band_Musician" EntitySet="Join_Band_Musician" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__Genre__1FCDBCEB" Association="TrouveUnBandModel.Store.FK__Join_Band__Genre__1FCDBCEB">
-            <End Role="Genres" EntitySet="Genres" />
-            <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Band__Music__239E4DCF" Association="TrouveUnBandModel.Store.FK__Join_Band__Music__239E4DCF">
-            <End Role="Musicians" EntitySet="Musicians" />
-            <End Role="Join_Band_Musician" EntitySet="Join_Band_Musician" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Genre__182C9B23" Association="TrouveUnBandModel.Store.FK__Join_Musi__Genre__182C9B23">
-            <End Role="Genres" EntitySet="Genres" />
-            <End Role="Join_Musician_Genre" EntitySet="Join_Musician_Genre" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Instr__1BFD2C07" Association="TrouveUnBandModel.Store.FK__Join_Musi__Instr__1BFD2C07">
-            <End Role="Instruments" EntitySet="Instruments" />
-            <End Role="Join_Musician_Instrument" EntitySet="Join_Musician_Instrument" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Music__173876EA" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__173876EA">
-            <End Role="Musicians" EntitySet="Musicians" />
-            <End Role="Join_Musician_Genre" EntitySet="Join_Musician_Genre" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Join_Musi__Music__1B0907CE" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__1B0907CE">
-            <End Role="Musicians" EntitySet="Musicians" />
-            <End Role="Join_Musician_Instrument" EntitySet="Join_Musician_Instrument" />
-          </AssociationSet>
-          <AssociationSet Name="fk_musicians_users" Association="TrouveUnBandModel.Store.fk_musicians_users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Musicians" EntitySet="Musicians" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Advert">
-          <Key>
-            <PropertyRef Name="AdvertId" />
-          </Key>
-          <Property Name="AdvertId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Creator" Type="int" Nullable="false" />
-          <Property Name="GenresAdvert" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="CreationDate" Type="datetime" Nullable="false" />
-          <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
-          <Property Name="Location" Type="nvarchar" MaxLength="100" />
-          <Property Name="AdvertPhoto" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="Bands">
-          <Key>
-            <PropertyRef Name="BandId" />
-          </Key>
-          <Property Name="BandId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Description" Type="text" />
-          <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
-        </EntityType>
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="EventId" />
-          </Key>
-          <Property Name="EventId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="EventName" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="EventLocation" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="EventAddress" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="EventCity" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="EventDate" Type="datetime" Nullable="false" />
-          <Property Name="EventMaxAudience" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="EventSalary" Type="real" Nullable="false" />
-          <Property Name="EventGender" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="EventStageSize" Type="int" />
-          <Property Name="EventPhoto" Type="varbinary(max)" />
-          <Property Name="EventCreator" Type="nvarchar" MaxLength="100" />
-        </EntityType>
-        <EntityType Name="Genres">
-          <Key>
-            <PropertyRef Name="GenreId" />
-          </Key>
-          <Property Name="GenreId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Instruments">
-          <Key>
-            <PropertyRef Name="InstrumentId" />
-          </Key>
-          <Property Name="InstrumentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Join_Band_Genre">
-          <Key>
-            <PropertyRef Name="BandId" />
-            <PropertyRef Name="GenreId" />
-          </Key>
-          <Property Name="BandId" Type="int" Nullable="false" />
-          <Property Name="GenreId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Join_Band_Musician">
-          <Key>
-            <PropertyRef Name="BandId" />
-            <PropertyRef Name="MusicianId" />
-          </Key>
-          <Property Name="BandId" Type="int" Nullable="false" />
-          <Property Name="MusicianId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Join_Musician_Genre">
-          <Key>
-            <PropertyRef Name="MusicianId" />
-            <PropertyRef Name="GenreId" />
-          </Key>
-          <Property Name="MusicianId" Type="int" Nullable="false" />
-          <Property Name="GenreId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Join_Musician_Instrument">
-          <Key>
-            <PropertyRef Name="MusicianId" />
-            <PropertyRef Name="InstrumentId" />
-          </Key>
-          <Property Name="MusicianId" Type="int" Nullable="false" />
-          <Property Name="InstrumentId" Type="int" Nullable="false" />
-          <Property Name="Skills" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Musicians">
-          <Key>
-            <PropertyRef Name="MusicianId" />
-          </Key>
-          <Property Name="MusicianId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="text" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="BirthDate" Type="datetime" Nullable="false" />
-          <Property Name="Nickname" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Photo" Type="varbinary(max)" />
-          <Property Name="Gender" Type="nvarchar" MaxLength="100" />
-          <Property Name="Latitude" Type="float" />
-          <Property Name="Longitude" Type="float" />
-        </EntityType>
-        <Association Name="FK__Advert__Creator__34C8D9D1">
-          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
-          <End Role="Advert" Type="TrouveUnBandModel.Store.Advert" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Advert">
-              <PropertyRef Name="Creator" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Advert__GenresAd__35BCFE0A">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
-          <End Role="Advert" Type="TrouveUnBandModel.Store.Advert" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Genres">
-              <PropertyRef Name="GenreId" />
-            </Principal>
-            <Dependent Role="Advert">
-              <PropertyRef Name="GenresAdvert" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-
-        <Association Name="FK__Join_Band__BandI__1ED998B2">
-          <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
-          <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bands">
-              <PropertyRef Name="BandId" />
-            </Principal>
-            <Dependent Role="Join_Band_Genre">
-              <PropertyRef Name="BandId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Band__BandI__22AA2996">
-          <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
-          <End Role="Join_Band_Musician" Type="TrouveUnBandModel.Store.Join_Band_Musician" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bands">
-              <PropertyRef Name="BandId" />
-            </Principal>
-            <Dependent Role="Join_Band_Musician">
-              <PropertyRef Name="BandId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Band__Genre__1FCDBCEB">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
-          <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Genres">
-              <PropertyRef Name="GenreId" />
-            </Principal>
-            <Dependent Role="Join_Band_Genre">
-              <PropertyRef Name="GenreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Band__Music__239E4DCF">
-          <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
-          <End Role="Join_Band_Musician" Type="TrouveUnBandModel.Store.Join_Band_Musician" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Musicians">
-              <PropertyRef Name="MusicianId" />
-            </Principal>
-            <Dependent Role="Join_Band_Musician">
-              <PropertyRef Name="MusicianId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Musi__Genre__182C9B23">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
-          <End Role="Join_Musician_Genre" Type="TrouveUnBandModel.Store.Join_Musician_Genre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Genres">
-              <PropertyRef Name="GenreId" />
-            </Principal>
-            <Dependent Role="Join_Musician_Genre">
-              <PropertyRef Name="GenreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Musi__Instr__1BFD2C07">
-          <End Role="Instruments" Type="TrouveUnBandModel.Store.Instruments" Multiplicity="1" />
-          <End Role="Join_Musician_Instrument" Type="TrouveUnBandModel.Store.Join_Musician_Instrument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Instruments">
-              <PropertyRef Name="InstrumentId" />
-            </Principal>
-            <Dependent Role="Join_Musician_Instrument">
-              <PropertyRef Name="InstrumentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Musi__Music__173876EA">
-          <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
-          <End Role="Join_Musician_Genre" Type="TrouveUnBandModel.Store.Join_Musician_Genre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Musicians">
-              <PropertyRef Name="MusicianId" />
-            </Principal>
-            <Dependent Role="Join_Musician_Genre">
-              <PropertyRef Name="MusicianId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Join_Musi__Music__1B0907CE">
-          <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
-          <End Role="Join_Musician_Instrument" Type="TrouveUnBandModel.Store.Join_Musician_Instrument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Musicians">
-              <PropertyRef Name="MusicianId" />
-            </Principal>
-            <Dependent Role="Join_Musician_Instrument">
-              <PropertyRef Name="MusicianId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_musicians_users">
-          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
-          <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Musicians">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema></edmx:StorageModels>
+  <EntityContainer Name="TrouveUnBandModelStoreContainer">
+    <EntitySet Name="Bands" EntityType="TrouveUnBandModel.Store.Bands" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Genres" EntityType="TrouveUnBandModel.Store.Genres" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Instruments" EntityType="TrouveUnBandModel.Store.Instruments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Join_Musician_Instrument" EntityType="TrouveUnBandModel.Store.Join_Musician_Instrument" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Musicians" EntityType="TrouveUnBandModel.Store.Musicians" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="TrouveUnBandModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Events" EntityType="TrouveUnBandModel.Store.Events" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Adverts" EntityType="TrouveUnBandModel.Store.Adverts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Join_Band_Genre" EntityType="TrouveUnBandModel.Store.Join_Band_Genre" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Join_Band_Musician" EntityType="TrouveUnBandModel.Store.Join_Band_Musician" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Join_Musician_Genre" EntityType="TrouveUnBandModel.Store.Join_Musician_Genre" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__Join_Musi__Instr__02084FDA" Association="TrouveUnBandModel.Store.FK__Join_Musi__Instr__02084FDA">
+      <End Role="Instruments" EntitySet="Instruments" />
+      <End Role="Join_Musician_Instrument" EntitySet="Join_Musician_Instrument" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Join_Musi__Music__01142BA1" Association="TrouveUnBandModel.Store.FK__Join_Musi__Music__01142BA1">
+      <End Role="Musicians" EntitySet="Musicians" />
+      <End Role="Join_Musician_Instrument" EntitySet="Join_Musician_Instrument" />
+    </AssociationSet>
+    <AssociationSet Name="fk_musicians_users" Association="TrouveUnBandModel.Store.fk_musicians_users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Musicians" EntitySet="Musicians" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Join_Band_Genre_Bands" Association="TrouveUnBandModel.Store.FK_Join_Band_Genre_Bands">
+      <End Role="Bands" EntitySet="Bands" />
+      <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Join_Band_Genre_Genres" Association="TrouveUnBandModel.Store.FK_Join_Band_Genre_Genres">
+      <End Role="Genres" EntitySet="Genres" />
+      <End Role="Join_Band_Genre" EntitySet="Join_Band_Genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Join_Band_Musician_Bands" Association="TrouveUnBandModel.Store.FK_Join_Band_Musician_Bands">
+      <End Role="Bands" EntitySet="Bands" />
+      <End Role="Join_Band_Musician" EntitySet="Join_Band_Musician" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Join_Band_Musician_Musicians" Association="TrouveUnBandModel.Store.FK_Join_Band_Musician_Musicians">
+      <End Role="Musicians" EntitySet="Musicians" />
+      <End Role="Join_Band_Musician" EntitySet="Join_Band_Musician" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Join_Musician_Genre_Genres" Association="TrouveUnBandModel.Store.FK_Join_Musician_Genre_Genres">
+      <End Role="Genres" EntitySet="Genres" />
+      <End Role="Join_Musician_Genre" EntitySet="Join_Musician_Genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Join_Musician_Genre_Musicians" Association="TrouveUnBandModel.Store.FK_Join_Musician_Genre_Musicians">
+      <End Role="Musicians" EntitySet="Musicians" />
+      <End Role="Join_Musician_Genre" EntitySet="Join_Musician_Genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Advert__Creator__2E1BDC42" Association="TrouveUnBandModel.Store.FK__Advert__Creator__2E1BDC42">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Advert" EntitySet="Adverts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Advert__GenresAd__2F10007B" Association="TrouveUnBandModel.Store.FK__Advert__GenresAd__2F10007B">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="Advert" EntitySet="Adverts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Bands">
+    <Key>
+      <PropertyRef Name="BandId" />
+    </Key>
+    <Property Name="BandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="varchar(max)" Nullable="true" />
+    <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Genres">
+    <Key>
+      <PropertyRef Name="GenreId" />
+    </Key>
+    <Property Name="GenreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Instruments">
+    <Key>
+      <PropertyRef Name="InstrumentId" />
+    </Key>
+    <Property Name="InstrumentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Join_Musician_Instrument">
+    <Key>
+      <PropertyRef Name="MusicianId" />
+      <PropertyRef Name="InstrumentId" />
+    </Key>
+    <Property Name="MusicianId" Type="int" Nullable="false" />
+    <Property Name="InstrumentId" Type="int" Nullable="false" />
+    <Property Name="Skills" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Musicians">
+    <Key>
+      <PropertyRef Name="MusicianId" />
+    </Key>
+    <Property Name="MusicianId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+    <Property Name="Nickname" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Photo" Type="varbinary(max)" Nullable="true" />
+    <Property Name="Gender" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="Latitude" Type="float" Nullable="true" />
+    <Property Name="Longitude" Type="float" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EventName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EventLocation" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EventAddress" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EventCity" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EventDate" Type="datetime" Nullable="false" />
+    <Property Name="EventMaxAudience" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EventSalary" Type="real" Nullable="false" />
+    <Property Name="EventGender" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EventStageSize" Type="int" Nullable="true" />
+    <Property Name="EventPhoto" Type="varbinary(max)" Nullable="true" />
+    <Property Name="EventCreator" Type="nvarchar" Nullable="true" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Adverts">
+    <Key>
+      <PropertyRef Name="AdvertId" />
+    </Key>
+    <Property Name="AdvertId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Creator" Type="int" Nullable="false" />
+    <Property Name="GenresAdvert" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="AdvertPhoto" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Join_Band_Genre">
+    <Key>
+      <PropertyRef Name="Bands_BandId" />
+      <PropertyRef Name="Genres_GenreId" />
+    </Key>
+    <Property Name="Bands_BandId" Type="int" Nullable="false" />
+    <Property Name="Genres_GenreId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Join_Band_Musician">
+    <Key>
+      <PropertyRef Name="Bands_BandId" />
+      <PropertyRef Name="Musicians_MusicianId" />
+    </Key>
+    <Property Name="Bands_BandId" Type="int" Nullable="false" />
+    <Property Name="Musicians_MusicianId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Join_Musician_Genre">
+    <Key>
+      <PropertyRef Name="Genres_GenreId" />
+      <PropertyRef Name="Musicians_MusicianId" />
+    </Key>
+    <Property Name="Genres_GenreId" Type="int" Nullable="false" />
+    <Property Name="Musicians_MusicianId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Join_Musi__Instr__02084FDA">
+    <End Role="Instruments" Type="TrouveUnBandModel.Store.Instruments" Multiplicity="1" />
+    <End Role="Join_Musician_Instrument" Type="TrouveUnBandModel.Store.Join_Musician_Instrument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instruments">
+        <PropertyRef Name="InstrumentId" />
+      </Principal>
+      <Dependent Role="Join_Musician_Instrument">
+        <PropertyRef Name="InstrumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Join_Musi__Music__01142BA1">
+    <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
+    <End Role="Join_Musician_Instrument" Type="TrouveUnBandModel.Store.Join_Musician_Instrument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Musicians">
+        <PropertyRef Name="MusicianId" />
+      </Principal>
+      <Dependent Role="Join_Musician_Instrument">
+        <PropertyRef Name="MusicianId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_musicians_users">
+    <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
+    <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Musicians">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Advert__Creator__2E1BDC42">
+    <End Role="User" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
+    <End Role="Advert" Type="TrouveUnBandModel.Store.Adverts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="Creator" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Advert__GenresAd__2F10007B">
+    <End Role="Genre" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
+    <End Role="Advert" Type="TrouveUnBandModel.Store.Adverts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Advert">
+        <PropertyRef Name="GenresAdvert" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Join_Band_Genre_Bands">
+    <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
+    <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bands">
+        <PropertyRef Name="BandId" />
+      </Principal>
+      <Dependent Role="Join_Band_Genre">
+        <PropertyRef Name="Bands_BandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Join_Band_Genre_Genres">
+    <End Role="Join_Band_Genre" Type="TrouveUnBandModel.Store.Join_Band_Genre" Multiplicity="*" />
+    <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Genres">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Join_Band_Genre">
+        <PropertyRef Name="Genres_GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Join_Band_Musician_Bands">
+    <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
+    <End Role="Join_Band_Musician" Type="TrouveUnBandModel.Store.Join_Band_Musician" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bands">
+        <PropertyRef Name="BandId" />
+      </Principal>
+      <Dependent Role="Join_Band_Musician">
+        <PropertyRef Name="Bands_BandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Join_Band_Musician_Musicians">
+    <End Role="Join_Band_Musician" Type="TrouveUnBandModel.Store.Join_Band_Musician" Multiplicity="*" />
+    <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Musicians">
+        <PropertyRef Name="MusicianId" />
+      </Principal>
+      <Dependent Role="Join_Band_Musician">
+        <PropertyRef Name="Musicians_MusicianId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Join_Musician_Genre_Genres">
+    <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
+    <End Role="Join_Musician_Genre" Type="TrouveUnBandModel.Store.Join_Musician_Genre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genres">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Join_Musician_Genre">
+        <PropertyRef Name="Genres_GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Join_Musician_Genre_Musicians">
+    <End Role="Join_Musician_Genre" Type="TrouveUnBandModel.Store.Join_Musician_Genre" Multiplicity="*" />
+    <End Role="Musicians" Type="TrouveUnBandModel.Store.Musicians" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Musicians">
+        <PropertyRef Name="MusicianId" />
+      </Principal>
+      <Dependent Role="Join_Musician_Genre">
+        <PropertyRef Name="Musicians_MusicianId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TrouveUnBandModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -599,67 +598,66 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="IsTypeOf(TrouveUnBandModel.Event)">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="EventLocation" ColumnName="EventLocation" />
+          <ScalarProperty Name="EventAddress" ColumnName="EventAddress" />
+          <ScalarProperty Name="EventCity" ColumnName="EventCity" />
+          <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+          <ScalarProperty Name="EventMaxAudience" ColumnName="EventMaxAudience" />
+          <ScalarProperty Name="EventSalary" ColumnName="EventSalary" />
+          <ScalarProperty Name="EventGender" ColumnName="EventGender" />
+          <ScalarProperty Name="EventStageSize" ColumnName="EventStageSize" />
+          <ScalarProperty Name="EventPhoto" ColumnName="EventPhoto" />
+          <ScalarProperty Name="EventCreator" ColumnName="EventCreator" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Adverts">
+      <EntityTypeMapping TypeName="IsTypeOf(TrouveUnBandModel.Advert)">
+        <MappingFragment StoreEntitySet="Adverts">
+          <ScalarProperty Name="AdvertId" ColumnName="AdvertId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="GenresAdvert" ColumnName="GenresAdvert" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="AdvertPhoto" ColumnName="AdvertPhoto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="Join_Band_Genre" TypeName="TrouveUnBandModel.Join_Band_Genre" StoreEntitySet="Join_Band_Genre">
-            <EndProperty Name="Genres">
-              <ScalarProperty Name="GenreId" ColumnName="GenreId" />
-            </EndProperty>
-            <EndProperty Name="Bands">
-              <ScalarProperty Name="BandId" ColumnName="BandId" />
-            </EndProperty>
-          </AssociationSetMapping>
+      <EndProperty Name="Bands">
+        <ScalarProperty Name="BandId" ColumnName="Bands_BandId" />
+      </EndProperty>
+      <EndProperty Name="Genres">
+        <ScalarProperty Name="GenreId" ColumnName="Genres_GenreId" />
+      </EndProperty>
+    </AssociationSetMapping>
     <AssociationSetMapping Name="Join_Band_Musician" TypeName="TrouveUnBandModel.Join_Band_Musician" StoreEntitySet="Join_Band_Musician">
-            <EndProperty Name="Musicians">
-              <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
-            </EndProperty>
-            <EndProperty Name="Bands">
-              <ScalarProperty Name="BandId" ColumnName="BandId" />
-            </EndProperty>
-          </AssociationSetMapping>
+      <EndProperty Name="Bands">
+        <ScalarProperty Name="BandId" ColumnName="Bands_BandId" />
+      </EndProperty>
+      <EndProperty Name="Musicians">
+        <ScalarProperty Name="MusicianId" ColumnName="Musicians_MusicianId" />
+      </EndProperty>
+    </AssociationSetMapping>
     <AssociationSetMapping Name="Join_Musician_Genre" TypeName="TrouveUnBandModel.Join_Musician_Genre" StoreEntitySet="Join_Musician_Genre">
-            <EndProperty Name="Musicians">
-              <ScalarProperty Name="MusicianId" ColumnName="MusicianId" />
-            </EndProperty>
-            <EndProperty Name="Genres">
-              <ScalarProperty Name="GenreId" ColumnName="GenreId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="Events">
-            <EntityTypeMapping TypeName="TrouveUnBandModel.Event">
-              <MappingFragment StoreEntitySet="Event">
-                <ScalarProperty Name="EventCreator" ColumnName="EventCreator" />
-                <ScalarProperty Name="EventPhoto" ColumnName="EventPhoto" />
-                <ScalarProperty Name="EventStageSize" ColumnName="EventStageSize" />
-                <ScalarProperty Name="EventGender" ColumnName="EventGender" />
-                <ScalarProperty Name="EventSalary" ColumnName="EventSalary" />
-                <ScalarProperty Name="EventMaxAudience" ColumnName="EventMaxAudience" />
-                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
-                <ScalarProperty Name="EventCity" ColumnName="EventCity" />
-                <ScalarProperty Name="EventAddress" ColumnName="EventAddress" />
-                <ScalarProperty Name="EventLocation" ColumnName="EventLocation" />
-                <ScalarProperty Name="EventName" ColumnName="EventName" />
-                <ScalarProperty Name="EventId" ColumnName="EventId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Adverts">
-            <EntityTypeMapping TypeName="TrouveUnBandModel.Advert">
-              <MappingFragment StoreEntitySet="Advert">
-                <ScalarProperty Name="AdvertPhoto" ColumnName="AdvertPhoto" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="GenresAdvert" ColumnName="GenresAdvert" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="AdvertId" ColumnName="AdvertId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+      <EndProperty Name="Genres">
+        <ScalarProperty Name="GenreId" ColumnName="Genres_GenreId" />
+      </EndProperty>
+      <EndProperty Name="Musicians">
+        <ScalarProperty Name="MusicianId" ColumnName="Musicians_MusicianId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">

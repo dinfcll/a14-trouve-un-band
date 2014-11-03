@@ -19,6 +19,7 @@ using System.Data.Entity.Validation;
 using System.Web.Script.Serialization;
 using System.Net.Http;
 using TrouveUnBand.Classes;
+using System.Data;
 
 namespace TrouveUnBand.Controllers
 {
@@ -69,15 +70,14 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(UserValidation userModel)
+        public ActionResult Register(User userModel)
         {
             string RC = "";
             if (ModelState.IsValid)
             {
                 if (userModel.Password == userModel.ConfirmPassword)
                 {
-                    User userBD = CreateUserFromModel(userModel);
-                    RC = Insertcontact(userBD);
+                    RC = Insertcontact(userModel);
                     if (RC == "")
                     {
                         TempData["success"] = "L'inscription est confirmée!";
@@ -110,6 +110,7 @@ namespace TrouveUnBand.Controllers
 
                 if (ValidUserQuery == null)
                 {
+                    CreateUser(userbd);
                     db.Database.Connection.Open();
                     db.Users.Add(userbd);
                     db.SaveChanges();
@@ -190,14 +191,12 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string UpdateProfil(UserValidation userModel)
+        private string UpdateProfil(User userModel)
         {
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
-
-                LoggedOnUser = CreateUserFromModel(userModel, LoggedOnUser);
-
+                var LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
+                UpdateUser(LoggedOnUser, userModel);
                 db.SaveChanges();
 
                 return "";
@@ -244,7 +243,7 @@ namespace TrouveUnBand.Controllers
         {
             ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
 
-            UserValidation LoggedOnUserValid = GetUserInfo(User.Identity.Name);
+            User LoggedOnUserValid = GetUserInfo(User.Identity.Name);
 
             ViewData["UserData"] = LoggedOnUserValid;
 
@@ -258,7 +257,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserProfileModification(UserValidation userModel)
+        public ActionResult UserProfileModification(User userModel)
         {
             userModel.Nickname = User.Identity.Name;
             string RC = "";
@@ -330,18 +329,10 @@ namespace TrouveUnBand.Controllers
             return allUnique;
         }
 
-        private UserValidation GetUserInfo(string Nickname)
+        private User GetUserInfo(string Nickname)
         {
-            UserValidation LoggedOnUser = new UserValidation();
-            try
-            {
-                LoggedOnUser = new UserValidation(db.Users.FirstOrDefault(x => x.Nickname == Nickname));
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
+            LoggedOnUser.ProfilePicture.PhotoArray = LoggedOnUser.Photo;
             return LoggedOnUser;
         }
 
@@ -357,7 +348,7 @@ namespace TrouveUnBand.Controllers
             return LoggedOnUser.ProfilePicture.PhotoSrc;
         }
 
-        public UserValidation SetUserLocation(UserValidation user)
+        public User SetUserLocation(User user)
         {
             var client = new HttpClient();
 
@@ -384,7 +375,7 @@ namespace TrouveUnBand.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult CropImage(UserValidation UserPicture)
+        public virtual ActionResult CropImage(User UserPicture)
         {
             if (Request.Files[0].ContentLength == 0)
             {
@@ -487,43 +478,30 @@ namespace TrouveUnBand.Controllers
             return BandView;
         }
 
-        private User CreateUserFromModel(UserValidation UserValid)
+        private User CreateUser(User userToCreate)
         {
-            User user = new User();
-            user = CreateUserFromModel(UserValid, user);
-            return user;
+            userToCreate.Photo = Photo.StockPhoto;
+            userToCreate.Password = Encrypt(userToCreate.Password);
+            userToCreate = SetUserLocation(userToCreate);
+
+            return userToCreate;
         }
 
-        private User CreateUserFromModel(UserValidation UserValid, User user)
+        private User UpdateUser(User currentUser, User newUser)
         {
-            if ((user.Latitude == 0.0 || user.Longitude == 0.0) || user.Location != UserValid.Location)
+            if ((currentUser.Latitude == 0.0 || currentUser.Longitude == 0.0) || currentUser.Location != newUser.Location)
             {
-                UserValid = SetUserLocation(UserValid);
+                currentUser.Location = newUser.Location;
+                currentUser = SetUserLocation(currentUser);
             }
 
-            if (user.Photo == null)
-            {
-                user.Photo = new Photo().StockPhoto;
-            }
+            currentUser.FirstName = newUser.FirstName;
+            currentUser.LastName = newUser.LastName;
+            currentUser.BirthDate = newUser.BirthDate;
+            currentUser.Gender = newUser.Gender;
+            currentUser.Email = newUser.Email;
 
-            if (user.Password == null)
-            {
-                user.Password = Encrypt(UserValid.Password);
-            }
-
-            user.BirthDate = UserValid.BirthDate;
-            user.Email = UserValid.Email;
-            user.FirstName = UserValid.FirstName;
-            user.Gender = UserValid.Gender;
-            user.LastName = UserValid.LastName;
-            user.Latitude = UserValid.Latitude;
-            user.Location = UserValid.Location;
-            user.Longitude = UserValid.Longitude;
-            user.Musicians = UserValid.Musicians;
-            user.Nickname = UserValid.Nickname;
-            user.UserId = UserValid.UserId;
-
-            return user;
+            return currentUser;
         }
     }
 }

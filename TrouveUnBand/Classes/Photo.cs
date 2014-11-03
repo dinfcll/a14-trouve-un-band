@@ -45,7 +45,7 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        public byte[] StockPhoto
+        public static byte[] StockPhoto
         {
             get
             {
@@ -53,7 +53,7 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        private byte[] getStockPhoto()
+        private static byte[] getStockPhoto()
         {
             string path = HttpContext.Current.Server.MapPath("~/Images/stock_user.jpg");
             var stock = Image.FromFile(path);
@@ -61,7 +61,7 @@ namespace TrouveUnBand.Classes
             return imageToByteArray(stock);
         }
 
-        private byte[] imageToByteArray(Image imageIn)
+        private static byte[] imageToByteArray(Image imageIn)
         {
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, ImageFormat.Jpeg);
