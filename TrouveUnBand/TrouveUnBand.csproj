@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\CreateProfile.cs" />
     <Compile Include="Classes\Geolocalisation.cs" />
     <Compile Include="Classes\PhotoCropper.cs" />
     <Compile Include="Classes\PhotoResizer.cs" />

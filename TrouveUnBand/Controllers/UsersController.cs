@@ -42,33 +42,6 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        public ActionResult ViewProfile(string type, int Id)
-        {
-            switch (type.ToUpper())
-            {
-                case "MUSICIEN":
-                    Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
-                    MusicianProfileViewModel MusicianProfile = CreateMusicianProfileView(musician);
-                    return View("MusicianProfile", MusicianProfile);
-
-                case "BAND":
-                    Band band = db.Bands.FirstOrDefault(x => x.BandId == Id);
-                    BandProfileViewModel BandProfile = CreateBandProfileView(band);
-                    return View("BandProfile", BandProfile);
-
-                case "EVENT":
-                    RedirectToAction("EventProfile", "Event");
-                    break;
-
-                case "PROMOTER":
-                    break;
-
-                default:
-                    break;
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
         [HttpPost]
         public ActionResult Register(User userModel)
         {
@@ -228,6 +201,7 @@ namespace TrouveUnBand.Controllers
                 {
                     MusicianQuery.Description = musician.Description;
                     MusicianQuery.Join_Musician_Instrument.Clear();
+                    MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
                     db.SaveChanges();
                 }
 
@@ -417,65 +391,6 @@ namespace TrouveUnBand.Controllers
 
             TempData["success"] = "La photo de profil a été modifiée avec succès.";
             return RedirectToAction("ProfileModification", "Users");
-        }
-
-        private List<Musician_Instrument> SetMusician_Instrument(List<Musician> musicians)
-        {
-            List<Musician_Instrument> InstrumentInfoList = new List<Musician_Instrument>();
-            ICollection<Join_Musician_Instrument> ListOfInstruments;
-            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
-
-            foreach (var musician in musicians)
-            {
-                ListOfInstruments = musician
-                                    .Join_Musician_Instrument
-                                    .OrderByDescending(x => (x.Skills))
-                                    .ToList();
-
-                var InstrumentInfo = new Musician_Instrument();
-
-                foreach (var instrument in ListOfInstruments)
-                {
-                    InstrumentInfo.InstrumentNames
-                       .Add(instrument.Instrument.Name);
-
-                    InstrumentInfo.Skills
-                        .Add(SkillList[instrument.Skills]);
-                }
-                InstrumentInfoList.Add(InstrumentInfo);
-            }
-
-            return InstrumentInfoList;
-        }
-
-        private MusicianProfileViewModel CreateMusicianProfileView(Musician musician)
-        {
-            MusicianProfileViewModel MusicianView = new MusicianProfileViewModel();
-            User user = db.Users.FirstOrDefault(x => x.UserId == musician.UserId);
-
-            List<Musician> MusicianList = new List<Musician>();
-            MusicianList.Add(musician);
-            List<Musician_Instrument> InstrumentInfos = SetMusician_Instrument(MusicianList);
-
-            MusicianView.InstrumentInfo = InstrumentInfos[0];
-            MusicianView.Description = musician.Description;
-            MusicianView.Name = user.FirstName + " " + user.LastName;
-            MusicianView.Location = user.Location;
-            MusicianView.ProfilePicture.PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
-
-            return MusicianView;
-        }
-
-        private BandProfileViewModel CreateBandProfileView(Band band)
-        {
-            BandProfileViewModel BandView = new BandProfileViewModel();
-
-            BandView.InstrumentInfoList = SetMusician_Instrument(band.Musicians.ToList());
-            BandView.Name = band.Name;
-            BandView.Description = band.Description;
-            BandView.Location = band.Location;
-
-            return BandView;
         }
 
         private User CreateUser(User userToCreate)
