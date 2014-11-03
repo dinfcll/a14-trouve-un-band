@@ -333,7 +333,7 @@ namespace TrouveUnBand.Controllers
                 case "BAND":
                     Band band = db.Bands.FirstOrDefault(x => x.BandId == Id);
                     BandProfileViewModel BandProfile = CreateProfile.CreateBandProfileView(band);
-                    return View("../Users/BandProfile", BandProfile);
+                    return View("../Group/BandProfile", BandProfile);
 
                 case "EVENT":
                     RedirectToAction("EventProfile", "Event");
