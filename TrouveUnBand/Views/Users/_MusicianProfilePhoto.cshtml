@@ -3,7 +3,7 @@
 <div class="carousel slide col-md-12" id="profile-photo-carousel" style="padding-left:0;">
     <div class="carousel-inner cont-slider">
         <div class="item active" data-slide="0">
-            <img alt="" title="" src="@Model.ProfilePicture.stringProfilePicture" />
+            <img alt="" title="" src="@Model.ProfilePicture.PhotoSrc" />
         </div>
         <div class="item" data-slide="1">
             <img alt="" title="" src="http://placehold.it/561x386" />
@@ -32,7 +32,7 @@
 <div class="profile-photo-list col-md-offset-9">
     <ul class="list-unstyled">
         <li class="active" data-slide-to="0" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="@Model.ProfilePicture.stringProfilePicture" />
+            <img width="120" alt="" src="@Model.ProfilePicture.PhotoSrc" />
         </li>
         <li data-slide-to="1" data-target="#profile-photo-carousel">
             <img width="120" alt="" src="http://placehold.it/561x386">

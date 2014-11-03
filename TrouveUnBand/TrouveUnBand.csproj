@@ -167,6 +167,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\Geolocalisation.cs" />
+    <Compile Include="Classes\PhotoCropper.cs" />
+    <Compile Include="Classes\PhotoResizer.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
@@ -267,7 +270,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Classes\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Musician.cs">
@@ -317,7 +320,6 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
-    <Content Include="Scripts\NavBarActive.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
     <Content Include="Scripts\TopSecret.js" />
@@ -417,8 +419,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Users\ImageCropperDialog.cshtml" />
-    <Content Include="Views\Users\ViewPictureDialog.cshtml" />
+    <Content Include="Views\Photo\ImageCropperDialog.cshtml" />
+    <Content Include="Views\Photo\ViewPictureDialog.cshtml" />
     <Content Include="Views\Users\MusicianProfile.cshtml" />
     <Content Include="Views\Users\_MusicianProfileInfo.cshtml" />
     <Content Include="Views\Users\_MusicianProfilePhoto.cshtml" />

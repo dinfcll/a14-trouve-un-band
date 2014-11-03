@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using TrouveUnBand.Models;
 using System.Drawing;
 using System.IO;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {
@@ -140,9 +141,9 @@ namespace TrouveUnBand.Controllers
                             Events.EventId.Equals(eventID)
                             select new Photo
                             {
-                                byteProfilePicture = Events.EventPhoto
+                                PhotoArray = Events.EventPhoto
                             }).FirstOrDefault();
-            return PicQuery.byteProfilePicture;
+            return PicQuery.PhotoArray;
         }
 
         private Event CreateEventFromModel(EventValidation EventValid)

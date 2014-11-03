@@ -8,16 +8,16 @@
                 @Html.Label("Photo de Profil")
             </div>
             <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#PicModal">
-                <img id="ProfilePic" alt="" src="@Model.ProfilePicture.stringProfilePicture" width="350" class="photo" />
+                <img id="ProfilePic" alt="" src="@Model.ProfilePicture.PhotoSrc" width="350" class="photo" />
             </a>
             <input id="ImageUploader" class="btn" type="file" name="FileUpload" accept="image/*" />
             <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
                 aria-hidden="true">
-                @Html.Partial("ViewPictureDialog")
+                @Html.Partial("../Photo/ViewPictureDialog")
             </div>
         </div>
         <div class="modal fade" id="CropperDialog">
-            @RenderPage("ImageCropperDialog.cshtml")
+            @RenderPage("../Photo/ImageCropperDialog.cshtml")
         </div>
     }
     @using (Html.BeginForm("UserProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form" }))
