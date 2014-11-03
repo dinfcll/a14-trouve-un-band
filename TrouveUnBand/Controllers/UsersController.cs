@@ -322,36 +322,15 @@ namespace TrouveUnBand.Controllers
             return LoggedOnUser.ProfilePicture.PhotoSrc;
         }
 
-        public User SetUserLocation(User user)
-        {
-            var client = new HttpClient();
 
-            client.BaseAddress = new Uri("https://maps.googleapis.com");
-
-            var response = client.GetAsync("/maps/api/geocode/json?address="
-                                            + user.Location
-                                            + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
-                                            ).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                string responseBody = response.Content.ReadAsStringAsync().Result;
-
-                var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
-                user.Latitude = location.results[location.results.Count - 1].geometry.location.lat;
-                user.Longitude = location.results[location.results.Count - 1].geometry.location.lng;
-                return user;
-            }
-            user.Latitude = 0.0;
-            user.Longitude = 0.0;
-            return user;
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult CropImage(User UserPicture)
         {
-            if (Request.Files[0].ContentLength == 0)
+            var PostedPhoto = Request.Files[0];
+
+            if (PostedPhoto.ContentLength == 0)
             {
                 TempData["TempDataError"] = "Une erreur s'est produite lors de l'ouverture du fichier. Veuillez réessayer. ";
                 return RedirectToAction("ProfileModification");
@@ -361,11 +340,7 @@ namespace TrouveUnBand.Controllers
             {
                 User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
 
-                HttpPostedFileBase PostedPhoto = Request.Files[0];
-                string extension = Path.GetExtension(PostedPhoto.FileName).ToLower();
-
-                if (extension != ".jpe" && extension != ".jpg" && extension != ".jpeg" && extension != ".gif" && extension != ".png" &&
-                    extension != ".pns" && extension != ".bmp" && extension != ".ico" && extension != ".psd" && extension != ".pdd")
+                if(!Photo.IsPhoto(PostedPhoto))
                 {
                     TempData["TempDataError"] = "Le type du fichier n'est pas valide. Assurez-vous que le fichier soit bien une image. ";
                     return RedirectToAction("ProfileModification");
@@ -382,22 +357,22 @@ namespace TrouveUnBand.Controllers
 
                 LoggedOnUser.Photo = croppedPhoto;
                 db.SaveChanges();
+
+                TempData["success"] = "La photo de profil a été modifiée avec succès.";
+                return RedirectToAction("ProfileModification", "Users");
             }
             catch
             {
                 TempData["TempDataError"] = "Une erreur inattendue s'est produite. Veuillez réessayer plus tard. ";
                 return RedirectToAction("ProfileModification");
             }
-
-            TempData["success"] = "La photo de profil a été modifiée avec succès.";
-            return RedirectToAction("ProfileModification", "Users");
         }
 
         private User CreateUser(User userToCreate)
         {
             userToCreate.Photo = Photo.StockPhoto;
             userToCreate.Password = Encrypt(userToCreate.Password);
-            userToCreate = SetUserLocation(userToCreate);
+            userToCreate = Geolocalisation.SetUserLocation(userToCreate);
 
             return userToCreate;
         }
@@ -407,7 +382,7 @@ namespace TrouveUnBand.Controllers
             if ((currentUser.Latitude == 0.0 || currentUser.Longitude == 0.0) || currentUser.Location != newUser.Location)
             {
                 currentUser.Location = newUser.Location;
-                currentUser = SetUserLocation(currentUser);
+                currentUser = Geolocalisation.SetUserLocation(currentUser);
             }
 
             currentUser.FirstName = newUser.FirstName;

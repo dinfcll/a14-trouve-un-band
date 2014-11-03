@@ -68,5 +68,18 @@ namespace TrouveUnBand.Classes
 
             return ms.ToArray();
         }
+
+        public static bool IsPhoto(HttpPostedFileBase PostedPhoto)
+        {
+            string extension = Path.GetExtension(PostedPhoto.FileName).ToLower();
+
+            if (extension != ".jpe" && extension != ".jpg" && extension != ".jpeg" && extension != ".gif" && extension != ".png" &&
+                extension != ".pns" && extension != ".bmp" && extension != ".ico" && extension != ".psd" && extension != ".pdd")
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
