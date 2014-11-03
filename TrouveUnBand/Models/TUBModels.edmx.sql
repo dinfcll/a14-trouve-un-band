@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/03/2014 08:51:16
+-- Date Created: 11/03/2014 09:55:23
 -- Generated from EDMX file: Z:\a14-trouve-un-band\TrouveUnBand\Models\TUBModels.edmx
 -- --------------------------------------------------
 
