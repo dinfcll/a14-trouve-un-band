@@ -9,7 +9,7 @@ namespace TrouveUnBand.Controllers
 {
     public class SearchController : Controller
     {
-        private TrouveUnBandEntities1 db = new TrouveUnBandEntities1();
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         private const string OPTION_ALL      = "option_all";
         private const string OPTION_BAND     = "option_band";
@@ -40,7 +40,8 @@ namespace TrouveUnBand.Controllers
                     Name = band.Name,
                     Description = band.Description,
                     Location = band.Location,
-                    Type = "Band"
+                    Type = "Band", 
+                    ID = band.BandId
                 });
             }
 
@@ -53,7 +54,8 @@ namespace TrouveUnBand.Controllers
                     Name = user.FirstName + " " + user.LastName,
                     Description = musician.Description,
                     Location = user.Location,
-                    Type = "Musicien"
+                    Type = "Musicien",
+                    ID = musician.MusicianId
                 });
             }
 
@@ -98,7 +100,8 @@ namespace TrouveUnBand.Controllers
                             Name = band.Name, 
                             Description = band.Description, 
                             Location = band.Location, 
-                            Type = "Band" 
+                            Type = "Band" ,
+                            ID = band.BandId
                         });
                     }
 
@@ -111,7 +114,8 @@ namespace TrouveUnBand.Controllers
                             Name = user.FirstName + " " + user.LastName,
                             Description = musician.Description,
                             Location = user.Location,
-                            Type = "Musicien"
+                            Type = "Musicien",
+                            ID = musician.MusicianId
                         });
                     }
 
@@ -128,7 +132,8 @@ namespace TrouveUnBand.Controllers
                             Name = band.Name,
                             Description = band.Description,
                             Location = band.Location,
-                            Type = "Band"
+                            Type = "Band",
+                            ID = band.BandId
                         });
                     }
 
@@ -147,7 +152,8 @@ namespace TrouveUnBand.Controllers
                             Name = user.FirstName + " " + user.LastName,
                             Description = musician.Description,
                             Location = user.Location,
-                            Type = "Musicien"
+                            Type = "Musicien" ,
+                            ID = musician.MusicianId
                         });
                     }
 
@@ -164,7 +170,8 @@ namespace TrouveUnBand.Controllers
                             Name = user.FirstName + " " + user.LastName,
                             Description = "",
                             Location = user.Location,
-                            Type = "Utilisateur"
+                            Type = "Utilisateur",
+                            ID = user.UserId
                         });
                     }
 
@@ -261,7 +268,6 @@ namespace TrouveUnBand.Controllers
             {
                 eventList.Where(events => events.EventLocation.Contains(Location));
             }
-
 
             lstResults.AddRange(eventList);
 

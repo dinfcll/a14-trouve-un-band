@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TrouveUnBandModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-  <EntityContainer Name="TrouveUnBandEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="TrouveUnBandEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Bands" EntityType="TrouveUnBandModel.Band" />
     <EntitySet Name="Genres" EntityType="TrouveUnBandModel.Genre" />
     <EntitySet Name="Instruments" EntityType="TrouveUnBandModel.Instrument" />
@@ -42,12 +42,6 @@
       <End Role="Advert" EntitySet="Adverts" />
     </AssociationSet>
     <EntitySet Name="Evenements" EntityType="TrouveUnBandModel.Evenement" />
-    <EntitySet Name="MSreplication_options" EntityType="TrouveUnBandModel.MSreplication_options" />
-    <EntitySet Name="spt_fallback_db" EntityType="TrouveUnBandModel.spt_fallback_db" />
-    <EntitySet Name="spt_fallback_dev" EntityType="TrouveUnBandModel.spt_fallback_dev" />
-    <EntitySet Name="spt_fallback_usg" EntityType="TrouveUnBandModel.spt_fallback_usg" />
-    <EntitySet Name="spt_monitor" EntityType="TrouveUnBandModel.spt_monitor" />
-    <EntitySet Name="spt_values" EntityType="TrouveUnBandModel.spt_values" />
     <EntitySet Name="Join_Users_Instrument" EntityType="TrouveUnBandModel.Join_Users_Instrument" />
     <AssociationSet Name="FK__Join_User__Instr__38B96646" Association="TrouveUnBandModel.FK__Join_User__Instr__38B96646">
       <End Role="Instrument" EntitySet="Instruments" />
@@ -128,7 +122,7 @@
     <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-    <Property Name="BirthDate" Type="DateTime" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Nickname" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
@@ -263,122 +257,6 @@
     <Property Type="String" Name="EventSalary" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="EventGender" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="EventStageSize" />
-  </EntityType>
-  <EntityType Name="MSreplication_options">
-    <Key>
-      <PropertyRef Name="optname" />
-      <PropertyRef Name="value" />
-      <PropertyRef Name="major_version" />
-      <PropertyRef Name="minor_version" />
-      <PropertyRef Name="revision" />
-      <PropertyRef Name="install_failures" />
-    </Key>
-    <Property Type="String" Name="optname" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Type="Boolean" Name="value" Nullable="false" />
-    <Property Type="Int32" Name="major_version" Nullable="false" />
-    <Property Type="Int32" Name="minor_version" Nullable="false" />
-    <Property Type="Int32" Name="revision" Nullable="false" />
-    <Property Type="Int32" Name="install_failures" Nullable="false" />
-  </EntityType>
-  <EntityType Name="spt_fallback_db">
-    <Key>
-      <PropertyRef Name="xserver_name" />
-      <PropertyRef Name="xdttm_ins" />
-      <PropertyRef Name="xdttm_last_ins_upd" />
-      <PropertyRef Name="name" />
-      <PropertyRef Name="dbid" />
-      <PropertyRef Name="status" />
-      <PropertyRef Name="version" />
-    </Key>
-    <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
-    <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
-    <Property Type="Int16" Name="xfallback_dbid" />
-    <Property Type="String" Name="name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Type="Int16" Name="dbid" Nullable="false" />
-    <Property Type="Int16" Name="status" Nullable="false" />
-    <Property Type="Int16" Name="version" Nullable="false" />
-  </EntityType>
-  <EntityType Name="spt_fallback_dev">
-    <Key>
-      <PropertyRef Name="xserver_name" />
-      <PropertyRef Name="xdttm_ins" />
-      <PropertyRef Name="xdttm_last_ins_upd" />
-      <PropertyRef Name="low" />
-      <PropertyRef Name="high" />
-      <PropertyRef Name="status" />
-      <PropertyRef Name="name" />
-      <PropertyRef Name="phyname" />
-    </Key>
-    <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
-    <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
-    <Property Type="Int32" Name="xfallback_low" />
-    <Property Type="String" Name="xfallback_drive" MaxLength="2" FixedLength="true" Unicode="false" />
-    <Property Type="Int32" Name="low" Nullable="false" />
-    <Property Type="Int32" Name="high" Nullable="false" />
-    <Property Type="Int16" Name="status" Nullable="false" />
-    <Property Type="String" Name="name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Type="String" Name="phyname" Nullable="false" MaxLength="127" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="spt_fallback_usg">
-    <Key>
-      <PropertyRef Name="xserver_name" />
-      <PropertyRef Name="xdttm_ins" />
-      <PropertyRef Name="xdttm_last_ins_upd" />
-      <PropertyRef Name="dbid" />
-      <PropertyRef Name="segmap" />
-      <PropertyRef Name="lstart" />
-      <PropertyRef Name="sizepg" />
-      <PropertyRef Name="vstart" />
-    </Key>
-    <Property Type="String" Name="xserver_name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="xdttm_ins" Nullable="false" />
-    <Property Type="DateTime" Name="xdttm_last_ins_upd" Nullable="false" />
-    <Property Type="Int32" Name="xfallback_vstart" />
-    <Property Type="Int16" Name="dbid" Nullable="false" />
-    <Property Type="Int32" Name="segmap" Nullable="false" />
-    <Property Type="Int32" Name="lstart" Nullable="false" />
-    <Property Type="Int32" Name="sizepg" Nullable="false" />
-    <Property Type="Int32" Name="vstart" Nullable="false" />
-  </EntityType>
-  <EntityType Name="spt_monitor">
-    <Key>
-      <PropertyRef Name="lastrun" />
-      <PropertyRef Name="cpu_busy" />
-      <PropertyRef Name="io_busy" />
-      <PropertyRef Name="idle" />
-      <PropertyRef Name="pack_received" />
-      <PropertyRef Name="pack_sent" />
-      <PropertyRef Name="connections" />
-      <PropertyRef Name="pack_errors" />
-      <PropertyRef Name="total_read" />
-      <PropertyRef Name="total_write" />
-      <PropertyRef Name="total_errors" />
-    </Key>
-    <Property Type="DateTime" Name="lastrun" Nullable="false" />
-    <Property Type="Int32" Name="cpu_busy" Nullable="false" />
-    <Property Type="Int32" Name="io_busy" Nullable="false" />
-    <Property Type="Int32" Name="idle" Nullable="false" />
-    <Property Type="Int32" Name="pack_received" Nullable="false" />
-    <Property Type="Int32" Name="pack_sent" Nullable="false" />
-    <Property Type="Int32" Name="connections" Nullable="false" />
-    <Property Type="Int32" Name="pack_errors" Nullable="false" />
-    <Property Type="Int32" Name="total_read" Nullable="false" />
-    <Property Type="Int32" Name="total_write" Nullable="false" />
-    <Property Type="Int32" Name="total_errors" Nullable="false" />
-  </EntityType>
-  <EntityType Name="spt_values">
-    <Key>
-      <PropertyRef Name="number" />
-      <PropertyRef Name="type" />
-    </Key>
-    <Property Type="String" Name="name" MaxLength="35" FixedLength="false" Unicode="true" />
-    <Property Type="Int32" Name="number" Nullable="false" />
-    <Property Type="String" Name="type" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
-    <Property Type="Int32" Name="low" />
-    <Property Type="Int32" Name="high" />
-    <Property Type="Int32" Name="status" />
   </EntityType>
   <EntityType Name="Join_Users_Instrument">
     <Key>

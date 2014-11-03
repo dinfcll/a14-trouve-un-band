@@ -13,10 +13,10 @@ using System.Data.Entity.Infrastructure;
 
 namespace TrouveUnBand.Models
 {
-    public partial class TrouveUnBandEntities1 : DbContext
+    public partial class TrouveUnBandEntities : DbContext
     {
-        public TrouveUnBandEntities1()
-            : base("name=TrouveUnBandEntities1")
+        public TrouveUnBandEntities()
+            : base("name=TrouveUnBandEntities")
         {
         }
     
@@ -34,12 +34,6 @@ namespace TrouveUnBand.Models
         public DbSet<Event> Events { get; set; }
         public DbSet<Advert> Adverts { get; set; }
         public DbSet<Evenement> Evenements { get; set; }
-        public DbSet<MSreplication_options> MSreplication_options { get; set; }
-        public DbSet<spt_fallback_db> spt_fallback_db { get; set; }
-        public DbSet<spt_fallback_dev> spt_fallback_dev { get; set; }
-        public DbSet<spt_fallback_usg> spt_fallback_usg { get; set; }
-        public DbSet<spt_monitor> spt_monitor { get; set; }
-        public DbSet<spt_values> spt_values { get; set; }
         public DbSet<Join_Users_Instrument> Join_Users_Instrument { get; set; }
     }
 }

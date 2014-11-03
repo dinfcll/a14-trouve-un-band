@@ -13,7 +13,7 @@ namespace TrouveUnBand.Controllers
 {
     public class EventController : Controller
     {
-        private TrouveUnBandEntities1 db = new TrouveUnBandEntities1();
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index()
         {
@@ -21,6 +21,16 @@ namespace TrouveUnBand.Controllers
         }
 
         public ActionResult Details(int id = 0)
+        {
+            Event events = db.Events.Find(id);
+            if (events == null)
+            {
+                return HttpNotFound();
+            }
+            return View(events);
+        }
+
+        public ActionResult EventProfile(int id = 0)
         {
             Event events = db.Events.Find(id);
             if (events == null)
@@ -130,9 +140,9 @@ namespace TrouveUnBand.Controllers
                             Events.EventId.Equals(eventID)
                             select new Photo
                             {
-                                ProfilePicture = Events.EventPhoto
+                                byteProfilePicture = Events.EventPhoto
                             }).FirstOrDefault();
-            return PicQuery.ProfilePicture;
+            return PicQuery.byteProfilePicture;
         }
 
         private Event CreateEventFromModel(EventValidation EventValid)

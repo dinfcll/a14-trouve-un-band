@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdvertController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Models\Band.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BandProfileViewModel.cs" />
     <Compile Include="Models\Evenement.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
@@ -195,9 +197,7 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LocationModel.cs" />
-    <Compile Include="Models\MSreplication_options.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\MusicianProfileViewModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
@@ -206,21 +206,6 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Musician_Instrument.cs" />
-    <Compile Include="Models\spt_fallback_db.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\spt_fallback_dev.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\spt_fallback_usg.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\spt_monitor.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\spt_values.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TUBModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -230,6 +215,7 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserValidationModel.cs" />
+    <Compile Include="Models\_Advert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -314,13 +300,18 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
+    <Content Include="Images\Jcrop.gif" />
+    <Content Include="Models\TUBModels.edmx.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
     <Content Include="Scripts\holder.js" />
+    <Content Include="Scripts\ImageUpload.js" />
+    <Content Include="Scripts\jquery-1.11.1.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -333,6 +324,10 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
+    <Content Include="Scripts\NavBarActive.js" />
+    <Content Include="Scripts\PictureDialog.js" />
+    <Content Include="Scripts\ProfilePage.js" />
+    <Content Include="Scripts\TopSecret.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -429,10 +424,18 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Users\ImageCropperDialog.cshtml" />
+    <Content Include="Views\Users\ViewPictureDialog.cshtml" />
+    <Content Include="Views\Users\MusicianProfile.cshtml" />
+    <Content Include="Views\Users\_MusicianProfileInfo.cshtml" />
+    <Content Include="Views\Users\_MusicianProfilePhoto.cshtml" />
+    <Content Include="Views\Users\BandProfile.cshtml" />
+    <Content Include="Views\Users\_BandProfileInfo.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Delete.cshtml" />
+    <Content Include="Views\Event\EventProfile.cshtml" />
     <Content Include="Views\Advert\Index.cshtml" />
     <Content Include="Views\Advert\Create.cshtml" />
     <Content Include="Views\Advert\Edit.cshtml" />

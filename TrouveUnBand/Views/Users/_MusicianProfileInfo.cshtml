@@ -1,0 +1,94 @@
+﻿@model TrouveUnBand.Models.MusicianProfileViewModel
+@{int i;}
+
+<div class="profile-info-row row" data-panel-id="description-panel">
+    <div class="profile-info-header col-xs-8 col-sm-9 col-md-10 col-lg-10 col-md-push-1">
+        <strong class="row ">Description</strong>
+        <span class="text-muted col-md-12 row">Description détaillée du musicien</span>
+    </div>
+    <i class="chevron glyphicon glyphicon-chevron-down text-muted col-md-offset-1"></i>
+</div>
+
+<div id="description-panel" class="profile-info-panel row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
+        <div class="panel ">
+            <div class="panel-heading">
+                <h3 class="panel-title">Description</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-12 col-lg-12">
+                        <span>@Model.Description</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-info-row row" data-panel-id="instrument-panel">
+    <div class="profile-info-header col-xs-8 col-sm-9 col-md-10 col-lg-10 col-md-push-1">
+        <strong class="row ">Instruments</strong>
+        <span class="text-muted col-md-12 row">Liste des instruments et du niveau d'expérience</span>
+    </div>
+    <i class="chevron glyphicon glyphicon-chevron-down text-muted col-md-offset-1"></i>
+</div>
+
+<div id="instrument-panel" class="profile-info-panel row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Instruments</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-12 col-lg-12">
+                        <table class="table table-musician-info">
+                            <thead>
+                                <tr>
+                                    <th>Instrument:</th>
+                                    <th>Niveau d'expérience:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (i = 0; i < Model.InstrumentInfo.InstrumentNames.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.InstrumentInfo.InstrumentNames[i]</td>
+                                        <td>@Model.InstrumentInfo.Skills[i]</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-info-row row" data-panel-id="info3-panel">
+    <div class="profile-info-header col-xs-8 col-sm-9 col-md-10 col-lg-10 col-md-push-1">
+        <strong class="row ">Info 3</strong>
+        <span class="text-muted col-md-12 row">Info 3</span>
+    </div>
+    <i class="chevron glyphicon glyphicon-chevron-down text-muted col-md-offset-1"></i>
+</div>
+
+<div id="info3-panel" class="profile-info-panel row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Info 3</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-12 col-lg-12">
+                        <strong>contenue</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

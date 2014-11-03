@@ -4,27 +4,12 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <title>@ViewBag.Title</title>
-<<<<<<< HEAD
+
         @Styles.Render("~/Content/css")
         @Styles.Render("~/Content/themes/base/css")
         @Styles.Render("~/Content/bootstrapcss")
-=======
-        @Styles.Render("~/Content/signin.css")
-        @Styles.Render("~/Content/bootstrap.css")
-        @Styles.Render("~/Content/Site.css")
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-        @Scripts.Render("~/Scripts/jquery-ui-timepicker-addon.js")
-        @Scripts.Render("~/bundles/bootstrapjs")
-        @Scripts.Render("~/Scripts/alert.js")
-        @Scripts.Render("~/Scripts/bootstrap-validation.js")
-        @Scripts.Render("~/Scripts/star-rating.js")
-        @Scripts.Render("~/Scripts/tooltips.js")
-        @Scripts.Render("~/Scripts/ModifProfil.js")
-        @Scripts.Render("~/Scripts/disable-search-ddl.js")
-        @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
->>>>>>> master
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="titre">
@@ -37,23 +22,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
+
                     @Html.ActionLink("TrouveUnBand.com", "Index", "Home", new { @class = "navbar-brand" })
+
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li id="index">@Html.ActionLink("Accueil", "Index", "Home")</li>
                         <li id="about">@Html.ActionLink("À propos de", "About", "Home")</li>
                         <li id="contact">@Html.ActionLink("Contact", "Contact", "Home")</li>
-<<<<<<< HEAD
-                        <li id="group">@Html.ActionLink("Groupe", "Index", "Group")</li>
-=======
                         <li id="groupe">@Html.ActionLink("Groupes", "Index", "Group")</li>
                         <li id="event">@Html.ActionLink("Événements", "Index", "Event")</li>
-<<<<<<< HEAD
->>>>>>> master
-=======
                         <li id="Advert">@Html.ActionLink("Annonces", "Index", "Advert")</li>
->>>>>>> origin/master
                     </ul>
                     <ul class="nav navbar-nav navbar-right" >
                         <li>@Html.Partial("_LoginPartial")</li>
@@ -93,27 +73,20 @@
             }
         </div>
         <div class="container" style="padding-top:100px">
-<<<<<<< HEAD
 
             <script src="~/Scripts/jquery-1.7.1.min.js"></script>
             <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-            
-=======
->>>>>>> origin/master
+
             @RenderSection("featured", required: false)
             @RenderSection("scripts", required: false)
             @RenderBody()
         </div><!-- /.container -->
-<<<<<<< HEAD
+
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrapjs")
         @Scripts.Render("~/bundles/jqueryui")
         @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/bundles/customjs")
         @Scripts.Render("~/bundles/modernizr")
-
-=======
- 
->>>>>>> origin/master
     </body>
 </html>
