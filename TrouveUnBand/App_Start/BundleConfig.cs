@@ -11,7 +11,7 @@ namespace TrouveUnBand
             bundles.IgnoreList.Clear();
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-1.8.1.min.js",
                 "~/Scripts/jquery.Jcrop.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
@@ -19,10 +19,10 @@ namespace TrouveUnBand
                 "~/Scripts/bootstrap-validation.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                "~/Scripts/jquery-ui-{version}.js"));
+                "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                "~/Scripts/jquery.unobtrusive*",
+                "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
@@ -32,7 +32,11 @@ namespace TrouveUnBand
                 "~/Scripts/ModifProfil.js",
                 "~/Scripts/tooltips.js",
                 "~/Scripts/star-rating.js",
-                "~/Scripts/alert.js"));
+                "~/Scripts/alert.js",
+                "~/Scripts/jquery-ui-timepicker-addon.js",
+                "~/Scripts/TopSecret.js",
+                "~/Scripts/PictureDialog.js",
+                "~/Scripts/ProfilePage.js"));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes
             // prêt pour la production, utilisez l’outil de génération sur http://modernizr.com pour sélectionner uniquement les tests dont vous avez besoin.
