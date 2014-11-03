@@ -407,9 +407,13 @@ namespace TrouveUnBand.Controllers
                 }
 
                 Image image = Image.FromStream(PostedPhoto.InputStream, true, true);
-                PhotoCropper photoCropper = new PhotoCropper();
 
-                byte[] croppedPhoto = photoCropper.CropImage(image, UserPicture.ProfilePicture.CropRect);
+                if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
+                {
+                    image = PhotoResizer.ResizeImage(image, 172, 250, 413, 600);
+                }
+
+                byte[] croppedPhoto = PhotoCropper.CropImage(image, UserPicture.ProfilePicture.CropRect);
 
                 LoggedOnUser.Photo = croppedPhoto;
                 db.SaveChanges();

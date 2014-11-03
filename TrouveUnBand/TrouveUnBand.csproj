@@ -169,6 +169,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\Geolocalisation.cs" />
     <Compile Include="Classes\PhotoCropper.cs" />
+    <Compile Include="Classes\PhotoResizer.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />

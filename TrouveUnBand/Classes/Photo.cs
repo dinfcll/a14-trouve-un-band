@@ -56,7 +56,8 @@ namespace TrouveUnBand.Classes
         private byte[] getStockPhoto()
         {
             string path = HttpContext.Current.Server.MapPath("~/Images/stock_user.jpg");
-            Image stock = Image.FromFile(path);
+            var stock = Image.FromFile(path);
+
             return imageToByteArray(stock);
         }
 
@@ -64,6 +65,7 @@ namespace TrouveUnBand.Classes
         {
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, ImageFormat.Jpeg);
+
             return ms.ToArray();
         }
     }

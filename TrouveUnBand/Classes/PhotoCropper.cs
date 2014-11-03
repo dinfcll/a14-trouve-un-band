@@ -4,35 +4,26 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Web;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Classes
 {
-    public class PhotoCropper
+    public static class PhotoCropper
     {
-        public byte[] CropImage(Image image, Rectangle CropRect)
+        public static byte[] CropImage(Image image, Rectangle CropRect)
         {
-            if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
+            var OriginalImage = new Bitmap(image);
+
+            if (CropRect.Height != 0 && CropRect.Width != 0)
             {
-                image = ResizeOriginalImage(image, 172, 250, 413, 600);
+                var NewImage = new Bitmap(CropRect.Width, CropRect.Height);
+
+                NewImage = DrawNewImage(OriginalImage, NewImage, CropRect);
+                
+                return GetBitmapBytes(NewImage);
             }
 
-            Bitmap btmOriginalImage = new Bitmap(image);
-            Bitmap btmNewImage = new Bitmap(CropRect.Width, CropRect.Height);
-
-            using (Graphics g = Graphics.FromImage(btmNewImage))
-            {
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.SmoothingMode = SmoothingMode.HighQuality;
-                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                g.CompositingQuality = CompositingQuality.HighQuality;
-
-                g.DrawImage(btmOriginalImage, new Rectangle(0, 0, btmNewImage.Width, btmNewImage.Height), CropRect, GraphicsUnit.Pixel);
-            }
-
-            return GetBitmapBytes(btmNewImage);
+            return GetBitmapBytes(OriginalImage);
         }
 
         private static byte[] GetBitmapBytes(Bitmap source)
@@ -53,67 +44,19 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        private Image ResizeOriginalImage(Image ImageToResize, int MinHeight, int MinWidth, int MaxHeight, int MaxWidth)
+        private static Bitmap DrawNewImage(Bitmap OriginalImage, Bitmap NewImage, Rectangle CropRect)
         {
-            Bitmap NewImage;
-
-            int OriginalHeight = ImageToResize.Height;
-            int OriginalWidth = ImageToResize.Width;
-            int NewHeight;
-            int NewWidth;
-
-            if (OriginalHeight < MinHeight || OriginalWidth < MinWidth)
+            using (Graphics g = Graphics.FromImage(NewImage))
             {
-                if (OriginalHeight < MinHeight)
-                {
-                    NewHeight = MinHeight;
-                }
-                else
-                {
-                    NewHeight = ImageToResize.Height;
-                }
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.CompositingQuality = CompositingQuality.HighQuality;
 
-                if (OriginalWidth < MinWidth)
-                {
-                    NewWidth = MinWidth;
-                }
-                else
-                {
-                    NewWidth = ImageToResize.Width;
-                }
-            }
-            else
-            {
-                if (OriginalHeight > MaxHeight)
-                {
-                    NewHeight = MaxHeight;
-                }
-                else
-                {
-                    NewHeight = ImageToResize.Height;
-                }
-
-                if (OriginalWidth > MaxWidth)
-                {
-                    NewWidth = MaxWidth;
-                }
-                else
-                {
-                    NewWidth = ImageToResize.Width;
-                }
+                g.DrawImage(OriginalImage, new Rectangle(0, 0, NewImage.Width, NewImage.Height), CropRect, GraphicsUnit.Pixel);
             }
 
-            NewImage = new Bitmap(NewWidth, NewHeight);
-            using (Graphics gr = Graphics.FromImage(NewImage))
-            {
-                gr.SmoothingMode = SmoothingMode.HighQuality;
-                gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                gr.DrawImage(ImageToResize, new Rectangle(0, 0, NewWidth, NewHeight));
-            }
-
-            return (Image)NewImage;
-
+            return NewImage;
         }
     }
 }
