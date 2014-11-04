@@ -123,7 +123,7 @@ namespace TrouveUnBand.Controllers
                 {
                     band.Name = band.Name + " (" + band.Location + ")";
                     ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
-                    WC = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
+                    TempData["warning"] = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
                 }
             }
             try
@@ -135,19 +135,15 @@ namespace TrouveUnBand.Controllers
                 db.Bands.Add(band);
                 db.SaveChanges();
                 db.Database.Connection.Close();
-                SC = "Vous avez créé un band!";
-                TempData["Success"] = SC;
+                TempData["Success"] = "Vous avez créé un band!";
                 Session["myBand"] = new Band();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                RC = "Une erreur interne s'est produite, Réessayez plus tard " + ex.Message;
+                TempData["TempDataError"] = "Une erreur interne s'est produite, Réessayez plus tard " + ex.Message;
                 Console.WriteLine(ex.Message);
             }
-
-            TempData["warning"] = WC;
-            TempData["TempDataError"] = RC;
             return RedirectToAction("Index", "Home");
         }
 
@@ -217,13 +213,14 @@ namespace TrouveUnBand.Controllers
 
         private bool CurrentUserIsMusician(User CurrentUser)
         {
-            bool b = false;
-            var CurrentMusician = GetCurrentMusician();
-            if (CurrentMusician == null)
-                b = false;
+            if (GetCurrentMusician() == null)
+            {
+                return false;
+            }
             else
-                b = true;
-            return b;
+            {
+                return false;
+            }
         }
 
         public User GetCurrentUser()
@@ -245,8 +242,6 @@ namespace TrouveUnBand.Controllers
 
         public bool IsValidBand(Band myBand)
         {
-            bool Retour = false;
-
             if (// Steven Seagel understands and approves this lenghty condition
                 myBand.Name == "" 
                 || myBand.Name == null
@@ -260,13 +255,12 @@ namespace TrouveUnBand.Controllers
                 || myBand.Musicians == null
             )
             {
-                Retour = true;
+                return true;
             }
             else
             {
-                Retour = false;
+                return false;
             }
-            return Retour;
         }
 
         [HttpPut]
@@ -275,7 +269,7 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             if (((List<Musician>)Session["myMusicians"]).Any(x => x.MusicianId == MusicianId))
             {
-                RC = "Vous avez déja sélectionner ce musiciens";
+                TempData["TempDataError"] = "Vous avez déja sélectionner ce musiciens";
             }
             else
             {
@@ -284,7 +278,6 @@ namespace TrouveUnBand.Controllers
                 ((List<Musician>)Session["myMusicians"]).Add(Query);
                 db.Database.Connection.Close();
             }
-            TempData["TempDataError"] = RC;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             return PartialView("_MusicianTab");
         }
@@ -309,14 +302,13 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             if (((Band)Session["myBand"]).Genres.Any(x => x.GenreId == Genrelist))
             {
-                RC = "Vous avez déja sélectionné ce genre";
+                TempData["TempDataError"] = "Vous avez déja sélectionné ce genre";
             }
             else
             {
                 var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
                 ((Band)Session["myBand"]).Genres.Add(Query);
             }
-            TempData["TempDataError"] = RC;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             db.Database.Connection.Close();
             return PartialView("_GenreTab");
@@ -343,7 +335,7 @@ namespace TrouveUnBand.Controllers
             List<Musician> musicians = new List<Musician>();
             if (String.IsNullOrEmpty(SearchString))
             {
-                RC = "Le champ de recherche est vide";
+                TempData["TempDataError"] = "Le champ de recherche est vide";
             }
             else
             {
@@ -356,10 +348,8 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewData["SearchMusicians"] = musicians;
-            TempData["TempDataError"] = RC;
             db.Database.Connection.Close();
             return PartialView("_MusicianTab");
         }
     }
 }
-

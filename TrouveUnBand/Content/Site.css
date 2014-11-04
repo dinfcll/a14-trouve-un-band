@@ -1,3 +1,7 @@
+.top-80{
+   margin-top: -80px;
+}
+
 .big-star {
     font-size: 20px;
 }
@@ -160,15 +164,12 @@ tr.instTable > td{
 .main-content {
     margin-top: 40px;
 }
-<<<<<<< HEAD
-=======
 
 /* jquery.Jcrop.css v0.9.12 - MIT License */
 /*
   The outer-most container in a typical Jcrop instance
   If you are having difficulty with formatting related to styles
   on a parent element, place any fixes here or in a like selector
-
   You can also style this element if you want to add a border, etc
   A better method for styling can be seen below with .jcrop-light
   (Add a class to the holder and style elements for that extended class)
@@ -580,4 +581,3 @@ div.profile-tab-menu div.list-group{
 #AdvertDesc{
     margin-top: -25px;
 }
->>>>>>> origin/master
