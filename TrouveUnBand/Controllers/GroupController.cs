@@ -94,13 +94,6 @@ namespace TrouveUnBand.Controllers
         {
             string WC = "";
             var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
-            if (ExistingBand != null)
-            {
-                if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
-                {
-                    WC = "Le Band existe déja. Votre band sera renommé par: " + band.Name;
-                }
-            }
 
             var BandToUpdate = (Band)Session["myBand"];
             BandToUpdate.Name = band.Name;
@@ -120,13 +113,13 @@ namespace TrouveUnBand.Controllers
             string SC = "";
 
             var band = (Band)Session["myBand"];
-            var ExistingBand = db.Bands.Find(band.BandId);
+            var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
             var CurrentUser = GetCurrentUser();
             var CurrentMusician = GetCurrentMusician();
             CurrentUserIsMusician(CurrentUser);
             if (ExistingBand != null)
             {
-                if (!ExistingBand.Musicians.Any(x => x.MusicianId == ((GetCurrentUser()).Musicians.ToList()[0]).MusicianId))
+                if (ExistingBand.Name == band.Name)
                 {
                     band.Name = band.Name + " (" + band.Location + ")";
                     ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
@@ -144,6 +137,7 @@ namespace TrouveUnBand.Controllers
                 db.Database.Connection.Close();
                 SC = "Vous avez créé un band!";
                 TempData["Success"] = SC;
+                Session["myBand"] = new Band();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

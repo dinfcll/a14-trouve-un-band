@@ -18,8 +18,6 @@ namespace TrouveUnBand
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/bootstrap-validation.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.unobtrusive-ajax.js",
