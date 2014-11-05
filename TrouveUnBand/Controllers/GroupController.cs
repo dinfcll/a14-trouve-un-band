@@ -42,47 +42,44 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            string RC = "";
-            if (Request.IsAuthenticated)
+            string MessageAlert = "";
+
+            if (!Request.IsAuthenticated)
             {
-                    var CurrentUser = GetCurrentUser();
-                    var CurrentMusician = GetCurrentMusician();
-                    bool b = CurrentUserIsMusician(CurrentUser);
-                    if (b)
-                    {
-                        if (Session["myBand"] == null || Session["myMusicians"] == null)
-                        {
-                            Band myBand = new Band();
-                            myBand.Name = "";
-                            myBand.Location = "";
-                            myBand.Description = "";
-                            List<Musician> myMusicians = new List<Musician>();
-                            myMusicians.Add(CurrentMusician);
-                            /* 
-                                Il faut utilisé une list de musiciens à part du band car l'exécution différée de LINQ entre en conflit. 
-                                Lors d'une boucle foreach, l'objet est disposé apres la première lecture, donc n'a plus d'instance a la 
-                                deuxième itération de la boucle
-                            */
-                            Session["myMusicians"] = myMusicians;
-                            Session["myBand"] = myBand;
-                            // À la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
-                            ViewBag.CurrentMusician = CurrentMusician;
-                        }
-                        ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-                        return View("Create");
-                    }
-                    else
-                    {
-                        RC = "Aucun profile musicien n'est associé à ce compte. Veuillez vous créer un profile musicien";
-                        RedirectToAction("Index", "Home");
-                    }
-            }
-            else
-            {
-                RC = "Vous devez être connecté pour créer un band";
+                MessageAlert = "Vous devez être connecté pour créer un band";
                 RedirectToAction("Index", "Home");
             }
-            TempData["TempDataError"] = RC;
+
+            var CurrentUser = GetCurrentUser();
+            var CurrentMusician = GetCurrentMusician();
+
+            if (!CurrentUserIsMusician(CurrentUser))
+            {
+                MessageAlert = "Aucun profile musicien n'est associé à ce compte. Veuillez vous créer un profile musicien";
+                RedirectToAction("Index", "Home");
+            }
+
+            if (Session["myBand"] == null || Session["myMusicians"] == null)
+            {
+                Band myBand = new Band();
+                myBand.Name = "";
+                myBand.Location = "";
+                myBand.Description = "";
+                List<Musician> myMusicians = new List<Musician>();
+                myMusicians.Add(CurrentMusician);
+                /* 
+                    Il faut utilisé une list de musiciens à part du band car l'exécution différée de LINQ entre en conflit. 
+                    Lors d'une boucle foreach, l'objet est disposé apres la première lecture, donc n'a plus d'instance a la 
+                    deuxième itération de la boucle
+                */
+                Session["myMusicians"] = myMusicians;
+                Session["myBand"] = myBand;
+                // À la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
+                ViewBag.CurrentMusician = CurrentMusician;
+            }
+
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            TempData["TempDataError"] = MessageAlert;
             return View();
         }
 
@@ -108,10 +105,6 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult ConfirmCreate()
         {
-            string WC = "";
-            string RC = "";
-            string SC = "";
-
             var band = (Band)Session["myBand"];
             var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
             var CurrentUser = GetCurrentUser();
@@ -119,12 +112,9 @@ namespace TrouveUnBand.Controllers
             CurrentUserIsMusician(CurrentUser);
             if (ExistingBand != null)
             {
-                if (ExistingBand.Name == band.Name)
-                {
                     band.Name = band.Name + " (" + band.Location + ")";
                     ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
                     TempData["warning"] = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
-                }
             }
             try
             {
@@ -243,12 +233,9 @@ namespace TrouveUnBand.Controllers
         public bool IsValidBand(Band myBand)
         {
             if (// Steven Seagel understands and approves this lenghty condition
-                myBand.Name == "" 
-                || myBand.Name == null
-                || myBand.Location == "" 
-                || myBand.Location == null
-                || myBand.Description == "" 
-                || myBand.Description == null
+                String.IsNullOrEmpty(myBand.Name)
+                || String.IsNullOrEmpty(myBand.Location)
+                || String.IsNullOrEmpty(myBand.Description)
                 || !myBand.Genres.Any() 
                 || myBand.Genres == null
                 || !myBand.Musicians.Any() 
@@ -269,7 +256,7 @@ namespace TrouveUnBand.Controllers
             string RC = "";
             if (((List<Musician>)Session["myMusicians"]).Any(x => x.MusicianId == MusicianId))
             {
-                TempData["TempDataError"] = "Vous avez déja sélectionner ce musiciens";
+                TempData["TempDataError"] = "Vous avez déjà sélectionné ce musicien";
             }
             else
             {
