@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
+using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
@@ -15,12 +16,21 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Bands.ToList());
+            List<Band> myBands = new List<Band>();
+            if (Request.IsAuthenticated)
+            {
+                if (CurrentUserIsMusician(GetCurrentUser()))
+                {
+                    var CurrentMusician = GetCurrentMusician();
+                    myBands = CurrentMusician.Bands.ToList();
+                }
+            }
+                return View(myBands);
         }
 
         public ActionResult Details(int id = 0)
         {
-            Band band = db.Bands.Find(id);
+            var band = db.Bands.Find(id);
             if (band == null)
             {
                 return HttpNotFound();
@@ -28,42 +38,123 @@ namespace TrouveUnBand.Controllers
             return View(band);
         }
 
+        //
+        // GET: /Group/Create
+        [HttpGet]
         public ActionResult Create()
         {
+            string MessageAlert = "";
+
+            if (!Request.IsAuthenticated)
+            {
+                MessageAlert = AlertMessages.NOT_CONNECTED;
+                RedirectToAction("Index", "Home");
+            }
+
+            var CurrentUser = GetCurrentUser();
+            var CurrentMusician = GetCurrentMusician();
+
+            if (!CurrentUserIsMusician(CurrentUser))
+            {
+                MessageAlert = AlertMessages.NOT_MUSICIAN;
+                RedirectToAction("Index", "Home");
+            }
+
+            if (Session["myBand"] == null || Session["myMusicians"] == null)
+            {
+                Band myBand = new Band();
+                myBand.Name = "";
+                myBand.Location = "";
+                myBand.Description = "";
+                List<Musician> myMusicians = new List<Musician>();
+                myMusicians.Add(CurrentMusician);
+                /* 
+                    Il faut utilisé une list de musiciens à part du band car l'exécution différée de LINQ entre en conflit. 
+                    Lors d'une boucle foreach, l'objet est disposé apres la première lecture, donc n'a plus d'instance a la 
+                    deuxième itération de la boucle
+                */
+                Session["myMusicians"] = myMusicians;
+                Session["myBand"] = myBand;
+                // À la création de la vue le premier musicien est toujours le musicien associé au compte authentifié.
+                ViewBag.CurrentMusician = CurrentMusician;
+            }
+
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            TempData["TempDataError"] = MessageAlert;
             return View();
         }
 
+        //
+        // POST: /Group/Create
+
+        [HttpGet]
+        public PartialViewResult SubmitInfo(Band band)
+        {
+            string WC = "";
+            var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
+
+            var BandToUpdate = (Band)Session["myBand"];
+            BandToUpdate.Name = band.Name;
+            BandToUpdate.Location = band.Location;
+            BandToUpdate.Description = band.Description;
+            Session["myBand"] = BandToUpdate;
+
+            TempData["warning"] = WC;
+            return PartialView("_ConfirmCreateDialog", band);
+        }
+        
+        [HttpGet]
         public ActionResult ConfirmCreate()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Create(Band band)
-        {
-            return RedirectToAction("ConfirmCreate", band);
-        }
-
-        [HttpPost]
-        public ActionResult ConfirmCreate(Band band)
-        {
+            var band = (Band)Session["myBand"];
+            var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
+            var CurrentUser = GetCurrentUser();
+            var CurrentMusician = GetCurrentMusician();
+            CurrentUserIsMusician(CurrentUser);
+            if (ExistingBand != null)
+            {
+                    //band.Name = band.Name + " (" + band.Location + ")";
+                    //ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
+                    TempData["warning"] = AlertMessages.EXISTING_BAND(ExistingBand,band);
+            }
             try
             {
-                    db.Bands.Add(band);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                band.Musicians = (List<Musician>)Session["myMusicians"];
+                band.Musicians = null;
+                CurrentMusician.Bands.Add(band);
+                db.Database.Connection.Open();
+                db.Bands.Add(band);
+                db.SaveChanges();
+                db.Database.Connection.Close();
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(band);
+                Session["myBand"] = new Band();
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
+                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
                 Console.WriteLine(ex.Message);
             }
-
-            return View(band);
+            return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public ActionResult UpdateModal()
+        {
+            var myBand = (Band)Session["myBand"];
+            myBand.Musicians = (List<Musician>)Session["myMusicians"];
+            if (IsValidBand(myBand))
+            {
+                TempData["TempDataError"] = AlertMessages.EMPTY_INPUT;
+                return View("Create");
+            }
+            return PartialView("_ConfirmCreateDialog", myBand);
+        }
+
 
         public ActionResult Edit(int id = 0)
         {
-            Band band = db.Bands.Find(id);
+            var band = db.Bands.Find(id);
             if (band == null)
             {
                 return HttpNotFound();
@@ -85,7 +176,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Band band = db.Bands.Find(id);
+            var band = db.Bands.Find(id);
             if (band == null)
             {
                 return HttpNotFound();
@@ -96,7 +187,7 @@ namespace TrouveUnBand.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Band band = db.Bands.Find(id);
+            var band = db.Bands.Find(id);
             db.Bands.Remove(band);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -106,6 +197,144 @@ namespace TrouveUnBand.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        private bool CurrentUserIsMusician(User CurrentUser)
+        {
+            if (GetCurrentMusician() == null)
+            {
+                return false;
+            }
+            return false;
+        }
+
+        public User GetCurrentUser()
+        {
+            db.Database.Connection.Open();
+            string Username = User.Identity.Name;
+            var iQUser = db.Users.Where(x => x.Nickname == Username);
+            User CurrentUser = (iQUser.ToList())[0];
+            db.Database.Connection.Close();
+            return CurrentUser;
+            
+        }
+
+        public Musician GetCurrentMusician()
+        {
+            Musician CurrentMusician = GetCurrentUser().Musicians.FirstOrDefault();
+            return CurrentMusician;
+        }
+
+        public bool IsValidBand(Band myBand)
+        {
+            if (// Steven Seagel understands and approves this lenghty condition
+                String.IsNullOrEmpty(myBand.Name)
+                || String.IsNullOrEmpty(myBand.Location)
+                || String.IsNullOrEmpty(myBand.Description)
+                || !myBand.Genres.Any() 
+                || myBand.Genres == null
+                || !myBand.Musicians.Any() 
+                || myBand.Musicians == null
+            )
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ContainsMusician(List<Musician> myMusicians, int MusicianId)
+        {
+            if (myMusicians.Any(x => x.MusicianId == MusicianId))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        [HttpPut]
+        public ActionResult AddMusician(int MusicianId)
+        {
+            db.Database.Connection.Open();
+            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
+            if (ContainsMusician((List<Musician>)Session["myMusicians"], MusicianId))
+            {
+                TempData["TempDataError"] = AlertMessages.MUSICIAN_ALREADY_SELECTED(Query);
+            }
+            else
+            {
+                ((List<Musician>)Session["myMusicians"]).Add(Query);
+            }
+            db.Database.Connection.Close();
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            return PartialView("_MusicianTab");
+        }
+
+        [HttpDelete]
+        public ActionResult RemoveMusician(int Musicianid)
+        {
+            db.Database.Connection.Open();
+            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == Musicianid);
+            var myMusician = (List<Musician>)Session["myMusicians"];
+            myMusician.Remove(myMusician.Single(s => s.MusicianId == Query.MusicianId));
+            Session["myMusicians"] = myMusician;
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            db.Database.Connection.Close();
+            return PartialView("_MusicianTab");
+        }
+
+        [HttpPut]
+        public ActionResult AddGenre(int Genrelist)
+        {
+            db.Database.Connection.Open();
+            var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
+            if (((Band)Session["myBand"]).Genres.Any(x => x.GenreId == Genrelist))
+            {
+                TempData["TempDataError"] = AlertMessages.GENRE_ALREADY_SELECTED(Query);
+            }
+            else
+            {
+                ((Band)Session["myBand"]).Genres.Add(Query);
+            }
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            db.Database.Connection.Close();
+            return PartialView("_GenreTab");
+        }
+
+        [HttpDelete]
+        public ActionResult RemoveGenre(int GenreId)
+        {
+            db.Database.Connection.Open();
+            var Query = db.Genres.FirstOrDefault(x => x.GenreId == GenreId);
+            var myBand = ((Band)Session["myBand"]);
+            myBand.Genres.Remove(myBand.Genres.Single( s => s.GenreId == Query.GenreId));
+            Session["myBand"] = myBand;
+            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
+            db.Database.Connection.Close();
+            return PartialView("_GenreTab");
+        }
+
+        [HttpGet]
+        public ActionResult SearchMusician(string SearchString)
+        {
+            db.Database.Connection.Open();
+            List<Musician> musicians = new List<Musician>();
+            if (String.IsNullOrEmpty(SearchString))
+            {
+                TempData["TempDataError"] = AlertMessages.EMPTY_SEARCH;
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(SearchString))
+                {
+                    musicians = (db.Musicians.Where(musician => musician.User.FirstName.Contains(SearchString) ||
+                                                musician.User.LastName.Contains(SearchString) ||
+                                                musician.User.Nickname.Contains(SearchString))).ToList();
+                }
+            }
+
+            ViewData["SearchMusicians"] = musicians;
+            db.Database.Connection.Close();
+            return PartialView("_MusicianTab");
         }
     }
 }

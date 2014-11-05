@@ -1,0 +1,61 @@
+﻿@model TrouveUnBand.Models.Genre
+
+@{
+    ViewBag.Title = "Création de band";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Crée ton band - <small>les genres</small></h2>
+        <div> 
+            @using (Ajax.BeginForm("AddGenre", "Group", FormMethod.Get, 
+                                                        new AjaxOptions { HttpMethod = "Put",
+                                                            UpdateTargetId = "genretab" }))
+            {
+      
+                <div class="container-fluid">
+                    <div class="col-md-3">
+                        @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-default btn-sm" title="Edit">
+                            <span  class="glyphicon glyphicon-plus">
+                            </span>
+                        </button>
+                    </div>
+
+                </div>
+            }
+               
+            <div class="container-fluid">
+                @if ((((TrouveUnBand.Models.Band)Session["myBand"]).Genres).Any())
+                {
+                        int gTrid = 0;
+                    <div style="margin-top: 1em">
+                        <table id="myGenreTable">
+                        @foreach (var item in ((TrouveUnBand.Models.Band)Session["myBand"]).Genres)
+                        {
+                            gTrid++;
+                            <tr id="@gTrid">
+                                <td class="col-md-3">
+                                    @Html.DisplayFor(model => item.Name)
+                                </td>
+                                <td>
+                                    @Ajax.ActionLink(" ", "RemoveGenre", new { GenreId = item.GenreId },
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "Delete",
+                                                UpdateTargetId = "genretab",
+                                                OnComplete = "$('#" + @gTrid + "').remove();"
+                                            }, new {@class = "btn btn-default btn-sm glyphicon glyphicon-minus" })
+                                </td>
+                            </tr>
+                        }
+                        </table>
+                    </div>           
+                }
+            </div>
+        </div> 
+    </div>
+</div>

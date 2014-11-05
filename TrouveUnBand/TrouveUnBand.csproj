@@ -167,9 +167,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Classes\Geolocalisation.cs" />
-    <Compile Include="Classes\PhotoCropper.cs" />
-    <Compile Include="Classes\PhotoResizer.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
@@ -186,11 +183,17 @@
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BandProfileViewModel.cs" />
+    <Compile Include="Models\Evenement.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Event.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EventValidationModel.cs" />
     <Compile Include="Models\Genre.cs">
+      <DependentUpon>TUBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Join_Users_Instrument.cs">
       <DependentUpon>TUBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LocationModel.cs" />
@@ -213,6 +216,7 @@
     </Compile>
     <Compile Include="Models\UserValidationModel.cs" />
     <Compile Include="Models\_Advert.cs" />
+    <Compile Include="POCO\AlertMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,7 +274,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Compile Include="Classes\Photo.cs" />
+    <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Musician.cs">
@@ -298,6 +302,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Images\Jcrop.gif" />
+    <Content Include="Models\TUBModels.edmx.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
@@ -320,6 +325,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
+    <Content Include="Scripts\NavBarActive.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
     <Content Include="Scripts\TopSecret.js" />
@@ -419,8 +425,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Photo\ImageCropperDialog.cshtml" />
-    <Content Include="Views\Photo\ViewPictureDialog.cshtml" />
+    <Content Include="Views\Users\ImageCropperDialog.cshtml" />
+    <Content Include="Views\Users\ViewPictureDialog.cshtml" />
     <Content Include="Views\Users\MusicianProfile.cshtml" />
     <Content Include="Views\Users\_MusicianProfileInfo.cshtml" />
     <Content Include="Views\Users\_MusicianProfilePhoto.cshtml" />
@@ -471,11 +477,10 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-
-  </Target> -->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+Other similar extension points exist, see Microsoft.Common.targets.
+<Target Name="BeforeBuild">
+</Target>
+<Target Name="AfterBuild">
+</Target> -->
 </Project>
