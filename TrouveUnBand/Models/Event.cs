@@ -27,5 +27,4 @@ namespace TrouveUnBand.Models
         public byte[] EventPhoto { get; set; }
         public string EventCreator { get; set; }
     }
-    
 }

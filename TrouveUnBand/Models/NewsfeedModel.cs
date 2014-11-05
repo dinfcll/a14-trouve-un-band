@@ -22,4 +22,23 @@ namespace TrouveUnBand.Models
         public string Nickname { get; set; }
         public byte[] Photo { get; set; }
     }
+
+    public class NewsfeedEventModel
+    {
+        public int EventId { get; set; }
+        public string EventName { get; set; }
+        public string EventLocation { get; set; }
+        public string Nickname { get; set; }
+        public string EventGender { get; set; }
+        public byte[] EventPhoto { get; set; }
+    }
+
+    public class NewsfeedAdvertModel
+    {
+        public int AdvertId { get; set; }
+        public string Type { get; set; }
+        public string GenresAdvert { get; set; }
+        public string Description { get; set; }
+        public byte[] AdvertPhoto { get; set; }
+    }
 }
