@@ -147,10 +147,7 @@ namespace TrouveUnBand.Controllers
                 TempData["TempDataError"] = "Vous n'avez pas entré toutes les informations";
                 return View("Create");
             }
-            else
-            {
-                return PartialView("_ConfirmCreateDialog", myBand);
-            }
+            return PartialView("_ConfirmCreateDialog", myBand);
         }
 
 
@@ -207,10 +204,7 @@ namespace TrouveUnBand.Controllers
             {
                 return false;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public User GetCurrentUser()
@@ -244,27 +238,23 @@ namespace TrouveUnBand.Controllers
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         [HttpPut]
         public ActionResult AddMusician(int MusicianId)
         {
-            string RC = "";
+            db.Database.Connection.Open();
             if (((List<Musician>)Session["myMusicians"]).Any(x => x.MusicianId == MusicianId))
             {
                 TempData["TempDataError"] = "Vous avez déjà sélectionné ce musicien";
             }
             else
             {
-                db.Database.Connection.Open();
                 var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
                 ((List<Musician>)Session["myMusicians"]).Add(Query);
-                db.Database.Connection.Close();
             }
+            db.Database.Connection.Close();
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             return PartialView("_MusicianTab");
         }
