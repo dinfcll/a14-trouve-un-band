@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
+using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
@@ -46,7 +47,7 @@ namespace TrouveUnBand.Controllers
 
             if (!Request.IsAuthenticated)
             {
-                MessageAlert = "Vous devez être connecté pour créer un band";
+                MessageAlert = AlertMessages.NOT_CONNECTED;
                 RedirectToAction("Index", "Home");
             }
 
@@ -55,7 +56,7 @@ namespace TrouveUnBand.Controllers
 
             if (!CurrentUserIsMusician(CurrentUser))
             {
-                MessageAlert = "Aucun profile musicien n'est associé à ce compte. Veuillez vous créer un profile musicien";
+                MessageAlert = AlertMessages.NOT_MUSICIAN;
                 RedirectToAction("Index", "Home");
             }
 
@@ -112,9 +113,9 @@ namespace TrouveUnBand.Controllers
             CurrentUserIsMusician(CurrentUser);
             if (ExistingBand != null)
             {
-                    band.Name = band.Name + " (" + band.Location + ")";
-                    ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
-                    TempData["warning"] = "Le Band existe déja. Votre band a été renommé par: " + band.Name;
+                    //band.Name = band.Name + " (" + band.Location + ")";
+                    //ExistingBand.Name = ExistingBand.Name + " (" + ExistingBand.Location + ")";
+                    TempData["warning"] = AlertMessages.EXISTING_BAND(ExistingBand,band);
             }
             try
             {
@@ -125,13 +126,13 @@ namespace TrouveUnBand.Controllers
                 db.Bands.Add(band);
                 db.SaveChanges();
                 db.Database.Connection.Close();
-                TempData["Success"] = "Vous avez créé un band!";
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(band);
                 Session["myBand"] = new Band();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                TempData["TempDataError"] = "Une erreur interne s'est produite, Réessayez plus tard " + ex.Message;
+                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
                 Console.WriteLine(ex.Message);
             }
             return RedirectToAction("Index", "Home");
@@ -144,7 +145,7 @@ namespace TrouveUnBand.Controllers
             myBand.Musicians = (List<Musician>)Session["myMusicians"];
             if (IsValidBand(myBand))
             {
-                TempData["TempDataError"] = "Vous n'avez pas entré toutes les informations";
+                TempData["TempDataError"] = AlertMessages.EMPTY_INPUT;
                 return View("Create");
             }
             return PartialView("_ConfirmCreateDialog", myBand);
@@ -241,17 +242,26 @@ namespace TrouveUnBand.Controllers
             return false;
         }
 
+        public bool ContainsMusician(List<Musician> myMusicians, int MusicianId)
+        {
+            if (myMusicians.Any(x => x.MusicianId == MusicianId))
+            {
+                return false;
+            }
+            return true;
+        }
+
         [HttpPut]
         public ActionResult AddMusician(int MusicianId)
         {
             db.Database.Connection.Open();
-            if (((List<Musician>)Session["myMusicians"]).Any(x => x.MusicianId == MusicianId))
+            var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
+            if (ContainsMusician((List<Musician>)Session["myMusicians"], MusicianId))
             {
-                TempData["TempDataError"] = "Vous avez déjà sélectionné ce musicien";
+                TempData["TempDataError"] = AlertMessages.MUSICIAN_ALREADY_SELECTED(Query);
             }
             else
             {
-                var Query = db.Musicians.FirstOrDefault(x => x.MusicianId == MusicianId);
                 ((List<Musician>)Session["myMusicians"]).Add(Query);
             }
             db.Database.Connection.Close();
@@ -276,14 +286,13 @@ namespace TrouveUnBand.Controllers
         public ActionResult AddGenre(int Genrelist)
         {
             db.Database.Connection.Open();
-            string RC = "";
+            var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
             if (((Band)Session["myBand"]).Genres.Any(x => x.GenreId == Genrelist))
             {
-                TempData["TempDataError"] = "Vous avez déja sélectionné ce genre";
+                TempData["TempDataError"] = AlertMessages.GENRE_ALREADY_SELECTED(Query);
             }
             else
             {
-                var Query = db.Genres.FirstOrDefault(x => x.GenreId == Genrelist);
                 ((Band)Session["myBand"]).Genres.Add(Query);
             }
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
@@ -308,11 +317,10 @@ namespace TrouveUnBand.Controllers
         public ActionResult SearchMusician(string SearchString)
         {
             db.Database.Connection.Open();
-            string RC = "";
             List<Musician> musicians = new List<Musician>();
             if (String.IsNullOrEmpty(SearchString))
             {
-                TempData["TempDataError"] = "Le champ de recherche est vide";
+                TempData["TempDataError"] = AlertMessages.EMPTY_SEARCH;
             }
             else
             {

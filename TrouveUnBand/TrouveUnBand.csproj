@@ -216,6 +216,7 @@
     </Compile>
     <Compile Include="Models\UserValidationModel.cs" />
     <Compile Include="Models\_Advert.cs" />
+    <Compile Include="POCO\AlertMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
