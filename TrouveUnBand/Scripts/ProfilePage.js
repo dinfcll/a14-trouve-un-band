@@ -41,12 +41,13 @@ $(".profile-photo-list li").click(function () {
     $(this).addClass("active");
 });
 
-$("#profile-photo-carousel").on("slid.bs.carousel", function () {
-    var activeSlide = $("#profile-photo-carousel .active");
+$("#profile-photo-carousel").on("slide.bs.carousel", function (event) {
     $(".profile-photo-list").find("li.active").removeClass("active");
 
+    var nextSlide = $(event.relatedTarget).index();
+
     var selectorString = "[data-slide-to='" +
-                         activeSlide.attr("data-slide")
+                         nextSlide
                          + "']";
 
     var newActiveSlide = document.querySelector(selectorString);

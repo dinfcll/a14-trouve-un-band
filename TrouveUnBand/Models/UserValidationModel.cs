@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
@@ -30,10 +31,10 @@ namespace TrouveUnBand.Models
             Musicians = user.Musicians;
             Nickname = user.Nickname;
             Password = user.Password;
-            ProfilePicture.byteProfilePicture = user.Photo;
+            ProfilePicture.PhotoArray = user.Photo;
             if (user.Photo != null)
             {
-                ProfilePicture.stringProfilePicture = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+                ProfilePicture.PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
             }
             UserId = user.UserId;
         }
