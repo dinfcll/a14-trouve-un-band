@@ -29,7 +29,10 @@
     </a>
 </div>
 
-<div class="profile-photo-list col-md-offset-9">
+<div class="profile-photo-list pull-right">
+    <div>
+        <span class="glyphicon glyphicon-chevron-up"></span>
+    </div>
     <ul class="list-unstyled">
         <li class="active" data-slide-to="0" data-target="#profile-photo-carousel">
             <img width="120" alt="" src="@Model.ProfilePicture.PhotoSrc" />
@@ -43,11 +46,14 @@
         <li data-slide-to="3" data-target="#profile-photo-carousel">
             <img width="120" alt="" src="http://placehold.it/561x386">
         </li>
-        <li id="fafa" data-slide-to="4" data-target="#profile-photo-carousel">
+        @*<li id="fafa" data-slide-to="4" data-target="#profile-photo-carousel">
             <img width="120" alt="" src="http://placehold.it/561x386">
         </li>
         <li data-slide-to="5" data-target="#profile-photo-carousel">
             <img width="120" alt="" src="http://placehold.it/561x386">
-        </li>
+        </li>*@
     </ul>
+    <div>
+        <span class="glyphicon glyphicon-chevron-down"></span>
+    </div>
 </div>

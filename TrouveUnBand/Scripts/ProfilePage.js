@@ -1,4 +1,6 @@
 ﻿//Menu
+var menuTopPosition = $(".profile-tab-menu").offset().top;
+
 $(".profile-tab-menu>div.list-group>a").click(function (event) {
     var index = $(this).index();
 
@@ -10,8 +12,23 @@ $(".profile-tab-menu>div.list-group>a").click(function (event) {
     $(".profile-tab-content").eq(index).addClass("active");
 });
 
-//Tab description/info
-$(".profile-info-panel").hide();
+$(window).scroll(function () {
+    var scrollPosition = $(document).scrollTop();
+    var isOnTop = scrollPosition >= menuTopPosition - 50;
+
+    if (isOnTop) {
+        var newMenuTopPosition = scrollPosition - menuTopPosition + 50;
+        $(".profile-tab-menu").css("top", newMenuTopPosition);
+        $(".back-to-top").fadeIn();
+    }
+    else {
+        $('.profile-tab-menu').css("top", 0);
+        $(".back-to-top").fadeOut();
+    }
+
+});
+
+//Tab description/
 
 $(".profile-info-row").click(function () {
     var chevron = $(this).children("i");
@@ -58,4 +75,9 @@ $("#profile-photo-carousel").on("slide.bs.carousel", function (event) {
     $(".profile-photo-list").animate({
         scrollTop: $(newActiveSlide).offset().top - divPos.top
     }, 1000);
+});
+
+$(".back-to-top").click(function() {
+     $("html, body").animate({ scrollTop: 0 }, "slow");
+    return false;
 });

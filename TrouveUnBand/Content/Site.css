@@ -413,6 +413,11 @@ img.jcrop-preview {
 
 .profile-tab-menu{
    padding-left:0;
+   padding-right:0;
+}
+
+.always-on-page {
+    top:60px;
 }
 
 div.profile-tab-menu div.list-group > a {
@@ -443,31 +448,32 @@ div.profile-tab-menu div.list-group>a.active{
     border-left: 8px solid #428BCA;
 }
 
-.profile-tab-content:not(.active) {
-    display: none;
-}
-
 .profile-info-container{
      padding:0;
-     background-color:#F5F5F5;
-     color:black;    
-     border-right: 1px solid #e3e3e3;
-     border-bottom: 1px solid #e3e3e3;
 }
 
 div.profile-tab-menu div.list-group{
   margin-bottom: 0;
 }
 
-.profile-info-container span.glyphicon{
-    font-size:18px;
-    padding-top:10px;
-    padding-bottom:10px;
+.profile-tab-menu span.glyphicon{
+    font-size:20px;
+    padding-top:15px;
+    padding-bottom:15px;
 }
 
-.profile-tab-content:not(.pictures-tab){
-    height:386px;
-    overflow: auto;
+.profile-tab-content:not(.s-tabs-tab){
+    min-height:446px;
+     padding:0;
+     background-color:#F5F5F5;
+     color:black;    
+     border-right: 1px solid #e3e3e3;
+     border-bottom: 1px solid #e3e3e3;
+     border-left: 1px solid #e3e3e3;
+}
+
+.profile-tab-content:not(.active) {
+    display: none;
 }
 
 .profile-info-row{
@@ -508,29 +514,62 @@ div.profile-tab-menu div.list-group{
 
 .carousel {
     width: initial;
+    margin-left:30px;
 }
 
 .profile-photo-list{
-    height:386px;
-    overflow: auto;
+    height:446px;
+}
+
+.profile-photo-list>div{
+    text-align: center;
+    border: 2px solid #CCCCCC;
+    color: #CCCCCC;
+    cursor: pointer;
+}
+
+.profile-photo-list>div:first-child{
+    margin-bottom:15px;
+}
+
+.profile-photo-list>div:last-child{
+    margin-top:15px;
+}
+
+.profile-photo-list>div:hover{
+    border: 2px solid #428BCA;
+    color: #428BCA;
+}
+
+.profile-photo-list>div>span{
+    padding-top:5px;
+    padding-bottom:5px;
 }
 
 .profile-photo-list ul{
     margin-bottom:0;
 }
 
+.profile-photo-list>div,
 .profile-photo-list li{
-    margin-left:15px;
-    margin-right:15px;
+    margin-left:20px;
+    margin-right:20px;
+    margin-bottom:9px;
+}
+
+.profile-photo-list li img{
+    border: 2px solid transparent;
+    opacity:0.7;
 }
 
 .profile-photo-list li img:hover{
     cursor:pointer;
+    border: 2px solid #428BCA;
 }
 
 .profile-photo-list .active img{
     border: 2px solid #428BCA;
-    opacity: 0.7;
+    opacity: 1;
 }
 
 #profile-photo-carousel{
@@ -538,8 +577,8 @@ div.profile-tab-menu div.list-group{
 }
 
 #profile-photo-carousel img{
-    width:561px;
-    height:386px;
+    width:648px;
+    height:446px;
 }
 
 #PicModal .modal-content {
@@ -581,4 +620,12 @@ div.profile-tab-menu div.list-group{
 
 #AdvertDesc{
     margin-top: -25px;
+}
+
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
 }

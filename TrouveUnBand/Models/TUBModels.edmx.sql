@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/03/2014 10:13:34
--- Generated from EDMX file: Z:\a14-trouve-un-band\TrouveUnBand\Models\TUBModels.edmx
+-- Date Created: 11/04/2014 13:18:45
+-- Generated from EDMX file: C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\Models\TUBModels.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -257,19 +257,19 @@ GO
 -- Creating primary key on [Bands_BandId], [Genres_GenreId] in table 'Join_Band_Genre'
 ALTER TABLE [dbo].[Join_Band_Genre]
 ADD CONSTRAINT [PK_Join_Band_Genre]
-    PRIMARY KEY NONCLUSTERED ([Bands_BandId], [Genres_GenreId] ASC);
+    PRIMARY KEY CLUSTERED ([Bands_BandId], [Genres_GenreId] ASC);
 GO
 
 -- Creating primary key on [Bands_BandId], [Musicians_MusicianId] in table 'Join_Band_Musician'
 ALTER TABLE [dbo].[Join_Band_Musician]
 ADD CONSTRAINT [PK_Join_Band_Musician]
-    PRIMARY KEY NONCLUSTERED ([Bands_BandId], [Musicians_MusicianId] ASC);
+    PRIMARY KEY CLUSTERED ([Bands_BandId], [Musicians_MusicianId] ASC);
 GO
 
 -- Creating primary key on [Genres_GenreId], [Musicians_MusicianId] in table 'Join_Musician_Genre'
 ALTER TABLE [dbo].[Join_Musician_Genre]
 ADD CONSTRAINT [PK_Join_Musician_Genre]
-    PRIMARY KEY NONCLUSTERED ([Genres_GenreId], [Musicians_MusicianId] ASC);
+    PRIMARY KEY CLUSTERED ([Genres_GenreId], [Musicians_MusicianId] ASC);
 GO
 
 -- --------------------------------------------------
