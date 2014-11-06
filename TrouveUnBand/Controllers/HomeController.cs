@@ -54,11 +54,40 @@ namespace TrouveUnBand.Controllers
                                 FirstName = user.FirstName,
                                 LastName = user.LastName,
                                 Nickname = user.Nickname,
+                                Photo = user.Photo
                             };
+
+            var EventQuery = from events in db.Events
+                            orderby events.EventId descending
+                            select new NewsfeedEventModel
+                            {
+                                EventId = events.EventId,
+                                EventName = events.EventName,
+                                EventGender =  events.EventGender,
+                                EventLocation = events.EventLocation,
+                                EventPhoto = events.EventPhoto
+                            };
+
+            var AdvertQuery = from advert in db.Adverts
+                            orderby advert.AdvertId descending
+                            select new NewsfeedAdvertModel
+                            {
+                                AdvertId = advert.AdvertId,
+                                Description = advert.Description,
+                                Type = advert.Type,
+                                Genre = advert.Genre,
+                                AdvertPhoto = advert.AdvertPhoto
+                            };
+
             BandQuery = BandQuery.Take(8);
-            UserQuery = UserQuery.Take(12);
+            UserQuery = UserQuery.Take(8);
+            EventQuery = EventQuery.Take(8);
+            AdvertQuery = AdvertQuery.Take(8);
+
             ViewData["NewsfeedBand"] = BandQuery.ToList();
             ViewData["NewsfeedUser"] = UserQuery.ToList();
+            ViewData["NewsfeedEvent"] = EventQuery.ToList();
+            ViewData["NewsfeedAdvert"] = AdvertQuery.ToList();
             return View("index");
         }
     }

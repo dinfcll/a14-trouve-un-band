@@ -10,12 +10,20 @@
 <div id="NewsfeedUser" class="row">
 @foreach (var item in (List<TrouveUnBand.Models.NewsfeedUserModel>)ViewData["NewsfeedUser"])
 {  
-    <div class="col-sm-6 col-md-1 NewsfeedItems">
-        <div class="thumbnail">
-            <img data-src="holder.js/300x300" alt="none">
-            @Html.DisplayFor(modelItem => item.FirstName)
-            @Html.DisplayFor(modelItem => item.LastName)
-        </div>  
+    <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems thumbnail">
+        <div class="thumbnail card">
+            @if (item.Photo == null)
+            {
+                <img src="http://placehold.it/100x100" alt="Image">
+            }
+            else
+            {
+                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
+                <img src="@photo" width="100" height="100" class="photo" alt="Image">
+            }
+        </div>
+        @Html.DisplayFor(modelItem => item.FirstName)
+        @Html.DisplayFor(modelItem => item.LastName) 
     </div>
 }
 </div>
@@ -23,28 +31,103 @@
 <div id="NewsfeedBand" class="row">
 @foreach (var item in (List<TrouveUnBand.Models.NewsfeedBandModel>)ViewData["NewsfeedBand"])
 {
-    <div class="col-md-3 NewsfeedItems">
-            <div class="thumbnail">
-                <img data-src="holder.js/300x300" alt="BandImage">
-                <div class="caption">
+    <div class="col-md-3 NewsfeedItems thumbnail">
+        <img src="http://placehold.it/200x200">
+        <div class="caption container-fluid">
+            <div class="row">
+            @Html.Label("Nom")
+            @Html.DisplayFor(modelItem => item.Name)
+            </div>
+            <div class="row">
+            @Html.Label("Location")
+            @Html.DisplayFor(modelItem => item.Location)
+            </div>
+            <div class="row">
+            @Html.Label("Description")
+            @Html.DisplayFor(modelItem => item.Description)
+            </div>
+            <div class="row">
+            @Html.ActionLink("Details", "Details", new { id = item.BandId })
+            </div>
+            <a href="#" class="btn btn-primary" role="button">Button</a> 
+            <a href="#" class="btn btn-default" role="button">Button</a>
+        </div>
+     </div>      
+}
+</div>
+
+<div id="NewsfeedEvent" class="row">
+@foreach (var item in (List<TrouveUnBand.Models.NewsfeedEventModel>)ViewData["NewsfeedEvent"])
+{
+    <div class="col-md-4 thumbnail">
+        <div class="thumbnail card">
+            @if (item.EventPhoto == null)
+            {
+                <img src="http://placehold.it/250x172" alt="Image">
+            }
+            else
+            {
+                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.EventPhoto);
+                <img src="@photo" width="250" height="172" class="photo" alt="Image">
+            }
+        </div>
+        <div class="caption container-fluid">
                     <div class="row">
                     @Html.Label("Nom")
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.EventName)
                     </div>
                     <div class="row">
                     @Html.Label("Location")
-                    @Html.DisplayFor(modelItem => item.Location)
+                    @Html.DisplayFor(modelItem => item.EventLocation)
                     </div>
                     <div class="row">
                     @Html.Label("Description")
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.EventGender)
                     </div>
                     <div class="row">
-                    @Html.ActionLink("Details", "Details", new { id = item.BandId })
+                    @Html.ActionLink("Details", "Details", new { id = item.EventId })
                     </div>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                    <a href="#" class="btn btn-primary" role="button">Button</a> 
+                    <a href="#" class="btn btn-default" role="button">Button</a>
                 </div>
+    </div>
+}
+</div>
+
+<div id="NewsfeedAdvert" class="row">
+@foreach (var item in (List<TrouveUnBand.Models.NewsfeedAdvertModel>)ViewData["NewsfeedAdvert"])
+{
+    <div class="col-md-4 thumbnail">
+        <div class="thumbnail card">
+            @if (item.AdvertPhoto == null)
+            {
+                <img src="http://placehold.it/250x172" alt="Image">
+            }
+            else
+            {
+                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.AdvertPhoto);
+                <img src="@photo" width="250" height="172" class="photo" alt="Image">
+            }
+        </div>
+        <div class="caption container-fluid">
+            <div class="row">
+            @Html.Label("Nom")
+            @Html.DisplayFor(modelItem => item.Type)
             </div>
-     </div>      
+            <div class="row">
+            @Html.Label("Location")
+            @Html.DisplayFor(modelItem => item.Genre.Name)
+            </div>
+            <div class="row">
+            @Html.Label("Description")
+            @Html.DisplayFor(modelItem => item.Description)
+            </div>
+            <div class="row">
+            @Html.ActionLink("Details", "Details", new { id = item.AdvertId })
+            </div>
+            <a href="#" class="btn btn-primary" role="button">Button</a> 
+            <a href="#" class="btn btn-default" role="button">Button</a>
+        </div>
+    </div>
 }
 </div>
