@@ -64,7 +64,7 @@ namespace TrouveUnBand
                 "~/Content/bootstrap.min.css",
                 "~/Content/bootstrap-responsive.min.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/SocialPlugins").Include(
+            bundles.Add(new ScriptBundle("~/bundles/SocialMedia").Include(
                 "~/Scripts/TwitterSDK.js",
                 "~/Scripts/FacebookSDK.js",
                 "~/Scripts/GoogleSDK.js"));

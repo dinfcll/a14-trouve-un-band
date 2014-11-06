@@ -224,6 +224,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\social-likes_flat.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -320,6 +321,7 @@
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery.sharrre.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -334,6 +336,7 @@
     <Content Include="Scripts\NavBarActive.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
+    <Content Include="Scripts\social-likes.min.js" />
     <Content Include="Scripts\TopSecret.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -450,6 +453,8 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Advert\MyAdverts.cshtml" />
     <Content Include="Views\Advert\Close.cshtml" />
+    <Content Include="Views\Shared\_SocialMediaPlugins.cshtml" />
+    <None Include="Scripts\sharrre.php" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
