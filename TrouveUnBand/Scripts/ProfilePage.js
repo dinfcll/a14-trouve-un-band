@@ -48,36 +48,53 @@ $(".profile-info-row").click(function () {
 });
 
 //Tab Pictures
+var photoList = document.querySelectorAll(".profile-photo-list li");
+var photoListIndex = 0;
+
+if (photoList.length > 4) {
+    for(var i=4;i<photoList.length;i++)
+    {
+        photoList[i].style.display = "none";
+    }
+}
 
 $("#profile-photo-carousel").carousel({
     interval: 0
 });
 
-$(".profile-photo-list li").click(function () {
-    $(".profile-photo-list li").removeClass("active");
+$(".profile-photo-list li img").click(function () {
+    $(".profile-photo-list li img").removeClass("active");
     $(this).addClass("active");
 });
 
-$("#profile-photo-carousel").on("slide.bs.carousel", function (event) {
-    $(".profile-photo-list").find("li.active").removeClass("active");
-
-    var nextSlide = $(event.relatedTarget).index();
-
-    var selectorString = "[data-slide-to='" +
-                         nextSlide
-                         + "']";
-
-    var newActiveSlide = document.querySelector(selectorString);
-    $(newActiveSlide).addClass("active");
-
-    var divPos = $(".profile-photo-list").offset();
-
-    $(".profile-photo-list").animate({
-        scrollTop: $(newActiveSlide).offset().top - divPos.top
-    }, 1000);
+$(".photo-arrow-down").click(function () {
+    if (photoList.length > 4 && photoListIndex + 4 < photoList.length) {
+        
+            photoList[photoListIndex].style.display = "none";
+            photoList[photoListIndex + 4].style.display = "block";
+            photoListIndex++;
+    }
 });
 
-$(".back-to-top").click(function() {
-     $("html, body").animate({ scrollTop: 0 }, "slow");
+$(".photo-arrow-up").click(function () {
+    if (photoList.length > 4 && photoListIndex > 0) {
+
+        photoList[photoListIndex+3].style.display = "none";
+        photoList[photoListIndex - 1].style.display = "block";
+        photoListIndex--;
+    }
+});
+
+function setVisiblePhotoList() {
+
+    for (var i = 0; i < 4; i++) {
+        visiblePhotoList[i] = photoList[i + photoListIndex];
+    }
+
+}
+
+
+$(".back-to-top").click(function () {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     return false;
 });

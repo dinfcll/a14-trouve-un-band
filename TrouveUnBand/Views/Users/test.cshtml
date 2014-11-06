@@ -1,124 +1,89 @@
 ﻿@{
     ViewBag.Title = "test";
 }
+<head>
+    <style type="text/css">
 
-<div class="profile-container">
-    <div class="jumbotron col-md-12">
-        <div class="thumbnail card col-md-3">
-            <a href="#" data-toggle="modal" data-target="#PicModal">
-                <img id="ProfilePic" alt="" src="@Model.ProfilePicture.PhotoSrc" width="250" class="photo" />
-            </a>
-        </div>
-        <div class="col-md-9 profile-header-info">
-            <ul class="list-unstyled">
-                <li>
-                    <span class="label label-primary pull-right label-profile-type">Musicien</span>
-                    <h1>@Model.Name</h1>
-                </li>
-                <li>
-                    <span class="glyphicon glyphicon-map-marker"></span><span>@Model.Location</span>
-                </li>
-                <li>
-                    <span class="glyphicon glyphicon-music"></span><span>Rock, Christian Rock, Métal, Blues, Country</span>
-                </li>
-                <li>
-                    <span class="glyphicon glyphicon-user"></span>
+        .carousel.vertical .carousel-inner {
+            height: 100%;
+        }
 
-                    <div class="pull-right">
-                        <span class="glyphicon glyphicon-eye-open"></span><span>Groupe, Promoteur</span>
-                    </div>
-                </li>
-            </ul>
+        .carousel.vertical .item {
+            -webkit-transition: 0.6s ease-in-out top;
+            -moz-transition: 0.6s ease-in-out top;
+            -ms-transition: 0.6s ease-in-out top;
+            -o-transition: 0.6s ease-in-out top;
+            left: 0;
+        }
+
+        .carousel.vertical .active,
+        .carousel.vertical .next.left,
+        .carousel.vertical .prev.right {
+            top: 0;
+        }
+
+            .carousel.vertical .next,
+            .carousel.vertical .active.right {
+                top: 100%;
+            }
+
+            .carousel.vertical .prev,
+            .carousel.vertical .active.left {
+                top: -100%;
+            }
+        .carousel-control {
+            left: -12px;
+            height: 40px;
+            width: 40px;
+            background: none repeat scroll 0 0 #222222;
+            border: 4px solid #FFFFFF;
+            border-radius: 23px 23px 23px 23px;
+            margin-top: 90px;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div id="Carousel" class="carousel slide vertical">
+
+
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+
+                    <div class="item active">
+                        <div class="row">
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                        </div><!--.row-->
+                    </div><!--.item-->
+
+                    <div class="item">
+                        <div class="row">
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                        </div><!--.row-->
+                    </div><!--.item-->
+
+                    <div class="item">
+                        <div class="row">
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                            <div class="col-md-12"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                        </div><!--.row-->
+                    </div><!--.item-->
+
+                </div><!--.carousel-inner-->
+                <a data-slide="prev" href="#Carousel" class="left carousel-control">‹</a>
+                <a data-slide="next" href="#Carousel" class="right carousel-control">›</a>
+            </div><!--.Carousel-->
+
         </div>
     </div>
-    <div class="profile-info-container col-md-12">
-        <div class="profile-tab-menu col-md-3">
-            <div class="list-group">
-                <a href="#" class="list-group-item text-center">
-                    <span class="glyphicon glyphicon-play col-md-12"></span>
-                    <span>Media (Soundcloud/Youtube)</span>
-                </a>
-
-                <a href="#" class="list-group-item text-center active">
-                    <span class="glyphicon glyphicon-user col-md-12"></span>
-                    <span>Description</span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class=" glyphicon glyphicon-eye-open col-md-12"></span>
-                    <span>Recherche </span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class="glyphicon glyphicon-picture col-md-12"></span>
-                    <span>Photos</span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class="glyphicon glyphicon-envelope col-md-12"></span>
-                    <span>Contacter</span>
-                </a>
-            </div>
-        </div>
-        <!--Media-->
-        <div class="profile-tab-content col-md-9">
-            <center>
-                <h1 class="glyphicon glyphicon-play" style="font-size: 12em; color: #000000"></h1>
-                <h2 style="margin-top: 0; color: #000000">
-                    Bientôt
-                </h2>
-                <h3 style="margin-top: 0; color: #000000">
-                    Disponible
-                </h3>
-            </center>
-        </div>
-        <!--Media end-->
-        <!--Desccription-->
-        <div class="profile-tab-content col-md-9 active">
-           
-        </div>
-        <!--Description end-->
-        <!--Seeking-->
-        <div class="profile-tab-content col-md-9">
-            <center>
-                <h1 class="glyphicon glyphicon-eye-open" style="font-size: 12em; color: #000000"></h1>
-                <h2 style="margin-top: 0; color: #000000">
-                    Bientôt
-                </h2>
-                <h3 style="margin-top: 0; color: #000000">
-                    Disponible
-                </h3>
-            </center>
-        </div>
-        <!--Seeking end-->
-        <!--Pictures-->
-        <div class="profile-tab-content col-md-9 pictures-tab">
-            
-        </div>
-        <!--Pictures end-->
-        <!--Contact-->
-        <div class="profile-tab-content col-md-9">
-            <center>
-                <h1 class="glyphicon glyphicon-envelope" style="font-size: 12em; color: #000000"></h1>
-                <h2 style="margin-top: 0; color: #000000">
-                    Bientôt
-                </h2>
-                <h3 style="margin-top: 0; color: #000000">
-                    Disponible
-                </h3>
-            </center>
-        </div>
-        <!--Contact end-->
-    </div>
-</div>
-<a href="#" class="btn btn-default btn-lg back-to-top" role="button"
-   title="Retour vers le haut de la page" data-toggle="tooltip"
-   data-placement="left">
-
-    <span class="glyphicon glyphicon-chevron-up"></span>
-</a>
-
-<div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
-     aria-hidden="true">
-    @Html.Partial("../Photo/ViewPictureDialog")
-</div>
+</div><!--.container-->

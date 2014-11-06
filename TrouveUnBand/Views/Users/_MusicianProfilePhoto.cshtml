@@ -1,59 +1,101 @@
 ﻿@model TrouveUnBand.Models.MusicianProfileViewModel
 
-<div class="carousel slide col-md-12" id="profile-photo-carousel" style="padding-left:0;">
+<div class="carousel slide col-md-9 pull-left" id="profile-photo-carousel" style="padding-left:0;">
     <div class="carousel-inner cont-slider">
         <div class="item active" data-slide="0">
             <img alt="" title="" src="@Model.ProfilePicture.PhotoSrc" />
         </div>
         <div class="item" data-slide="1">
-            <img alt="" title="" src="http://placehold.it/561x386" />
+            <img alt="" title="" src="http://placehold.it/581x386&text=1" />
         </div>
         <div class="item" data-slide="2">
-            <img alt="" title="" src="http://placehold.it/561x386" />
+            <img alt="" title="" src="http://placehold.it/581x386&text=2" />
         </div>
         <div class="item" data-slide="3">
-            <img alt="" title="" src="http://placehold.it/561x386" />
+            <img alt="" title="" src="http://placehold.it/581x386&text=3" />
         </div>
         <div class="item" data-slide="4">
-            <img alt="" title="" src="http://placehold.it/561x386" />
+            <img alt="" title="" src="http://placehold.it/581x386&text=4" />
         </div>
         <div class="item" data-slide="5">
-            <img alt="" title="" src="http://placehold.it/561x386" />
+            <img alt="" title="" src="http://placehold.it/581x386&text=5" />
+        </div>
+        <div class="item" data-slide="6">
+            <img alt="" title="" src="http://placehold.it/581x386&text=6" />
+        </div>
+        <div class="item" data-slide="7">
+            <img alt="" title="" src="http://placehold.it/581x386&text=7" />
+        </div>
+        <div class="item" data-slide="8">
+            <img alt="" title="" src="http://placehold.it/581x386&text=8" />
+        </div>
+        <div class="item" data-slide="9">
+            <img alt="" title="" src="http://placehold.it/581x386&text=9" />
+        </div>
+        <div class="item" data-slide="10">
+            <img alt="" title="" src="http://placehold.it/581x386&text=10" />
+        </div>
+        <div class="item" data-slide="11">
+            <img alt="" title="" src="http://placehold.it/581x386&text=11" />
         </div>
     </div>
-    <a class="left carousel-control" href="#profile-photo-carousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a class="right carousel-control" href="#profile-photo-carousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
+
+    <a data-slide="prev" href="#profile-photo-carousel" class="left carousel-control">‹</a>
+    <a data-slide="next" href="#profile-photo-carousel" class="right carousel-control">›</a>
+
 </div>
 
-<div class="profile-photo-list pull-right">
+<div class="profile-photo-list col-md-12 row">
+    <a data-slide="prev" href="#photo-list-carousel">
+        <div class="photo-arrow photo-arrow-up">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </div>
+    </a>
+
     <div>
-        <span class="glyphicon glyphicon-chevron-up"></span>
+        <ul class="list-unstyled">
+            <li class="first-img-li">
+                <img data-slide-to="0" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="@Model.ProfilePicture.PhotoSrc" class="active">
+                <img data-slide-to="1" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=1">
+            </li>
+            <li>
+                <img data-slide-to="2" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=2">
+                <img data-slide-to="3" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=3">
+            </li>
+            <li>
+                <img data-slide-to="4" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=4">
+                <img data-slide-to="5" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=5">
+            </li>
+            <li>
+                <img data-slide-to="6" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=6">
+                <img data-slide-to="7" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=7">
+            </li>
+            <li>
+                <img data-slide-to="8" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=8">
+                <img data-slide-to="9" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=9">
+            </li>
+            <li>
+                <img data-slide-to="10" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=10">
+                <img data-slide-to="11" data-target="#profile-photo-carousel" width="100" alt=""
+                     src="http://placehold.it/581x386&text=11">
+            </li>
+        </ul>
     </div>
-    <ul class="list-unstyled">
-        <li class="active" data-slide-to="0" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="@Model.ProfilePicture.PhotoSrc" />
-        </li>
-        <li data-slide-to="1" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/561x386">
-        </li>
-        <li data-slide-to="2" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/561x386">
-        </li>
-        <li data-slide-to="3" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/561x386">
-        </li>
-        @*<li id="fafa" data-slide-to="4" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/561x386">
-        </li>
-        <li data-slide-to="5" data-target="#profile-photo-carousel">
-            <img width="120" alt="" src="http://placehold.it/561x386">
-        </li>*@
-    </ul>
-    <div>
-        <span class="glyphicon glyphicon-chevron-down"></span>
-    </div>
+
+    <a data-slide="next" href="#photo-list-carousel">
+        <div class="photo-arrow photo-arrow-down">
+            <span class="glyphicon glyphicon-chevron-down"></span>
+        </div>
+    </a>
 </div>
