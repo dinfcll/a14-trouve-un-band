@@ -66,7 +66,8 @@ namespace TrouveUnBand
 
             bundles.Add(new ScriptBundle("~/bundles/SocialPlugins").Include(
                 "~/Scripts/TwitterSDK.js",
-                "~/Scripts/FacebookSDK.js"));
+                "~/Scripts/FacebookSDK.js",
+                "~/Scripts/GoogleSDK.js"));
         }
     }
 }
