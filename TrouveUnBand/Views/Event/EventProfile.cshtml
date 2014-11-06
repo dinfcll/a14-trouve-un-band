@@ -1,4 +1,8 @@
-﻿@model TrouveUnBand.Models.Event
+﻿<div id="fb-root"></div>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+@model TrouveUnBand.Models.Event
 @{
     ViewBag.Title = "EventProfile";
 }
@@ -118,4 +122,20 @@
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
      aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
+</div>
+<div class="container-fluid">
+    <div class="pull-right col-md-8">
+                        
+        <div class="col-md-5">
+            <div class="fb-like" data-href="@Request.Url" data-layout="button" data-action="like" data-show-faces="true" data-share="false"></div>
+            <div class="fb-share-button" data-href="@Request.Url" data-layout="button"></div>
+        </div>
+        <div class="col-md-5">
+            <g:plusone></g:plusone>
+            <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+        </div>
+        <div class="col-md-2">
+            <a class="twitter-share-button" href="https://twitter.com/share">Tweet</a>
+        </div>
+    </div>
 </div>

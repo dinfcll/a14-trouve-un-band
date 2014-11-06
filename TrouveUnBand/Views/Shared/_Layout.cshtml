@@ -76,6 +76,7 @@
             <script src="~/Scripts/jquery-1.7.1.min.js"></script>
             <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
+
             @RenderSection("featured", required: false)
             @RenderSection("scripts", required: false)
             @RenderBody()
@@ -88,5 +89,6 @@
         @Scripts.Render("~/bundles/bootstrapjs")
         @Scripts.Render("~/bundles/customjs")
         @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/SocialPlugins")
     </body>
 </html>
