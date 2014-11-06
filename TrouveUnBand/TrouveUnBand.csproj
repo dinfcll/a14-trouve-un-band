@@ -305,6 +305,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Images\Jcrop.gif" />
+    <Content Include="Images\Seagal-Approved.jpg" />
+    <Content Include="Images\stock_user.jpg" />
+    <Content Include="Images\TrouveUnBandLogo.jpg" />
     <Content Include="Models\TUBModels.edmx.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

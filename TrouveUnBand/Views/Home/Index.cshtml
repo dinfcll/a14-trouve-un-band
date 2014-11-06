@@ -7,6 +7,7 @@
     ViewBag.Title = "Page d'accueil";
 }
 
+
 <div id="NewsfeedUser" class="row">
 @foreach (var item in (List<TrouveUnBand.Models.NewsfeedUserModel>)ViewData["NewsfeedUser"])
 {  
@@ -81,7 +82,7 @@
                     @Html.DisplayFor(modelItem => item.EventLocation)
                     </div>
                     <div class="row">
-                    @Html.Label("Description")
+                    @Html.Label("Genre")
                     @Html.DisplayFor(modelItem => item.EventGender)
                     </div>
                     <div class="row">
@@ -111,11 +112,11 @@
         </div>
         <div class="caption container-fluid">
             <div class="row">
-            @Html.Label("Nom")
+            @Html.Label("Type")
             @Html.DisplayFor(modelItem => item.Type)
             </div>
             <div class="row">
-            @Html.Label("Location")
+            @Html.Label("Genre")
             @Html.DisplayFor(modelItem => item.Genre.Name)
             </div>
             <div class="row">

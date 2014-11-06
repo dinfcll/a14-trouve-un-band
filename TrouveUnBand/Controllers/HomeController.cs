@@ -79,10 +79,10 @@ namespace TrouveUnBand.Controllers
                                 AdvertPhoto = advert.AdvertPhoto
                             };
 
-            BandQuery = BandQuery.Take(8);
-            UserQuery = UserQuery.Take(8);
-            EventQuery = EventQuery.Take(8);
-            AdvertQuery = AdvertQuery.Take(8);
+            BandQuery = BandQuery.Take(4);
+            UserQuery = UserQuery.Take(12);
+            EventQuery = EventQuery.Take(3);
+            AdvertQuery = AdvertQuery.Take(3);
 
             ViewData["NewsfeedBand"] = BandQuery.ToList();
             ViewData["NewsfeedUser"] = UserQuery.ToList();
