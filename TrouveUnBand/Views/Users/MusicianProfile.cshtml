@@ -45,12 +45,12 @@
     <div class="profile-info-container col-md-12">
         <div class="profile-tab-menu col-md-3">
             <div class="list-group">
-                <a href="#" class="list-group-item text-center">
+                <a href="#" class="list-group-item text-center active">
                     <span class="glyphicon glyphicon-play col-md-12"></span>
                     <span>Media (Soundcloud/Youtube)</span>
                 </a>
 
-                <a href="#" class="list-group-item text-center active">
+                <a href="#" class="list-group-item text-center">
                     <span class="glyphicon glyphicon-user col-md-12"></span>
                     <span>Description</span>
                 </a>
@@ -72,7 +72,7 @@
             </div>
         </div>
         <!--Media-->
-        <div class="profile-tab-content col-md-9">
+        <div class="profile-tab-content col-md-9 active">
             <center>
                 <h1 class="glyphicon glyphicon-play" style="font-size: 12em; color: #000000"></h1>
                 <h2 style="margin-top: 0; color: #000000">
@@ -85,26 +85,18 @@
         </div>
         <!--Media end-->
         <!--Desccription-->
-        <div class="profile-tab-content col-md-9 active">
-            @Html.Partial("_MusicianProfileInfo", Model)
+        <div class="profile-tab-content col-md-9">
+            @Html.Partial("../Users/_MusicianProfileInfo", Model)
         </div>
         <!--Description end-->
         <!--Seeking-->
         <div class="profile-tab-content col-md-9">
-            <center>
-                <h1 class="glyphicon glyphicon-eye-open" style="font-size: 12em; color: #000000"></h1>
-                <h2 style="margin-top: 0; color: #000000">
-                    Bientôt
-                </h2>
-                <h3 style="margin-top: 0; color: #000000">
-                    Disponible
-                </h3>
-            </center>
+            @Html.Partial("../Users/_MusicianProfileSeeking", Model)
         </div>
         <!--Seeking end-->
         <!--Pictures-->
-        <div class="profile-tab-content col-md-9 pictures-tab">
-            @Html.Partial("_MusicianProfilePhoto",Model)
+        <div class="profile-tab-content col-md-9 profile-photo-tab">
+            @Html.Partial("../Users/_MusicianProfilePhoto", Model)
         </div>
         <!--Pictures end-->
         <!--Contact-->
@@ -122,8 +114,14 @@
         <!--Contact end-->
     </div>
 </div>
+<a href="#" class="btn btn-default btn-lg back-to-top" role="button" 
+            title="Retour vers le haut de la page" data-toggle="tooltip" 
+            data-placement="left">
+
+    <span class="glyphicon glyphicon-chevron-up"></span>
+</a>
 
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
-     aria-hidden="true" >
+     aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
 </div>

@@ -45,7 +45,7 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        public byte[] StockPhoto
+        public static byte[] StockPhoto
         {
             get
             {
@@ -53,7 +53,7 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        private byte[] getStockPhoto()
+        private static byte[] getStockPhoto()
         {
             string path = HttpContext.Current.Server.MapPath("~/Images/stock_user.jpg");
             var stock = Image.FromFile(path);
@@ -61,12 +61,25 @@ namespace TrouveUnBand.Classes
             return imageToByteArray(stock);
         }
 
-        private byte[] imageToByteArray(Image imageIn)
+        private static byte[] imageToByteArray(Image imageIn)
         {
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, ImageFormat.Jpeg);
 
             return ms.ToArray();
+        }
+
+        public static bool IsPhoto(HttpPostedFileBase PostedPhoto)
+        {
+            string extension = Path.GetExtension(PostedPhoto.FileName).ToLower();
+
+            if (extension != ".jpe" && extension != ".jpg" && extension != ".jpeg" && extension != ".gif" && extension != ".png" &&
+                extension != ".pns" && extension != ".bmp" && extension != ".ico" && extension != ".psd" && extension != ".pdd")
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

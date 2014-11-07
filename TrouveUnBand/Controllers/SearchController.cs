@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {
@@ -318,6 +319,33 @@ namespace TrouveUnBand.Controllers
             lstResults.AddRange(eventList);
 
             return lstResults;
+        }
+
+        public ActionResult ViewProfile(string type, int Id)
+        {
+            switch (type.ToUpper())
+            {
+                case "MUSICIEN":
+                    Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
+                    MusicianProfileViewModel MusicianProfile = CreateProfile.CreateMusicianProfileView(musician);
+                    return View("../Users/MusicianProfile", MusicianProfile);
+
+                case "BAND":
+                    Band band = db.Bands.FirstOrDefault(x => x.BandId == Id);
+                    BandProfileViewModel BandProfile = CreateProfile.CreateBandProfileView(band);
+                    return View("../Group/BandProfile", BandProfile);
+
+                case "EVENT":
+                    RedirectToAction("EventProfile", "Event");
+                    break;
+
+                case "PROMOTER":
+                    break;
+
+                default:
+                    break;
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

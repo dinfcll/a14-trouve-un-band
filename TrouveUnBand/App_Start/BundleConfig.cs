@@ -24,17 +24,19 @@ namespace TrouveUnBand
                 "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
-                "~/Scripts/NavBarActive.js",
-                "~/Scripts/ImageUpload.js",
-                "~/Scripts/disable-search-ddl.js",
-                "~/Scripts/ModifProfil.js",
-                "~/Scripts/tooltips.js",
-                "~/Scripts/star-rating.js",
-                "~/Scripts/alert.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
-                "~/Scripts/TopSecret.js",
+                "~/Scripts/alert.js",
+                "~/Scripts/star-rating.js",
+                "~/Scripts/tooltips.js",
+                "~/Scripts/ModifProfil.js",
+                "~/Scripts/disable-search-ddl.js",
+                "~/Scripts/jquery.unobtrusive-ajax.js",
+                "~/Scripts/jquery.Jcrop.js",
+                "~/Scripts/ImageUpload.js",
+                "~/Scripts/ProfilePage.js",
                 "~/Scripts/PictureDialog.js",
-                "~/Scripts/ProfilePage.js"));
+                "~/Scripts/TopSecret.js"
+                ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes
             // prêt pour la production, utilisez l’outil de génération sur http://modernizr.com pour sélectionner uniquement les tests dont vous avez besoin.
