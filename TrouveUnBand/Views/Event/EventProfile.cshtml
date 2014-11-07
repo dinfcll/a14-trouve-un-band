@@ -33,9 +33,6 @@
                         <span class="glyphicon glyphicon-eye-open"></span><span>Billet disponible</span>
                     </div>
                 </li>
-                <li>
-                    @Html.Partial("../Shared/_SocialMediaPlugins")
-                </li>
             </ul>
         </div>
     </div>
@@ -123,4 +120,9 @@
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
      aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
+</div>
+
+
+<div class="SocialMediaBar col-md-offset-9">
+@Html.Partial("../Shared/_SocialMediaPlugins")
 </div>

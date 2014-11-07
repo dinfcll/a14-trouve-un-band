@@ -581,3 +581,10 @@ div.profile-tab-menu div.list-group{
 #AdvertDesc{
     margin-top: -25px;
 }
+
+.SocialMediaBar{
+    position: fixed;
+    top: 50%;
+    text-align: right;
+
+}
