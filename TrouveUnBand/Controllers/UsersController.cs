@@ -1,25 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Security;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TrouveUnBand.Models;
-using WebMatrix.WebData;
-using System.IO;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Drawing2D;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Web.Script.Serialization;
-using System.Net.Http;
 using TrouveUnBand.Classes;
-using System.Data;
 
 namespace TrouveUnBand.Controllers
 {
@@ -164,46 +150,13 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string UpdateProfil(User userModel)
+        private string UpdateProfil(User user)
         {
             try
             {
-                var LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
-                UpdateUser(LoggedOnUser, userModel);
+                var LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
+                UpdateUser(LoggedOnUser, user);
                 db.SaveChanges();
-
-                return "";
-            }
-            catch
-            {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
-            }
-        }
-
-        private string UpdateProfil(Musician musician)
-        {
-            try
-            {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
-
-                Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUser.UserId);
-
-                if (MusicianQuery == null)
-                {
-                    MusicianQuery = new Musician();
-                    MusicianQuery.Description = musician.Description;
-                    MusicianQuery.UserId = LoggedOnUser.UserId;
-                    MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
-                    db.Musicians.Add(MusicianQuery);
-                    db.SaveChanges();
-                }
-                else
-                {
-                    MusicianQuery.Description = musician.Description;
-                    MusicianQuery.Join_Musician_Instrument.Clear();
-                    MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
-                    db.SaveChanges();
-                }
 
                 return "";
             }
@@ -251,7 +204,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult MusicianProfileModification(Musician musician)
+        public ActionResult MusicianProfileModification(User user)
         {
             string InstrumentList = Request["InstrumentList"];
             string[] InstrumentArray = InstrumentList.Split(',');
@@ -263,21 +216,21 @@ namespace TrouveUnBand.Controllers
                 string[] SkillArray = SkillList.Split(',');
                 string DescriptionMusician = Request["TextArea"];
 
-                musician.Description = DescriptionMusician;
+                user.Description = DescriptionMusician;
                 for (int i = 0; i < InstrumentArray.Length; i++)
                 {
                     int currentInstrumentID = Convert.ToInt32(InstrumentArray[i]);
-                    var instrument = db.Instruments.FirstOrDefault(x => x.InstrumentId == currentInstrumentID);
-                    Join_Musician_Instrument InstrumentsMusician = new Join_Musician_Instrument();
+                    var instrument = db.Instruments.FirstOrDefault(x => x.Instrument_ID == currentInstrumentID);
+                    Users_Instruments UserInstruments = new Users_Instruments();
 
-                    InstrumentsMusician.InstrumentId = instrument.InstrumentId;
-                    InstrumentsMusician.Skills = Convert.ToInt32(SkillArray[i]);
-                    InstrumentsMusician.MusicianId = musician.MusicianId;
+                    UserInstruments.Instrument_ID = instrument.Instrument_ID;
+                    UserInstruments.Skills = Convert.ToInt32(SkillArray[i]);
+                    UserInstruments.User_ID = user.User_ID;
 
-                    musician.Join_Musician_Instrument.Add(InstrumentsMusician);
+                    user.Users_Instruments.Add(UserInstruments);
                 }
 
-                RC = UpdateProfil(musician);
+                RC = UpdateProfil(user);
                 if (RC == "")
                 {
                     TempData["success"] = "Le profil musicien a été mis à jour.";
@@ -390,6 +343,7 @@ namespace TrouveUnBand.Controllers
             currentUser.BirthDate = newUser.BirthDate;
             currentUser.Gender = newUser.Gender;
             currentUser.Email = newUser.Email;
+            currentUser.Users_Instruments = newUser.Users_Instruments;
 
             return currentUser;
         }

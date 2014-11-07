@@ -12,10 +12,10 @@ using System.Collections.Generic;
 
 namespace TrouveUnBand.Models
 {
-    public partial class Join_Users_Instrument
+    public partial class Users_Instruments
     {
-        public int UserId { get; set; }
-        public int InstrumentId { get; set; }
+        public int User_ID { get; set; }
+        public int Instrument_ID { get; set; }
         public int Skills { get; set; }
     
         public virtual Instrument Instrument { get; set; }

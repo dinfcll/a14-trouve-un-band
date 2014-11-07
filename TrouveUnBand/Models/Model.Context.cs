@@ -25,15 +25,12 @@ namespace TrouveUnBand.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Advert> Adverts { get; set; }
         public DbSet<Band> Bands { get; set; }
+        public DbSet<Event> Events { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
-        public DbSet<Join_Musician_Instrument> Join_Musician_Instrument { get; set; }
-        public DbSet<Musician> Musicians { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<Advert> Adverts { get; set; }
-        public DbSet<Evenement> Evenements { get; set; }
-        public DbSet<Join_Users_Instrument> Join_Users_Instrument { get; set; }
+        public DbSet<Users_Instruments> Users_Instruments { get; set; }
     }
 }

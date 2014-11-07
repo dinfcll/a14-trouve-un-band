@@ -38,19 +38,19 @@ namespace TrouveUnBand.Controllers
         public ActionResult Newsfeed()
         {
             var BandQuery = from band in db.Bands
-                            orderby band.BandId descending
+                            orderby band.Band_ID descending
                             select new NewsfeedBandModel
                             {
-                                BandId = band.BandId,
+                                BandId = band.Band_ID,
                                 Name = band.Name,
                                 Description = band.Description,
                                 Location = band.Location,
                             };
             var UserQuery = from user in db.Users
-                            orderby user.UserId descending
+                            orderby user.User_ID descending
                             select new NewsfeedUserModel
                             {
-                                UserId = user.UserId,
+                                UserId = user.User_ID,
                                 FirstName = user.FirstName,
                                 LastName = user.LastName,
                                 Nickname = user.Nickname,
@@ -58,18 +58,18 @@ namespace TrouveUnBand.Controllers
                             };
 
             var EventQuery = from events in db.Events
-                            orderby events.EventId descending
+                            orderby events.Event_ID descending
                             select new NewsfeedEventModel
                             {
-                                EventId = events.EventId,
-                                EventName = events.EventName,
-                                EventGender =  events.EventGender,
-                                EventLocation = events.EventLocation,
-                                EventPhoto = events.EventPhoto
+                                EventId = events.Event_ID,
+                                EventName = events.Name,
+                                Genres =  events.Genres,
+                                EventLocation = events.Location,
+                                EventPhoto = events.Photo
                             };
 
             var AdvertQuery = from advert in db.Adverts
-                            orderby advert.AdvertId descending
+                            orderby advert.Advert_ID descending
                             select new NewsfeedAdvertModel
                             {
                                 AdvertId = advert.AdvertId,

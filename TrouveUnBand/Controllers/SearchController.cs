@@ -227,29 +227,29 @@ namespace TrouveUnBand.Controllers
             return lstResults;
         }
 
-        public List<Musician> GetMusicians(int? GenreID, string UserName, string Location)
+        public List<User> GetUsers(int? GenreID, string UserName, string Location)
         {
-            List<Musician> lstResults = new List<Musician>();
+            List<User> lstResults = new List<User>();
 
-            var musicians = from musician in db.Musicians
-                            select musician;
+            var users = from user in db.Users
+                            select user;
 
             if (GenreID != null)
             {
-                musicians = musicians.Where(musician => musician.Genres.Any(genre => genre.GenreId == GenreID));
+                users = users.Where(user => user.Genres.Any(genre => genre.Genre_ID == GenreID));
             }
             if (!String.IsNullOrEmpty(UserName))
             {
-                musicians = musicians.Where(musician => musician.User.FirstName.Contains(UserName) ||
-                                            musician.User.LastName.Contains(UserName) ||
-                                            musician.User.Nickname.Contains(UserName));
+                users = users.Where(user => user.FirstName.Contains(UserName) ||
+                                            user.LastName.Contains(UserName) ||
+                                            user.Nickname.Contains(UserName));
             }
             if (!String.IsNullOrEmpty(Location))
             {
-                musicians = musicians.Where(musician => musician.User.Location.Contains(Location));
+                users = users.Where(user => user.Location.Contains(Location));
             }
 
-            lstResults.AddRange(musicians);
+            lstResults.AddRange(users);
 
             return lstResults;
         }
@@ -263,11 +263,11 @@ namespace TrouveUnBand.Controllers
 
             if (!String.IsNullOrEmpty(EventName))
             {
-                eventList = eventList.Where(events => events.EventName.Contains(EventName));
+                eventList = eventList.Where(events => events.Name.Contains(EventName));
             }
             if (!String.IsNullOrEmpty(Location))
             {
-                eventList.Where(events => events.EventLocation.Contains(Location));
+                eventList.Where(events => events.Location.Contains(Location));
             }
 
             lstResults.AddRange(eventList);

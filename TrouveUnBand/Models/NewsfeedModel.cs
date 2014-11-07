@@ -29,7 +29,7 @@ namespace TrouveUnBand.Models
         public string EventName { get; set; }
         public string EventLocation { get; set; }
         public string Nickname { get; set; }
-        public string EventGender { get; set; }
+        public List<Genre> Genres { get; set; }
         public byte[] EventPhoto { get; set; }
     }
 

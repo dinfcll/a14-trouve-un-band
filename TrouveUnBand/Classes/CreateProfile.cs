@@ -9,17 +9,16 @@ namespace TrouveUnBand.Classes
     {
         private static TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-        public static MusicianProfileViewModel CreateMusicianProfileView(Musician musician)
+        public static MusicianProfileViewModel CreateMusicianProfileView(User user)
         {
             MusicianProfileViewModel MusicianView = new MusicianProfileViewModel();
-            User user = db.Users.FirstOrDefault(x => x.UserId == musician.UserId);
 
             List<Musician> MusicianList = new List<Musician>();
-            MusicianList.Add(musician);
+            MusicianList.Add(user);
             List<Musician_Instrument> InstrumentInfos = SetMusician_Instrument(MusicianList);
 
             MusicianView.InstrumentInfo = InstrumentInfos[0];
-            MusicianView.Description = musician.Description;
+            MusicianView.Description = user.Description;
             MusicianView.Name = user.FirstName + " " + user.LastName;
             MusicianView.Location = user.Location;
             MusicianView.ProfilePicture.PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);

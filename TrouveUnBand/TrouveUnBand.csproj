@@ -181,41 +181,48 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Advert.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Band.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BandProfileViewModel.cs" />
-    <Compile Include="Models\Evenement.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Event.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Genre.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Join_Users_Instrument.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
+    <Compile Include="Models\Instrument.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LocationModel.cs" />
-    <Compile Include="Models\MusicianProfileViewModel.cs" />
-    <Compile Include="Models\NewsfeedModel.cs" />
-    <Compile Include="Models\Instrument.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Join_Musician_Instrument.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Musician_Instrument.cs" />
-    <Compile Include="Models\TUBModels.Designer.cs">
+    <Compile Include="Models\Partial\_Advert.cs" />
+    <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.edmx</DependentUpon>
+      <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MusicianProfileViewModel.cs" />
+    <Compile Include="Models\NewsfeedModel.cs" />
+    <Compile Include="Models\Musician_Instrument.cs" />
+    <Compile Include="Models\Partial\_Event.cs" />
+    <Compile Include="Models\Partial\_User.cs" />
     <Compile Include="Models\User.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users_Instruments.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="POCO\AlertMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -278,19 +285,6 @@
     <Compile Include="Classes\Photo.cs" />
     <Compile Include="Models\SearchUserInfo.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\Musician.cs">
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TUBModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TUBModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TUBModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -303,7 +297,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Images\Jcrop.gif" />
-    <Content Include="Models\TUBModels.edmx.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
@@ -411,20 +404,6 @@
     <Content Include="Views\Users\ProfileModification.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\TUBModels.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TUBModels.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Models\TUBModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TUBModels.Context.cs</LastGenOutput>
-    </None>
-    <None Include="Models\TUBModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TUBModels.cs</LastGenOutput>
-    </None>
     <Content Include="Views\Photo\ImageCropperDialog.cshtml" />
     <Content Include="Views\Photo\ViewPictureDialog.cshtml" />
     <Content Include="Views\Users\MusicianProfile.cshtml" />
@@ -449,6 +428,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
