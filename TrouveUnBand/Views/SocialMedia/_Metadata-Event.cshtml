@@ -1,10 +1,10 @@
 ﻿@model TrouveUnBand.Models.Event
 
+@Html.DisplayNameForModel()
 @*
     Metadata de Schema.org
 *@
 <div>
-    @Html.DisplayNameForModel()
     <div vocab="http://schema.org/" typeof="MusicEvent">
         <div property="location" typeof"MusicVenue">
             <meta property="name" content="@Model.EventLocation"/>
@@ -21,3 +21,19 @@
         </div>
     </div>
 </div>
+
+@*
+    Metadata de Open Graph protocol
+*@
+<div>
+    <meta property="og:title" content="@Model.Name">
+    <meta property="og:type" content="activity">
+    <meta property="og:url" content="@Request.Url">
+    <meta property="og:image" content="@Model.photo">
+    <meta property="og:site_name" content="TrouverUnBand.com">
+    <meta property="fb:admins" content="USER_ID">
+    <meta property="fb:app_id" content="APP_ID">
+    <meta property="og:description" content="Chercher ou trouver un musicien ou un band">
+    <meta property="og:street-address" content="@Model.Adress">
+</div>
+<!-- Open Graph Meta Tags by: www.MetaTagGenerator.org -->
