@@ -1,23 +1,23 @@
-﻿@model TrouveUnBand.Models.Event
+﻿@model TrouveUnBand.Models.Band
 
 @*
     Metadata de Schema.org
 *@
 <div>
     @Html.DisplayNameForModel()
-    <div vocab="http://schema.org/" typeof="MusicEvent">
-        <div property="location" typeof"MusicVenue">
-            <meta property="name" content="@Model.EventLocation"/>
-            <meta property="adress" content="@Model.Adress @Model.City"/>
-        </div>
-        <a property="url" href="@Request.Url"></a>
+    <div vocab="http://schema.org/" typeof="MusicGroup">
         <h2 property="name">@Model.Name</h2>
-        <div property="Person" content="@Model.EventCreator"></div>
-        <div property="startDate">
-            @Html.DisplayFor(Modelitem => Model.EventDate)
-        </div>
-        <div property="Performer" typeof="MusicGroup">
-            <meta property="Name" content="@Model.Band.Name" />
-        </div>
+        <span property="description">
+            @Model.Description
+        </span>
+        <meta property="place" content="@Model.Location" />
+            
+            @foreach (var item in Model.Users)
+            {
+                <div property="musicGroupMember" typeof"person">
+                    <meta property="familyName" content="@item.LastName" />
+                    <meta property="givenName" content="@item.FirstName" />
+                </div>
+            }
     </div>
 </div>
