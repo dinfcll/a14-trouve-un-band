@@ -406,12 +406,16 @@ img.jcrop-preview {
 .profile-container>div.jumbotron{
     background-color:#222222;
     margin-bottom:0;
-    border-bottom-right-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+    border-radius: 0 !important;
 }
 
 .profile-tab-menu{
    padding-left:0;
+   padding-right:0;
+}
+
+.always-on-page {
+    top:60px;
 }
 
 div.profile-tab-menu div.list-group > a {
@@ -434,6 +438,8 @@ div.profile-tab-menu div.list-group > a:first-child {
 
 div.profile-tab-menu div.list-group > a:last-child {
     border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom: 1px solid #222222;
 }
 
 div.profile-tab-menu div.list-group>a.active{
@@ -442,31 +448,41 @@ div.profile-tab-menu div.list-group>a.active{
     border-left: 8px solid #428BCA;
 }
 
-.profile-tab-content:not(.active) {
-    display: none;
-}
-
 .profile-info-container{
      padding:0;
-     background-color:#F5F5F5;
-     color:black;    
-     border-right: 1px solid #e3e3e3;
-     border-bottom: 1px solid #e3e3e3;
 }
 
 div.profile-tab-menu div.list-group{
   margin-bottom: 0;
 }
 
-.profile-info-container span.glyphicon{
-    font-size:18px;
-    padding-top:10px;
-    padding-bottom:10px;
+.profile-tab-menu span.glyphicon{
+    font-size:20px;
+    padding-top:15px;
+    padding-bottom:15px;
 }
 
-.profile-tab-content:not(.pictures-tab){
-    height:386px;
-    overflow: auto;
+.profile-tab-content{
+    min-height:446px;
+     padding:0;
+     background-color:#F5F5F5;
+     color:black;    
+     border-right: 1px solid #e3e3e3;
+     border-bottom: 1px solid #e3e3e3;
+     border-left: 1px solid #e3e3e3;
+}
+
+.profile-photo-tab{
+    min-height:446px;
+     padding:0;
+     background-color:#191919;   
+     border-right: 1px solid #191919;
+     border-bottom: 1px solid #191919;
+     border-left: 1px solid #191919;
+}
+
+.profile-tab-content:not(.active) {
+    display: none;
 }
 
 .profile-info-row{
@@ -500,18 +516,46 @@ div.profile-tab-menu div.list-group{
     color:white;
 }
 
-.pictures-tab{
-    padding-right:0;
-    padding-left:30px;
-}
-
 .carousel {
     width: initial;
+    margin-left:30px;
+}
+
+.photo-arrow{
+    text-align: center;
+    border: 2px solid #CCCCCC;
+    color: #CCCCCC;
+    cursor: pointer;
+    margin-right:0;
+}
+
+.photo-arrow-up{
+    margin-bottom:20px;
+    margin-top:12px;
+    width:100%;
+}
+
+.photo-arrow-down{
+    bottom:12px;
+    position:absolute;
+    width:100%;
+}
+
+.photo-arrow:hover{
+    border: 2px solid #428BCA;
+    color: #428BCA;
+}
+
+.photo-arrow>span{
+    padding-top:5px;
+    padding-bottom:5px;
 }
 
 .profile-photo-list{
-    height:386px;
-    overflow: auto;
+    height:446px;
+    width:205px;
+    padding:0;
+    margin-left:0;
 }
 
 .profile-photo-list ul{
@@ -519,27 +563,50 @@ div.profile-tab-menu div.list-group{
 }
 
 .profile-photo-list li{
-    margin-left:15px;
-    margin-right:15px;
+    margin-bottom:15px;
+}
+
+.profile-photo-list li:last-child{
+    margin-bottom:0;
+}
+
+.profile-photo-list li img{
+    border: 2px solid white;
+    margin-top:0px;
 }
 
 .profile-photo-list li img:hover{
     cursor:pointer;
+    border: 2px solid #428BCA;
 }
 
-.profile-photo-list .active img{
+.profile-photo-list li img.active{
     border: 2px solid #428BCA;
-    opacity: 0.7;
+    opacity:0.7;
 }
 
 #profile-photo-carousel{
     padding-right:0;
+    margin:10px;
 }
 
 #profile-photo-carousel img{
-    width:561px;
-    height:386px;
+    width:618px;
+    height:425px;
 }
+
+#profile-photo-carousel .carousel-control {
+    height: 40px;
+	width: 40px;
+    background:none repeat scroll 0 0 #222222;
+    border: 4px solid #FFFFFF;
+    border-radius: 23px 23px 23px 23px;
+    vertical-align:middle;
+    top:45%;
+}
+
+#profile-photo-carousel .carousel-control { visibility: hidden; }
+#profile-photo-carousel:hover .carousel-control { visibility: visible; }
 
 #PicModal .modal-content {
     display: inline-block;
@@ -580,4 +647,12 @@ div.profile-tab-menu div.list-group{
 
 #AdvertDesc{
     margin-top: -25px;
+}
+
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
 }

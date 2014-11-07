@@ -1,4 +1,6 @@
 ﻿//Menu
+var menuTopPosition = $(".profile-tab-menu").offset().top;
+
 $(".profile-tab-menu>div.list-group>a").click(function (event) {
     var index = $(this).index();
 
@@ -10,8 +12,23 @@ $(".profile-tab-menu>div.list-group>a").click(function (event) {
     $(".profile-tab-content").eq(index).addClass("active");
 });
 
-//Tab description/info
-$(".profile-info-panel").hide();
+$(window).scroll(function () {
+    var scrollPosition = $(document).scrollTop();
+    var isOnTop = scrollPosition >= menuTopPosition - 50;
+
+    if (isOnTop) {
+        var newMenuTopPosition = scrollPosition - menuTopPosition + 50;
+        $(".profile-tab-menu").css("top", newMenuTopPosition);
+        $(".back-to-top").fadeIn();
+    }
+    else {
+        $('.profile-tab-menu').css("top", 0);
+        $(".back-to-top").fadeOut();
+    }
+
+});
+
+//Tab description/
 
 $(".profile-info-row").click(function () {
     var chevron = $(this).children("i");
@@ -31,18 +48,46 @@ $(".profile-info-row").click(function () {
 });
 
 //Tab Pictures
+var photoList = document.querySelectorAll(".profile-photo-list li");
+
+if (photoList.length > 4) {
+    for(var i=4;i<photoList.length;i++)
+    {
+        photoList[i].style.display = "none";
+    }
+}
 
 $("#profile-photo-carousel").carousel({
     interval: 0
 });
 
-$(".profile-photo-list li").click(function () {
-    $(".profile-photo-list li").removeClass("active");
+$(".profile-photo-list li img").click(function () {
+    $(".profile-photo-list li img").removeClass("active");
     $(this).addClass("active");
 });
 
+$(".photo-arrow-down").click(function () {
+    if (photoList.length > 4) {
+        photoList = document.querySelectorAll(".profile-photo-list li");
+
+        photoList[photoList.length - 1].parentNode.appendChild(photoList[0]);
+        photoList[0].style.display = "none";
+        photoList[4].style.display = "block";
+    }
+});
+
+$(".photo-arrow-up").click(function () {
+    if (photoList.length > 4) {
+        photoList = document.querySelectorAll(".profile-photo-list li");
+
+        $(photoList[0]).parent().prepend(photoList[photoList.length - 1]);
+        photoList[3].style.display = "none";
+        photoList[photoList.length - 1].style.display = "block";
+    }
+});
+
 $("#profile-photo-carousel").on("slide.bs.carousel", function (event) {
-    $(".profile-photo-list").find("li.active").removeClass("active");
+    $(".profile-photo-list").find("img.active").removeClass("active");
 
     var nextSlide = $(event.relatedTarget).index();
 
@@ -52,10 +97,10 @@ $("#profile-photo-carousel").on("slide.bs.carousel", function (event) {
 
     var newActiveSlide = document.querySelector(selectorString);
     $(newActiveSlide).addClass("active");
+});
 
-    var divPos = $(".profile-photo-list").offset();
 
-    $(".profile-photo-list").animate({
-        scrollTop: $(newActiveSlide).offset().top - divPos.top
-    }, 1000);
+$(".back-to-top").click(function () {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    return false;
 });
