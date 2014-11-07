@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -58,7 +58,7 @@ namespace TrouveUnBand.Controllers
                     RC = Insertcontact(userModel);
                     if (RC == "")
                     {
-                        TempData["success"] = "L'inscription est confirmée!";
+                        TempData["success"] = POCO.AlertMessages.REGISTRATION_CONFIRMED;
                         FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
@@ -337,7 +337,7 @@ namespace TrouveUnBand.Controllers
 
             if (PostedPhoto.ContentLength == 0)
             {
-                TempData["TempDataError"] = "Une erreur s'est produite lors de l'ouverture du fichier. Veuillez réessayer. ";
+                TempData["TempDataError"] = POCO.AlertMessages.POSTED_FILES_ERROR;
                 return RedirectToAction("ProfileModification");
             }
 
@@ -347,7 +347,7 @@ namespace TrouveUnBand.Controllers
 
                 if(!Photo.IsPhoto(PostedPhoto))
                 {
-                    TempData["TempDataError"] = "Le type du fichier n'est pas valide. Assurez-vous que le fichier soit bien une image. ";
+                    TempData["TempDataError"] = POCO.AlertMessages.FILE_TYPE_INVALID;
                     return RedirectToAction("ProfileModification");
                 }
 
@@ -363,12 +363,12 @@ namespace TrouveUnBand.Controllers
                 LoggedOnUser.Photo = croppedPhoto;
                 db.SaveChanges();
 
-                TempData["success"] = "La photo de profil a été modifiée avec succès.";
+                TempData["success"] = POCO.AlertMessages.PICTURE_CHANGED;
                 return RedirectToAction("ProfileModification", "Users");
             }
             catch
             {
-                TempData["TempDataError"] = "Une erreur inattendue s'est produite. Veuillez réessayer plus tard. ";
+                TempData["TempDataError"] = POCO.AlertMessages.INTERNAL_ERROR;
                 return RedirectToAction("ProfileModification");
             }
         }

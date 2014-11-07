@@ -1,0 +1,108 @@
+﻿@model TrouveUnBand.Models.Musician
+
+@{
+    ViewBag.Title = "Créer ton Band - Musiciens";
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Crée ton band - <small>Les musiciens</small></h2>
+
+
+        <div class="container-fluid">
+            @if (((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]) != null)
+            {
+                    int mTrid = 0;
+                    <table id="myMusicianTable">
+                    @foreach (var item in ((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]))
+                    {
+                        mTrid++; 
+                        <tr id="@mTrid">
+                            <td class="col-md-6">
+                                <div class="display-field">
+                                        @Html.DisplayFor(model => item.User.FirstName)
+                                        @Html.DisplayFor(model => item.User.LastName)
+                                        @Html.DisplayFor(model => item.User.Nickname)
+                                </div>
+                            </td>
+                            <td class="col-md-offset-1">
+                                @if (mTrid > 0)
+                                {
+                                    @Ajax.ActionLink(" ", "RemoveMusician", new { MusicianId = item.MusicianId },
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "Delete",
+                                                UpdateTargetId = "musiciantab",
+                                                OnSuccess = "$('#" + @mTrid + "').remove();"
+                                            }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-minus" })
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </table>             
+            }
+        </div>
+
+
+
+        <div class="container-fluid" style="margin-top: 1em">
+            @using (Ajax.BeginForm("SearchMusician", "Group", FormMethod.Get,
+                                                        new AjaxOptions
+                                                        {
+                                                            HttpMethod = "Get",
+                                                            UpdateTargetId = "musiciantab"
+                                                        }))
+            {
+                @Html.Editor("SearchString", "", new { @class = "form-control glyphicon glyphicon-search" })
+                <button type="submit" value="Search" class="btn btn-default">
+                    <span  class="glyphicon glyphicon-search"></span>
+                </button>
+            }
+
+            <div class="container-fluid row" style="margin-top: 1em">
+                <table class="table table-striped table-bordered table-hover" data-toggle="table" id="SearchMusiciansTable">
+                    <tr>
+                        <th>
+                            Prénom
+                        </th>
+                        <th>
+                            Nom de famille
+                        </th>
+                        <th>
+                            Identifiant
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    @if ((List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"] != null)
+                    {
+                        foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"])
+                        {
+                            int sTrid = 0;
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => item.User.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.User.LastName)                                        
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.User.Nickname)
+                                </td>
+                                <td>
+                                        @Ajax.ActionLink(" ", "AddMusician", new { MusicianId = item.MusicianId },
+                                                new AjaxOptions
+                                                {
+                                                    HttpMethod = "Put",
+                                                    UpdateTargetId = "musiciantab",
+                                                    OnSuccess = "$('#" + @sTrid + "').remove();"
+                                                }, new { @class = "btn btn-default btn-sm glyphicon glyphicon-plus" })
+                                </td>
+                            </tr>
+                            sTrid++;
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

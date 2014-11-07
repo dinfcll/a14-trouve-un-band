@@ -2,8 +2,10 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
+
 -- Date Created: 11/04/2014 13:18:45
 -- Generated from EDMX file: C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\Models\TUBModels.edmx
+
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -50,6 +52,24 @@ GO
 IF OBJECT_ID(N'[dbo].[FK__Advert__GenresAd__2F10007B]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Adverts] DROP CONSTRAINT [FK__Advert__GenresAd__2F10007B];
 GO
+IF OBJECT_ID(N'[dbo].[FK__Join_User__Instr__38B96646]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Join_Users_Instrument] DROP CONSTRAINT [FK__Join_User__Instr__38B96646];
+GO
+IF OBJECT_ID(N'[dbo].[FK__Join_User__UserI__37C5420D]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Join_Users_Instrument] DROP CONSTRAINT [FK__Join_User__UserI__37C5420D];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Join_Band_Users_Band]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Join_Band_Users] DROP CONSTRAINT [FK_Join_Band_Users_Band];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Join_Band_Users_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Join_Band_Users] DROP CONSTRAINT [FK_Join_Band_Users_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Join_Users_Genre_Genre]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Join_Users_Genre] DROP CONSTRAINT [FK_Join_Users_Genre_Genre];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Join_Users_Genre_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Join_Users_Genre] DROP CONSTRAINT [FK_Join_Users_Genre_User];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -79,6 +99,12 @@ GO
 IF OBJECT_ID(N'[dbo].[Adverts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Adverts];
 GO
+IF OBJECT_ID(N'[dbo].[Evenements]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Evenements];
+GO
+IF OBJECT_ID(N'[dbo].[Join_Users_Instrument]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Join_Users_Instrument];
+GO
 IF OBJECT_ID(N'[dbo].[Join_Band_Genre]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Join_Band_Genre];
 GO
@@ -87,6 +113,12 @@ IF OBJECT_ID(N'[dbo].[Join_Band_Musician]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Join_Musician_Genre]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Join_Musician_Genre];
+GO
+IF OBJECT_ID(N'[dbo].[Join_Band_Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Join_Band_Users];
+GO
+IF OBJECT_ID(N'[dbo].[Join_Users_Genre]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Join_Users_Genre];
 GO
 
 -- --------------------------------------------------
@@ -145,7 +177,8 @@ CREATE TABLE [dbo].[Users] (
     [Photo] varbinary(max)  NULL,
     [Gender] nvarchar(100)  NULL,
     [Latitude] float  NULL,
-    [Longitude] float  NULL
+    [Longitude] float  NULL,
+    [Description] varchar(max)  NULL
 );
 GO
 
@@ -181,6 +214,28 @@ CREATE TABLE [dbo].[Adverts] (
 );
 GO
 
+-- Creating table 'Evenements'
+CREATE TABLE [dbo].[Evenements] (
+    [EventId] int IDENTITY(1,1) NOT NULL,
+    [EventName] nvarchar(100)  NOT NULL,
+    [EventLocation] nvarchar(100)  NOT NULL,
+    [EventAddress] nvarchar(100)  NOT NULL,
+    [EventDate] nvarchar(100)  NOT NULL,
+    [EventMaxAudience] nvarchar(100)  NOT NULL,
+    [EventSalary] nvarchar(100)  NOT NULL,
+    [EventGender] nvarchar(100)  NOT NULL,
+    [EventStageSize] int  NULL
+);
+GO
+
+-- Creating table 'Join_Users_Instrument'
+CREATE TABLE [dbo].[Join_Users_Instrument] (
+    [UserId] int  NOT NULL,
+    [InstrumentId] int  NOT NULL,
+    [Skills] int  NOT NULL
+);
+GO
+
 -- Creating table 'Join_Band_Genre'
 CREATE TABLE [dbo].[Join_Band_Genre] (
     [Bands_BandId] int  NOT NULL,
@@ -199,6 +254,20 @@ GO
 CREATE TABLE [dbo].[Join_Musician_Genre] (
     [Genres_GenreId] int  NOT NULL,
     [Musicians_MusicianId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Join_Band_Users'
+CREATE TABLE [dbo].[Join_Band_Users] (
+    [Bands_BandId] int  NOT NULL,
+    [Users_UserId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Join_Users_Genre'
+CREATE TABLE [dbo].[Join_Users_Genre] (
+    [Genres_GenreId] int  NOT NULL,
+    [Users_UserId] int  NOT NULL
 );
 GO
 
@@ -254,6 +323,18 @@ ADD CONSTRAINT [PK_Adverts]
     PRIMARY KEY CLUSTERED ([AdvertId] ASC);
 GO
 
+-- Creating primary key on [EventId] in table 'Evenements'
+ALTER TABLE [dbo].[Evenements]
+ADD CONSTRAINT [PK_Evenements]
+    PRIMARY KEY CLUSTERED ([EventId] ASC);
+GO
+
+-- Creating primary key on [UserId], [InstrumentId] in table 'Join_Users_Instrument'
+ALTER TABLE [dbo].[Join_Users_Instrument]
+ADD CONSTRAINT [PK_Join_Users_Instrument]
+    PRIMARY KEY CLUSTERED ([UserId], [InstrumentId] ASC);
+GO
+
 -- Creating primary key on [Bands_BandId], [Genres_GenreId] in table 'Join_Band_Genre'
 ALTER TABLE [dbo].[Join_Band_Genre]
 ADD CONSTRAINT [PK_Join_Band_Genre]
@@ -270,6 +351,18 @@ GO
 ALTER TABLE [dbo].[Join_Musician_Genre]
 ADD CONSTRAINT [PK_Join_Musician_Genre]
     PRIMARY KEY CLUSTERED ([Genres_GenreId], [Musicians_MusicianId] ASC);
+GO
+
+-- Creating primary key on [Bands_BandId], [Users_UserId] in table 'Join_Band_Users'
+ALTER TABLE [dbo].[Join_Band_Users]
+ADD CONSTRAINT [PK_Join_Band_Users]
+    PRIMARY KEY NONCLUSTERED ([Bands_BandId], [Users_UserId] ASC);
+GO
+
+-- Creating primary key on [Genres_GenreId], [Users_UserId] in table 'Join_Users_Genre'
+ALTER TABLE [dbo].[Join_Users_Genre]
+ADD CONSTRAINT [PK_Join_Users_Genre]
+    PRIMARY KEY NONCLUSTERED ([Genres_GenreId], [Users_UserId] ASC);
 GO
 
 -- --------------------------------------------------
@@ -408,6 +501,75 @@ ADD CONSTRAINT [FK__Advert__GenresAd__2F10007B]
 CREATE INDEX [IX_FK__Advert__GenresAd__2F10007B]
 ON [dbo].[Adverts]
     ([GenresAdvert]);
+GO
+
+-- Creating foreign key on [InstrumentId] in table 'Join_Users_Instrument'
+ALTER TABLE [dbo].[Join_Users_Instrument]
+ADD CONSTRAINT [FK__Join_User__Instr__38B96646]
+    FOREIGN KEY ([InstrumentId])
+    REFERENCES [dbo].[Instruments]
+        ([InstrumentId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK__Join_User__Instr__38B96646'
+CREATE INDEX [IX_FK__Join_User__Instr__38B96646]
+ON [dbo].[Join_Users_Instrument]
+    ([InstrumentId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'Join_Users_Instrument'
+ALTER TABLE [dbo].[Join_Users_Instrument]
+ADD CONSTRAINT [FK__Join_User__UserI__37C5420D]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[Users]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Bands_BandId] in table 'Join_Band_Users'
+ALTER TABLE [dbo].[Join_Band_Users]
+ADD CONSTRAINT [FK_Join_Band_Users_Band]
+    FOREIGN KEY ([Bands_BandId])
+    REFERENCES [dbo].[Bands]
+        ([BandId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Users_UserId] in table 'Join_Band_Users'
+ALTER TABLE [dbo].[Join_Band_Users]
+ADD CONSTRAINT [FK_Join_Band_Users_User]
+    FOREIGN KEY ([Users_UserId])
+    REFERENCES [dbo].[Users]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Join_Band_Users_User'
+CREATE INDEX [IX_FK_Join_Band_Users_User]
+ON [dbo].[Join_Band_Users]
+    ([Users_UserId]);
+GO
+
+-- Creating foreign key on [Genres_GenreId] in table 'Join_Users_Genre'
+ALTER TABLE [dbo].[Join_Users_Genre]
+ADD CONSTRAINT [FK_Join_Users_Genre_Genre]
+    FOREIGN KEY ([Genres_GenreId])
+    REFERENCES [dbo].[Genres]
+        ([GenreId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Users_UserId] in table 'Join_Users_Genre'
+ALTER TABLE [dbo].[Join_Users_Genre]
+ADD CONSTRAINT [FK_Join_Users_Genre_User]
+    FOREIGN KEY ([Users_UserId])
+    REFERENCES [dbo].[Users]
+        ([UserId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Join_Users_Genre_User'
+CREATE INDEX [IX_FK_Join_Users_Genre_User]
+ON [dbo].[Join_Users_Genre]
+    ([Users_UserId]);
 GO
 
 -- --------------------------------------------------
