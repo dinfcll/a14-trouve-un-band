@@ -407,8 +407,7 @@ img.jcrop-preview {
 .profile-container>div.jumbotron{
     background-color:#222222;
     margin-bottom:0;
-    border-bottom-right-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+    border-radius: 0 !important;
 }
 
 .profile-tab-menu{
@@ -440,6 +439,8 @@ div.profile-tab-menu div.list-group > a:first-child {
 
 div.profile-tab-menu div.list-group > a:last-child {
     border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom: 1px solid #222222;
 }
 
 div.profile-tab-menu div.list-group>a.active{

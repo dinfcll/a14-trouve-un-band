@@ -49,7 +49,6 @@ $(".profile-info-row").click(function () {
 
 //Tab Pictures
 var photoList = document.querySelectorAll(".profile-photo-list li");
-var photoListIndex = 0;
 
 if (photoList.length > 4) {
     for(var i=4;i<photoList.length;i++)
@@ -68,30 +67,37 @@ $(".profile-photo-list li img").click(function () {
 });
 
 $(".photo-arrow-down").click(function () {
-    if (photoList.length > 4 && photoListIndex + 4 < photoList.length) {
-        
-            photoList[photoListIndex].style.display = "none";
-            photoList[photoListIndex + 4].style.display = "block";
-            photoListIndex++;
+    if (photoList.length > 4) {
+        photoList = document.querySelectorAll(".profile-photo-list li");
+
+        photoList[photoList.length - 1].parentNode.appendChild(photoList[0]);
+        photoList[0].style.display = "none";
+        photoList[4].style.display = "block";
     }
 });
 
 $(".photo-arrow-up").click(function () {
-    if (photoList.length > 4 && photoListIndex > 0) {
+    if (photoList.length > 4) {
+        photoList = document.querySelectorAll(".profile-photo-list li");
 
-        photoList[photoListIndex+3].style.display = "none";
-        photoList[photoListIndex - 1].style.display = "block";
-        photoListIndex--;
+        $(photoList[0]).parent().prepend(photoList[photoList.length - 1]);
+        photoList[3].style.display = "none";
+        photoList[photoList.length - 1].style.display = "block";
     }
 });
 
-function setVisiblePhotoList() {
+$("#profile-photo-carousel").on("slide.bs.carousel", function (event) {
+    $(".profile-photo-list").find("img.active").removeClass("active");
 
-    for (var i = 0; i < 4; i++) {
-        visiblePhotoList[i] = photoList[i + photoListIndex];
-    }
+    var nextSlide = $(event.relatedTarget).index();
 
-}
+    var selectorString = "[data-slide-to='" +
+                         nextSlide
+                         + "']";
+
+    var newActiveSlide = document.querySelector(selectorString);
+    $(newActiveSlide).addClass("active");
+});
 
 
 $(".back-to-top").click(function () {
