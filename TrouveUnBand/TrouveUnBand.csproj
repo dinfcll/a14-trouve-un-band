@@ -450,6 +450,7 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Advert\MyAdverts.cshtml" />
     <Content Include="Views\Advert\Close.cshtml" />
+    <Content Include="Views\Advert\AdvertProfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
