@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "BandProfile";
 }
+
 <div class="profile-container">
     <div class="jumbotron col-md-12">
         <div class="thumbnail card col-md-3">
@@ -102,4 +103,12 @@
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
      aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
+</div>
+
+<div class="SocialMediaBar col-md-offset-9">
+    @Html.Partial("../Shared/_ShareButtons")
+</div>
+
+<div visibility="hidden">
+    @Html.Partial("../Shared/_Metadata-Band")
 </div>

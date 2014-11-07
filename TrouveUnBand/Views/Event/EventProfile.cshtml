@@ -1,4 +1,6 @@
-﻿@model TrouveUnBand.Models.Event
+﻿<div id="fb-root"></div>
+
+@model TrouveUnBand.Models.Event
 @{
     ViewBag.Title = "EventProfile";
 }
@@ -118,4 +120,13 @@
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
      aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
+</div>
+
+
+<div class="SocialMediaBar col-md-offset-9">
+    @Html.Partial("../SocialMedia/_ShareButtons")
+</div>
+
+<div visibility="hidden">
+    @Html.Partial("../SocialMedia/_Metadata-Event")
 </div>
