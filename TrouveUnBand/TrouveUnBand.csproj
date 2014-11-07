@@ -455,6 +455,7 @@
     <Content Include="Views\Advert\Close.cshtml" />
     <Content Include="Views\Shared\_SocialMediaPlugins.cshtml" />
     <None Include="Scripts\sharrre.php" />
+    <Content Include="Views\Advert\AdvertDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
