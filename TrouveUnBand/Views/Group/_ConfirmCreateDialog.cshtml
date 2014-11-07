@@ -1,0 +1,87 @@
+﻿@model TrouveUnBand.Models.Band
+
+@{
+    ViewBag.Title = "Confirmation";
+}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+          </div>
+          <div class="modal-body">        
+                <fieldset>
+                    <div class="container-fluid">
+                        <div class="display-label">
+                            <h2>@Html.DisplayNameFor(model => model.Name)</h2>
+                        </div>
+                        <blockquote>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Name)
+                        </div>
+                        </blockquote>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="display-label">
+                            <h2>@Html.DisplayNameFor(model => model.Genres)</h2>
+                        </div>
+                        <blockquote>
+                                @foreach (var item in Model.Genres)
+                                {
+                                    <div class="display-field">
+                                        @Html.DisplayFor(model => item.Name)
+                                    </div>
+                                }
+                        </blockquote>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="display-label">
+                            <h2>@Html.DisplayNameFor(model => model.Musicians)</h2>
+                        </div>
+                        <blockquote>
+                                @foreach (var item in Model.Musicians)
+                                {
+                                    <div class="display-field">
+                                        @Html.DisplayFor(model => item.User.FirstName)
+                                        @Html.DisplayFor(model => item.User.LastName)
+                                        @Html.DisplayFor(model => item.User.Nickname)
+                                    </div>
+                                }
+                        </blockquote>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="display-label">
+                                <h2>@Html.DisplayNameFor(model => model.Location)</h2>
+                        </div>
+                        <blockquote>
+                            <div class="display-field">
+                                @Html.DisplayFor(model => model.Location)
+                            </div>
+                        </blockquote>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="display-label">
+                                <h2>@Html.DisplayNameFor(model => model.Description)</h2>
+                        </div>
+                        <blockquote>
+                            <div class="display-field">
+                                @Html.DisplayFor(model => model.Description)
+                            </div>
+                        </blockquote>
+                    </div>
+                </fieldset>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("ConfirmCreate", "Group")'">Confirmer</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

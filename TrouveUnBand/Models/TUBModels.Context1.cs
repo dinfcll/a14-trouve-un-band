@@ -13,10 +13,10 @@ using System.Data.Entity.Infrastructure;
 
 namespace TrouveUnBand.Models
 {
-    public partial class TrouveUnBandEntities : DbContext
+    public partial class TrouveUnBandEntities1 : DbContext
     {
-        public TrouveUnBandEntities()
-            : base("name=TrouveUnBandEntities")
+        public TrouveUnBandEntities1()
+            : base("name=TrouveUnBandEntities1")
         {
         }
     
@@ -31,9 +31,5 @@ namespace TrouveUnBand.Models
         public DbSet<Join_Musician_Instrument> Join_Musician_Instrument { get; set; }
         public DbSet<Musician> Musicians { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<Advert> Adverts { get; set; }
-        public DbSet<Evenement> Evenements { get; set; }
-        public DbSet<Join_Users_Instrument> Join_Users_Instrument { get; set; }
     }
 }

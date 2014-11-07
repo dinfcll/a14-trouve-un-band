@@ -12,19 +12,14 @@ using System.Collections.Generic;
 
 namespace TrouveUnBand.Models
 {
-    public partial class Instrument
+    public partial class Join_Users_Instrument
     {
-        public Instrument()
-        {
-            this.Join_Musician_Instrument = new HashSet<Join_Musician_Instrument>();
-            this.Join_Users_Instrument = new HashSet<Join_Users_Instrument>();
-        }
-    
+        public int UserId { get; set; }
         public int InstrumentId { get; set; }
-        public string Name { get; set; }
+        public int Skills { get; set; }
     
-        public virtual ICollection<Join_Musician_Instrument> Join_Musician_Instrument { get; set; }
-        public virtual ICollection<Join_Users_Instrument> Join_Users_Instrument { get; set; }
+        public virtual Instrument Instrument { get; set; }
+        public virtual User User { get; set; }
     }
     
 }
