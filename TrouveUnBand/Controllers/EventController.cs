@@ -48,7 +48,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(EventValidation events)
+        public ActionResult Create(Event events)
         {
             if (ModelState.IsValid)
             {
@@ -58,8 +58,7 @@ namespace TrouveUnBand.Controllers
                 {
                     events.EventPhoto = GetPostedEventPhoto();
                 }
-                Event eventBD = CreateEventFromModel(events);
-                db.Events.Add(eventBD);
+                db.Events.Add(events);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -75,29 +74,29 @@ namespace TrouveUnBand.Controllers
             {
                 return HttpNotFound();
             }
-            EventValidation EventV = new EventValidation(events);
-            return View(EventV);
+            return View(events);
         }
 
         [HttpPost]
-        public ActionResult Edit(EventValidation events)
+        public ActionResult Edit(Event events)
         {
             events.EventCreator = Request["Creator"];
             events.EventGender = Request["EventGenreDB"];
-
+            db.Entry(events).State = EntityState.Modified;
             if (Request.Files[0].ContentLength != 0)
             {
                 events.EventPhoto = GetPostedEventPhoto();
             }
             else
             {
-                events.EventPhoto = GetEventPhotoByte(events.EventId);
+                if (GetEventPhotoByte(events.EventId) != null)
+                {
+                    events.EventPhoto = GetEventPhotoByte(events.EventId);
+                }
             }
 
             if (ModelState.IsValid)
             {
-                Event eventBD = CreateEventFromModel(events);
-                db.Entry(eventBD).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -144,24 +143,6 @@ namespace TrouveUnBand.Controllers
                                 PhotoArray = Events.EventPhoto
                             }).FirstOrDefault();
             return PicQuery.PhotoArray;
-        }
-
-        private Event CreateEventFromModel(EventValidation EventValid)
-        {
-            Event events = new Event();
-            events.EventAddress = EventValid.EventAddress;
-            events.EventCity = EventValid.EventCity;
-            events.EventCreator = EventValid.EventCreator;
-            events.EventDate = EventValid.EventDate;
-            events.EventGender = EventValid.EventGender;
-            events.EventId = EventValid.EventId;
-            events.EventLocation = EventValid.EventLocation;
-            events.EventMaxAudience = EventValid.EventMaxAudience;
-            events.EventName = EventValid.EventName;
-            events.EventPhoto = EventValid.EventPhoto;
-            events.EventSalary = EventValid.EventSalary;
-            events.EventStageSize = EventValid.EventStageSize;
-            return events;
         }
 
         private byte[] GetPostedEventPhoto()

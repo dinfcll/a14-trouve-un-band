@@ -34,5 +34,9 @@ namespace TrouveUnBand.POCO
         public static string INTERNAL_ERROR = "Une erreur interne s'est produite, veuillez réessayer plus tard.";
         public static string EMPTY_INPUT = "Veuillez remplir tout les champs.";
         public static string EMPTY_SEARCH = "Le champ de recherche est vide";
+        public static string REGISTRATION_CONFIRMED = "L'inscription est confirmée!";
+        public static string POSTED_FILES_ERROR = "Une erreur s'est produite lors de l'ouverture du fichier. Veuillez réessayer.";
+        public static string FILE_TYPE_INVALID = "Le type du fichier n'est pas valide. Assurez-vous que le fichier soit bien une image. ";
+        public static string PICTURE_CHANGED = "La photo de profil a été modifiée avec succès.";
     }
 }

@@ -19,6 +19,7 @@ using System.Data.Entity.Validation;
 using System.Web.Script.Serialization;
 using System.Net.Http;
 using TrouveUnBand.Classes;
+using System.Data;
 
 namespace TrouveUnBand.Controllers
 {
@@ -41,46 +42,18 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        public ActionResult ViewProfile(string type, int Id)
-        {
-            switch (type.ToUpper())
-            {
-                case "MUSICIEN":
-                    Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
-                    MusicianProfileViewModel MusicianProfile = CreateMusicianProfileView(musician);
-                    return View("MusicianProfile", MusicianProfile);
-
-                case "BAND":
-                    Band band = db.Bands.FirstOrDefault(x => x.BandId == Id);
-                    BandProfileViewModel BandProfile = CreateBandProfileView(band);
-                    return View("BandProfile", BandProfile);
-
-                case "EVENT":
-                    RedirectToAction("EventProfile", "Event");
-                    break;
-
-                case "PROMOTER":
-                    break;
-
-                default:
-                    break;
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
         [HttpPost]
-        public ActionResult Register(UserValidation userModel)
+        public ActionResult Register(User userModel)
         {
             string RC = "";
             if (ModelState.IsValid)
             {
                 if (userModel.Password == userModel.ConfirmPassword)
                 {
-                    User userBD = CreateUserFromModel(userModel);
-                    RC = Insertcontact(userBD);
+                    RC = Insertcontact(userModel);
                     if (RC == "")
                     {
-                        TempData["success"] = "L'inscription est confirmée!";
+                        TempData["success"] = POCO.AlertMessages.REGISTRATION_CONFIRMED;
                         FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
@@ -110,6 +83,7 @@ namespace TrouveUnBand.Controllers
 
                 if (ValidUserQuery == null)
                 {
+                    CreateUser(userbd);
                     db.Database.Connection.Open();
                     db.Users.Add(userbd);
                     db.SaveChanges();
@@ -190,14 +164,12 @@ namespace TrouveUnBand.Controllers
             }
         }
 
-        private string UpdateProfil(UserValidation userModel)
+        private string UpdateProfil(User userModel)
         {
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
-
-                LoggedOnUser = CreateUserFromModel(userModel, LoggedOnUser);
-
+                var LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == userModel.Nickname);
+                UpdateUser(LoggedOnUser, userModel);
                 db.SaveChanges();
 
                 return "";
@@ -229,6 +201,7 @@ namespace TrouveUnBand.Controllers
                 {
                     MusicianQuery.Description = musician.Description;
                     MusicianQuery.Join_Musician_Instrument.Clear();
+                    MusicianQuery.Join_Musician_Instrument = musician.Join_Musician_Instrument;
                     db.SaveChanges();
                 }
 
@@ -244,7 +217,7 @@ namespace TrouveUnBand.Controllers
         {
             ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
 
-            UserValidation LoggedOnUserValid = GetUserInfo(User.Identity.Name);
+            User LoggedOnUserValid = GetUserInfo(User.Identity.Name);
 
             ViewData["UserData"] = LoggedOnUserValid;
 
@@ -258,7 +231,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserProfileModification(UserValidation userModel)
+        public ActionResult UserProfileModification(User userModel)
         {
             userModel.Nickname = User.Identity.Name;
             string RC = "";
@@ -330,18 +303,10 @@ namespace TrouveUnBand.Controllers
             return allUnique;
         }
 
-        private UserValidation GetUserInfo(string Nickname)
+        private User GetUserInfo(string Nickname)
         {
-            UserValidation LoggedOnUser = new UserValidation();
-            try
-            {
-                LoggedOnUser = new UserValidation(db.Users.FirstOrDefault(x => x.Nickname == Nickname));
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
+            LoggedOnUser.ProfilePicture.PhotoArray = LoggedOnUser.Photo;
             return LoggedOnUser;
         }
 
@@ -357,38 +322,17 @@ namespace TrouveUnBand.Controllers
             return LoggedOnUser.ProfilePicture.PhotoSrc;
         }
 
-        public UserValidation SetUserLocation(UserValidation user)
-        {
-            var client = new HttpClient();
 
-            client.BaseAddress = new Uri("https://maps.googleapis.com");
-
-            var response = client.GetAsync("/maps/api/geocode/json?address="
-                                            + user.Location
-                                            + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
-                                            ).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                string responseBody = response.Content.ReadAsStringAsync().Result;
-
-                var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
-                user.Latitude = location.results[location.results.Count - 1].geometry.location.lat;
-                user.Longitude = location.results[location.results.Count - 1].geometry.location.lng;
-                return user;
-            }
-            user.Latitude = 0.0;
-            user.Longitude = 0.0;
-            return user;
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult CropImage(UserValidation UserPicture)
+        public virtual ActionResult CropImage(User UserPicture)
         {
-            if (Request.Files[0].ContentLength == 0)
+            var PostedPhoto = Request.Files[0];
+
+            if (PostedPhoto.ContentLength == 0)
             {
-                TempData["TempDataError"] = "Une erreur s'est produite lors de l'ouverture du fichier. Veuillez réessayer. ";
+                TempData["TempDataError"] = POCO.AlertMessages.POSTED_FILES_ERROR;
                 return RedirectToAction("ProfileModification");
             }
 
@@ -396,13 +340,9 @@ namespace TrouveUnBand.Controllers
             {
                 User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
 
-                HttpPostedFileBase PostedPhoto = Request.Files[0];
-                string extension = Path.GetExtension(PostedPhoto.FileName).ToLower();
-
-                if (extension != ".jpe" && extension != ".jpg" && extension != ".jpeg" && extension != ".gif" && extension != ".png" &&
-                    extension != ".pns" && extension != ".bmp" && extension != ".ico" && extension != ".psd" && extension != ".pdd")
+                if(!Photo.IsPhoto(PostedPhoto))
                 {
-                    TempData["TempDataError"] = "Le type du fichier n'est pas valide. Assurez-vous que le fichier soit bien une image. ";
+                    TempData["TempDataError"] = POCO.AlertMessages.FILE_TYPE_INVALID;
                     return RedirectToAction("ProfileModification");
                 }
 
@@ -417,113 +357,41 @@ namespace TrouveUnBand.Controllers
 
                 LoggedOnUser.Photo = croppedPhoto;
                 db.SaveChanges();
+
+                TempData["success"] = POCO.AlertMessages.PICTURE_CHANGED;
+                return RedirectToAction("ProfileModification", "Users");
             }
             catch
             {
-                TempData["TempDataError"] = "Une erreur inattendue s'est produite. Veuillez réessayer plus tard. ";
+                TempData["TempDataError"] = POCO.AlertMessages.INTERNAL_ERROR;
                 return RedirectToAction("ProfileModification");
             }
-
-            TempData["success"] = "La photo de profil a été modifiée avec succès.";
-            return RedirectToAction("ProfileModification", "Users");
         }
 
-        private List<Musician_Instrument> SetMusician_Instrument(List<Musician> musicians)
+        private User CreateUser(User userToCreate)
         {
-            List<Musician_Instrument> InstrumentInfoList = new List<Musician_Instrument>();
-            ICollection<Join_Musician_Instrument> ListOfInstruments;
-            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
+            userToCreate.Photo = Photo.StockPhoto;
+            userToCreate.Password = Encrypt(userToCreate.Password);
+            userToCreate = Geolocalisation.SetUserLocation(userToCreate);
 
-            foreach (var musician in musicians)
+            return userToCreate;
+        }
+
+        private User UpdateUser(User currentUser, User newUser)
+        {
+            if ((currentUser.Latitude == 0.0 || currentUser.Longitude == 0.0) || currentUser.Location != newUser.Location)
             {
-                ListOfInstruments = musician
-                                    .Join_Musician_Instrument
-                                    .OrderByDescending(x => (x.Skills))
-                                    .ToList();
-
-                var InstrumentInfo = new Musician_Instrument();
-
-                foreach (var instrument in ListOfInstruments)
-                {
-                    InstrumentInfo.InstrumentNames
-                       .Add(instrument.Instrument.Name);
-
-                    InstrumentInfo.Skills
-                        .Add(SkillList[instrument.Skills]);
-                }
-                InstrumentInfoList.Add(InstrumentInfo);
+                currentUser.Location = newUser.Location;
+                currentUser = Geolocalisation.SetUserLocation(currentUser);
             }
 
-            return InstrumentInfoList;
-        }
+            currentUser.FirstName = newUser.FirstName;
+            currentUser.LastName = newUser.LastName;
+            currentUser.BirthDate = newUser.BirthDate;
+            currentUser.Gender = newUser.Gender;
+            currentUser.Email = newUser.Email;
 
-        private MusicianProfileViewModel CreateMusicianProfileView(Musician musician)
-        {
-            MusicianProfileViewModel MusicianView = new MusicianProfileViewModel();
-            User user = db.Users.FirstOrDefault(x => x.UserId == musician.UserId);
-
-            List<Musician> MusicianList = new List<Musician>();
-            MusicianList.Add(musician);
-            List<Musician_Instrument> InstrumentInfos = SetMusician_Instrument(MusicianList);
-
-            MusicianView.InstrumentInfo = InstrumentInfos[0];
-            MusicianView.Description = musician.Description;
-            MusicianView.Name = user.FirstName + " " + user.LastName;
-            MusicianView.Location = user.Location;
-            MusicianView.ProfilePicture.PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
-
-            return MusicianView;
-        }
-
-        private BandProfileViewModel CreateBandProfileView(Band band)
-        {
-            BandProfileViewModel BandView = new BandProfileViewModel();
-
-            BandView.InstrumentInfoList = SetMusician_Instrument(band.Musicians.ToList());
-            BandView.Name = band.Name;
-            BandView.Description = band.Description;
-            BandView.Location = band.Location;
-
-            return BandView;
-        }
-
-        private User CreateUserFromModel(UserValidation UserValid)
-        {
-            User user = new User();
-            user = CreateUserFromModel(UserValid, user);
-            return user;
-        }
-
-        private User CreateUserFromModel(UserValidation UserValid, User user)
-        {
-            if ((user.Latitude == 0.0 || user.Longitude == 0.0) || user.Location != UserValid.Location)
-            {
-                UserValid = SetUserLocation(UserValid);
-            }
-
-            if (user.Photo == null)
-            {
-                user.Photo = new Photo().StockPhoto;
-            }
-
-            if (user.Password == null)
-            {
-                user.Password = Encrypt(UserValid.Password);
-            }
-
-            user.BirthDate = UserValid.BirthDate;
-            user.Email = UserValid.Email;
-            user.FirstName = UserValid.FirstName;
-            user.Gender = UserValid.Gender;
-            user.LastName = UserValid.LastName;
-            user.Latitude = UserValid.Latitude;
-            user.Location = UserValid.Location;
-            user.Longitude = UserValid.Longitude;
-            user.Musicians = UserValid.Musicians;
-            user.Nickname = UserValid.Nickname;
-            user.UserId = UserValid.UserId;
-
-            return user;
+            return currentUser;
         }
     }
 }

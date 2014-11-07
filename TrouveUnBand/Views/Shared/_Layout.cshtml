@@ -73,20 +73,19 @@
             }
         </div>
         <div class="container" style="padding-top:100px">
-            <script src="~/Scripts/jquery-1.7.1.min.js"></script>
-            <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
             @RenderSection("featured", required: false)
             @RenderSection("scripts", required: false)
             @RenderBody()
         </div><!-- /.container -->
 
+        @Scripts.Render("~/bundles/jqueryval")
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 
-        @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/bundles/bootstrapjs")
-        @Scripts.Render("~/bundles/customjs")
         @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/customjs")
+        
     </body>
 </html>
