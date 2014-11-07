@@ -27,11 +27,6 @@ namespace TrouveUnBand.Controllers
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-        public ActionResult test()
-        {
-            return View();
-        }
-
         public ActionResult Index()
         {
             return View();
