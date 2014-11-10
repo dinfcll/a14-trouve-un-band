@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using TrouveUnBand.Models;
+using TrouveUnBand.Services;
 
 namespace TrouveUnBand.Controllers
 {
@@ -66,6 +67,7 @@ namespace TrouveUnBand.Controllers
                                 EventLocation = events.Location,
                                 EventPhoto = events.Photo
                             };
+            var events_ = EventDAO.GetAllEvents();
 
             var AdvertQuery = from advert in db.Adverts
                             orderby advert.Advert_ID descending
@@ -85,7 +87,7 @@ namespace TrouveUnBand.Controllers
 
             ViewData["NewsfeedBand"] = BandQuery.ToList();
             ViewData["NewsfeedUser"] = UserQuery.ToList();
-            ViewData["NewsfeedEvent"] = EventQuery.ToList();
+            ViewData["NewsfeedEvent"] = events_;
             ViewData["NewsfeedAdvert"] = AdvertQuery.ToList();
             return View("index");
         }

@@ -20,7 +20,7 @@ else
                         <h3>Modifier une annonce</h3>
                         <hr class="colorgraph">
                     </div>
-                    @Html.HiddenFor(model => model.AdvertId,
+                    @Html.HiddenFor(model => model.Advert_ID,
                                 new { @class = "form-control", @placeholder = "AdvertId" })
                             @Html.ValidationMessageFor(model => model.Type)
                     <div class="form-group col-md-12">
@@ -41,7 +41,7 @@ else
                         <div class="form-group col-md-6">
                             @Html.Label("Genre Musical")
                             @Html.DropDownList("GenreAdvertDB", (IEnumerable<SelectListItem>)ViewBag.GenresAdvert, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.GenresAdvert)
+                            @Html.ValidationMessageFor(model => model.Genres)
                         </div>
                         <div class="form-group col-md-6">
                             @Html.Label("Status")
