@@ -115,6 +115,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Advert advert = db.Adverts.Find(id);
+            advert.Genres.Clear();
+            db.SaveChanges();
             db.Adverts.Remove(advert);
             db.SaveChanges();
             return RedirectToAction("MyAdverts", "Advert", "MyAdverts");

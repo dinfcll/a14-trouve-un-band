@@ -5,11 +5,11 @@
 }
 @using (Html.BeginForm("Edit", "Event", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
 {
-    if (Model.EventCreator == User.Identity.Name)
+    if (Model.User.Nickname == User.Identity.Name)
     {
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.EventId)
-        @Html.Hidden("Creator", User.Identity.Name)
+        @Html.HiddenFor(model => model.Event_ID)
+        @Html.Hidden("Creator", Model.User.User_ID)
 
         <div  id="CreateEventForm" class="top-80">
                     <div class="container">
@@ -23,43 +23,43 @@
                                 <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
                             </div>
                             <div class="modal-body col-md-6 col-md-pull-4">
-                            @if (Model.EventPhoto == null)
+                            @if (Model.Photo == null)
                             {
                                 <img src="http://placehold.it/400x250" alt="Image">
                             }
                             else
                             {
-                                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.EventPhoto);
+                                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo);
                                 <img src="@photo" width="400" class="photo" alt="Image">
                             }
                             </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
                                 @Html.Label("Nom de l'événement")
-                                @Html.TextBoxFor(model => model.EventName, 
+                                @Html.TextBoxFor(model => model.Name, 
                                     new { @class = "form-control", @placeholder = "Nom de l'événement" })
-                                @Html.ValidationMessageFor(model => model.EventName)
+                                @Html.ValidationMessageFor(model => model.Name)
                             </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
                                 @Html.Label("Emplacement de l'événement")
-                                @Html.TextBoxFor(model => model.EventLocation, 
+                                @Html.TextBoxFor(model => model.Location, 
                                     new { @class = "form-control", @placeholder = "Emplacement de l'événement" })
-                                @Html.ValidationMessageFor(model => model.EventLocation)
+                                @Html.ValidationMessageFor(model => model.Location)
                             </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
                                 @Html.Label("Adresse de l'emplacement")
-                                @Html.TextBoxFor(model => model.EventAddress, 
+                                @Html.TextBoxFor(model => model.Address, 
                                     new { @class = "form-control", @placeholder = "Adresse de l'emplacement" })
-                                @Html.ValidationMessageFor(model => model.EventAddress)
+                                @Html.ValidationMessageFor(model => model.Address)
                             </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
                                 @Html.Label("Ville de l'emplacement")
-                                @Html.TextBoxFor(model => model.EventCity, 
+                                @Html.TextBoxFor(model => model.City, 
                                     new { @class = "form-control", @placeholder = "Ville de l'emplacement" })
-                                @Html.ValidationMessageFor(model => model.EventCity)
+                                @Html.ValidationMessageFor(model => model.City)
                             </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
@@ -68,33 +68,40 @@
                                     new { @class = "form-control", @placeholder = "Date de l'événement", @id = "datepicker", @type="date" })
                                 @Html.ValidationMessageFor(model => model.EventDate)
                             </div>
+                            
+                            <div class="form-group col-md-12 col-md-pull-4">
+                                @Html.Label("Description")
+                                @Html.TextBoxFor(model => model.Description, 
+                                    new { @class = "form-control", @placeholder = "Description" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
                                 @Html.Label("Audience maximale")
-                                @Html.TextBoxFor(model => model.EventMaxAudience, 
+                                @Html.TextBoxFor(model => model.MaxAudience, 
                                     new { @class = "form-control", @placeholder = "Audience maximale" })
-                                @Html.ValidationMessageFor(model => model.EventMaxAudience)
+                                @Html.ValidationMessageFor(model => model.MaxAudience)
                             </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
                                 @Html.Label("Salaire pour l'événement ($)")
-                                @Html.TextBoxFor(model => model.EventSalary, 
+                                @Html.TextBoxFor(model => model.Salary, 
                                     new { @class = "form-control", @placeholder = "Salaire pour l'événement" })
-                                @Html.ValidationMessageFor(model => model.EventSalary)
+                                @Html.ValidationMessageFor(model => model.Salary)
                             </div>
 
                             <div class="form-group col-md-6 col-md-pull-4">
                                 @Html.Label("Genre de l'événement")
                                 @Html.DropDownList("EventGenreDB", 
-                                    new SelectList(ViewBag.GenreListDB, "Name", "Name", Model.EventGender), new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.EventGender)
+                                    new SelectList(ViewBag.GenreListDB, "Name", "Name", Model.Genres.FirstOrDefault().Name), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Genres)
                             </div>
                 
                             <div class="form-group col-md-6 col-md-pull-4">
                                 @Html.Label("Dimension de la scène (mètres carrés)")
-                                @Html.TextBoxFor(model => model.EventStageSize, 
+                                @Html.TextBoxFor(model => model.StageSize, 
                                     new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
-                                @Html.ValidationMessageFor(model => model.EventStageSize)
+                                @Html.ValidationMessageFor(model => model.StageSize)
                             </div>
                             <div class="col-md-12 col-md-pull-4">
                                 <div class="col-md-12">

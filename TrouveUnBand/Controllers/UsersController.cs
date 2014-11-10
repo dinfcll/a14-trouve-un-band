@@ -213,6 +213,7 @@ namespace TrouveUnBand.Controllers
 
             if (AllUnique(InstrumentArray))
             {
+                user = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
                 string SkillList = Request["SkillsList"];
                 string[] SkillArray = SkillList.Split(',');
                 string DescriptionMusician = Request["TextArea"];
@@ -230,7 +231,7 @@ namespace TrouveUnBand.Controllers
 
                     user.Users_Instruments.Add(UserInstruments);
                 }
-
+                
                 RC = UpdateProfil(user);
                 if (RC == "")
                 {
