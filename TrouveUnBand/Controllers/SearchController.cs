@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
 using TrouveUnBand.Classes;
+using TrouveUnBand.Services;
+using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {
@@ -18,9 +20,9 @@ namespace TrouveUnBand.Controllers
         private const string OPTION_USER     = "option_user";
         private const string OPTION_EVENT    = "option_event";
 
-        public ActionResult Index(string SearchString)
+        public ActionResult Index(string searchString)
         {
-            List<SearchResult> ResultsList = new List<SearchResult>();
+            List<ResultViewModels> results = new List<ResultViewModels>();
 
             SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
             SelectList categoriesDDL = new SelectList(new List<Object>{
@@ -31,53 +33,24 @@ namespace TrouveUnBand.Controllers
                 new { value=OPTION_EVENT, text="des événements" }
             }, "value", "text");
 
-            List<Band> bandsList = GetBands(null, SearchString, "");
-            List<User> musiciansList = GetUsers(null, SearchString, "");
-            List<Event> eventList = GetEvents(null, SearchString, "");
+            List<Band> bandsList = BandDao.GetBands(searchString);
+            List<User> musiciansList = UserDao.GetMusicians(searchString);
+
             foreach (Band band in bandsList)
             {
-                ResultsList.Add(new SearchResult
-                {
-                    Name = band.Name,
-                    Description = band.Description,
-                    Location = band.Location,
-                    Type = "Band", 
-                    ID = band.Band_ID
-                });
+                results.Add(new ResultViewModels(band));
             }
 
             foreach (User musician in musiciansList)
             {
-                User user = db.Users.Find(musician.User_ID);
-
-                ResultsList.Add(new SearchResult
-                {
-                    Name = user.FirstName + " " + user.LastName,
-                    Description = musician.Description,
-                    Location = user.Location,
-                    Type = "Musicien",
-                    ID = musician.User_ID
-                });
-            }
-
-            foreach (Event events in eventList)
-            {
-                Event eventBD = db.Events.Find(events.Event_ID);
-
-                ResultsList.Add(new SearchResult
-                {
-                    Name = eventBD.Name,
-                    Description = eventBD.EventDate.ToString("yyyy-MM-dd"),
-                    Location = eventBD.Location,
-                    Type = "événement"
-                });
+                results.Add(new ResultViewModels(musician));
             }
 
             ViewBag.GenresList = genresDDL;
             ViewBag.CategoriesList = categoriesDDL;
-            ViewBag.SearchString = SearchString;
-            ViewBag.ResultsList = ResultsList;
-            ViewBag.ResultNumber = ResultsList.Count();
+            ViewBag.SearchString = searchString;
+            ViewBag.ResultsList = results;
+            ViewBag.ResultNumber = results.Count();
 
             return View();
         }
@@ -85,112 +58,67 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location)
         {
-            List<SearchResult> ResultsList = new List<SearchResult>();
+            List<ResultViewModels> ResultsList = new List<ResultViewModels>();
             
             switch (DDLCategories)
             {
                 case OPTION_ALL:
 
-                    List<Band> bandsList = GetBands(DDLGenres, SearchString, Location);
-                    List<User> musiciansList = GetUsers(DDLGenres, SearchString, Location);
+                    List<Band> bandsList = BandDao.GetBands(DDLGenres, SearchString, Location);
+                    List<User> musiciansList = UserDao.GetMusicians(DDLGenres, SearchString, Location);
 
                     foreach (Band band in bandsList)
                     {
-                        ResultsList.Add(new SearchResult 
-                        { 
-                            Name = band.Name, 
-                            Description = band.Description, 
-                            Location = band.Location, 
-                            Type = "Band" ,
-                            ID = band.Band_ID
-                        });
+                        ResultsList.Add(new ResultViewModels(band));
                     }
 
                     foreach (User musician in musiciansList)
                     {
-                        User user = db.Users.Find(musician.User_ID);
-
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = musician.Description,
-                            Location = user.Location,
-                            Type = "Musicien",
-                            ID = musician.User_ID
-                        });
+                        ResultsList.Add(new ResultViewModels(musician));
                     }
 
                     break;
 
                 case OPTION_BAND:
 
-                    bandsList = GetBands(DDLGenres, SearchString, Location);
+                    bandsList = BandDao.GetBands(DDLGenres, SearchString, Location);
 
                     foreach (Band band in bandsList)
                     {
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = band.Name,
-                            Description = band.Description,
-                            Location = band.Location,
-                            Type = "Band",
-                            ID = band.Band_ID
-                        });
+                        ResultsList.Add(new ResultViewModels(band));
                     }
 
                     break;
 
                 case OPTION_MUSICIAN:
 
-                    musiciansList = GetUsers(DDLGenres, SearchString, Location);
+                    musiciansList = UserDao.GetUsers(DDLGenres, SearchString, Location);
 
                     foreach (User musician in musiciansList)
                     {
-                        User user = db.Users.Find(musician.User_ID);
-
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = musician.Description,
-                            Location = user.Location,
-                            Type = "Musicien" ,
-                            ID = musician.User_ID
-                        });
+                        ResultsList.Add(new ResultViewModels(musician));
                     }
 
                     break;
 
                 case OPTION_USER:
 
-                    List<User> usersList = GetUsers(SearchString, Location);
+                    List<User> usersList = UserDao.GetUsers(SearchString, Location);
 
                     foreach (User user in usersList)
                     {
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = user.FirstName + " " + user.LastName,
-                            Description = "",
-                            Location = user.Location,
-                            Type = "Utilisateur",
-                            ID = user.User_ID
-                        });
+                        ResultsList.Add(new ResultViewModels(user));
                     }
 
                     break;
 
                 case OPTION_EVENT:
 
-                    List<Event> EventList = GetEvents(SearchString, Location);
+                    List<Event> EventList = EventDAO.GetEvents(SearchString, Location);
 
-                    foreach (Event events in EventList)
+                    foreach (Event evenement in EventList)
                     {
-                        ResultsList.Add(new SearchResult
-                        {
-                            Name = events.Name,
-                            Description = "",
-                            Location = events.Location,
-                            Type = "événement"
-                        });
+                        ResultsList.Add(new ResultViewModels(evenement));
                     }
 
                     break;
@@ -200,125 +128,6 @@ namespace TrouveUnBand.Controllers
             ViewBag.ResultNumber = ResultsList.Count();
 
             return PartialView("_SearchResults");
-        }
-
-        public List<Band> GetBands(int? GenreID, string BandName, string Location)
-        {
-            List<Band> lstResults = new List<Band>();
-
-            var bands = from band in db.Bands
-                        select band;
-
-            if (GenreID != null)
-            {
-                bands = bands.Where(band => band.Genres.Any(genre => genre.Genre_ID == GenreID));
-            }
-            if (!String.IsNullOrEmpty(BandName))
-            {
-                bands = bands.Where(band => band.Name.Contains(BandName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                bands = bands.Where(band => band.Location.Contains(Location));
-            }
-
-            lstResults.AddRange(bands);
-
-            return lstResults;
-        }
-
-        public List<User> GetUsers(int? GenreID, string UserName, string Location)
-        {
-            List<User> lstResults = new List<User>();
-
-            var users = from user in db.Users
-                            select user;
-
-            if (GenreID != null)
-            {
-                users = users.Where(user => user.Genres.Any(genre => genre.Genre_ID == GenreID));
-            }
-            if (!String.IsNullOrEmpty(UserName))
-            {
-                users = users.Where(user => user.FirstName.Contains(UserName) ||
-                                            user.LastName.Contains(UserName) ||
-                                            user.Nickname.Contains(UserName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                users = users.Where(user => user.Location.Contains(Location));
-            }
-
-            lstResults.AddRange(users);
-
-            return lstResults;
-        }
-
-        public List<Event> GetEvents(int? GenreID, string EventName, string Location)
-        {
-            List<Event> lstResults = new List<Event>();
-
-            var eventList = from events in db.Events
-                            select events;
-
-            if (!String.IsNullOrEmpty(EventName))
-            {
-                eventList = eventList.Where(events => events.Name.Contains(EventName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                eventList.Where(events => events.Location.Contains(Location));
-            }
-
-            lstResults.AddRange(eventList);
-
-            return lstResults;
-        }
-
-        public List<User> GetUsers(string UserName, string Location)
-        {
-            List<User> lstResults = new List<User>();
-
-            var users = from user in db.Users
-                        select user;
-
-            if (!String.IsNullOrEmpty(UserName))
-            {
-                users = users.Where(user => user.FirstName.Contains(UserName) ||
-                                            user.LastName.Contains(UserName) ||
-                                            user.Nickname.Contains(UserName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                users.Where(user => user.Location.Contains(Location));
-            }
-
-
-            lstResults.AddRange(users);
-
-            return lstResults;
-        }
-
-        public List<Event> GetEvents(string EventName, string Location)
-        {
-            List<Event> lstResults = new List<Event>();
-
-            var eventList = from events in db.Events
-                            select events;
-
-            if (!String.IsNullOrEmpty(EventName))
-            {
-                eventList = eventList.Where(events => events.Name.Contains(EventName));
-            }
-            if (!String.IsNullOrEmpty(Location))
-            {
-                eventList.Where(events => events.Location.Contains(Location));
-            }
-
-
-            lstResults.AddRange(eventList);
-
-            return lstResults;
         }
 
         public ActionResult ViewProfile(string type, int Id)

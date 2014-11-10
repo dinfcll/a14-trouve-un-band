@@ -8,6 +8,13 @@ namespace TrouveUnBand.Models
 {
     public class BandDao
     {
+        public static List<Band> GetBands(string bandName)
+        {
+            var lstResults = GetBands(0, bandName, "");
+
+            return lstResults;
+        }
+
         public static List<Band> GetBands(int? genreId, string bandName, string location)
         {
             var db = new TrouveUnBandEntities();

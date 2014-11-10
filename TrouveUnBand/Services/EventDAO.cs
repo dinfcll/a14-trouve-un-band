@@ -17,5 +17,21 @@ namespace TrouveUnBand.Services
 
             return eventList;
         }
+
+        public static List<Event> GetEvents(string searchString, string location)
+        {
+            TrouveUnBandEntities db = new TrouveUnBandEntities();
+            var events = db.Events.ToList();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                events.Where(x => x.Name.Contains(searchString));
+            }
+            if (!String.IsNullOrEmpty(location))
+            {
+                events.Where(x => x.Location.Contains(location));
+            }
+
+            return events;
+        }
     }
 }
