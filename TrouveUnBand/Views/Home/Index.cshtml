@@ -45,10 +45,7 @@
             @Html.Label("Description")
             @Html.DisplayFor(modelItem => item.Description)
             </div>
-            <div class="row">
-            @Html.ActionLink("Details", "Details", new { id = item.BandId })
-            </div>
-            @Html.ActionLink("Afficher", "ViewProfile", "Users", new { type = "BAND", Id = item.BandId }, new { @class = "btn btn-primary", @role = "button" })
+            @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "BAND", Id = item.BandId }, new { @class = "btn btn-primary", @role = "button" })
         </div>
      </div>      
 }
@@ -82,11 +79,8 @@
                     @Html.Label("Genre")
                     @Html.DisplayFor(modelItem => item.EventGender)
                     </div>
-                    <div class="row">
-                    @Html.ActionLink("Details", "Details", new { id = item.EventId })
+                    @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "EVENT", Id = item.EventId }, new { @class = "btn btn-primary", @role = "button" })
                     </div>
-                    @Html.ActionLink("Afficher", "ViewProfile", "Users", new { type = "EVENT", Id = item.EventId }, new { @class = "btn btn-primary", @role = "button" })
-                </div>
     </div>
 }
 </div>
@@ -108,19 +102,19 @@
         </div>
         <div class="caption container-fluid">
             <div class="row">
-            @Html.Label("Type")
-            @Html.DisplayFor(modelItem => item.Type)
+                @Html.Label("Type")
+                @Html.DisplayFor(modelItem => item.Type)
             </div>
             <div class="row">
-            @Html.Label("Genre")
-            @Html.DisplayFor(modelItem => item.Genre.Name)
+                @Html.Label("Genre")
+                @Html.DisplayFor(modelItem => item.Genre.Name)
             </div>
             <div class="row">
-            @Html.Label("Description")
-            @Html.DisplayFor(modelItem => item.Description)
+                @Html.Label("Description")
+                @Html.DisplayFor(modelItem => item.Description)
             </div>
-            <div class="row">
-            @Html.ActionLink("Details", "Details", new { id = item.AdvertId })
+            <div>
+                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "ADVERT", Id = item.AdvertId }, new { @class = "btn btn-primary", @role = "button" })
             </div>
         </div>
     </div>

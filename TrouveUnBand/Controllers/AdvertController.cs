@@ -179,12 +179,12 @@ namespace TrouveUnBand.Controllers
             return bytephoto;
         }
 
-        public ActionResult ViewBandProfil(Advert myAdvert)
+        public ActionResult ViewAdvertProfil(Advert myAdvert)
         {
             return View("AdvertProfil", myAdvert);
         }
 
-        public ActionResult ViewBandProfil(int AdvertId)
+        public ActionResult ViewAdvertProfil(int AdvertId)
         {
             var myAdvert = db.Adverts.FirstOrDefault(x => x.AdvertId == AdvertId);
             return View("AdvertProfil", myAdvert);

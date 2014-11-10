@@ -336,7 +336,11 @@ namespace TrouveUnBand.Controllers
                     return View("../Group/BandProfile", BandProfile);
 
                 case "EVENT":
-                    RedirectToAction("EventProfile", "Event");
+                    RedirectToAction("EventProfile", "Event", Id);
+                    break;
+
+                case "ADVERT":
+                    RedirectToAction("AdvertProfile", "Advert", Id);
                     break;
 
                 case "PROMOTER":

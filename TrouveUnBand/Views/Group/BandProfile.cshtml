@@ -25,11 +25,6 @@
                 <li>
                     <span class="glyphicon glyphicon-eye-open"></span><span>Guitariste, Promoteur</span>
                 </li>
-                <li>
-                    <div class="col-md-offset-9 pull-right">
-                        @Html.Partial("../SocialMedia/_ShareButtons")
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
@@ -111,5 +106,9 @@
 </div>
 
 <div visibility="hidden">
-    @Html.Partial("../Shared/_Metadata-Band")
+    @Html.Partial("../SocialMedia/_Metadata-Band")
+</div>
+
+<div class="col-md-offset-9 pull-right">
+    @Html.Partial("../SocialMedia/_ShareButtons")
 </div>

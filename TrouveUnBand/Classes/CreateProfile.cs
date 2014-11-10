@@ -23,6 +23,7 @@ namespace TrouveUnBand.Classes
             MusicianView.Name = user.FirstName + " " + user.LastName;
             MusicianView.Location = user.Location;
             MusicianView.ProfilePicture.PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(user.Photo);
+            MusicianView.Id = musician.MusicianId;
 
             return MusicianView;
         }
@@ -35,6 +36,7 @@ namespace TrouveUnBand.Classes
             BandView.Name = band.Name;
             BandView.Description = band.Description;
             BandView.Location = band.Location;
+            BandView.id = band.BandId;
 
             return BandView;
         }
