@@ -649,12 +649,6 @@ div.profile-tab-menu div.list-group{
     margin-top: -25px;
 }
 
-.SocialMediaBar{
-    position: fixed;
-    top: 50%;
-    text-align: right;
-}
-
 .back-to-top {
     cursor: pointer;
     position: fixed;
@@ -662,4 +656,27 @@ div.profile-tab-menu div.list-group{
     right: 20px;
     display:none;
 
+}
+
+.Ajust-Twitter-Button
+{
+    
+}
+
+.Ajust-Facebook-Button
+{
+    
+}
+
+.Ajust-GooglePlus-Button
+{
+    
+}
+
+#share-buttons img {
+width: 35px;
+padding: 5px;
+border: 0;
+box-shadow: 0;
+display: inline;
 }

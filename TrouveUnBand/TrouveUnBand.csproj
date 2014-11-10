@@ -176,6 +176,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SocialMediaController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -446,6 +447,10 @@
     <Content Include="Views\Advert\Close.cshtml" />
     <Content Include="Views\Users\test.cshtml" />
     <Content Include="Views\Users\_MusicianProfileSeeking.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Annonce.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Band.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Event.cshtml" />
+    <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
