@@ -19,13 +19,13 @@ else
             </div>
             <div class="col-md-12">
                         <div class="col-md-4 form-group">
-                            @if (Model.AdvertPhoto == null)
+                            @if (Model.Photo == null)
                             {
                                 <img src="http://placehold.it/230x175" alt="Image">
                             }
                             else
                             {
-                                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.AdvertPhoto);
+                                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo);
                                 <img src="@photo" width="230" height="172" class="photo" alt="Image">
                             }
                         </div>
@@ -37,7 +37,7 @@ else
                                 <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayName(Model.CreationDate.ToString("dd MMMM yyyy"))
                             </div>
                             <div class="col-md-4 form-group">
-                                <span class="glyphicon glyphicon-music"></span> @Html.DisplayName(Model.Genre.Name)
+                                <span class="glyphicon glyphicon-music"></span> @Html.DisplayName(Model.Genres.FirstOrDefault().Name)
                             </div>
                             <div class="col-md-4 form-group col-md-pull-1">
                                 <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(Model.Location)

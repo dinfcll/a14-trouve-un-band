@@ -30,7 +30,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name");
+            ViewBag.GenresAdvert = new SelectList(db.Genres, "Genre_ID", "Name");
             return View();
         }
 
@@ -39,7 +39,8 @@ namespace TrouveUnBand.Controllers
         {
             string CreatorNameDB = Request["CreatorName"];
             advert.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB).User_ID;
-            var genre = db.Genres.FirstOrDefault(x => x.Genre_ID == Convert.ToInt32(Request["GenreAdvertDB"]));
+            int genreInt = Convert.ToInt32(Request["GenreAdvertDB"]);
+            var genre = db.Genres.FirstOrDefault(x => x.Genre_ID == genreInt);
             advert.Genres.Add(genre);
             advert.CreationDate = (DateTime)DateTime.Now;
             if (ModelState.IsValid)
@@ -54,7 +55,7 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.Genres.Any());
+            ViewBag.GenresAdvert = new SelectList(db.Genres, "Genre_Id", "Name", advert.Genres.Any());
             return View(advert);
         }
 
@@ -67,7 +68,7 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.Genres.Any());
+            ViewBag.GenresAdvert = new SelectList(db.Genres, "Genre_Id", "Name", advert.Genres.Any());
             return View(advert);
         }
 
@@ -76,7 +77,10 @@ namespace TrouveUnBand.Controllers
         {
             string CreatorNameDB = Request["CreatorName"];
             advert.User = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB);
-            var genre = db.Genres.FirstOrDefault(x => x.Genre_ID == Convert.ToInt32(Request["GenreAdvertDB"]));
+            advert.Creator_ID = advert.User.User_ID;
+            int genreInt = Convert.ToInt32(Request["GenreAdvertDB"]);
+            var genre = db.Genres.FirstOrDefault(x => x.Genre_ID == genreInt);
+            advert.Genres.Clear();
             advert.Genres.Add(genre);
             if (ModelState.IsValid)
             {
@@ -93,7 +97,7 @@ namespace TrouveUnBand.Controllers
                 return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
             }
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.Genres.Any());
+            ViewBag.GenresAdvert = new SelectList(db.Genres, "Genre_Id", "Name", advert.Genres.Any());
             return View(advert);
         }
 

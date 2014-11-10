@@ -1,4 +1,4 @@
-﻿@model TrouveUnBand.Models.Musician
+﻿@model TrouveUnBand.Models.User
 
 @using (Html.BeginForm("MusicianProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form"}))
 {
@@ -22,11 +22,11 @@
                     <div id="skillquestion" class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" data-original-title="Légendaire = Hendrix" onmouseover="hovertooltip()" onmouseout="outtooltip()"></div>
                 </div>
                 <table id="InstrumentTable" class="form-group col-md-9">
-                    @if (Model.Join_Musician_Instrument.FirstOrDefault() == null)
+                    @if (Model.Users_Instruments.FirstOrDefault() == null)
                     {
                         <tr name="1" id="tablerow" class="form-group col-md-12 row">
                             <td id="tablecell" class="col-md-3">
-                                @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name", 0), new { @class = "form-control" })
+                                @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "Instrument_ID", "Name", 0), new { @class = "form-control" })
                             </td>
                             <td id="tablecell" class="col-md-3">
                                 @Html.DropDownList("SkillsList", new SelectList(
@@ -47,13 +47,13 @@
                     else
                     {
                         int i = 0;
-                        foreach (TrouveUnBand.Models.Join_Musician_Instrument InstrumentsUser in Model.Join_Musician_Instrument)
+                        foreach (TrouveUnBand.Models.Users_Instruments InstrumentsUser in Model.Users_Instruments)
                         {
                             i++;
                             <tr name="@i" id="tablerow" class="form-group col-md-12 row">
                                 <td id="tablecell" class="col-md-3">
-                                    @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "InstrumentId", "Name",
-                                                                Convert.ToInt32(InstrumentsUser.InstrumentId)), new { @class = "form-control" })
+                                    @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "Instrument_ID", "Name",
+                                                                Convert.ToInt32(InstrumentsUser.Instrument_ID)), new { @class = "form-control" })
                                 </td>
                                 <td id="tablecell" class="col-md-3">
                                     @Html.DropDownList("SkillsList", new SelectList(

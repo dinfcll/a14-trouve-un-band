@@ -44,7 +44,8 @@ create table Events(
 	Salary float(10) NOT NULL,
 	StageSize CHAR not null,
 	Photo varbinary(max),
-	Creator_ID int constraint fk_event_creator_id references Users(User_ID)
+	Creator_ID int constraint fk_event_creator_id references Users(User_ID),
+	Description text not null
 );
 
 create table Events_Genres(
@@ -103,8 +104,8 @@ create table Adverts(
 );
 
 create table Adverts_Genres(
-	Advert_ID int references Adverts(Advert_ID),
-	Genre_ID int references Genres(Genre_ID),
+	Advert_ID int references Adverts(Advert_ID) not null,
+	Genre_ID int references Genres(Genre_ID) not null,
 	constraint pk_join_Adverts_Genres Primary Key (Advert_ID, Genre_ID)
 );
 

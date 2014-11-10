@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using TrouveUnBand.Models;
 using TrouveUnBand.Services;
+using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {
@@ -38,57 +39,39 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Newsfeed()
         {
-            var BandQuery = from band in db.Bands
-                            orderby band.Band_ID descending
-                            select new NewsfeedBandModel
-                            {
-                                BandId = band.Band_ID,
-                                Name = band.Name,
-                                Description = band.Description,
-                                Location = band.Location,
-                            };
-            var UserQuery = from user in db.Users
-                            orderby user.User_ID descending
-                            select new NewsfeedUserModel
-                            {
-                                UserId = user.User_ID,
-                                FirstName = user.FirstName,
-                                LastName = user.LastName,
-                                Nickname = user.Nickname,
-                                Photo = user.Photo
-                            };
-            var EventQuery = from events in db.Events
-                            orderby events.Event_ID descending
-                            select new NewsfeedEventModel
-                            {
-                                EventId = events.Event_ID,
-                                EventName = events.Name,
-                                Genres = events.Genres.ToList(),
-                                EventLocation = events.Location,
-                                EventPhoto = events.Photo
-                            };
-            var events_ = EventDAO.GetAllEvents();
+            List<ResultViewModels> eventResults = new List<ResultViewModels>();
+            List<ResultViewModels> usersResults = new List<ResultViewModels>();
+            List<ResultViewModels> bandsResults = new List<ResultViewModels>();
+            List<ResultViewModels> advertsResults = new List<ResultViewModels>();
+            
+            var events = EventDAO.GetAllEvents();
+            foreach (var evenement in events)
+            {
+                eventResults.Add(new ResultViewModels(evenement));
+            }
 
-            var AdvertQuery = from advert in db.Adverts
-                            orderby advert.Advert_ID descending
-                            select new NewsfeedAdvertModel
-                            {
-                                AdvertId = advert.Advert_ID,
-                                Description = advert.Description,
-                                Type = advert.Type,
-                                Genre = advert.Genres.FirstOrDefault(),
-                                AdvertPhoto = advert.Photo
-                            };
+            var users = UserDao.GetAllUsers();
+            foreach (var user in users)
+            {
+                usersResults.Add(new ResultViewModels(user));
+            }
 
-            BandQuery = BandQuery.Take(4);
-            UserQuery = UserQuery.Take(12);
-            EventQuery = EventQuery.Take(3);
-            AdvertQuery = AdvertQuery.Take(3);
+            var bands = BandDao.GetAllBands();
+            foreach (var band in bands)
+            {
+                bandsResults.Add(new ResultViewModels(band));
+            }
 
-            ViewData["NewsfeedBand"] = BandQuery.ToList();
-            ViewData["NewsfeedUser"] = UserQuery.ToList();
-            ViewData["NewsfeedEvent"] = events_;
-            ViewData["NewsfeedAdvert"] = AdvertQuery.ToList();
+            var adverts = AdvertDAO.GetAllAdverts();
+            foreach (var advert in adverts)
+            {
+                advertsResults.Add(new ResultViewModels(advert));
+            }
+
+            ViewData["NewsfeedBand"] = bandsResults;
+            ViewData["NewsfeedUser"] = usersResults;
+            ViewData["NewsfeedEvent"] = eventResults;
+            ViewData["NewsfeedAdvert"] = advertsResults;
             return View("index");
         }
     }

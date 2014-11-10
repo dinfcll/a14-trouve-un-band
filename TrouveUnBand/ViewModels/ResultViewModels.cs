@@ -11,8 +11,12 @@ namespace TrouveUnBand.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
         public string Type { get; set; }
         public List<string> Genres { get; set; }
+        public byte[] Photo { get; set; }
+
 
         private readonly TrouveUnBandEntities db = new TrouveUnBandEntities();
 
@@ -23,6 +27,7 @@ namespace TrouveUnBand.ViewModels
             Location = band.Location;
             Type = "Band";
             Genres = band.Genres.Select(x => x.Name).ToList();
+            Photo = band.Photo;
         }
 
         public ResultViewModels(User user)
@@ -35,12 +40,30 @@ namespace TrouveUnBand.ViewModels
             if (user.isMusician())
             {
                 Type = "Musician";
-            }                    
+            }
+            Photo = user.Photo;        
         }
 
         public ResultViewModels(Event evenement)
         {
-            
+            Name = evenement.Name;
+            Description = evenement.Description;
+            Genres = evenement.Genres.Select(x => x.Name).ToList();
+            Location = evenement.Location;
+            Address = evenement.Address;
+            City = evenement.City;
+            Type = "Événement";
+            Photo = evenement.Photo;
+        }
+
+        public ResultViewModels(Advert advert)
+        {
+            Name = advert.Type;
+            Description = advert.Description;
+            Genres = advert.Genres.Select(x => x.Name).ToList();
+            Location = advert.Location;
+            Type = "Annonce";
+            Photo = advert.Photo;
         }
     }
 }

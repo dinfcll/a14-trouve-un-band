@@ -20,75 +20,75 @@
           <EntitySet Name="Users" EntityType="TrouveUnBandModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users_Genres" EntityType="TrouveUnBandModel.Store.Users_Genres" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users_Instruments" EntityType="TrouveUnBandModel.Store.Users_Instruments" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__Adverts__Creator__59063A47" Association="TrouveUnBandModel.Store.FK__Adverts__Creator__59063A47">
+          <AssociationSet Name="FK__Adverts__Creator__114A936A" Association="TrouveUnBandModel.Store.FK__Adverts__Creator__114A936A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Adverts" EntitySet="Adverts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Adverts_G__Adver__5BE2A6F2" Association="TrouveUnBandModel.Store.FK__Adverts_G__Adver__5BE2A6F2">
+          <AssociationSet Name="FK__Adverts_G__Adver__14270015" Association="TrouveUnBandModel.Store.FK__Adverts_G__Adver__14270015">
             <End Role="Adverts" EntitySet="Adverts" />
             <End Role="Adverts_Genres" EntitySet="Adverts_Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Adverts_G__Genre__5CD6CB2B" Association="TrouveUnBandModel.Store.FK__Adverts_G__Genre__5CD6CB2B">
+          <AssociationSet Name="FK__Adverts_G__Genre__151B244E" Association="TrouveUnBandModel.Store.FK__Adverts_G__Genre__151B244E">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Adverts_Genres" EntitySet="Adverts_Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bands_Gen__Band___4F7CD00D" Association="TrouveUnBandModel.Store.FK__Bands_Gen__Band___4F7CD00D">
+          <AssociationSet Name="FK__Bands_Gen__Band___07C12930" Association="TrouveUnBandModel.Store.FK__Bands_Gen__Band___07C12930">
             <End Role="Bands" EntitySet="Bands" />
             <End Role="Bands_Genres" EntitySet="Bands_Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bands_Gen__Genre__5070F446" Association="TrouveUnBandModel.Store.FK__Bands_Gen__Genre__5070F446">
+          <AssociationSet Name="FK__Bands_Gen__Genre__08B54D69" Association="TrouveUnBandModel.Store.FK__Bands_Gen__Genre__08B54D69">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Bands_Genres" EntitySet="Bands_Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bands_Use__Band___534D60F1" Association="TrouveUnBandModel.Store.FK__Bands_Use__Band___534D60F1">
+          <AssociationSet Name="FK__Bands_Use__Band___0B91BA14" Association="TrouveUnBandModel.Store.FK__Bands_Use__Band___0B91BA14">
             <End Role="Bands" EntitySet="Bands" />
             <End Role="Bands_Users" EntitySet="Bands_Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bands_Use__User___5441852A" Association="TrouveUnBandModel.Store.FK__Bands_Use__User___5441852A">
+          <AssociationSet Name="FK__Bands_Use__User___0C85DE4D" Association="TrouveUnBandModel.Store.FK__Bands_Use__User___0C85DE4D">
             <End Role="Users" EntitySet="Users" />
             <End Role="Bands_Users" EntitySet="Bands_Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Events_Ba__Band___412EB0B6" Association="TrouveUnBandModel.Store.FK__Events_Ba__Band___412EB0B6">
+          <AssociationSet Name="FK__Events_Ba__Band___797309D9" Association="TrouveUnBandModel.Store.FK__Events_Ba__Band___797309D9">
             <End Role="Bands" EntitySet="Bands" />
             <End Role="Events_Bands" EntitySet="Events_Bands" />
           </AssociationSet>
-          <AssociationSet Name="FK__Events_Ba__Event__403A8C7D" Association="TrouveUnBandModel.Store.FK__Events_Ba__Event__403A8C7D">
+          <AssociationSet Name="FK__Events_Ba__Event__787EE5A0" Association="TrouveUnBandModel.Store.FK__Events_Ba__Event__787EE5A0">
             <End Role="Events" EntitySet="Events" />
             <End Role="Events_Bands" EntitySet="Events_Bands" />
           </AssociationSet>
-          <AssociationSet Name="FK__Events_Ge__Event__3C69FB99" Association="TrouveUnBandModel.Store.FK__Events_Ge__Event__3C69FB99">
+          <AssociationSet Name="FK__Events_Ge__Event__74AE54BC" Association="TrouveUnBandModel.Store.FK__Events_Ge__Event__74AE54BC">
             <End Role="Events" EntitySet="Events" />
             <End Role="Events_Genres" EntitySet="Events_Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Events_Ge__Genre__3D5E1FD2" Association="TrouveUnBandModel.Store.FK__Events_Ge__Genre__3D5E1FD2">
+          <AssociationSet Name="FK__Events_Ge__Genre__75A278F5" Association="TrouveUnBandModel.Store.FK__Events_Ge__Genre__75A278F5">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Events_Genres" EntitySet="Events_Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Events_Us__Event__440B1D61" Association="TrouveUnBandModel.Store.FK__Events_Us__Event__440B1D61">
+          <AssociationSet Name="FK__Events_Us__Event__7C4F7684" Association="TrouveUnBandModel.Store.FK__Events_Us__Event__7C4F7684">
             <End Role="Events" EntitySet="Events" />
             <End Role="Events_Users" EntitySet="Events_Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Events_Us__User___44FF419A" Association="TrouveUnBandModel.Store.FK__Events_Us__User___44FF419A">
+          <AssociationSet Name="FK__Events_Us__User___7D439ABD" Association="TrouveUnBandModel.Store.FK__Events_Us__User___7D439ABD">
             <End Role="Users" EntitySet="Users" />
             <End Role="Events_Users" EntitySet="Events_Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Genres__Parent_I__34C8D9D1" Association="TrouveUnBandModel.Store.FK__Genres__Parent_I__34C8D9D1">
+          <AssociationSet Name="FK__Genres__Parent_I__6D0D32F4" Association="TrouveUnBandModel.Store.FK__Genres__Parent_I__6D0D32F4">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Genres1" EntitySet="Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users_Gen__Genre__48CFD27E" Association="TrouveUnBandModel.Store.FK__Users_Gen__Genre__48CFD27E">
+          <AssociationSet Name="FK__Users_Gen__Genre__01142BA1" Association="TrouveUnBandModel.Store.FK__Users_Gen__Genre__01142BA1">
             <End Role="Genres" EntitySet="Genres" />
             <End Role="Users_Genres" EntitySet="Users_Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users_Gen__User___47DBAE45" Association="TrouveUnBandModel.Store.FK__Users_Gen__User___47DBAE45">
+          <AssociationSet Name="FK__Users_Gen__User___00200768" Association="TrouveUnBandModel.Store.FK__Users_Gen__User___00200768">
             <End Role="Users" EntitySet="Users" />
             <End Role="Users_Genres" EntitySet="Users_Genres" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users_Ins__Instr__4CA06362" Association="TrouveUnBandModel.Store.FK__Users_Ins__Instr__4CA06362">
+          <AssociationSet Name="FK__Users_Ins__Instr__04E4BC85" Association="TrouveUnBandModel.Store.FK__Users_Ins__Instr__04E4BC85">
             <End Role="Instruments" EntitySet="Instruments" />
             <End Role="Users_Instruments" EntitySet="Users_Instruments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users_Ins__User___4BAC3F29" Association="TrouveUnBandModel.Store.FK__Users_Ins__User___4BAC3F29">
+          <AssociationSet Name="FK__Users_Ins__User___03F0984C" Association="TrouveUnBandModel.Store.FK__Users_Ins__User___03F0984C">
             <End Role="Users" EntitySet="Users" />
             <End Role="Users_Instruments" EntitySet="Users_Instruments" />
           </AssociationSet>
@@ -160,6 +160,7 @@
           <Property Name="StageSize" Type="char" Nullable="false" MaxLength="1" />
           <Property Name="Photo" Type="varbinary(max)" />
           <Property Name="Creator_ID" Type="int" />
+          <Property Name="Description" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="Events_Bands">
           <Key>
@@ -235,7 +236,7 @@
           <Property Name="Instrument_ID" Type="int" Nullable="false" />
           <Property Name="Skills" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Adverts__Creator__59063A47">
+        <Association Name="FK__Adverts__Creator__114A936A">
           <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
           <End Role="Adverts" Type="TrouveUnBandModel.Store.Adverts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,7 +248,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Adverts_G__Adver__5BE2A6F2">
+        <Association Name="FK__Adverts_G__Adver__14270015">
           <End Role="Adverts" Type="TrouveUnBandModel.Store.Adverts" Multiplicity="1" />
           <End Role="Adverts_Genres" Type="TrouveUnBandModel.Store.Adverts_Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -259,7 +260,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Adverts_G__Genre__5CD6CB2B">
+        <Association Name="FK__Adverts_G__Genre__151B244E">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Adverts_Genres" Type="TrouveUnBandModel.Store.Adverts_Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,7 +272,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bands_Gen__Band___4F7CD00D">
+        <Association Name="FK__Bands_Gen__Band___07C12930">
           <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
           <End Role="Bands_Genres" Type="TrouveUnBandModel.Store.Bands_Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,7 +284,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bands_Gen__Genre__5070F446">
+        <Association Name="FK__Bands_Gen__Genre__08B54D69">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Bands_Genres" Type="TrouveUnBandModel.Store.Bands_Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -295,7 +296,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bands_Use__Band___534D60F1">
+        <Association Name="FK__Bands_Use__Band___0B91BA14">
           <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
           <End Role="Bands_Users" Type="TrouveUnBandModel.Store.Bands_Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -307,7 +308,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bands_Use__User___5441852A">
+        <Association Name="FK__Bands_Use__User___0C85DE4D">
           <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
           <End Role="Bands_Users" Type="TrouveUnBandModel.Store.Bands_Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -319,7 +320,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Ba__Band___412EB0B6">
+        <Association Name="FK__Events_Ba__Band___797309D9">
           <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
           <End Role="Events_Bands" Type="TrouveUnBandModel.Store.Events_Bands" Multiplicity="*" />
           <ReferentialConstraint>
@@ -331,7 +332,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Ba__Event__403A8C7D">
+        <Association Name="FK__Events_Ba__Event__787EE5A0">
           <End Role="Events" Type="TrouveUnBandModel.Store.Events" Multiplicity="1" />
           <End Role="Events_Bands" Type="TrouveUnBandModel.Store.Events_Bands" Multiplicity="*" />
           <ReferentialConstraint>
@@ -343,7 +344,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Ge__Event__3C69FB99">
+        <Association Name="FK__Events_Ge__Event__74AE54BC">
           <End Role="Events" Type="TrouveUnBandModel.Store.Events" Multiplicity="1" />
           <End Role="Events_Genres" Type="TrouveUnBandModel.Store.Events_Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -355,7 +356,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Ge__Genre__3D5E1FD2">
+        <Association Name="FK__Events_Ge__Genre__75A278F5">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Events_Genres" Type="TrouveUnBandModel.Store.Events_Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -367,7 +368,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Us__Event__440B1D61">
+        <Association Name="FK__Events_Us__Event__7C4F7684">
           <End Role="Events" Type="TrouveUnBandModel.Store.Events" Multiplicity="1" />
           <End Role="Events_Users" Type="TrouveUnBandModel.Store.Events_Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -379,7 +380,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Us__User___44FF419A">
+        <Association Name="FK__Events_Us__User___7D439ABD">
           <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
           <End Role="Events_Users" Type="TrouveUnBandModel.Store.Events_Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -391,7 +392,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Genres__Parent_I__34C8D9D1">
+        <Association Name="FK__Genres__Parent_I__6D0D32F4">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="0..1" />
           <End Role="Genres1" Type="TrouveUnBandModel.Store.Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -403,7 +404,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users_Gen__Genre__48CFD27E">
+        <Association Name="FK__Users_Gen__Genre__01142BA1">
           <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
           <End Role="Users_Genres" Type="TrouveUnBandModel.Store.Users_Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -415,7 +416,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users_Gen__User___47DBAE45">
+        <Association Name="FK__Users_Gen__User___00200768">
           <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
           <End Role="Users_Genres" Type="TrouveUnBandModel.Store.Users_Genres" Multiplicity="*" />
           <ReferentialConstraint>
@@ -427,7 +428,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users_Ins__Instr__4CA06362">
+        <Association Name="FK__Users_Ins__Instr__04E4BC85">
           <End Role="Instruments" Type="TrouveUnBandModel.Store.Instruments" Multiplicity="1" />
           <End Role="Users_Instruments" Type="TrouveUnBandModel.Store.Users_Instruments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -439,7 +440,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users_Ins__User___4BAC3F29">
+        <Association Name="FK__Users_Ins__User___03F0984C">
           <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
           <End Role="Users_Instruments" Type="TrouveUnBandModel.Store.Users_Instruments" Multiplicity="*" />
           <ReferentialConstraint>
@@ -572,6 +573,7 @@
           <NavigationProperty Name="Bands" Relationship="TrouveUnBandModel.Events_Bands" FromRole="Events" ToRole="Bands" />
           <NavigationProperty Name="Genres" Relationship="TrouveUnBandModel.Events_Genres" FromRole="Events" ToRole="Genres" />
           <NavigationProperty Name="Users" Relationship="TrouveUnBandModel.Events_Users" FromRole="Events" ToRole="Users" />
+          <Property Type="String" Name="Description" Nullable="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -691,7 +693,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Adverts_Genres">
-          <End Role="Adverts" Type="TrouveUnBandModel.Advert" Multiplicity="*" />
+          <End Role="Adverts" Type="TrouveUnBandModel.Advert" Multiplicity="*" >
+          </End>
           <End Role="Genres" Type="TrouveUnBandModel.Genre" Multiplicity="*" />
         </Association>
         <Association Name="Bands_Genres">
@@ -753,6 +756,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="TrouveUnBandModel.Event">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Event_ID" ColumnName="Event_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
@@ -889,87 +893,64 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Model" ZoomLevel="83">
-        <EntityTypeShape EntityType="TrouveUnBandModel.Advert" Width="1.5" PointX="7.5" PointY="5" Height="3.1340950520833335" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrouveUnBandModel.Band" Width="1.5" PointX="0.75" PointY="5.375" Height="2.5571907552083335" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrouveUnBandModel.Event" Width="1.5" PointX="10.5" PointY="4.625" Height="3.9033007812499987" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrouveUnBandModel.Genre" Width="1.5" PointX="3" PointY="5.25" Height="2.7494921874999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrouveUnBandModel.Instrument" Width="1.5" PointX="5.25" PointY="1.75" Height="1.5956835937499996" IsExpanded="true" />
+      <Diagram Name="Model" ZoomLevel="80">
+        <EntityTypeShape EntityType="TrouveUnBandModel.Advert" Width="1.5" PointX="2.625" PointY="3.875" Height="3.1340950520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Band" Width="1.5" PointX="7.75" PointY="7.25" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Event" Width="1.5" PointX="10.5" PointY="4.625" Height="4.0956022135416656" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Genre" Width="1.5" PointX="2.75" PointY="7.625" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Instrument" Width="1.5" PointX="2.625" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.User" Width="1.5" PointX="5.25" PointY="4.25" Height="4.6725065104166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrouveUnBandModel.Users_Instruments" Width="1.5" PointX="7.5" PointY="1.625" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Users_Instruments" Width="1.5" PointX="5.25" PointY="1.75" Height="1.9802864583333317" IsExpanded="true" />
         <AssociationConnector Association="TrouveUnBandModel.FK__Adverts__Creator__6B24EA82" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="6.5670475260416667" />
-          <ConnectorPoint PointX="6.916666666666667" PointY="6.5670475260416659" />
-          <ConnectorPoint PointX="7.083333333333333" PointY="6.5670475260416667" />
-          <ConnectorPoint PointX="7.5" PointY="6.5670475260416667" />
+          <ConnectorPoint PointX="5.25" PointY="5.6295475260416667" />
+          <ConnectorPoint PointX="4.125" PointY="5.6295475260416667" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.fk_event_creator_id" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="8.3624479166666674" />
-          <ConnectorPoint PointX="10.5" PointY="8.3624479166666674" />
+          <ConnectorPoint PointX="6.75" PointY="6.4494502766927084" />
+          <ConnectorPoint PointX="10.5" PointY="6.4494502766927084" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.FK__Genres__Parent_I__45F365D3" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.5319230769230767" PointY="7.9994921875" />
-          <ConnectorPoint PointX="3.5319230769230767" PointY="8.2494921875" />
-          <ConnectorPoint PointX="3.9784615384615383" PointY="8.2494921875" />
-          <ConnectorPoint PointX="3.9784615384615383" PointY="7.9994921875" />
+          <ConnectorPoint PointX="3.2819230769230767" PointY="10.3744921875" />
+          <ConnectorPoint PointX="3.2819230769230767" PointY="10.6244921875" />
+          <ConnectorPoint PointX="3.7284615384615383" PointY="10.6244921875" />
+          <ConnectorPoint PointX="3.7284615384615383" PointY="10.3744921875" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.FK__Users_Ins__Instr__5EBF139D" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="2.547841796875" />
-          <ConnectorPoint PointX="7.5" PointY="2.547841796875" />
+          <ConnectorPoint PointX="4.125" PointY="2.797841796875" />
+          <ConnectorPoint PointX="5.25" PointY="2.797841796875" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.FK__Users_Ins__User___5DCAEF64" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="4.25" />
-          <ConnectorPoint PointX="7.125" PointY="3.875" />
-          <ConnectorPoint PointX="7.125" PointY="3.9802864583333317" />
-          <ConnectorPoint PointX="7.5" PointY="3.6052864583333317" />
+          <ConnectorPoint PointX="6" PointY="4.25" />
+          <ConnectorPoint PointX="6" PointY="3.7302864583333317" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Adverts_Genres" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="7.3818232890625008" />
-          <ConnectorPoint PointX="7" PointY="7.3818232890625008" />
-          <ConnectorPoint PointX="7" PointY="4" />
-          <ConnectorPoint PointX="3.75" PointY="4" />
-          <ConnectorPoint PointX="3.75" PointY="5.25" />
+          <ConnectorPoint PointX="3.4375" PointY="7.0090950520833335" />
+          <ConnectorPoint PointX="3.4375" PointY="7.625" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Bands_Genres" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.6535953776041667" />
-          <ConnectorPoint PointX="2.6666666666666665" PointY="6.6535953776041659" />
-          <ConnectorPoint PointX="2.8333333333333335" PointY="6.6535953776041667" />
-          <ConnectorPoint PointX="3" PointY="6.6535953776041667" />
+          <ConnectorPoint PointX="7.75" PointY="9.3960986328125" />
+          <ConnectorPoint PointX="4.25" PointY="9.3960986328125" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Bands_Users" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="7.9321907552083335" />
-          <ConnectorPoint PointX="1.5" PointY="8.5859993489583317" />
-          <ConnectorPoint PointX="2.6666666666666665" PointY="8.5859993489583317" />
-          <ConnectorPoint PointX="2.8333333333333335" PointY="8.5859993489583317" />
-          <ConnectorPoint PointX="5.25" PointY="8.5859993489583317" />
+          <ConnectorPoint PointX="7.75" PointY="8.0862532552083319" />
+          <ConnectorPoint PointX="6.75" PointY="8.0862532552083319" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Events_Bands" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.9830456888020835" />
-          <ConnectorPoint PointX="2.75" PointY="5.9830456888020835" />
-          <ConnectorPoint PointX="2.75" PointY="9.1725065104166656" />
-          <ConnectorPoint PointX="11.25" PointY="9.1725065104166656" />
-          <ConnectorPoint PointX="11.25" PointY="8.52830078125" />
+          <ConnectorPoint PointX="9.25" PointY="7.9853011067708319" />
+          <ConnectorPoint PointX="10.5" PointY="7.9853011067708319" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Events_Genres" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.5" PointY="6.4624719583333334" />
-          <ConnectorPoint PointX="9.25" PointY="6.4624719583333334" />
-          <ConnectorPoint PointX="9.25" PointY="4.125" />
-          <ConnectorPoint PointX="7.083333333333333" PointY="4.1249999999999991" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="4.125" />
-          <ConnectorPoint PointX="4.156252" PointY="4.125" />
-          <ConnectorPoint PointX="4.156252" PointY="5.25" />
+          <ConnectorPoint PointX="11.25" PointY="8.7206022135416656" />
+          <ConnectorPoint PointX="11.25" PointY="10.122091471354166" />
+          <ConnectorPoint PointX="4.25" PointY="10.122091471354166" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Events_Users" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.5" PointY="4.78125" />
-          <ConnectorPoint PointX="9.3333333333333339" PointY="4.7812499999999991" />
-          <ConnectorPoint PointX="9.1666666666666661" PointY="4.78125" />
-          <ConnectorPoint PointX="7.083333333333333" PointY="4.7812499999999991" />
-          <ConnectorPoint PointX="6.916666666666667" PointY="4.78125" />
-          <ConnectorPoint PointX="6.75" PointY="4.78125" />
+          <ConnectorPoint PointX="10.5" PointY="5.5864005533854169" />
+          <ConnectorPoint PointX="6.75" PointY="5.5864005533854169" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Users_Genres" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="6.62474609375" />
-          <ConnectorPoint PointX="5.25" PointY="6.62474609375" />
+          <ConnectorPoint PointX="4.25" PointY="8.2737532552083337" />
+          <ConnectorPoint PointX="5.25" PointY="8.2737532552083337" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

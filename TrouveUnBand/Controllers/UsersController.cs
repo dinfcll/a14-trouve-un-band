@@ -273,7 +273,9 @@ namespace TrouveUnBand.Controllers
         public string GetPhotoSrc()
         {
             var LoggedOnUser = GetUserInfo(User.Identity.Name);
-            return LoggedOnUser.ProfilePicture.PhotoSrc;
+            Photo profilePhoto = new Photo();
+            profilePhoto.PhotoArray = LoggedOnUser.Photo;
+            return profilePhoto.PhotoSrc;
         }
 
 

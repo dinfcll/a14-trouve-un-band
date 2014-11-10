@@ -31,13 +31,13 @@
             {
                 <div class="col-md-12">
                     <div class="row col-md-4 form-group">
-                        @if (item.AdvertPhoto == null)
+                        @if (item.Photo == null)
                         {
                             <img src="http://placehold.it/250x200" alt="Image">
                         }
                         else
                         {
-                            var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.AdvertPhoto);
+                            var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
                             <img src="@photo" width="250" class="photo" alt="Image">
                         }
                     </div>
@@ -49,7 +49,7 @@
                             <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayName(item.CreationDate.ToString("dd MMMM yyyy"))
                         </div>
                         <div class="col-md-3 form-group">
-                            <span class="glyphicon glyphicon-music"></span> @Html.DisplayName(item.Genre.Name)
+                            <span class="glyphicon glyphicon-music"></span> @Html.DisplayName(item.Genres.FirstOrDefault().Name)
                         </div>
                         <div class="col-md-3 form-group col-md-pull-1">
                             <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(item.Location)
@@ -64,13 +64,13 @@
                         @if (item.User.Nickname == User.Identity.Name)
                         {
                             <div class="col-md-4">
-                                @Html.ActionLink("Modifier l'annonce", "Edit", new { id = item.AdvertId }, new { @class = "btn btn-primary col-md-12" })
+                                @Html.ActionLink("Modifier l'annonce", "Edit", new { id = item.Advert_ID }, new { @class = "btn btn-primary col-md-12" })
                             </div>
                             <div class="col-md-4">
-                                @Html.ActionLink("Fermer l'annonce", "Close", new { id = item.AdvertId }, new { @class = "btn btn-warning col-md-12" })
+                                @Html.ActionLink("Fermer l'annonce", "Close", new { id = item.Advert_ID }, new { @class = "btn btn-warning col-md-12" })
                             </div>
                             <div class="col-md-4">          
-                                @Html.ActionLink("Supprimer l'annonce", "Delete", new { id = item.AdvertId }, new { @class = "btn btn-danger col-md-12" })
+                                @Html.ActionLink("Supprimer l'annonce", "Delete", new { id = item.Advert_ID }, new { @class = "btn btn-danger col-md-12" })
                             </div>
                         }
                     </div>

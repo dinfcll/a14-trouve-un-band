@@ -9,7 +9,7 @@
 
 
 <div id="NewsfeedUser" class="row">
-@foreach (var item in (List<TrouveUnBand.Models.NewsfeedUserModel>)ViewData["NewsfeedUser"])
+@foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedUser"])
 {  
     <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems thumbnail">
         <div class="thumbnail card">
@@ -23,14 +23,13 @@
                 <img src="@photo" width="100" height="100" class="photo" alt="Image">
             }
         </div>
-        @Html.DisplayFor(modelItem => item.FirstName)
-        @Html.DisplayFor(modelItem => item.LastName) 
+        @Html.DisplayFor(modelItem => item.Name)
     </div>
 }
 </div>
 
 <div id="NewsfeedBand" class="row">
-@foreach (var item in (List<TrouveUnBand.Models.NewsfeedBandModel>)ViewData["NewsfeedBand"])
+@foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedBand"])
 {
     <div class="col-md-3 NewsfeedItems thumbnail">
         <img src="http://placehold.it/200x200">
@@ -48,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.Description)
             </div>
             <div class="row">
-            @Html.ActionLink("Details", "Details", new { id = item.BandId })
+            @Html.ActionLink("Details", "Details", new { id = item })
             </div>
             <a href="#" class="btn btn-primary" role="button">Button</a> 
             <a href="#" class="btn btn-default" role="button">Button</a>
@@ -58,7 +57,7 @@
 </div>
 
 <div id="NewsfeedEvent" class="row">
-@foreach (var item in (List<TrouveUnBand.Models.Event>)ViewData["NewsfeedEvent"])
+@foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedEvent"])
 {
     <div class="col-md-4 thumbnail">
         <div class="thumbnail card">
@@ -86,7 +85,7 @@
                     <span>@item.Genres</span>
                     </div>
                     <div class="row">
-                    @Html.ActionLink("Details", "Details", new { id = item.Event_ID})
+                    @Html.ActionLink("Details", "Details", new { id = item})
                     </div>
                     <a href="#" class="btn btn-primary" role="button">Button</a> 
                     <a href="#" class="btn btn-default" role="button">Button</a>
@@ -96,17 +95,17 @@
 </div>
 
 <div id="NewsfeedAdvert" class="row">
-@foreach (var item in (List<TrouveUnBand.Models.NewsfeedAdvertModel>)ViewData["NewsfeedAdvert"])
+@foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedAdvert"])
 {
     <div class="col-md-4 thumbnail">
         <div class="thumbnail card">
-            @if (item.AdvertPhoto == null)
+            @if (item.Photo == null)
             {
                 <img src="http://placehold.it/250x172" alt="Image">
             }
             else
             {
-                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.AdvertPhoto);
+                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
                 <img src="@photo" width="250" height="172" class="photo" alt="Image">
             }
         </div>
@@ -117,14 +116,14 @@
             </div>
             <div class="row">
             @Html.Label("Genre")
-            @Html.DisplayFor(modelItem => item.Genre.Name)
+            @Html.DisplayFor(modelItem => item.Genres)
             </div>
             <div class="row">
             @Html.Label("Description")
             @Html.DisplayFor(modelItem => item.Description)
             </div>
             <div class="row">
-            @Html.ActionLink("Details", "Details", new { id = item.AdvertId })
+            @Html.ActionLink("Details", "Details", new { id = item })
             </div>
             <a href="#" class="btn btn-primary" role="button">Button</a> 
             <a href="#" class="btn btn-default" role="button">Button</a>

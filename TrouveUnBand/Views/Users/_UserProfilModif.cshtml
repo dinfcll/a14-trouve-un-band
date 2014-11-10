@@ -2,13 +2,15 @@
 <div class="row pad-top-30">
     @using (Html.BeginForm("CropImage", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo);
         @Html.AntiForgeryToken()
         <div class="col-md-4">
             <div class="row col-md-offset-2">
                 @Html.Label("Photo de Profil")
             </div>
             <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#PicModal">
-                <img id="ProfilePic" alt="" src="@Model.ProfilePicture.PhotoSrc" width="350" class="photo" />
+            
+                <img id="ProfilePic" alt="" src="@photo" width="350" class="photo" />
             </a>
             <input id="ImageUploader" class="btn" type="file" name="FileUpload" accept="image/*" />
             <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
@@ -23,7 +25,7 @@
     @using (Html.BeginForm("UserProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form" }))
     {
         <div class="pad-top-10">
-            @Html.HiddenFor(model => model.UserId, new { @class = "form-control", @Value = Model.UserId })
+            @Html.HiddenFor(model => model.User_ID, new { @class = "form-control", @Value = Model.User_ID })
             <div class="form-group col-md-3 col-md-push-1">
                 @Html.Label("Prénom:")
                 @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @Value = Model.FirstName })
@@ -41,7 +43,7 @@
             </div>
             <div class="form-group col-md-3 col-md-push-1">
                 @Html.Label("Sexe:")
-                @Html.DropDownListFor(model => model.Gender, 
+                @Html.DropDownListFor(model => model.Gender,
                                       new SelectList(
                                           new List<Object>{
                                               new { value = "Homme" , text = "Homme" },
