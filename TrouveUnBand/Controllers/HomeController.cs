@@ -56,14 +56,13 @@ namespace TrouveUnBand.Controllers
                                 Nickname = user.Nickname,
                                 Photo = user.Photo
                             };
-
             var EventQuery = from events in db.Events
                             orderby events.Event_ID descending
                             select new NewsfeedEventModel
                             {
                                 EventId = events.Event_ID,
                                 EventName = events.Name,
-                                Genres =  events.Genres,
+                                Genres = events.Genres.ToList(),
                                 EventLocation = events.Location,
                                 EventPhoto = events.Photo
                             };
@@ -72,11 +71,11 @@ namespace TrouveUnBand.Controllers
                             orderby advert.Advert_ID descending
                             select new NewsfeedAdvertModel
                             {
-                                AdvertId = advert.AdvertId,
+                                AdvertId = advert.Advert_ID,
                                 Description = advert.Description,
                                 Type = advert.Type,
-                                Genre = advert.Genre,
-                                AdvertPhoto = advert.AdvertPhoto
+                                Genre = advert.Genres.FirstOrDefault(),
+                                AdvertPhoto = advert.Photo
                             };
 
             BandQuery = BandQuery.Take(4);

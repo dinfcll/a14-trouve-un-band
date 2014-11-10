@@ -12,7 +12,7 @@ namespace TrouveUnBand.Controllers
     public class UsersController : Controller
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
+        
         public ActionResult Index()
         {
             return View();
@@ -49,6 +49,7 @@ namespace TrouveUnBand.Controllers
                     RC = "Le mot de passe et sa confirmation ne sont pas identiques.";
                 }
             }
+
             TempData["TempDataError"] = RC;
             return View();
         }
@@ -174,10 +175,10 @@ namespace TrouveUnBand.Controllers
 
             ViewData["UserData"] = LoggedOnUserValid;
 
-            Musician MusicianQuery = db.Musicians.FirstOrDefault(x => x.UserId == LoggedOnUserValid.UserId);
+            User MusicianQuery = db.Users.FirstOrDefault(x => x.User_ID == LoggedOnUserValid.User_ID);
             if (MusicianQuery == null)
             {
-                MusicianQuery = new Musician();
+                MusicianQuery = new User();
             }
             ViewData["MusicianProfilData"] = MusicianQuery;
             return View();
@@ -259,7 +260,7 @@ namespace TrouveUnBand.Controllers
         private User GetUserInfo(string Nickname)
         {
             User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
-            LoggedOnUser.ProfilePicture.PhotoArray = LoggedOnUser.Photo;
+            LoggedOnUser.Photo = LoggedOnUser.Photo;
             return LoggedOnUser;
         }
 

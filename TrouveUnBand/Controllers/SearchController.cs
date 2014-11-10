@@ -32,7 +32,7 @@ namespace TrouveUnBand.Controllers
             }, "value", "text");
 
             List<Band> bandsList = GetBands(null, SearchString, "");
-            List<Musician> musiciansList = GetMusicians(null, SearchString, "");
+            List<User> musiciansList = GetUsers(null, SearchString, "");
             List<Event> eventList = GetEvents(null, SearchString, "");
             foreach (Band band in bandsList)
             {
@@ -42,13 +42,13 @@ namespace TrouveUnBand.Controllers
                     Description = band.Description,
                     Location = band.Location,
                     Type = "Band", 
-                    ID = band.BandId
+                    ID = band.Band_ID
                 });
             }
 
-            foreach (Musician musician in musiciansList)
+            foreach (User musician in musiciansList)
             {
-                User user = db.Users.Find(musician.UserId);
+                User user = db.Users.Find(musician.User_ID);
 
                 ResultsList.Add(new SearchResult
                 {
@@ -56,19 +56,19 @@ namespace TrouveUnBand.Controllers
                     Description = musician.Description,
                     Location = user.Location,
                     Type = "Musicien",
-                    ID = musician.MusicianId
+                    ID = musician.User_ID
                 });
             }
 
             foreach (Event events in eventList)
             {
-                Event eventBD = db.Events.Find(events.EventId);
+                Event eventBD = db.Events.Find(events.Event_ID);
 
                 ResultsList.Add(new SearchResult
                 {
-                    Name = eventBD.EventName,
+                    Name = eventBD.Name,
                     Description = eventBD.EventDate.ToString("yyyy-MM-dd"),
-                    Location = eventBD.EventLocation,
+                    Location = eventBD.Location,
                     Type = "événement"
                 });
             }
@@ -92,7 +92,7 @@ namespace TrouveUnBand.Controllers
                 case OPTION_ALL:
 
                     List<Band> bandsList = GetBands(DDLGenres, SearchString, Location);
-                    List<Musician> musiciansList = GetMusicians(DDLGenres, SearchString, Location);
+                    List<User> musiciansList = GetUsers(DDLGenres, SearchString, Location);
 
                     foreach (Band band in bandsList)
                     {
@@ -102,13 +102,13 @@ namespace TrouveUnBand.Controllers
                             Description = band.Description, 
                             Location = band.Location, 
                             Type = "Band" ,
-                            ID = band.BandId
+                            ID = band.Band_ID
                         });
                     }
 
-                    foreach (Musician musician in musiciansList)
+                    foreach (User musician in musiciansList)
                     {
-                        User user = db.Users.Find(musician.UserId);
+                        User user = db.Users.Find(musician.User_ID);
 
                         ResultsList.Add(new SearchResult
                         {
@@ -116,7 +116,7 @@ namespace TrouveUnBand.Controllers
                             Description = musician.Description,
                             Location = user.Location,
                             Type = "Musicien",
-                            ID = musician.MusicianId
+                            ID = musician.User_ID
                         });
                     }
 
@@ -134,7 +134,7 @@ namespace TrouveUnBand.Controllers
                             Description = band.Description,
                             Location = band.Location,
                             Type = "Band",
-                            ID = band.BandId
+                            ID = band.Band_ID
                         });
                     }
 
@@ -142,11 +142,11 @@ namespace TrouveUnBand.Controllers
 
                 case OPTION_MUSICIAN:
 
-                    musiciansList = GetMusicians(DDLGenres, SearchString, Location);
+                    musiciansList = GetUsers(DDLGenres, SearchString, Location);
 
-                    foreach (Musician musician in musiciansList)
+                    foreach (User musician in musiciansList)
                     {
-                        User user = db.Users.Find(musician.UserId);
+                        User user = db.Users.Find(musician.User_ID);
 
                         ResultsList.Add(new SearchResult
                         {
@@ -154,7 +154,7 @@ namespace TrouveUnBand.Controllers
                             Description = musician.Description,
                             Location = user.Location,
                             Type = "Musicien" ,
-                            ID = musician.MusicianId
+                            ID = musician.User_ID
                         });
                     }
 
@@ -172,7 +172,7 @@ namespace TrouveUnBand.Controllers
                             Description = "",
                             Location = user.Location,
                             Type = "Utilisateur",
-                            ID = user.UserId
+                            ID = user.User_ID
                         });
                     }
 
@@ -186,9 +186,9 @@ namespace TrouveUnBand.Controllers
                     {
                         ResultsList.Add(new SearchResult
                         {
-                            Name = events.EventName,
+                            Name = events.Name,
                             Description = "",
-                            Location = events.EventLocation,
+                            Location = events.Location,
                             Type = "événement"
                         });
                     }
@@ -211,7 +211,7 @@ namespace TrouveUnBand.Controllers
 
             if (GenreID != null)
             {
-                bands = bands.Where(band => band.Genres.Any(genre => genre.GenreId == GenreID));
+                bands = bands.Where(band => band.Genres.Any(genre => genre.Genre_ID == GenreID));
             }
             if (!String.IsNullOrEmpty(BandName))
             {
@@ -308,11 +308,11 @@ namespace TrouveUnBand.Controllers
 
             if (!String.IsNullOrEmpty(EventName))
             {
-                eventList = eventList.Where(events => events.EventName.Contains(EventName));
+                eventList = eventList.Where(events => events.Name.Contains(EventName));
             }
             if (!String.IsNullOrEmpty(Location))
             {
-                eventList.Where(events => events.EventLocation.Contains(Location));
+                eventList.Where(events => events.Location.Contains(Location));
             }
 
 
@@ -326,12 +326,12 @@ namespace TrouveUnBand.Controllers
             switch (type.ToUpper())
             {
                 case "MUSICIEN":
-                    Musician musician = db.Musicians.FirstOrDefault(x => x.MusicianId == Id);
+                    User musician = db.Users.FirstOrDefault(x => x.User_ID == Id);
                     MusicianProfileViewModel MusicianProfile = CreateProfile.CreateMusicianProfileView(musician);
                     return View("../Users/MusicianProfile", MusicianProfile);
 
                 case "BAND":
-                    Band band = db.Bands.FirstOrDefault(x => x.BandId == Id);
+                    Band band = db.Bands.FirstOrDefault(x => x.Band_ID == Id);
                     BandProfileViewModel BandProfile = CreateProfile.CreateBandProfileView(band);
                     return View("../Group/BandProfile", BandProfile);
 

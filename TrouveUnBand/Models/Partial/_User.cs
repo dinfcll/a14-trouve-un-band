@@ -11,7 +11,12 @@ namespace TrouveUnBand.Models
     [MetadataType(typeof(User.UserMetadata))]
     public partial class User
     {
-        private sealed class UserMetadata
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
+        [NotMapped]
+        public Photo ProfilePicture { get; set; }
+
+        public sealed class UserMetadata
         {
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
@@ -33,10 +38,6 @@ namespace TrouveUnBand.Models
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Doit avoir 4 caractères minimum")]
             public string Password { get; set; }
-            [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Doit avoir 4 caractères minimum")]
-            public string ConfirmPassword { get; set; }
-            [NotMapped]
-            public Photo ProfilePicture { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             public string Gender { get; set; }
             public double Latitude { get; set; }

@@ -52,11 +52,12 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
-                events.EventGender = Request["EventGenreDB"];
-                events.EventCreator = Request["Creator"];
+                var genre = db.Genres.FirstOrDefault(x => x.Genre_ID == Convert.ToInt32(Request["EventGenreDB"]));
+                events.Genres.Add(genre);
+                events.Creator_ID = Convert.ToInt32(Request["Creator"]);
                 if (Request.Files[0].ContentLength != 0)
                 {
-                    events.EventPhoto = GetPostedEventPhoto();
+                    events.Photo = GetPostedEventPhoto();
                 }
                 db.Events.Add(events);
                 db.SaveChanges();
@@ -80,18 +81,19 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Edit(Event events)
         {
-            events.EventCreator = Request["Creator"];
-            events.EventGender = Request["EventGenreDB"];
+            events.Creator_ID = Convert.ToInt32(Request["Creator"]);
+            var genre = db.Genres.FirstOrDefault(x => x.Genre_ID == Convert.ToInt32(Request["EventGenreDB"]));
+            events.Genres.Add(genre);
             db.Entry(events).State = EntityState.Modified;
             if (Request.Files[0].ContentLength != 0)
             {
-                events.EventPhoto = GetPostedEventPhoto();
+                events.Photo = GetPostedEventPhoto();
             }
             else
             {
-                if (GetEventPhotoByte(events.EventId) != null)
+                if (GetEventPhotoByte(events.Event_ID) != null)
                 {
-                    events.EventPhoto = GetEventPhotoByte(events.EventId);
+                    events.Photo = GetEventPhotoByte(events.Event_ID);
                 }
             }
 
@@ -137,10 +139,10 @@ namespace TrouveUnBand.Controllers
         {
             var PicQuery = (from Events in db.Events
                             where
-                            Events.EventId.Equals(eventID)
+                            Events.Event_ID.Equals(eventID)
                             select new Photo
                             {
-                                PhotoArray = Events.EventPhoto
+                                PhotoArray = Events.Photo
                             }).FirstOrDefault();
             return PicQuery.PhotoArray;
         }

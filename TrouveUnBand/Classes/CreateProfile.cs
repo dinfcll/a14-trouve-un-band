@@ -13,7 +13,7 @@ namespace TrouveUnBand.Classes
         {
             MusicianProfileViewModel MusicianView = new MusicianProfileViewModel();
 
-            List<Musician> MusicianList = new List<Musician>();
+            List<User> MusicianList = new List<User>();
             MusicianList.Add(user);
             List<Musician_Instrument> InstrumentInfos = SetMusician_Instrument(MusicianList);
 
@@ -30,7 +30,7 @@ namespace TrouveUnBand.Classes
         {
             BandProfileViewModel BandView = new BandProfileViewModel();
 
-            BandView.InstrumentInfoList = SetMusician_Instrument(band.Musicians.ToList());
+            BandView.InstrumentInfoList = SetMusician_Instrument(band.Users.ToList());
             BandView.Name = band.Name;
             BandView.Description = band.Description;
             BandView.Location = band.Location;
@@ -38,16 +38,16 @@ namespace TrouveUnBand.Classes
             return BandView;
         }
 
-        private static List<Musician_Instrument> SetMusician_Instrument(List<Musician> musicians)
+        private static List<Musician_Instrument> SetMusician_Instrument(List<User> musicians)
         {
             List<Musician_Instrument> InstrumentInfoList = new List<Musician_Instrument>();
-            ICollection<Join_Musician_Instrument> ListOfInstruments;
+            ICollection<Users_Instruments> ListOfInstruments;
             List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
 
             foreach (var musician in musicians)
             {
                 ListOfInstruments = musician
-                                    .Join_Musician_Instrument
+                                    .Users_Instruments
                                     .OrderByDescending(x => (x.Skills))
                                     .ToList();
 
