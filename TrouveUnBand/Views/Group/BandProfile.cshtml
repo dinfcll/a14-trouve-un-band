@@ -25,6 +25,11 @@
                 <li>
                     <span class="glyphicon glyphicon-eye-open"></span><span>Guitariste, Promoteur</span>
                 </li>
+                <li>
+                    <div class="col-md-offset-9 pull-right">
+                        @Html.Partial("../SocialMedia/_ShareButtons")
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -103,10 +108,6 @@
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
      aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
-</div>
-
-<div class="SocialMediaBar col-md-offset-9">
-    @Html.Partial("../Shared/_ShareButtons")
 </div>
 
 <div visibility="hidden">
