@@ -47,7 +47,7 @@ namespace TrouveUnBand.Controllers
             if (!Request.IsAuthenticated)
             {
                 MessageAlert = AlertMessages.NOT_CONNECTED;
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             var CurrentUser = GetCurrentUser();
@@ -190,13 +190,10 @@ namespace TrouveUnBand.Controllers
 
         public User GetCurrentUser()
         {
-            db.Database.Connection.Open();
             string Username = User.Identity.Name;
-            var iQUser = db.Users.Where(x => x.Nickname == Username);
-            User CurrentUser = (iQUser.ToList())[0];
-            db.Database.Connection.Close();
+            var CurrentUser = db.Users.FirstOrDefault(x => x.Nickname == Username);
+
             return CurrentUser;
-            
         }
 
         public bool IsValidBand(Band myBand)

@@ -5,7 +5,6 @@
 }
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
           <div class="modal-header">
@@ -30,49 +29,49 @@
                             <h2>@Html.DisplayNameFor(model => model.Genres)</h2>
                         </div>
                         <blockquote>
-                                @foreach (var item in Model.Genres)
+@*                                @foreach (var item in Model.Genres)
                                 {
                                     <div class="display-field">
                                         @Html.DisplayFor(model => item.Name)
                                     </div>
-                                }
+                                }*@
                         </blockquote>
                     </div>
 
                     <div class="container-fluid">
                         <div class="display-label">
-                            <h2>@Html.DisplayNameFor(model => model.Musicians)</h2>
+                            @*<h2>@Html.DisplayNameFor(model => model.Users)</h2>*@
                         </div>
                         <blockquote>
-                                @foreach (var item in Model.Musicians)
+                                @*@foreach (var item in Model.Users)
                                 {
                                     <div class="display-field">
-                                        @Html.DisplayFor(model => item.User.FirstName)
-                                        @Html.DisplayFor(model => item.User.LastName)
-                                        @Html.DisplayFor(model => item.User.Nickname)
+                                        @Html.DisplayFor(model => item.FirstName)
+                                        @Html.DisplayFor(model => item.LastName)
+                                        @Html.DisplayFor(model => item.Nickname)
                                     </div>
-                                }
+                                }*@
                         </blockquote>
                     </div>
 
                     <div class="container-fluid">
                         <div class="display-label">
-                                <h2>@Html.DisplayNameFor(model => model.Location)</h2>
+                                @*<h2>@Html.DisplayNameFor(model => model.Location)</h2>*@
                         </div>
                         <blockquote>
                             <div class="display-field">
-                                @Html.DisplayFor(model => model.Location)
+                                @*@Html.DisplayFor(model => model.Location)*@
                             </div>
                         </blockquote>
                     </div>
 
                     <div class="container-fluid">
                         <div class="display-label">
-                                <h2>@Html.DisplayNameFor(model => model.Description)</h2>
+                                @*<h2>@Html.DisplayNameFor(model => model.Description)</h2>*@
                         </div>
                         <blockquote>
                             <div class="display-field">
-                                @Html.DisplayFor(model => model.Description)
+                                @*@Html.DisplayFor(model => model.Description)*@
                             </div>
                         </blockquote>
                     </div>
@@ -84,4 +83,3 @@
         </div>
     </div>
   </div>
-</div>
