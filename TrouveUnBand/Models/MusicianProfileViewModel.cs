@@ -11,6 +11,7 @@ namespace TrouveUnBand.Models
     {
         public Photo ProfilePicture { get; set; }
 
+        //Musician
         public int Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
