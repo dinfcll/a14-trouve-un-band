@@ -1,14 +1,11 @@
 ﻿@model TrouveUnBand.Models.BandProfileViewModel
-@Html.DisplayNameForModel()
 @*
     Metadata de Schema.org
 *@
 <div>
     <div vocab="http://schema.org/" typeof="MusicGroup">
-        <h2 property="name">@Model.Name</h2>
-        <span property="description">
-            @Model.Description
-        </span>
+        <h2 property="name" content="@Model.Name"></h2>
+        <span property="description" content="@Model.Description"></span>
         <meta property="place" content="@Model.Location" />
     </div>
 </div>
@@ -16,11 +13,14 @@
     Metadata de Open Graph protocol
 *@
 <div>
-    <meta property="og:title" content="@Model.Name">
-    <meta property="og:type" content="band">
-    <meta property="og:url" content="@Request.Url">
-    <meta property="og:site_name" content="TrouverUnBand.com">
-    <meta property="og:description" content="Chercher et trouver un band ou un musicien">
-    <meta property="og:street-address" content="@Model.Location">
+    @section AddToHead
+    {
+        <meta property="og:title" content="@Model.Name">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="@Request.Url">
+        <meta property="og:site_name" content="TrouverUnBand.com">
+        <meta property="og:description" content="Chercher et trouver un band ou un musicien">
+        <meta property="og:street-address" content="@Model.Location">
+    }
 </div>
 <!-- Open Graph Meta Tags by: www.MetaTagGenerator.org -->

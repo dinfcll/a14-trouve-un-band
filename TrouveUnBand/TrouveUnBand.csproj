@@ -222,6 +222,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\fonts\font-awesome.svg" />
+    <Content Include="Content\signin.css" />
+    <Content Include="Content\Social-Icons.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -421,6 +424,11 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\bootstrap-theme.css.map" />
+    <None Include="Content\bootstrap.css.map" />
+    <None Include="Content\fonts\font-awesome.eot" />
+    <None Include="Content\fonts\font-awesome.ttf" />
+    <None Include="Content\fonts\font-awesome.woff" />
     <None Include="Models\TUBModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.Context.cs</LastGenOutput>

@@ -1,30 +1,13 @@
-﻿<div id="SocialMediaButtons" class="container-fluid pull-right">
-    <div class="pad-top-10">
-        <div class="Adjust-GooglePlus-Button facebook-square">
-            <div class="g-plus glyphicon icon-google-plus" data-action="share" data-annotation="none"></div>
-        </div><div class="Adjust-Twitter-Button twitter-square">
-            <a class="twitter-share-button icon-tritter-t" href="@Request.Url" data-lang="fr" data-count="none" data-hashtags="TrouverUnBand">Tweeter</a>
-        </div><div class="Adjust-Facebook-Button google-plus-square">
-            <div class="fb-share-button icon-facebook" data-href="@Request.Url" data-layout="button"></div>
-        </div>
-</div>
+﻿<link href="../../Content/Social-Icons.css" rel="stylesheet" type="text/css" />
 
-<!-- I got these buttons from simplesharebuttons.com -->
-<div id="share-buttons">
- 
-<!-- Facebook -->
-<a href="http://www.facebook.com/share.php?u=[URL]&title=[TITLE]" onclick="myFunction(this.href)">facebook</a>
- 
-<!-- Twitter -->
-<a href="http://twitter.com/home?status=[TITLE]+[URL]" onclick="myFunction(this.href)">twitter</a>
- 
-<!-- Google+ -->
-<a href="https://plus.google.com/share?url=[URL]" onclick="myFunction(this.href)">googleplus</a>
+<div id="SocialMediaButtons" class="container-fluid pull-right">
+<a class="icon-facebook-square" href="http://www.facebook.com/share.php?u=@Request.Url&title=TrouverUnBand" onclick="RedirectToDialog(this.href)"></a>
+<a class="icon-twitter-square" href="http://twitter.com/home?status=TrouverUnBand+@Request.Url" onclick="RedirectToDialog(this.href)"></a>
+<a class="icon-google-plus-square" href="https://plus.google.com/share?url=@Request.Url" onclick="RedirectToDialog(this.href)"></a>
 </div>
 
 <script>
-function myFunction(s) {
-    window.open(s, 'mywin',
-'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); event.preventDefault(); ;              // the function returns the product of p1 and p2
+function RedirectToDialog(s) {
+    window.open(s, 'mywin', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); event.preventDefault(); ;
 }
 </script>
