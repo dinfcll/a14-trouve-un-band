@@ -27,15 +27,18 @@
 *@
 <div>
     @section AddToHead{
-        <meta property="og:title" content="@Model.EventName">
-        <meta property="og:type" content="activity">
+        <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:og="http://ogp.me/ns#"
+          xmlns:fb="http://www.facebook.com/2008/fbml">
+            
+        <title>TrouverUnband</title>
+        <meta property="og:title" content="TrouverUnBand">
+        <meta property="og:type" content="event">
         <meta property="og:url" content="@Request.Url">
-        <meta property="og:image" content="@Model.EventPhoto">
+        <meta property="og:image" content="http://placehold.it/600x200">
         <meta property="og:site_name" content="TrouverUnBand.com">
-        <meta property="fb:admins" content="USER_ID">
-        <meta property="fb:app_id" content="APP_ID">
-        <meta property="og:description" content="Chercher ou trouver un musicien ou un band">
-        <meta property="og:street-address" content="@Model.EventAddress">
+        <meta property="fb:app_id" content="376742939160233">
+        <meta property="og:description" content="Chercher et trouver un band ou un musicien">
     }
 </div>
 <!-- Open Graph Meta Tags by: www.MetaTagGenerator.org -->
