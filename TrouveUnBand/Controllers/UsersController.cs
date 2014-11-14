@@ -156,7 +156,7 @@ namespace TrouveUnBand.Controllers
             try
             {
                 var LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
-                UpdateUser(LoggedOnUser, user);
+                SetUserInfo(LoggedOnUser, user);
                 db.SaveChanges();
 
                 return "";
@@ -231,7 +231,7 @@ namespace TrouveUnBand.Controllers
                     user.Users_Instruments.Add(UserInstruments);
                 }
 
-                RC = UpdateProfil(user);
+                RC = UpdateMusicianProfile(user);
                 if (RC == "")
                 {
                     TempData["success"] = "Le profil musicien a été mis à jour.";
@@ -333,7 +333,7 @@ namespace TrouveUnBand.Controllers
             return userToCreate;
         }
 
-        private User UpdateUser(User currentUser, User newUser)
+        private User SetUserInfo(User currentUser, User newUser)
         {
             if ((currentUser.Latitude == 0.0 || currentUser.Longitude == 0.0) || currentUser.Location != newUser.Location)
             {
@@ -346,7 +346,30 @@ namespace TrouveUnBand.Controllers
             currentUser.BirthDate = newUser.BirthDate;
             currentUser.Gender = newUser.Gender;
             currentUser.Email = newUser.Email;
+
+            return currentUser;
+        }
+
+        private string UpdateMusicianProfile(User userToUpdate)
+        {
+            try
+            {
+                var LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
+                SetMusicianInfo(LoggedOnUser, userToUpdate);
+                db.SaveChanges();
+
+                return "";
+            }
+            catch
+            {
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+            }
+        }
+
+        private User SetMusicianInfo(User currentUser, User newUser)
+        {
             currentUser.Users_Instruments = newUser.Users_Instruments;
+            currentUser.Description = newUser.Description;
 
             return currentUser;
         }

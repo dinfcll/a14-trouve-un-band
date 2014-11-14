@@ -4,108 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TrouveUnBandModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="TrouveUnBandModelStoreContainer">
-          <EntitySet Name="Adverts" EntityType="TrouveUnBandModel.Store.Adverts" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Adverts_Genres" EntityType="TrouveUnBandModel.Store.Adverts_Genres" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Bands" EntityType="TrouveUnBandModel.Store.Bands" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Bands_Genres" EntityType="TrouveUnBandModel.Store.Bands_Genres" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Bands_Users" EntityType="TrouveUnBandModel.Store.Bands_Users" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Events" EntityType="TrouveUnBandModel.Store.Events" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Events_Bands" EntityType="TrouveUnBandModel.Store.Events_Bands" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Events_Genres" EntityType="TrouveUnBandModel.Store.Events_Genres" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Events_Users" EntityType="TrouveUnBandModel.Store.Events_Users" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Genres" EntityType="TrouveUnBandModel.Store.Genres" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Instruments" EntityType="TrouveUnBandModel.Store.Instruments" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users" EntityType="TrouveUnBandModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users_Genres" EntityType="TrouveUnBandModel.Store.Users_Genres" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users_Instruments" EntityType="TrouveUnBandModel.Store.Users_Instruments" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__Adverts__Creator__114A936A" Association="TrouveUnBandModel.Store.FK__Adverts__Creator__114A936A">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Adverts" EntitySet="Adverts" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Adverts_G__Adver__14270015" Association="TrouveUnBandModel.Store.FK__Adverts_G__Adver__14270015">
-            <End Role="Adverts" EntitySet="Adverts" />
-            <End Role="Adverts_Genres" EntitySet="Adverts_Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Adverts_G__Genre__151B244E" Association="TrouveUnBandModel.Store.FK__Adverts_G__Genre__151B244E">
-            <End Role="Genres" EntitySet="Genres" />
-            <End Role="Adverts_Genres" EntitySet="Adverts_Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Bands_Gen__Band___07C12930" Association="TrouveUnBandModel.Store.FK__Bands_Gen__Band___07C12930">
-            <End Role="Bands" EntitySet="Bands" />
-            <End Role="Bands_Genres" EntitySet="Bands_Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Bands_Gen__Genre__08B54D69" Association="TrouveUnBandModel.Store.FK__Bands_Gen__Genre__08B54D69">
-            <End Role="Genres" EntitySet="Genres" />
-            <End Role="Bands_Genres" EntitySet="Bands_Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Bands_Use__Band___0B91BA14" Association="TrouveUnBandModel.Store.FK__Bands_Use__Band___0B91BA14">
-            <End Role="Bands" EntitySet="Bands" />
-            <End Role="Bands_Users" EntitySet="Bands_Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Bands_Use__User___0C85DE4D" Association="TrouveUnBandModel.Store.FK__Bands_Use__User___0C85DE4D">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Bands_Users" EntitySet="Bands_Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Events_Ba__Band___797309D9" Association="TrouveUnBandModel.Store.FK__Events_Ba__Band___797309D9">
-            <End Role="Bands" EntitySet="Bands" />
-            <End Role="Events_Bands" EntitySet="Events_Bands" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Events_Ba__Event__787EE5A0" Association="TrouveUnBandModel.Store.FK__Events_Ba__Event__787EE5A0">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="Events_Bands" EntitySet="Events_Bands" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Events_Ge__Event__74AE54BC" Association="TrouveUnBandModel.Store.FK__Events_Ge__Event__74AE54BC">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="Events_Genres" EntitySet="Events_Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Events_Ge__Genre__75A278F5" Association="TrouveUnBandModel.Store.FK__Events_Ge__Genre__75A278F5">
-            <End Role="Genres" EntitySet="Genres" />
-            <End Role="Events_Genres" EntitySet="Events_Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Events_Us__Event__7C4F7684" Association="TrouveUnBandModel.Store.FK__Events_Us__Event__7C4F7684">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="Events_Users" EntitySet="Events_Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Events_Us__User___7D439ABD" Association="TrouveUnBandModel.Store.FK__Events_Us__User___7D439ABD">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Events_Users" EntitySet="Events_Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Genres__Parent_I__6D0D32F4" Association="TrouveUnBandModel.Store.FK__Genres__Parent_I__6D0D32F4">
-            <End Role="Genres" EntitySet="Genres" />
-            <End Role="Genres1" EntitySet="Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Users_Gen__Genre__01142BA1" Association="TrouveUnBandModel.Store.FK__Users_Gen__Genre__01142BA1">
-            <End Role="Genres" EntitySet="Genres" />
-            <End Role="Users_Genres" EntitySet="Users_Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Users_Gen__User___00200768" Association="TrouveUnBandModel.Store.FK__Users_Gen__User___00200768">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Users_Genres" EntitySet="Users_Genres" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Users_Ins__Instr__04E4BC85" Association="TrouveUnBandModel.Store.FK__Users_Ins__Instr__04E4BC85">
-            <End Role="Instruments" EntitySet="Instruments" />
-            <End Role="Users_Instruments" EntitySet="Users_Instruments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Users_Ins__User___03F0984C" Association="TrouveUnBandModel.Store.FK__Users_Ins__User___03F0984C">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Users_Instruments" EntitySet="Users_Instruments" />
-          </AssociationSet>
-          <AssociationSet Name="fk_event_creator_id" Association="TrouveUnBandModel.Store.fk_event_creator_id">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Events" EntitySet="Events" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="TrouveUnBandModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="Adverts">
           <Key>
             <PropertyRef Name="Advert_ID" />
           </Key>
-          <Property Name="Advert_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Advert_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Creator_ID" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
           <Property Name="Location" Type="nvarchar" MaxLength="100" />
@@ -123,10 +31,10 @@
           <Key>
             <PropertyRef Name="Band_ID" />
           </Key>
-          <Property Name="Band_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Band_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="text" />
-          <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Location" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Photo" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Bands_Genres">
@@ -149,15 +57,15 @@
           <Key>
             <PropertyRef Name="Event_ID" />
           </Key>
-          <Property Name="Event_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Event_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="EventDate" Type="datetime" Nullable="false" />
           <Property Name="MaxAudience" Type="int" Nullable="false" />
           <Property Name="Salary" Type="real" Nullable="false" />
-          <Property Name="StageSize" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="StageSize" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Photo" Type="varbinary(max)" />
           <Property Name="Creator_ID" Type="int" />
           <Property Name="Description" Type="text" Nullable="false" />
@@ -190,31 +98,31 @@
           <Key>
             <PropertyRef Name="Genre_ID" />
           </Key>
-          <Property Name="Genre_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Genre_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Parent_ID" Type="int" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Instruments">
           <Key>
             <PropertyRef Name="Instrument_ID" />
           </Key>
-          <Property Name="Instrument_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Instrument_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="User_ID" />
           </Key>
-          <Property Name="User_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Nickname" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nickname" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="BirthDate" Type="datetime" Nullable="false" />
-          <Property Name="Gender" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Photo" Type="varbinary(max)" />
-          <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Location" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Description" Type="text" />
@@ -236,9 +144,9 @@
           <Property Name="Instrument_ID" Type="int" Nullable="false" />
           <Property Name="Skills" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Adverts__Creator__114A936A">
-          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
-          <End Role="Adverts" Type="TrouveUnBandModel.Store.Adverts" Multiplicity="*" />
+        <Association Name="FK__Adverts__Creator__30F848ED">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Adverts" Type="Self.Adverts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="User_ID" />
@@ -248,9 +156,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Adverts_G__Adver__14270015">
-          <End Role="Adverts" Type="TrouveUnBandModel.Store.Adverts" Multiplicity="1" />
-          <End Role="Adverts_Genres" Type="TrouveUnBandModel.Store.Adverts_Genres" Multiplicity="*" />
+        <Association Name="FK__Adverts_G__Adver__33D4B598">
+          <End Role="Adverts" Type="Self.Adverts" Multiplicity="1" />
+          <End Role="Adverts_Genres" Type="Self.Adverts_Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Adverts">
               <PropertyRef Name="Advert_ID" />
@@ -260,9 +168,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Adverts_G__Genre__151B244E">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
-          <End Role="Adverts_Genres" Type="TrouveUnBandModel.Store.Adverts_Genres" Multiplicity="*" />
+        <Association Name="FK__Adverts_G__Genre__34C8D9D1">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="Adverts_Genres" Type="Self.Adverts_Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
               <PropertyRef Name="Genre_ID" />
@@ -272,9 +180,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bands_Gen__Band___07C12930">
-          <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
-          <End Role="Bands_Genres" Type="TrouveUnBandModel.Store.Bands_Genres" Multiplicity="*" />
+        <Association Name="FK__Bands_Gen__Band___276EDEB3">
+          <End Role="Bands" Type="Self.Bands" Multiplicity="1" />
+          <End Role="Bands_Genres" Type="Self.Bands_Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bands">
               <PropertyRef Name="Band_ID" />
@@ -284,9 +192,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bands_Gen__Genre__08B54D69">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
-          <End Role="Bands_Genres" Type="TrouveUnBandModel.Store.Bands_Genres" Multiplicity="*" />
+        <Association Name="FK__Bands_Gen__Genre__286302EC">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="Bands_Genres" Type="Self.Bands_Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
               <PropertyRef Name="Genre_ID" />
@@ -296,9 +204,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bands_Use__Band___0B91BA14">
-          <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
-          <End Role="Bands_Users" Type="TrouveUnBandModel.Store.Bands_Users" Multiplicity="*" />
+        <Association Name="FK__Bands_Use__Band___2B3F6F97">
+          <End Role="Bands" Type="Self.Bands" Multiplicity="1" />
+          <End Role="Bands_Users" Type="Self.Bands_Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bands">
               <PropertyRef Name="Band_ID" />
@@ -308,9 +216,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bands_Use__User___0C85DE4D">
-          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
-          <End Role="Bands_Users" Type="TrouveUnBandModel.Store.Bands_Users" Multiplicity="*" />
+        <Association Name="FK__Bands_Use__User___2C3393D0">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Bands_Users" Type="Self.Bands_Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="User_ID" />
@@ -320,9 +228,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Ba__Band___797309D9">
-          <End Role="Bands" Type="TrouveUnBandModel.Store.Bands" Multiplicity="1" />
-          <End Role="Events_Bands" Type="TrouveUnBandModel.Store.Events_Bands" Multiplicity="*" />
+        <Association Name="FK__Events_Ba__Band___1920BF5C">
+          <End Role="Bands" Type="Self.Bands" Multiplicity="1" />
+          <End Role="Events_Bands" Type="Self.Events_Bands" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bands">
               <PropertyRef Name="Band_ID" />
@@ -332,9 +240,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Ba__Event__787EE5A0">
-          <End Role="Events" Type="TrouveUnBandModel.Store.Events" Multiplicity="1" />
-          <End Role="Events_Bands" Type="TrouveUnBandModel.Store.Events_Bands" Multiplicity="*" />
+        <Association Name="FK__Events_Ba__Event__182C9B23">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="Events_Bands" Type="Self.Events_Bands" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Events">
               <PropertyRef Name="Event_ID" />
@@ -344,9 +252,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Ge__Event__74AE54BC">
-          <End Role="Events" Type="TrouveUnBandModel.Store.Events" Multiplicity="1" />
-          <End Role="Events_Genres" Type="TrouveUnBandModel.Store.Events_Genres" Multiplicity="*" />
+        <Association Name="FK__Events_Ge__Event__145C0A3F">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="Events_Genres" Type="Self.Events_Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Events">
               <PropertyRef Name="Event_ID" />
@@ -356,9 +264,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Ge__Genre__75A278F5">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
-          <End Role="Events_Genres" Type="TrouveUnBandModel.Store.Events_Genres" Multiplicity="*" />
+        <Association Name="FK__Events_Ge__Genre__15502E78">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="Events_Genres" Type="Self.Events_Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
               <PropertyRef Name="Genre_ID" />
@@ -368,9 +276,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Us__Event__7C4F7684">
-          <End Role="Events" Type="TrouveUnBandModel.Store.Events" Multiplicity="1" />
-          <End Role="Events_Users" Type="TrouveUnBandModel.Store.Events_Users" Multiplicity="*" />
+        <Association Name="FK__Events_Us__Event__1BFD2C07">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="Events_Users" Type="Self.Events_Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Events">
               <PropertyRef Name="Event_ID" />
@@ -380,9 +288,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Events_Us__User___7D439ABD">
-          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
-          <End Role="Events_Users" Type="TrouveUnBandModel.Store.Events_Users" Multiplicity="*" />
+        <Association Name="FK__Events_Us__User___1CF15040">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Events_Users" Type="Self.Events_Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="User_ID" />
@@ -392,9 +300,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Genres__Parent_I__6D0D32F4">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="0..1" />
-          <End Role="Genres1" Type="TrouveUnBandModel.Store.Genres" Multiplicity="*" />
+        <Association Name="FK__Genres__Parent_I__0CBAE877">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+          <End Role="Genres1" Type="Self.Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
               <PropertyRef Name="Genre_ID" />
@@ -404,9 +312,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users_Gen__Genre__01142BA1">
-          <End Role="Genres" Type="TrouveUnBandModel.Store.Genres" Multiplicity="1" />
-          <End Role="Users_Genres" Type="TrouveUnBandModel.Store.Users_Genres" Multiplicity="*" />
+        <Association Name="FK__Users_Gen__Genre__20C1E124">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="1" />
+          <End Role="Users_Genres" Type="Self.Users_Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genres">
               <PropertyRef Name="Genre_ID" />
@@ -416,9 +324,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users_Gen__User___00200768">
-          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
-          <End Role="Users_Genres" Type="TrouveUnBandModel.Store.Users_Genres" Multiplicity="*" />
+        <Association Name="FK__Users_Gen__User___1FCDBCEB">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users_Genres" Type="Self.Users_Genres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="User_ID" />
@@ -428,9 +336,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users_Ins__Instr__04E4BC85">
-          <End Role="Instruments" Type="TrouveUnBandModel.Store.Instruments" Multiplicity="1" />
-          <End Role="Users_Instruments" Type="TrouveUnBandModel.Store.Users_Instruments" Multiplicity="*" />
+        <Association Name="FK__Users_Ins__Instr__24927208">
+          <End Role="Instruments" Type="Self.Instruments" Multiplicity="1" />
+          <End Role="Users_Instruments" Type="Self.Users_Instruments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Instruments">
               <PropertyRef Name="Instrument_ID" />
@@ -440,9 +348,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users_Ins__User___03F0984C">
-          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="1" />
-          <End Role="Users_Instruments" Type="TrouveUnBandModel.Store.Users_Instruments" Multiplicity="*" />
+        <Association Name="FK__Users_Ins__User___239E4DCF">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Users_Instruments" Type="Self.Users_Instruments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="User_ID" />
@@ -453,8 +361,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_event_creator_id">
-          <End Role="Users" Type="TrouveUnBandModel.Store.Users" Multiplicity="0..1" />
-          <End Role="Events" Type="TrouveUnBandModel.Store.Events" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="User_ID" />
@@ -464,6 +372,98 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="TrouveUnBandModelStoreContainer">
+          <EntitySet Name="Adverts" EntityType="Self.Adverts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Adverts_Genres" EntityType="Self.Adverts_Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bands" EntityType="Self.Bands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bands_Genres" EntityType="Self.Bands_Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bands_Users" EntityType="Self.Bands_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events_Bands" EntityType="Self.Events_Bands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events_Genres" EntityType="Self.Events_Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events_Users" EntityType="Self.Events_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instruments" EntityType="Self.Instruments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users_Genres" EntityType="Self.Users_Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users_Instruments" EntityType="Self.Users_Instruments" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Adverts__Creator__30F848ED" Association="Self.FK__Adverts__Creator__30F848ED">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Adverts" EntitySet="Adverts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Adverts_G__Adver__33D4B598" Association="Self.FK__Adverts_G__Adver__33D4B598">
+            <End Role="Adverts" EntitySet="Adverts" />
+            <End Role="Adverts_Genres" EntitySet="Adverts_Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Adverts_G__Genre__34C8D9D1" Association="Self.FK__Adverts_G__Genre__34C8D9D1">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Adverts_Genres" EntitySet="Adverts_Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bands_Gen__Band___276EDEB3" Association="Self.FK__Bands_Gen__Band___276EDEB3">
+            <End Role="Bands" EntitySet="Bands" />
+            <End Role="Bands_Genres" EntitySet="Bands_Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bands_Gen__Genre__286302EC" Association="Self.FK__Bands_Gen__Genre__286302EC">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Bands_Genres" EntitySet="Bands_Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bands_Use__Band___2B3F6F97" Association="Self.FK__Bands_Use__Band___2B3F6F97">
+            <End Role="Bands" EntitySet="Bands" />
+            <End Role="Bands_Users" EntitySet="Bands_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bands_Use__User___2C3393D0" Association="Self.FK__Bands_Use__User___2C3393D0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bands_Users" EntitySet="Bands_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_Ba__Band___1920BF5C" Association="Self.FK__Events_Ba__Band___1920BF5C">
+            <End Role="Bands" EntitySet="Bands" />
+            <End Role="Events_Bands" EntitySet="Events_Bands" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_Ba__Event__182C9B23" Association="Self.FK__Events_Ba__Event__182C9B23">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Events_Bands" EntitySet="Events_Bands" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_Ge__Event__145C0A3F" Association="Self.FK__Events_Ge__Event__145C0A3F">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Events_Genres" EntitySet="Events_Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_Ge__Genre__15502E78" Association="Self.FK__Events_Ge__Genre__15502E78">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Events_Genres" EntitySet="Events_Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_Us__Event__1BFD2C07" Association="Self.FK__Events_Us__Event__1BFD2C07">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Events_Users" EntitySet="Events_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_Us__User___1CF15040" Association="Self.FK__Events_Us__User___1CF15040">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Events_Users" EntitySet="Events_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Genres__Parent_I__0CBAE877" Association="Self.FK__Genres__Parent_I__0CBAE877">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Genres1" EntitySet="Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users_Gen__Genre__20C1E124" Association="Self.FK__Users_Gen__Genre__20C1E124">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Users_Genres" EntitySet="Users_Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users_Gen__User___1FCDBCEB" Association="Self.FK__Users_Gen__User___1FCDBCEB">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users_Genres" EntitySet="Users_Genres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users_Ins__Instr__24927208" Association="Self.FK__Users_Ins__Instr__24927208">
+            <End Role="Instruments" EntitySet="Instruments" />
+            <End Role="Users_Instruments" EntitySet="Users_Instruments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users_Ins__User___239E4DCF" Association="Self.FK__Users_Ins__User___239E4DCF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users_Instruments" EntitySet="Users_Instruments" />
+          </AssociationSet>
+          <AssociationSet Name="fk_event_creator_id" Association="Self.fk_event_creator_id">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -534,8 +534,8 @@
           <Property Name="Creator_ID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
-          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Location" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="User" Relationship="TrouveUnBandModel.FK__Adverts__Creator__6B24EA82" FromRole="Adverts" ToRole="Users" />
@@ -563,7 +563,7 @@
           <Property Name="Location" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="City" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="EventDate" Type="DateTime" Nullable="false" />
+          <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MaxAudience" Type="Int32" Nullable="false" />
           <Property Name="Salary" Type="Single" Nullable="false" />
           <Property Name="StageSize" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
@@ -573,7 +573,7 @@
           <NavigationProperty Name="Bands" Relationship="TrouveUnBandModel.Events_Bands" FromRole="Events" ToRole="Bands" />
           <NavigationProperty Name="Genres" Relationship="TrouveUnBandModel.Events_Genres" FromRole="Events" ToRole="Genres" />
           <NavigationProperty Name="Users" Relationship="TrouveUnBandModel.Events_Users" FromRole="Events" ToRole="Users" />
-          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -605,7 +605,7 @@
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Nickname" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Gender" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
@@ -889,6 +889,7 @@
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -10,11 +10,11 @@
                     new AjaxOptions
                     {
                         HttpMethod = "Get",
-                        UpdateTargetId = "ConfirmModalDialog",
-                        OnSuccess = "$('#thisdiv').load(document.URL +  '#thisdiv');"
-                    }, new { @class = "btn btn-default btn-lg btn-block"})
+                        UpdateTargetId = "_ConfirmCreateDialog",
+                        OnComplete = "$('#myModal').modal('show');"
+                    }, new { @class = "btn btn-default btn-lg btn-block" })
         </div>
-    
+        
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="active"><a href="#basetab" role="tab" data-toggle="tab">Information de base</a></li>
@@ -46,13 +46,4 @@
             </div>
         </div>
     }
-</div>
-
-            <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ConfirmModalDialog">
-                salut
-            </a>
-
-<div class="modal fade" id="ConfirmModalDialog" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
-                aria-hidden="true">
-    @RenderPage("_ConfirmCreateDialog.cshtml")
 </div>

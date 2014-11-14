@@ -55,7 +55,7 @@ namespace TrouveUnBand.Controllers
             if (!CurrentUser.isMusician())
             {
                 MessageAlert = AlertMessages.NOT_MUSICIAN;
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             if (Session["myBand"] == null || Session["myMusicians"] == null)
@@ -137,6 +137,7 @@ namespace TrouveUnBand.Controllers
                 TempData["TempDataError"] = AlertMessages.EMPTY_INPUT;
                 return View("Create");
             }
+
             return PartialView("_ConfirmCreateDialog", myBand);
         }
 
