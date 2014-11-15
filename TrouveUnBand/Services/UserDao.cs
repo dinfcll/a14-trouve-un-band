@@ -106,5 +106,28 @@ namespace TrouveUnBand.Models
 
             return users;
         }
+
+        public static List<User> GetMusicians(string userName)
+        {
+            TrouveUnBandEntities db = new TrouveUnBandEntities();
+            var users = db.Users.ToList();
+
+            if (!String.IsNullOrEmpty(userName))
+            {
+                foreach (var user in users)
+                {
+                    if (!user.isMusician())
+                    {
+                        users.Remove(user);
+                    }
+                }
+
+                users = users.Where(user => user.FirstName.Contains(userName) ||
+                                   user.LastName.Contains(userName) ||
+                                   user.Nickname.Contains(userName)).ToList();
+            }
+
+            return users;
+        }
     }
 }

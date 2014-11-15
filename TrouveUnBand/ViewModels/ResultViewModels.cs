@@ -16,6 +16,7 @@ namespace TrouveUnBand.ViewModels
         public string Type { get; set; }
         public List<string> Genres { get; set; }
         public byte[] Photo { get; set; }
+        public DateTime CreationDate { get; set; }
 
 
         private readonly TrouveUnBandEntities db = new TrouveUnBandEntities();
@@ -28,6 +29,7 @@ namespace TrouveUnBand.ViewModels
             Type = "Band";
             Genres = band.Genres.Select(x => x.Name).ToList();
             Photo = band.Photo;
+            CreationDate = band.CreationDate;
         }
 
         public ResultViewModels(User user)
@@ -41,7 +43,8 @@ namespace TrouveUnBand.ViewModels
             {
                 Type = "Musician";
             }
-            Photo = user.Photo;        
+            Photo = user.Photo;
+            CreationDate = user.CreationDate;
         }
 
         public ResultViewModels(Event evenement)
@@ -54,6 +57,7 @@ namespace TrouveUnBand.ViewModels
             City = evenement.City;
             Type = "Événement";
             Photo = evenement.Photo;
+            CreationDate = evenement.CreationDate;
         }
 
         public ResultViewModels(Advert advert)
@@ -64,6 +68,7 @@ namespace TrouveUnBand.ViewModels
             Location = advert.Location;
             Type = "Annonce";
             Photo = advert.Photo;
+            CreationDate = advert.CreationDate;
         }
     }
 }

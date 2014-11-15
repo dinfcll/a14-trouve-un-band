@@ -12,29 +12,24 @@ namespace TrouveUnBand.Controllers
 {
     public class SearchController : Controller
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
+        private const int LATEST = 1;
+        private const int MOST_POPULAR = 2;
+        private const int HIGHEST_RATING = 3;
 
-        private const string OPTION_ALL      = "option_all";
-        private const string OPTION_BAND     = "option_band";
-        private const string OPTION_MUSICIAN = "option_musician";
-        private const string OPTION_USER     = "option_user";
-        private const string OPTION_EVENT    = "option_event";
+        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index(string searchString)
         {
-            List<ResultViewModels> results = new List<ResultViewModels>();
-
-            SelectList genresDDL = new SelectList(db.Genres, "GenreId", "Name");
-            SelectList categoriesDDL = new SelectList(new List<Object>{
-                new { value=OPTION_ALL, text="tout le monde" },
-                new { value=OPTION_BAND, text="des groupes" },
-                new { value=OPTION_MUSICIAN, text="des musiciens" },
-                new { value=OPTION_USER, text="des utilisateurs" },
-                new { value=OPTION_EVENT, text="des événements" }
+            var results = new List<ResultViewModels>();
+            var genresDDL = new SelectList(db.Genres.Where(x => x.Parent_ID == null), "Genre_ID", "Name");
+            var categoriesDDL = new SelectList(new List<Object>{
+                new { value=LATEST, text="Les nouveautés" },
+                new { value=MOST_POPULAR, text="Les plus populaires" },
+                new { value=HIGHEST_RATING, text="Les mieux notés" }
             }, "value", "text");
 
-            List<Band> bandsList = BandDao.GetBands(searchString);
-            List<User> musiciansList = UserDao.GetMusicians(searchString);
+            var bandsList = BandDao.GetBands(searchString);
+            var musiciansList = UserDao.GetMusicians(searchString);
 
             foreach (Band band in bandsList)
             {
@@ -46,86 +41,74 @@ namespace TrouveUnBand.Controllers
                 results.Add(new ResultViewModels(musician));
             }
 
-            ViewBag.GenresList = genresDDL;
-            ViewBag.CategoriesList = categoriesDDL;
+            ViewBag.Genres = genresDDL;
+            ViewBag.Categories = categoriesDDL;
             ViewBag.SearchString = searchString;
-            ViewBag.ResultsList = results;
+            ViewBag.Results = results;
             ViewBag.ResultNumber = results.Count();
 
             return View();
         }
 
         [HttpGet]
-        public ActionResult Filter(string DDLCategories, int? DDLGenres, string SearchString, string Location)
+        public ActionResult Filter(int selectedCategory, int? selectedGenre, string searchstring, string location,
+                                   bool cbBandsChecked, bool cbMusiciansChecked, bool cbAdvertsChecked, bool cbEventsChecked)
         {
-            List<ResultViewModels> ResultsList = new List<ResultViewModels>();
-            
-            switch (DDLCategories)
+            var results = new List<ResultViewModels>();
+
+            if (cbBandsChecked)
             {
-                case OPTION_ALL:
-
-                    List<Band> bandsList = BandDao.GetBands(DDLGenres, SearchString, Location);
-                    List<User> musiciansList = UserDao.GetMusicians(DDLGenres, SearchString, Location);
-
-                    foreach (Band band in bandsList)
-                    {
-                        ResultsList.Add(new ResultViewModels(band));
-                    }
-
-                    foreach (User musician in musiciansList)
-                    {
-                        ResultsList.Add(new ResultViewModels(musician));
-                    }
-
-                    break;
-
-                case OPTION_BAND:
-
-                    bandsList = BandDao.GetBands(DDLGenres, SearchString, Location);
-
-                    foreach (Band band in bandsList)
-                    {
-                        ResultsList.Add(new ResultViewModels(band));
-                    }
-
-                    break;
-
-                case OPTION_MUSICIAN:
-
-                    musiciansList = UserDao.GetUsers(DDLGenres, SearchString, Location);
-
-                    foreach (User musician in musiciansList)
-                    {
-                        ResultsList.Add(new ResultViewModels(musician));
-                    }
-
-                    break;
-
-                case OPTION_USER:
-
-                    List<User> usersList = UserDao.GetUsers(SearchString, Location);
-
-                    foreach (User user in usersList)
-                    {
-                        ResultsList.Add(new ResultViewModels(user));
-                    }
-
-                    break;
-
-                case OPTION_EVENT:
-
-                    List<Event> EventList = EventDAO.GetEvents(SearchString, Location);
-
-                    foreach (Event evenement in EventList)
-                    {
-                        ResultsList.Add(new ResultViewModels(evenement));
-                    }
-
-                    break;
+                var bands = BandDao.GetBands(selectedGenre, searchstring, location);
+                foreach (var band in bands)
+                {
+                    results.Add(new ResultViewModels(band));
+                }              
             }
 
-            ViewBag.ResultsList = ResultsList;
-            ViewBag.ResultNumber = ResultsList.Count();
+            if (cbMusiciansChecked)
+            {
+                var musicians = UserDao.GetMusicians(selectedGenre, searchstring, location);
+                foreach (var musician in musicians)
+                {
+                    results.Add(new ResultViewModels(musician));
+                }
+            }
+
+            if (cbAdvertsChecked)
+            {
+                var adverts = AdvertDAO.GetAdverts(selectedGenre, searchstring, location);
+                foreach (var advert in adverts)
+                {
+                    results.Add(new ResultViewModels(advert));
+                }
+            }
+
+            if (cbEventsChecked)
+            {
+                var events = EventDAO.GetAllEvents();
+                foreach (var even in events)
+                {
+                    results.Add(new ResultViewModels(even));
+                }
+            }
+
+            switch (selectedCategory)
+            {
+                case LATEST:
+                    results.OrderBy(x => x.CreationDate);
+                    break;
+
+                case MOST_POPULAR:
+                    // TODO: Add a function to filter search results by most popular artists.
+                    break;
+                    
+                case HIGHEST_RATING:
+                    // TODO: Add a function to filter search results by highest rated artists.
+                    break;                 
+            }
+
+            ViewBag.Results = results;
+            ViewBag.ResultNumber = results.Count();
 
             return PartialView("_SearchResults");
         }

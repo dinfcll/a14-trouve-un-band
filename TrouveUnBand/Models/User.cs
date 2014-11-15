@@ -37,6 +37,7 @@ namespace TrouveUnBand.Models
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longitude { get; set; }
         public string Description { get; set; }
+        public System.DateTime CreationDate { get; set; }
     
         public virtual ICollection<Advert> Adverts { get; set; }
         public virtual ICollection<Event> Events { get; set; }

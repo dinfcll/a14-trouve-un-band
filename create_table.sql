@@ -1,4 +1,4 @@
-create table Users(
+ï»¿create table Users(
 	User_ID int IDENTITY(1,1) primary key,
 	FirstName NVARCHAR(100) NOT NULL,
 	LastName NVARCHAR(100) NOT NULL,
@@ -11,7 +11,8 @@ create table Users(
 	Location NVARCHAR(100) NOT NULL,
 	Latitude FLOAT(40),
 	Longitude FLOAT(40),
-	Description text null
+	Description text null,
+	CreationDate datetime not null DEFAULT (GETDATE())
 );
 
 create table Bands(
@@ -19,7 +20,8 @@ create table Bands(
 	Name NVARCHAR(50) not null,
 	Description text null,
 	Location NVARCHAR(100) NOT NULL,
-	Photo varbinary(max)
+	Photo varbinary(max),
+	CreationDate datetime not null DEFAULT (GETDATE())
 );
 
 create table Instruments(
@@ -45,7 +47,8 @@ create table Events(
 	StageSize CHAR not null,
 	Photo varbinary(max),
 	Creator_ID int constraint fk_event_creator_id references Users(User_ID),
-	Description text not null
+	Description text not null,
+	CreationDate datetime not null DEFAULT (GETDATE())
 );
 
 create table Events_Genres(
@@ -97,7 +100,7 @@ create table Adverts(
 	Type NVARCHAR(100) NOT NULL,	
 	Description NVARCHAR(max) NOT NULL,
 	Status nvarchar(100) NOT NULL,
-	CreationDate DATETIME NOT NULL,
+	CreationDate datetime not null DEFAULT (GETDATE()),
 	ExpirationDate DATETIME NOT NULL,
 	Location NVARCHAR(100),
 	Photo varbinary(max)
@@ -116,20 +119,20 @@ insert into Instruments (Name) values('Batterie');
 insert into Instruments (Name) values('Chant');
 insert into Instruments (Name) values('Piano');
 
---Insertion des genres appartenant à Blues
+--Insertion des genres appartenant Ã  Blues
 insert into Genres (name) values ('Blues');
 insert into Genres (name, parent_id) values ('Blues rock', 1);
 insert into Genres (name, parent_id) values ('Country blues', 1);
 insert into Genres (name, parent_id) values ('Jazz blues', 1);
 insert into Genres (name, parent_id) values ('Piano blues', 1);
 insert into Genres (name, parent_id) values ('Soul blues', 1);
---Insertion des genres appartenant à Easy Listening
+--Insertion des genres appartenant Ã  Easy Listening
 insert into Genres (name) values ('Easy Listening');
 insert into Genres (name, parent_id) values ('Background music', 7);
 insert into Genres (name, parent_id) values ('Beautiful music', 7);
 insert into Genres (name, parent_id) values ('Lounge music', 7);
 insert into Genres (name, parent_id) values ('New-age music', 7);
---Insertion des genres appartenant à Electronic
+--Insertion des genres appartenant Ã  Electronic
 insert into Genres (name) values ('Electronic');
 insert into Genres (name, parent_id) values ('Ambient', 12);
 insert into Genres (name, parent_id) values ('Asian Underground', 12);
@@ -148,7 +151,7 @@ insert into Genres (name, parent_id) values ('Industrial', 12);
 insert into Genres (name, parent_id) values ('Progressive', 12);
 insert into Genres (name, parent_id) values ('Techno', 12);
 insert into Genres (name, parent_id) values ('Trance', 12);
---Insertion des genres appartenant à Folk
+--Insertion des genres appartenant Ã  Folk
 insert into Genres (name) values ('Folk');
 insert into Genres (name, parent_id) values ('Contemporary folk', 30);
 insert into Genres (name, parent_id) values ('Celtic music', 30);
@@ -160,7 +163,7 @@ insert into Genres (name, parent_id) values ('Techno-folk', 30);
 insert into Genres (name, parent_id) values ('Psychedelic folk', 30);
 insert into Genres (name, parent_id) values ('Sung poetry', 30);
 insert into Genres (name, parent_id) values ('Cowboy/Western music', 30);
---Insertion des genres appartenant à Hip hop
+--Insertion des genres appartenant Ã  Hip hop
 insert into Genres (name) values ('Hip hop');
 insert into Genres (name, parent_id) values ('Crunkcore', 41);
 insert into Genres (name, parent_id) values ('Freestyle music', 41);
@@ -179,7 +182,7 @@ insert into Genres (name, parent_id) values ('Trap', 41);
 insert into Genres (name, parent_id) values ('Trip hop', 41);
 insert into Genres (name, parent_id) values ('Turntablism', 41);
 insert into Genres (name, parent_id) values ('Underground hip hop', 41);
---Insertion des genres appartenant à Jazz
+--Insertion des genres appartenant Ã  Jazz
 insert into Genres (name) values ('Jazz');
 insert into Genres (name, parent_id) values ('Acid jazz', 59);
 insert into Genres (name, parent_id) values ('Avant-garde jazz', 59);
@@ -197,7 +200,7 @@ insert into Genres (name, parent_id) values ('Orchestral jazz', 59);
 insert into Genres (name, parent_id) values ('Smooth jazz', 59);
 insert into Genres (name, parent_id) values ('Swing', 59);
 insert into Genres (name, parent_id) values ('Vocal jazz', 59);
---Insertion des genres appartenant à Rock
+--Insertion des genres appartenant Ã  Rock
 insert into Genres (name) values ('Rock');
 insert into Genres (name, parent_id) values ('Alternative rock', 76);
 insert into Genres (name, parent_id) values ('Grunge', 76);
