@@ -11,8 +11,8 @@
 <div id="NewsfeedUser" class="row">
 @foreach (var item in (List<TrouveUnBand.Models.NewsfeedUserModel>)ViewData["NewsfeedUser"])
 {  
-    <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems thumbnail">
-        <div class="thumbnail card">
+    <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems">
+        <div class="thumbnail card btn btn-default"  data-toggle="tooltip" data-placement="bottom" title="@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName) ">
             @if (item.Photo == null)
             {
                 <img src="http://placehold.it/100x100" alt="Image">
@@ -23,8 +23,6 @@
                 <img src="@photo" width="100" height="100" class="photo" alt="Image">
             }
         </div>
-        @Html.DisplayFor(modelItem => item.FirstName)
-        @Html.DisplayFor(modelItem => item.LastName) 
     </div>
 }
 </div>
@@ -47,11 +45,7 @@
             @Html.Label("Description")
             @Html.DisplayFor(modelItem => item.Description)
             </div>
-            <div class="row">
-            @Html.ActionLink("Details", "Details", new { id = item.BandId })
-            </div>
-            <a href="#" class="btn btn-primary" role="button">Button</a> 
-            <a href="#" class="btn btn-default" role="button">Button</a>
+            @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "BAND", Id = item.BandId }, new { @class = "btn btn-primary", @role = "button" })
         </div>
      </div>      
 }
@@ -85,12 +79,8 @@
                     @Html.Label("Genre")
                     @Html.DisplayFor(modelItem => item.EventGender)
                     </div>
-                    <div class="row">
-                    @Html.ActionLink("Details", "Details", new { id = item.EventId })
+                    @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "EVENT", Id = item.EventId }, new { @class = "btn btn-primary", @role = "button" })
                     </div>
-                    <a href="#" class="btn btn-primary" role="button">Button</a> 
-                    <a href="#" class="btn btn-default" role="button">Button</a>
-                </div>
     </div>
 }
 </div>
@@ -112,22 +102,20 @@
         </div>
         <div class="caption container-fluid">
             <div class="row">
-            @Html.Label("Type")
-            @Html.DisplayFor(modelItem => item.Type)
+                @Html.Label("Type")
+                @Html.DisplayFor(modelItem => item.Type)
             </div>
             <div class="row">
-            @Html.Label("Genre")
-            @Html.DisplayFor(modelItem => item.Genre.Name)
+                @Html.Label("Genre")
+                @Html.DisplayFor(modelItem => item.Genre.Name)
             </div>
             <div class="row">
-            @Html.Label("Description")
-            @Html.DisplayFor(modelItem => item.Description)
+                @Html.Label("Description")
+                @Html.DisplayFor(modelItem => item.Description)
             </div>
-            <div class="row">
-            @Html.ActionLink("Details", "Details", new { id = item.AdvertId })
+            <div>
+                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "ADVERT", Id = item.AdvertId }, new { @class = "btn btn-primary", @role = "button" })
             </div>
-            <a href="#" class="btn btn-primary" role="button">Button</a> 
-            <a href="#" class="btn btn-default" role="button">Button</a>
         </div>
     </div>
 }

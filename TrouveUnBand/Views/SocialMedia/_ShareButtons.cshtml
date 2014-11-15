@@ -1,0 +1,13 @@
+﻿<link href="../../Content/Social-Icons.css" rel="stylesheet" type="text/css" />
+
+<div id="SocialMediaButtons" class="container-fluid pull-right">
+    <a class="icon-facebook-square" href="http://www.facebook.com/share.php?u=@Request.Url&title=TrouverUnBand" onclick="RedirectToDialog(this.href)"></a>
+    <a class="icon-twitter-square" href="http://twitter.com/home?status=TrouverUnBand+@Request.Url" onclick="RedirectToDialog(this.href)"></a>
+    <a class="icon-google-plus-square" href="https://plus.google.com/share?url=@Request.Url" onclick="RedirectToDialog(this.href)"></a>
+</div>
+
+<script>
+function RedirectToDialog(s) {
+    window.open(s, 'mywin', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); event.preventDefault(); ;
+}
+</script>

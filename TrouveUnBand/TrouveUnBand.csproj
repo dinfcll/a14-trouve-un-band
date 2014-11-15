@@ -176,6 +176,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SocialMediaController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,6 +222,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\fonts\font-awesome.svg" />
+    <Content Include="Content\signin.css" />
+    <Content Include="Content\Social-Icons.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -307,6 +311,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
+    <Content Include="Scripts\FacebookSDK.js" />
+    <Content Include="Scripts\GoogleSDK.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\ImageUpload.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
@@ -329,6 +335,7 @@
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
     <Content Include="Scripts\TopSecret.js" />
+    <Content Include="Scripts\TwitterSDK.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -417,6 +424,11 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\bootstrap-theme.css.map" />
+    <None Include="Content\bootstrap.css.map" />
+    <None Include="Content\fonts\font-awesome.eot" />
+    <None Include="Content\fonts\font-awesome.ttf" />
+    <None Include="Content\fonts\font-awesome.woff" />
     <None Include="Models\TUBModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TUBModels.Context.cs</LastGenOutput>
@@ -446,6 +458,10 @@
     <Content Include="Views\Advert\Close.cshtml" />
     <Content Include="Views\Users\test.cshtml" />
     <Content Include="Views\Users\_MusicianProfileSeeking.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Annonce.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Band.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Event.cshtml" />
+    <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
@@ -708,6 +724,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\social-likes_flat.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -804,6 +821,7 @@
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery.sharrre.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -818,6 +836,7 @@
     <Content Include="Scripts\NavBarActive.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
+    <Content Include="Scripts\social-likes.min.js" />
     <Content Include="Scripts\TopSecret.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -934,6 +953,10 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Advert\MyAdverts.cshtml" />
     <Content Include="Views\Advert\Close.cshtml" />
+    <Content Include="Views\Shared\_SocialMediaPlugins.cshtml" />
+    <None Include="Scripts\sharrre.php" />
+    <Content Include="Views\Advert\AdvertProfil.cshtml" />
+    <Content Include="Views\Advert\AdvertDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
