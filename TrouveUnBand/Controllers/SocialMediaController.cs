@@ -16,18 +16,24 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
-        public static Band GetBand(int i)
+        public ActionResult LoginFromFacebook()
         {
-            TrouveUnBandEntities statdb = new TrouveUnBandEntities();
-            var Query = statdb.Bands.FirstOrDefault(x => x.BandId == i);
-            return Query;
+            return View();
         }
 
-        public static Event GetEvent(int i)
+        public ActionResult LoginFromGooglePlus()
         {
-            TrouveUnBandEntities statdb = new TrouveUnBandEntities();
-            var Query = statdb.Events.FirstOrDefault(x => x.EventId == i);
-            return Query;
+            return View();
+        }
+
+        public ActionResult RegisterFromFacebook()
+        {
+            return View();
+        }
+
+        public ActionResult RegisterFromGooglePlus()
+        {
+            return View();
         }
     }
 }
