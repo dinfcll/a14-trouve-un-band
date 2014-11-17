@@ -33,6 +33,29 @@ namespace TrouveUnBand.Classes
             return user;
         }
 
+        public static Coordinates GetCoordinatesByLocation(string location)
+        {
+            var coordinates = new Coordinates();
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://maps.googleapis.com");
+            var response = client.GetAsync("/maps/api/geocode/json?address="
+                                            + location
+                                            + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
+                                            ).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+
+                var returnedCoordinates = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
+                coordinates.latitude = returnedCoordinates.results[returnedCoordinates.results.Count - 1].geometry.location.lat;
+                coordinates.longitude = returnedCoordinates.results[returnedCoordinates.results.Count - 1].geometry.location.lng;
+                coordinates.formattedAddress = returnedCoordinates.results[returnedCoordinates.results.Count - 1].formatted_address;
+            }
+
+            return coordinates;
+        }
+
         public static int GetDistance(double LatitudeP1, double LongitudeP1, double LatitudeP2, double LongitudeP2)
         {
             double EARTHS_MEAN_RADIUS_IN_KM = 6378.137;
@@ -50,6 +73,20 @@ namespace TrouveUnBand.Classes
         private static double ToRadians(double val)
         {
             return (Math.PI / 180) * val;
+        }
+    }
+
+    public class Coordinates
+    {
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+        public string formattedAddress { get; set; }
+
+        public Coordinates()
+        {
+            latitude = 0.0;
+            longitude = 0.0;
+            formattedAddress = String.Empty;
         }
     }
 }

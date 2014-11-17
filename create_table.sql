@@ -9,8 +9,8 @@
 	Password NVARCHAR(100) NOT NULL,
 	Photo varbinary(max),
 	Location NVARCHAR(100) NOT NULL,
-	Latitude FLOAT(40),
-	Longitude FLOAT(40),
+	Latitude FLOAT(40) NOT NULL,
+	Longitude FLOAT(40) NOT NULL,
 	Description text null,
 	CreationDate datetime not null DEFAULT (GETDATE())
 );
@@ -20,6 +20,8 @@ create table Bands(
 	Name NVARCHAR(50) not null,
 	Description text null,
 	Location NVARCHAR(100) NOT NULL,
+	Latitude FLOAT(40) NOT NULL,
+	Longitude FLOAT(40) NOT NULL,
 	Photo varbinary(max),
 	CreationDate datetime not null DEFAULT (GETDATE())
 );
@@ -39,6 +41,8 @@ create table Events(
 	Event_ID int IDENTITY(1,1) Primary key,
 	Name NVARCHAR(100) NOT NULL,
 	Location NVARCHAR(100) NOT NULL,
+	Latitude FLOAT(40) NOT NULL,
+	Longitude FLOAT(40) NOT NULL,
 	Address NVARCHAR(100) NOT NULL,
 	City NVARCHAR(100) NOT NULL,
 	EventDate datetime NOT NULL,
@@ -103,6 +107,8 @@ create table Adverts(
 	CreationDate datetime not null DEFAULT (GETDATE()),
 	ExpirationDate DATETIME NOT NULL,
 	Location NVARCHAR(100),
+	Latitude FLOAT(40) NOT NULL,
+	Longitude FLOAT(40) NOT NULL,
 	Photo varbinary(max)
 );
 

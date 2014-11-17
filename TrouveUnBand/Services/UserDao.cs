@@ -2,11 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
     public class UserDao
     {
+        public static List<User> GetUsersByDistance(double latitude, double longitude, double radius)
+        {
+            TrouveUnBandEntities db = new TrouveUnBandEntities();
+
+            var users = from user in db.Users select user;
+            foreach (var user in users)
+            {
+                var distance = Geolocalisation.GetDistance(latitude, longitude, user.Latitude, user.Longitude);
+            }
+
+            return users.ToList();
+        }
+
         public static List<User> GetUsers(string userName)
         {
             var results = GetUsers(userName, "");
