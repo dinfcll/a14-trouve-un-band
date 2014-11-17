@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Data.Entity;
 using TrouveUnBand.Models;
 using TrouveUnBand.Services;
 using TrouveUnBand.ViewModels;
@@ -39,10 +35,10 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Newsfeed()
         {
-            List<ResultViewModels> eventResults = new List<ResultViewModels>();
-            List<ResultViewModels> usersResults = new List<ResultViewModels>();
-            List<ResultViewModels> bandsResults = new List<ResultViewModels>();
-            List<ResultViewModels> advertsResults = new List<ResultViewModels>();
+            var eventResults = new List<ResultViewModels>();
+            var usersResults = new List<ResultViewModels>();
+            var bandsResults = new List<ResultViewModels>();
+            var advertsResults = new List<ResultViewModels>();
             
             var events = EventDAO.GetAllEvents();
             foreach (var evenement in events)

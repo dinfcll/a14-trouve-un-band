@@ -16,7 +16,7 @@
       
                 <div class="container-fluid">
                     <div class="col-md-3">
-                        @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "GenreId", "Name", 0), new { @class = "form-control " })
+                        @Html.DropDownList("GenreList", new SelectList(ViewBag.GenreListDD, "Genre_ID", "Name", 0), new { @class = "form-control " })
                     </div>
                     <div class="col-md-1">
                         <button type="submit" class="btn btn-default btn-sm" title="Edit">
@@ -42,7 +42,7 @@
                                     @Html.DisplayFor(model => item.Name)
                                 </td>
                                 <td>
-                                    @Ajax.ActionLink(" ", "RemoveGenre", new { GenreId = item.GenreId },
+                                    @Ajax.ActionLink(" ", "RemoveGenre", new { GenreId = item.Genre_ID },
                                             new AjaxOptions
                                             {
                                                 HttpMethod = "Delete",

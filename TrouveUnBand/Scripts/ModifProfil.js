@@ -74,4 +74,3 @@ $(function () {
         yearRange: '-90:+0'
     });
 });
-

@@ -383,9 +383,6 @@
     <Content Include="Views\Group\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Group\ConfirmCreate.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

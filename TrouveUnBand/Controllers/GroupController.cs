@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
-using TrouveUnBand.Models.Partial;
 using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
@@ -17,7 +14,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
-            List<Band> myBands = new List<Band>();
+            var myBands = new List<Band>();
             if (Request.IsAuthenticated)
             {
                 User currentUser = GetCurrentUser();
@@ -42,55 +39,53 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            string MessageAlert = "";
+            string messageAlert = "";
 
             if (!Request.IsAuthenticated)
             {
-                MessageAlert = AlertMessages.NOT_CONNECTED;
-                RedirectToAction("Index", "Home");
+                messageAlert = AlertMessages.NOT_CONNECTED;
+                return RedirectToAction("Index", "Home");
             }
 
-            var CurrentUser = GetCurrentUser();
+            var currentUser = GetCurrentUser();
  
-            if (!CurrentUser.isMusician())
+            if (!currentUser.isMusician())
             {
-                MessageAlert = AlertMessages.NOT_MUSICIAN;
-                RedirectToAction("Index", "Home");
+                messageAlert = AlertMessages.NOT_MUSICIAN;
+                return RedirectToAction("Index", "Home");
             }
 
             if (Session["myBand"] == null || Session["myMusicians"] == null)
             {
-                Band myBand = new Band();
+                var myBand = new Band();
                 myBand.Name = "";
                 myBand.Location = "";
                 myBand.Description = "";
-                List<User> myMusicians = new List<User>();
-                myMusicians.Add(CurrentUser);
+                var myMusicians = new List<User>();
+                myMusicians.Add(currentUser);
 
                 Session["myMusicians"] = myMusicians;
                 Session["myBand"] = myBand;
 
-                ViewBag.CurrentMusician = CurrentUser;
+                ViewBag.CurrentMusician = currentUser;
             }
 
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-            TempData["TempDataError"] = MessageAlert;
+            TempData["TempDataError"] = messageAlert;
             return View();
         }
 
         [HttpGet]
         public PartialViewResult SubmitInfo(Band band)
         {
-            string WC = "";
-            var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
+            var existingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
 
-            var BandToUpdate = (Band)Session["myBand"];
-            BandToUpdate.Name = band.Name;
-            BandToUpdate.Location = band.Location;
-            BandToUpdate.Description = band.Description;
-            Session["myBand"] = BandToUpdate;
+            var bandToUpdate = (Band)Session["myBand"];
+            bandToUpdate.Name = band.Name;
+            bandToUpdate.Location = band.Location;
+            bandToUpdate.Description = band.Description;
+            Session["myBand"] = bandToUpdate;
 
-            TempData["warning"] = WC;
             return PartialView("_ConfirmCreateDialog", band);
         }
         
@@ -98,18 +93,18 @@ namespace TrouveUnBand.Controllers
         public ActionResult ConfirmCreate()
         {
             var band = (Band)Session["myBand"];
-            var ExistingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
-            var CurrentUser = GetCurrentUser();
+            var existingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
+            var currentUser = GetCurrentUser();
 
-            if (ExistingBand != null)
+            if (existingBand != null)
             {
-                TempData["warning"] = AlertMessages.EXISTING_BAND(ExistingBand, band);
+                TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, band);
             }
 
             try
             {
                 band.Users = (List<User>)Session["myMusicians"];
-                CurrentUser.Bands.Add(band);
+                currentUser.Bands.Add(band);
                 db.Database.Connection.Open();
                 db.Bands.Add(band);
                 db.SaveChanges();
@@ -137,6 +132,7 @@ namespace TrouveUnBand.Controllers
                 TempData["TempDataError"] = AlertMessages.EMPTY_INPUT;
                 return View("Create");
             }
+
             return PartialView("_ConfirmCreateDialog", myBand);
         }
 
@@ -177,6 +173,9 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var band = db.Bands.Find(id);
+            band.Genres.Clear();
+            band.Users.Clear();
+            db.SaveChanges();
             db.Bands.Remove(band);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -190,13 +189,10 @@ namespace TrouveUnBand.Controllers
 
         public User GetCurrentUser()
         {
-            db.Database.Connection.Open();
-            string Username = User.Identity.Name;
-            var iQUser = db.Users.Where(x => x.Nickname == Username);
-            User CurrentUser = (iQUser.ToList())[0];
-            db.Database.Connection.Close();
-            return CurrentUser;
-            
+            string username = User.Identity.Name;
+            var currentUser = db.Users.FirstOrDefault(x => x.Nickname == username);
+
+            return currentUser;
         }
 
         public bool IsValidBand(Band myBand)
@@ -216,9 +212,9 @@ namespace TrouveUnBand.Controllers
             return false;
         }
 
-        public bool ContainsMusician(List<User> myMusicians, int MusicianId)
+        public bool ContainsMusician(List<User> myMusicians, int musicianId)
         {
-            if (myMusicians.Any(x => x.User_ID == MusicianId))
+            if (myMusicians.Any(x => x.User_ID == musicianId))
             {
                 return false;
             }
@@ -226,17 +222,17 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPut]
-        public ActionResult AddMusician(int MusicianId)
+        public ActionResult AddMusician(int musicianId)
         {
             db.Database.Connection.Open();
-            var Query = db.Users.FirstOrDefault(x => x.User_ID == MusicianId);
-            if (ContainsMusician((List<User>)Session["myMusicians"], MusicianId))
+            var query = db.Users.FirstOrDefault(x => x.User_ID == musicianId);
+            if (ContainsMusician((List<User>)Session["myMusicians"], musicianId))
             {
-                TempData["TempDataError"] = AlertMessages.MUSICIAN_ALREADY_SELECTED(Query);
+                TempData["TempDataError"] = AlertMessages.MUSICIAN_ALREADY_SELECTED(query);
             }
             else
             {
-                ((List<User>)Session["myMusicians"]).Add(Query);
+                ((List<User>)Session["myMusicians"]).Add(query);
             }
             db.Database.Connection.Close();
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
@@ -244,12 +240,12 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpDelete]
-        public ActionResult RemoveMusician(int Musicianid)
+        public ActionResult RemoveMusician(int musicianid)
         {
             db.Database.Connection.Open();
-            var Query = db.Users.FirstOrDefault(x => x.User_ID == Musicianid);
+            var query = db.Users.FirstOrDefault(x => x.User_ID == musicianid);
             var myMusician = (List<User>)Session["myMusicians"];
-            myMusician.Remove(myMusician.Single(s => s.User_ID == Query.User_ID));
+            myMusician.Remove(myMusician.Single(s => s.User_ID == query.User_ID));
             Session["myMusicians"] = myMusician;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             db.Database.Connection.Close();
@@ -257,17 +253,17 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPut]
-        public ActionResult AddGenre(int Genrelist)
+        public ActionResult AddGenre(int genrelist)
         {
             db.Database.Connection.Open();
-            var Query = db.Genres.FirstOrDefault(x => x.Genre_ID == Genrelist);
-            if (((Band)Session["myBand"]).Genres.Any(x => x.Genre_ID == Genrelist))
+            var query = db.Genres.FirstOrDefault(x => x.Genre_ID == genrelist);
+            if (((Band)Session["myBand"]).Genres.Any(x => x.Genre_ID == genrelist))
             {
-                TempData["TempDataError"] = AlertMessages.GENRE_ALREADY_SELECTED(Query);
+                TempData["TempDataError"] = AlertMessages.GENRE_ALREADY_SELECTED(query);
             }
             else
             {
-                ((Band)Session["myBand"]).Genres.Add(Query);
+                ((Band)Session["myBand"]).Genres.Add(query);
             }
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             db.Database.Connection.Close();
@@ -275,12 +271,12 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpDelete]
-        public ActionResult RemoveGenre(int GenreId)
+        public ActionResult RemoveGenre(int genreId)
         {
             db.Database.Connection.Open();
-            var Query = db.Genres.FirstOrDefault(x => x.Genre_ID == GenreId);
+            var query = db.Genres.FirstOrDefault(x => x.Genre_ID == genreId);
             var myBand = ((Band)Session["myBand"]);
-            myBand.Genres.Remove(myBand.Genres.Single( s => s.Genre_ID == Query.Genre_ID));
+            myBand.Genres.Remove(myBand.Genres.Single( s => s.Genre_ID == query.Genre_ID));
             Session["myBand"] = myBand;
             ViewBag.GenrelistDD = new List<Genre>(db.Genres);
             db.Database.Connection.Close();
@@ -288,21 +284,21 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult SearchMusician(string SearchString)
+        public ActionResult SearchMusician(string searchString)
         {
             db.Database.Connection.Open();
-            List<User> musicians = new List<User>();
-            if (String.IsNullOrEmpty(SearchString))
+            var musicians = new List<User>();
+            if (String.IsNullOrEmpty(searchString))
             {
                 TempData["TempDataError"] = AlertMessages.EMPTY_SEARCH;
             }
             else
             {
-                if (!String.IsNullOrEmpty(SearchString))
+                if (!String.IsNullOrEmpty(searchString))
                 {
-                    musicians = (db.Users.Where(user => user.FirstName.Contains(SearchString) ||
-                                                user.LastName.Contains(SearchString) ||
-                                                user.Nickname.Contains(SearchString))).ToList();
+                    musicians = (db.Users.Where(user => user.FirstName.Contains(searchString) ||
+                                                user.LastName.Contains(searchString) ||
+                                                user.Nickname.Contains(searchString))).ToList();
                 }
             }
 

@@ -1,4 +1,4 @@
-﻿@model TrouveUnBand.Models.Musician
+﻿@model TrouveUnBand.Models.User
 
 @{
     ViewBag.Title = "Créer ton Band - Musiciens";
@@ -9,25 +9,25 @@
 
 
         <div class="container-fluid">
-            @if (((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]) != null)
+            @if (((List<TrouveUnBand.Models.User>)Session["myMusicians"]) != null)
             {
                     int mTrid = 0;
                     <table id="myMusicianTable">
-                    @foreach (var item in ((List<TrouveUnBand.Models.Musician>)Session["myMusicians"]))
+                    @foreach (var item in ((List<TrouveUnBand.Models.User>)Session["myMusicians"]))
                     {
                         mTrid++; 
                         <tr id="@mTrid">
                             <td class="col-md-6">
                                 <div class="display-field">
-                                        @Html.DisplayFor(model => item.User.FirstName)
-                                        @Html.DisplayFor(model => item.User.LastName)
-                                        @Html.DisplayFor(model => item.User.Nickname)
+                                        @Html.DisplayFor(model => item.FirstName)
+                                        @Html.DisplayFor(model => item.LastName)
+                                        @Html.DisplayFor(model => item.Nickname)
                                 </div>
                             </td>
                             <td class="col-md-offset-1">
                                 @if (mTrid > 0)
                                 {
-                                    @Ajax.ActionLink(" ", "RemoveMusician", new { MusicianId = item.MusicianId },
+                                    @Ajax.ActionLink(" ", "RemoveMusician", new { MusicianId = item.User_ID },
                                             new AjaxOptions
                                             {
                                                 HttpMethod = "Delete",
@@ -73,23 +73,23 @@
                         <th>
                         </th>
                     </tr>
-                    @if ((List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"] != null)
+                    @if ((List<TrouveUnBand.Models.User>)ViewData["SearchMusicians"] != null)
                     {
-                        foreach (var item in (List<TrouveUnBand.Models.Musician>)ViewData["SearchMusicians"])
+                        foreach (var item in (List<TrouveUnBand.Models.User>)ViewData["SearchMusicians"])
                         {
                             int sTrid = 0;
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(model => item.User.FirstName)
+                                    @Html.DisplayFor(model => item.FirstName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(model => item.User.LastName)                                        
+                                    @Html.DisplayFor(model => item.LastName)                                        
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(model => item.User.Nickname)
+                                    @Html.DisplayFor(model => item.Nickname)
                                 </td>
                                 <td>
-                                        @Ajax.ActionLink(" ", "AddMusician", new { MusicianId = item.MusicianId },
+                                        @Ajax.ActionLink(" ", "AddMusician", new { MusicianId = item.User_ID },
                                                 new AjaxOptions
                                                 {
                                                     HttpMethod = "Put",
