@@ -62,7 +62,7 @@ namespace TrouveUnBand.Controllers
                 bandsResults.Add(new ResultViewModels(band));
             }
 
-            var adverts = AdvertDAO.GetAllAdverts();
+            var adverts = AdvertDao.GetAllAdverts();
             foreach (var advert in adverts)
             {
                 advertsResults.Add(new ResultViewModels(advert));

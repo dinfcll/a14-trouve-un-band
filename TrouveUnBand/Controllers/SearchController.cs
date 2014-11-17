@@ -76,7 +76,7 @@ namespace TrouveUnBand.Controllers
 
             if (cbAdvertsChecked)
             {
-                var adverts = AdvertDAO.GetAdverts(selectedGenre, searchstring, location, radius);
+                var adverts = AdvertDao.GetAdverts(selectedGenre, searchstring, location, radius);
                 foreach (var advert in adverts)
                 {
                     results.Add(new ResultViewModels(advert));

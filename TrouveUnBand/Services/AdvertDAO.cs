@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Web.Mvc.Html;
 using TrouveUnBand.Classes;
+using TrouveUnBand.Models;
 
-namespace TrouveUnBand.Models
+namespace TrouveUnBand.Services
 {
-    public class AdvertDAO
+    public class AdvertDao
     {
         public static List<Advert> GetAllAdverts()
         {
-            TrouveUnBandEntities db = new TrouveUnBandEntities();
-            List<Advert> advertList = new List<Advert>();
-            var advert = db.Adverts;
-            advertList.AddRange(advert);
+            var db = new TrouveUnBandEntities();
+            var adverts = db.Adverts.ToList();
 
-            return advertList;
+            return adverts;
         }
 
         public static List<Advert> GetAdverts(int? genre_ID, string keyWord, string location, int radius)
         {
-            TrouveUnBandEntities db = new TrouveUnBandEntities();
+            var db = new TrouveUnBandEntities();
 
             var adverts = (from advert in db.Adverts
                            where advert.Genres.Any(x => x.Genre_ID == genre_ID)
@@ -29,18 +26,16 @@ namespace TrouveUnBand.Models
 
             if (!String.IsNullOrEmpty(keyWord))
             {
-                adverts.Where(x => x.Description.Contains(keyWord));
+                adverts = adverts.Where(x => x.Description.Contains(keyWord)).ToList();
             }
 
             if (!String.IsNullOrEmpty(location))
             {
                 var advertsToRemove = new List<Advert>();
-                var coordinates = Geolocalisation.GetCoordinatesByLocation(location);
 
                 foreach (var ad in adverts)
                 {
-                    var distance = Geolocalisation.GetDistance(ad.Latitude, ad.Longitude, coordinates.latitude, coordinates.longitude);
-                    if (distance > radius)
+                    if (!Geolocalisation.CheckIfInRange(ad.Location, location, radius))
                     {
                         advertsToRemove.Add(ad);
                     }
@@ -57,7 +52,7 @@ namespace TrouveUnBand.Models
 
         public static List<Advert> GetAdverts(int? genre_ID)
         {
-            TrouveUnBandEntities db = new TrouveUnBandEntities();
+            var db = new TrouveUnBandEntities();
 
             var adverts = from advert in db.Adverts
                           where advert.Genres.Any(x => x.Genre_ID == genre_ID)
@@ -68,7 +63,7 @@ namespace TrouveUnBand.Models
 
         public static List<Advert> GetAdverts(string keyWord, string location)
         {
-            TrouveUnBandEntities db = new TrouveUnBandEntities();
+            var db = new TrouveUnBandEntities();
 
             var adverts = from advert in db.Adverts where
                               advert.Description.Contains(keyWord) &&
@@ -80,7 +75,7 @@ namespace TrouveUnBand.Models
 
         public static List<Advert> GetAdverts(string keyWord)
         {
-            TrouveUnBandEntities db = new TrouveUnBandEntities();
+            var db = new TrouveUnBandEntities();
 
             var adverts = from advert in db.Adverts
                           where advert.Description.Contains(keyWord)

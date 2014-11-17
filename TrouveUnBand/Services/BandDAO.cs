@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Web.Mvc.Html;
 using TrouveUnBand.Classes;
+using TrouveUnBand.Models;
 
-namespace TrouveUnBand.Models
+namespace TrouveUnBand.Services
 {
     public class BandDao
     {
@@ -26,18 +25,18 @@ namespace TrouveUnBand.Models
             {
                 bands = bands.Where(band => band.Genres.Any(genre => genre.Genre_ID == genreId)).ToList();
             }
+
             if (!String.IsNullOrEmpty(bandName))
             {
                 bands = bands.Where(band => band.Name.Contains(bandName)).ToList();
             }
+
             if (!String.IsNullOrEmpty(location))
             {
                 var bandsToRemove = new List<Band>();
-                var coordinates = Geolocalisation.GetCoordinatesByLocation(location);
                 foreach (var band in bands)
                 {
-                    var distance = Geolocalisation.GetDistance(band.Latitude, band.Longitude, coordinates.latitude, coordinates.longitude);
-                    if (distance > radius)
+                    if (!Geolocalisation.CheckIfInRange(band.Location, location, radius))
                     {
                         bandsToRemove.Add(band);
                     }
@@ -67,18 +66,18 @@ namespace TrouveUnBand.Models
                     bands = bands.Where(band => band.Genres.Any(genre => genre.Name == genreName)).ToList();
                 }
             }
+
             if (!String.IsNullOrEmpty(bandName))
             {
                 bands = bands.Where(band => band.Name.Contains(bandName)).ToList();
             }
+
             if (!String.IsNullOrEmpty(location))
             {
                 var bandsToRemove = new List<Band>();
-                var coordinates = Geolocalisation.GetCoordinatesByLocation(location);
                 foreach (var band in bands)
                 {
-                    var distance = Geolocalisation.GetDistance(band.Latitude, band.Longitude, coordinates.latitude, coordinates.longitude);
-                    if (distance > radius)
+                    if (!Geolocalisation.CheckIfInRange(band.Location, location, radius))
                     {
                         bandsToRemove.Add(band);
                     }
@@ -97,8 +96,8 @@ namespace TrouveUnBand.Models
 
         public static List<Band> GetAllBands()
         {
-            TrouveUnBandEntities db = new TrouveUnBandEntities();
-            List<Band> eventList = new List<Band>();
+            var db = new TrouveUnBandEntities();
+            var eventList = new List<Band>();
             var band = db.Bands;
             eventList.AddRange(band);
 
