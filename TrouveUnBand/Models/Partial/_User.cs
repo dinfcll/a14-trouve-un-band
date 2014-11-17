@@ -50,6 +50,7 @@ namespace TrouveUnBand.Models
             {
                 return true;
             }
+
             return false;
         }
 
@@ -59,6 +60,7 @@ namespace TrouveUnBand.Models
             {
                 return true;
             }
+
             return false;
         }
     }

@@ -5,21 +5,29 @@
 <div class="form-group">
 @using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
 {
-    <div class="form-inline searchform">
-        <label for="DDLCategories">Affiche</label>
-        @Html.DropDownList("DDLCategories", (SelectList)ViewData["CategoriesList"], new { @class = "form-control" })
-        <label for="DDLGenres">parmis</label>
-        @Html.DropDownList("DDLGenres", (SelectList)ViewData["GenresList"], "tous les genres", new { @class = "form-control" })
-        <label for="Location">dans la région de</label>
-        @Html.TextBox("Location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
-    </div>
-
-    <div class="input-group searchbar">
-        @Html.TextBox("SearchString", "", new { @class = "form-control searchbar", @placeholder = "Recherche" })
+    <div class="input-group input-group-lg searchbar">
+        @Html.TextBox("searchstring", "", new { @class = "form-control", @placeholder = "Recherche" })
         <span class="input-group-btn">
-            <button id="btnSearch" type="submit" class="btn btn-primary">Go!</button>
+            <button type="submit" class="btn btn-primary">Go!</button>
         </span>
     </div>
+
+    <div class="form-inline searchform">
+        @Html.CheckBox("cbBandsChecked", true) <span>Bands</span>
+        @Html.CheckBox("cbMusiciansChecked", true) <span>Musiciens</span>
+        @Html.CheckBox("cbAdvertsChecked", true) <span>Annonces</span>
+        @Html.CheckBox("cbEventsChecked", true) <span>Événements</span>
+    </div>
+
+    <div class="form-inline searchform">
+        @Html.DropDownList("selectedCategory", (SelectList)ViewData["Categories"], new { @class = "form-control" })
+        @Html.DropDownList("selectedGenre", (SelectList)ViewData["Genres"], "tous les genres", new { @class = "form-control" })
+        @Html.TextBox("location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
+        <div class="input-group">
+            @Html.TextBox("radius", "20", new { @class = "form-control", @placeholder = "Rayon" })
+            <span class="input-group-addon"><label>KM</label></span>
+        </div>
+    </div> 
 }
 </div>
 

@@ -33,6 +33,9 @@ namespace TrouveUnBand.Models
         public byte[] Photo { get; set; }
         public Nullable<int> Creator_ID { get; set; }
         public string Description { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     
         public virtual User User { get; set; }
         public virtual ICollection<Band> Bands { get; set; }
