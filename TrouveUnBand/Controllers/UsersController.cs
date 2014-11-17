@@ -209,15 +209,17 @@ namespace TrouveUnBand.Controllers
         {
             string InstrumentList = Request["InstrumentList"];
             string[] InstrumentArray = InstrumentList.Split(',');
-            string RC;
+            bool RC;
 
             if (AllUnique(InstrumentArray))
             {
+                user = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
                 string SkillList = Request["SkillsList"];
                 string[] SkillArray = SkillList.Split(',');
                 string DescriptionMusician = Request["TextArea"];
 
                 user.Description = DescriptionMusician;
+                user.Users_Instruments.Clear();
                 for (int i = 0; i < InstrumentArray.Length; i++)
                 {
                     int currentInstrumentID = Convert.ToInt32(InstrumentArray[i]);
@@ -231,8 +233,9 @@ namespace TrouveUnBand.Controllers
                     user.Users_Instruments.Add(UserInstruments);
                 }
 
-                RC = UpdateMusicianProfile(user);
-                if (RC == "")
+                RC = SaveUpdatedUser(user);
+
+                if (RC == true)
                 {
                     TempData["success"] = "Le profil musicien a été mis à jour.";
                     return RedirectToAction("Index", "Home");
@@ -350,28 +353,17 @@ namespace TrouveUnBand.Controllers
             return currentUser;
         }
 
-        private string UpdateMusicianProfile(User userToUpdate)
+        private bool SaveUpdatedUser(User user)
         {
             try
             {
-                var LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
-                SetMusicianInfo(LoggedOnUser, userToUpdate);
                 db.SaveChanges();
-
-                return "";
+                return true;
             }
             catch
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+                return false;
             }
-        }
-
-        private User SetMusicianInfo(User currentUser, User newUser)
-        {
-            currentUser.Users_Instruments = newUser.Users_Instruments;
-            currentUser.Description = newUser.Description;
-
-            return currentUser;
         }
     }
 }

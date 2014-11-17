@@ -42,7 +42,7 @@ create table Events(
 	EventDate datetime NOT NULL,
 	MaxAudience int NOT NULL,
 	Salary float(10) NOT NULL,
-	StageSize CHAR not null,
+	StageSize int not null,
 	Photo varbinary(max),
 	Creator_ID int constraint fk_event_creator_id references Users(User_ID),
 	Description text not null

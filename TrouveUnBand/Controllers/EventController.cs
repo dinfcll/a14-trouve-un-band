@@ -52,9 +52,11 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
-                var genre = db.Genres.FirstOrDefault(x => x.Genre_ID == Convert.ToInt32(Request["EventGenreDB"]));
+                var genreName = Request["EventGenreDB"];
+                var genre = db.Genres.FirstOrDefault(x => x.Name == genreName);
                 events.Genres.Add(genre);
-                events.Creator_ID = Convert.ToInt32(Request["Creator"]);
+                var creatorStr = Request["Creator"];
+                events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creatorStr).User_ID;
                 if (Request.Files[0].ContentLength != 0)
                 {
                     events.Photo = GetPostedEventPhoto();
@@ -63,7 +65,6 @@ namespace TrouveUnBand.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View();
         }
 
@@ -82,7 +83,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult Edit(Event events)
         {
             events.Creator_ID = Convert.ToInt32(Request["Creator"]);
-            var genre = db.Genres.FirstOrDefault(x => x.Genre_ID == Convert.ToInt32(Request["EventGenreDB"]));
+            var genreStr = Request["EventGenreDB"];
+            var genre = db.Genres.FirstOrDefault(x => x.Name == genreStr);
             events.Genres.Add(genre);
             db.Entry(events).State = EntityState.Modified;
             if (Request.Files[0].ContentLength != 0)
