@@ -60,8 +60,7 @@ namespace TrouveUnBand.Models
             TrouveUnBandEntities db = new TrouveUnBandEntities();
 
             var adverts = from advert in db.Adverts
-                          where
-                              advert.Genres.Any(x => x.Genre_ID == genre_ID)
+                          where advert.Genres.Any(x => x.Genre_ID == genre_ID)
                           select advert;
 
             return adverts.ToList();
@@ -71,8 +70,7 @@ namespace TrouveUnBand.Models
         {
             TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-            var adverts = from advert in db.Adverts
-                          where
+            var adverts = from advert in db.Adverts where
                               advert.Description.Contains(keyWord) &&
                               advert.Location.Contains(location)
                           select advert;
@@ -85,8 +83,7 @@ namespace TrouveUnBand.Models
             TrouveUnBandEntities db = new TrouveUnBandEntities();
 
             var adverts = from advert in db.Adverts
-                          where
-                              advert.Description.Contains(keyWord)
+                          where advert.Description.Contains(keyWord)
                           select advert;
 
             return adverts.ToList();
