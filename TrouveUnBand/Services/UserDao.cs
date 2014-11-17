@@ -96,7 +96,9 @@ namespace TrouveUnBand.Models
                 {
                     var distance = Geolocalisation.GetDistance(user.Latitude, user.Longitude, coordinates.latitude, coordinates.longitude);
                     if (distance > radius)
+                    {
                         usersToRemove.Add(user);
+                    }
                 }
 
                 foreach (var user in usersToRemove)
@@ -128,7 +130,9 @@ namespace TrouveUnBand.Models
                 {
                     var distance = Geolocalisation.GetDistance(user.Latitude, user.Longitude, coordinates.latitude, coordinates.longitude);
                     if (distance > radius)
+                    {
                         usersToRemove.Add(user);
+                    }
                 }
 
                 foreach (var user in usersToRemove)

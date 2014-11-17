@@ -24,8 +24,7 @@ namespace TrouveUnBand.Models
             TrouveUnBandEntities db = new TrouveUnBandEntities();
 
             var adverts = (from advert in db.Adverts
-                           where
-                               advert.Genres.Any(x => x.Genre_ID == genre_ID)
+                           where advert.Genres.Any(x => x.Genre_ID == genre_ID)
                            select advert).ToList();
 
             if (!String.IsNullOrEmpty(keyWord))
@@ -42,7 +41,9 @@ namespace TrouveUnBand.Models
                 {
                     var distance = Geolocalisation.GetDistance(ad.Latitude, ad.Longitude, coordinates.latitude, coordinates.longitude);
                     if (distance > radius)
+                    {
                         advertsToRemove.Add(ad);
+                    }
                 }
 
                 foreach (var ad in advertsToRemove)

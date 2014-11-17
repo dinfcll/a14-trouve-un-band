@@ -38,7 +38,9 @@ namespace TrouveUnBand.Models
                 {
                     var distance = Geolocalisation.GetDistance(band.Latitude, band.Longitude, coordinates.latitude, coordinates.longitude);
                     if (distance > radius)
+                    {
                         bandsToRemove.Add(band);
+                    }
                 }
 
                 foreach (var band in bandsToRemove)

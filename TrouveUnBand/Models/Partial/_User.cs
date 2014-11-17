@@ -47,7 +47,9 @@ namespace TrouveUnBand.Models
         public bool isMusician()
         {
             if (this.Users_Instruments.Any())
+            {
                 return true;
+            }
 
             return false;
         }
@@ -55,7 +57,9 @@ namespace TrouveUnBand.Models
         public bool IsBandMember()
         {
             if (this.Bands.Any())
+            {
                 return true;
+            }
 
             return false;
         }

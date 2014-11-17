@@ -37,7 +37,9 @@ namespace TrouveUnBand.Services
                 {
                     var distance = Geolocalisation.GetDistance(even.Latitude, even.Longitude, coordinates.latitude, coordinates.longitude);
                     if (distance > radius)
+                    {
                         eventsToRemove.Add(even);
+                    }
                 }
 
                 foreach (var even in eventsToRemove)

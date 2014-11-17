@@ -21,8 +21,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult Index(string searchString)
         {
             var results = new List<ResultViewModels>();
-            var genresDDL = new SelectList(db.Genres.Where(x => x.Parent_ID == null), "Genre_ID", "Name");
-            var categoriesDDL = new SelectList(new List<Object>{
+            var genres = new SelectList(db.Genres.Where(x => x.Parent_ID == null), "Genre_ID", "Name");
+            var categories = new SelectList(new List<Object>{
                 new { value=LATEST, text="Les nouveautés" },
                 new { value=MOST_POPULAR, text="Les plus populaires" },
                 new { value=HIGHEST_RATING, text="Les mieux notés" }
@@ -41,8 +41,8 @@ namespace TrouveUnBand.Controllers
                 results.Add(new ResultViewModels(musician));
             }
 
-            ViewBag.Genres = genresDDL;
-            ViewBag.Categories = categoriesDDL;
+            ViewBag.Genres = genres;
+            ViewBag.Categories = categories;
             ViewBag.SearchString = searchString;
             ViewBag.Results = results;
             ViewBag.ResultNumber = results.Count();
@@ -58,7 +58,7 @@ namespace TrouveUnBand.Controllers
 
             if (cbBandsChecked)
             {
-                var bands = BandDao.GetBands(selectedGenre, searchstring, location);
+                var bands = BandDao.GetBands(selectedGenre, searchstring, location, radius);
                 foreach (var band in bands)
                 {
                     results.Add(new ResultViewModels(band));
@@ -76,7 +76,7 @@ namespace TrouveUnBand.Controllers
 
             if (cbAdvertsChecked)
             {
-                var adverts = AdvertDAO.GetAdverts(selectedGenre, searchstring, location);
+                var adverts = AdvertDAO.GetAdverts(selectedGenre, searchstring, location, radius);
                 foreach (var advert in adverts)
                 {
                     results.Add(new ResultViewModels(advert));
