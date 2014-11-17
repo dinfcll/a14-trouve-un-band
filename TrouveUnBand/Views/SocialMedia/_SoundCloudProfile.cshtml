@@ -1,0 +1,11 @@
+﻿<script src="http://connect.soundcloud.com/sdk.js"></script>
+<script>
+    SC.initialize({
+        client_id: '96fcd16e1df481197be64f94a6d0f35a'
+    });
+
+    var track_url = 'http://soundcloud.com/forss/flickermood';
+    SC.oEmbed(track_url, { auto_play: true }, function (oEmbed) {
+        console.log('oEmbed response: ' + oEmbed);
+    });
+</script>
