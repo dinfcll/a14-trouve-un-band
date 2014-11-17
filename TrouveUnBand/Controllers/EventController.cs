@@ -83,6 +83,7 @@ namespace TrouveUnBand.Controllers
         public ActionResult Edit(Event events)
         {
             events.Creator_ID = Convert.ToInt32(Request["Creator"]);
+            events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
             var genreStr = Request["EventGenreDB"];
             var genre = db.Genres.FirstOrDefault(x => x.Name == genreStr);
             events.Genres.Add(genre);

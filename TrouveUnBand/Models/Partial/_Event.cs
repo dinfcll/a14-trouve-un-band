@@ -29,7 +29,7 @@ namespace TrouveUnBand.Models.Partial
         public string EventGender { get; set; }
         [Required(ErrorMessage = "Ce champ est requis")]
         [RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
-        public int EventStageSize { get; set; }
+        public string EventStageSize { get; set; }
         public byte[] EventPhoto { get; set; }
         public string EventCreator { get; set; }
     }

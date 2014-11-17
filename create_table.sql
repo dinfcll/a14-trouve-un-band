@@ -42,7 +42,7 @@ create table Events(
 	EventDate datetime NOT NULL,
 	MaxAudience int NOT NULL,
 	Salary float(10) NOT NULL,
-	StageSize int not null,
+	StageSize NVARCHAR(10) not null,
 	Photo varbinary(max),
 	Creator_ID int constraint fk_event_creator_id references Users(User_ID),
 	Description text not null
@@ -115,3 +115,8 @@ insert into Instruments (Name) values('Basse');
 insert into Instruments (Name) values('Batterie');
 insert into Instruments (Name) values('Chant');
 insert into Instruments (Name) values('Piano');
+insert into Genres(Name) values ('Metal');
+insert into Genres(Name) values ('Rock');
+insert into Genres(Name) values ('Classique');
+insert into Genres(Name) values ('Jazz');
+insert into Genres(Name) values ('Chuck Norris Style');
