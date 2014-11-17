@@ -628,8 +628,8 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Location" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="Latitude" Type="Double" />
-          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Adverts" Relationship="TrouveUnBandModel.FK__Adverts__Creator__6B24EA82" FromRole="Users" ToRole="Adverts" />
           <NavigationProperty Name="Events" Relationship="TrouveUnBandModel.fk_event_creator_id" FromRole="Users" ToRole="Events" />
@@ -925,7 +925,7 @@
         <EntityTypeShape EntityType="TrouveUnBandModel.Advert" Width="1.5" PointX="2.625" PointY="3.875" Height="3.1340950520833335" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.Band" Width="1.5" PointX="7.75" PointY="7.25" Height="2.5571907552083335" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.Event" Width="1.5" PointX="10.5" PointY="4.625" Height="4.0956022135416656" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrouveUnBandModel.Genre" Width="1.5" PointX="2.75" PointY="7.625" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrouveUnBandModel.Genre" Width="1.5" PointX="2.625" PointY="8.375" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.Instrument" Width="1.5" PointX="2.625" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.User" Width="1.5" PointX="5.25" PointY="4.25" Height="4.6725065104166656" IsExpanded="true" />
         <EntityTypeShape EntityType="TrouveUnBandModel.Users_Instruments" Width="1.5" PointX="5.25" PointY="1.75" Height="1.9802864583333317" IsExpanded="true" />
@@ -938,10 +938,10 @@
           <ConnectorPoint PointX="10.5" PointY="6.4494502766927084" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.FK__Genres__Parent_I__45F365D3" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.2819230769230767" PointY="10.3744921875" />
-          <ConnectorPoint PointX="3.2819230769230767" PointY="10.6244921875" />
-          <ConnectorPoint PointX="3.7284615384615383" PointY="10.6244921875" />
-          <ConnectorPoint PointX="3.7284615384615383" PointY="10.3744921875" />
+          <ConnectorPoint PointX="3.1569230769230767" PointY="11.1244921875" />
+          <ConnectorPoint PointX="3.1569230769230767" PointY="11.3744921875" />
+          <ConnectorPoint PointX="3.6034615384615383" PointY="11.3744921875" />
+          <ConnectorPoint PointX="3.6034615384615383" PointY="11.1244921875" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.FK__Users_Ins__Instr__5EBF139D" ManuallyRouted="false">
           <ConnectorPoint PointX="4.125" PointY="2.797841796875" />
@@ -952,12 +952,12 @@
           <ConnectorPoint PointX="6" PointY="3.7302864583333317" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Adverts_Genres" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.4375" PointY="7.0090950520833335" />
-          <ConnectorPoint PointX="3.4375" PointY="7.625" />
+          <ConnectorPoint PointX="3.375" PointY="7.3936979166666656" />
+          <ConnectorPoint PointX="3.375" PointY="8.375" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Bands_Genres" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.75" PointY="9.3960986328125" />
-          <ConnectorPoint PointX="4.25" PointY="9.3960986328125" />
+          <ConnectorPoint PointX="7.75" PointY="9.7807014973958317" />
+          <ConnectorPoint PointX="4.125" PointY="9.7807014973958317" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Bands_Users" ManuallyRouted="false">
           <ConnectorPoint PointX="7.75" PointY="8.0862532552083319" />
@@ -968,17 +968,17 @@
           <ConnectorPoint PointX="10.5" PointY="7.9853011067708319" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Events_Genres" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="8.7206022135416656" />
-          <ConnectorPoint PointX="11.25" PointY="10.122091471354166" />
-          <ConnectorPoint PointX="4.25" PointY="10.122091471354166" />
+          <ConnectorPoint PointX="11.25" PointY="9.2975065104166656" />
+          <ConnectorPoint PointX="11.25" PointY="10.785543619791666" />
+          <ConnectorPoint PointX="4.125" PointY="10.785543619791666" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Events_Users" ManuallyRouted="false">
           <ConnectorPoint PointX="10.5" PointY="5.5864005533854169" />
           <ConnectorPoint PointX="6.75" PointY="5.5864005533854169" />
         </AssociationConnector>
         <AssociationConnector Association="TrouveUnBandModel.Users_Genres" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.25" PointY="8.2737532552083337" />
-          <ConnectorPoint PointX="5.25" PointY="8.2737532552083337" />
+          <ConnectorPoint PointX="4.125" PointY="8.7449039713541659" />
+          <ConnectorPoint PointX="5.25" PointY="8.7449039713541659" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

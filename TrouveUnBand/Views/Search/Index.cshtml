@@ -23,6 +23,10 @@
         @Html.DropDownList("selectedCategory", (SelectList)ViewData["Categories"], new { @class = "form-control" })
         @Html.DropDownList("selectedGenre", (SelectList)ViewData["Genres"], "tous les genres", new { @class = "form-control" })
         @Html.TextBox("location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
+        <div class="input-group">
+            @Html.TextBox("radius", "20", new { @class = "form-control", @placeholder = "Rayon" })
+            <span class="input-group-addon"><label>KM</label></span>
+        </div>
     </div> 
 }
 </div>

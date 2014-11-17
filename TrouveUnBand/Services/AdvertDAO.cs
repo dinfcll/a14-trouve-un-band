@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc.Html;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
@@ -18,14 +19,14 @@ namespace TrouveUnBand.Models
             return advertList;
         }
 
-        public static List<Advert> GetAdverts(int? genre_ID, string keyWord, string location)
+        public static List<Advert> GetAdverts(int? genre_ID, string keyWord, string location, int radius)
         {
             TrouveUnBandEntities db = new TrouveUnBandEntities();
 
-            var adverts = from advert in db.Adverts
-                          where
-                              advert.Genres.Any(x => x.Genre_ID == genre_ID)
-                          select advert;
+            var adverts = (from advert in db.Adverts
+                           where
+                               advert.Genres.Any(x => x.Genre_ID == genre_ID)
+                           select advert).ToList();
 
             if (!String.IsNullOrEmpty(keyWord))
             {
@@ -34,10 +35,23 @@ namespace TrouveUnBand.Models
 
             if (!String.IsNullOrEmpty(location))
             {
-                adverts.Where(x => x.Location.Contains(location));
+                var advertsToRemove = new List<Advert>();
+                var coordinates = Geolocalisation.GetCoordinatesByLocation(location);
+
+                foreach (var ad in adverts)
+                {
+                    var distance = Geolocalisation.GetDistance(ad.Latitude, ad.Longitude, coordinates.latitude, coordinates.longitude);
+                    if (distance > radius)
+                        advertsToRemove.Add(ad);
+                }
+
+                foreach (var ad in advertsToRemove)
+                {
+                    adverts.Remove(ad);
+                }
             }
 
-            return adverts.ToList();
+            return adverts;
         }
 
         public static List<Advert> GetAdverts(int? genre_ID)

@@ -34,8 +34,8 @@ namespace TrouveUnBand.Models
         public string Password { get; set; }
         public byte[] Photo { get; set; }
         public string Location { get; set; }
-        public Nullable<double> Latitude { get; set; }
-        public Nullable<double> Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string Description { get; set; }
         public System.DateTime CreationDate { get; set; }
     

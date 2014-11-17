@@ -63,7 +63,7 @@ namespace TrouveUnBand.Models
             return eventList;
         }
 
-        public static List<User> GetMusicians(string[] genres, string userName, string location)
+        public static List<User> GetMusicians(string[] genres, string userName, string location, int radius)
         {
             TrouveUnBandEntities db = new TrouveUnBandEntities();
             List<User> users = new List<User>();
@@ -86,8 +86,20 @@ namespace TrouveUnBand.Models
                         users.Remove(user);
                     }
                 }
+            }
 
-                if (!user.Location.Contains(location))
+            if (!String.IsNullOrEmpty(location))
+            {
+                var usersToRemove = new List<User>();
+                var coordinates = Geolocalisation.GetCoordinatesByLocation(location);
+                foreach (var user in users)
+                {
+                    var distance = Geolocalisation.GetDistance(user.Latitude, user.Longitude, coordinates.latitude, coordinates.longitude);
+                    if (distance > radius)
+                        usersToRemove.Add(user);
+                }
+
+                foreach (var user in usersToRemove)
                 {
                     users.Remove(user);
                 }
@@ -96,7 +108,7 @@ namespace TrouveUnBand.Models
             return users;
         }
 
-        public static List<User> GetMusicians(int? genreID, string userName, string location)
+        public static List<User> GetMusicians(int? genreID, string userName, string location, int radius)
         {
             TrouveUnBandEntities db = new TrouveUnBandEntities();
             var users = db.Users.ToList();
@@ -110,7 +122,19 @@ namespace TrouveUnBand.Models
 
             if (!String.IsNullOrEmpty(location))
             {
-                users = users.Where(user => user.Location.Contains(location)).ToList();
+                var usersToRemove = new List<User>();
+                var coordinates = Geolocalisation.GetCoordinatesByLocation(location);
+                foreach (var user in users)
+                {
+                    var distance = Geolocalisation.GetDistance(user.Latitude, user.Longitude, coordinates.latitude, coordinates.longitude);
+                    if (distance > radius)
+                        usersToRemove.Add(user);
+                }
+
+                foreach (var user in usersToRemove)
+                {
+                    users.Remove(user);
+                }
             }
 
             if (genreID != null)

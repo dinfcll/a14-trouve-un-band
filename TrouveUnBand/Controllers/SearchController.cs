@@ -51,7 +51,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult Filter(int selectedCategory, int? selectedGenre, string searchstring, string location,
+        public ActionResult Filter(int selectedCategory, int? selectedGenre, string searchstring, string location, int radius,
                                    bool cbBandsChecked, bool cbMusiciansChecked, bool cbAdvertsChecked, bool cbEventsChecked)
         {
             var results = new List<ResultViewModels>();
@@ -67,7 +67,7 @@ namespace TrouveUnBand.Controllers
 
             if (cbMusiciansChecked)
             {
-                var musicians = UserDao.GetMusicians(selectedGenre, searchstring, location);
+                var musicians = UserDao.GetMusicians(selectedGenre, searchstring, location, radius);
                 foreach (var musician in musicians)
                 {
                     results.Add(new ResultViewModels(musician));

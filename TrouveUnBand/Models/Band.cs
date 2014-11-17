@@ -27,6 +27,8 @@ namespace TrouveUnBand.Models
         public string Location { get; set; }
         public byte[] Photo { get; set; }
         public System.DateTime CreationDate { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     
         public virtual ICollection<Genre> Genres { get; set; }
         public virtual ICollection<User> Users { get; set; }
