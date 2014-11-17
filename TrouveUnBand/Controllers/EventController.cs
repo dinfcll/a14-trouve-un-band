@@ -126,6 +126,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Event events = db.Events.Find(id);
+            events.Genres.Clear();
+            db.SaveChanges();
             db.Events.Remove(events);
             db.SaveChanges();
             return RedirectToAction("Index");
