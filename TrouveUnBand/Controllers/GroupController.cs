@@ -178,6 +178,9 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var band = db.Bands.Find(id);
+            band.Genres.Clear();
+            band.Users.Clear();
+            db.SaveChanges();
             db.Bands.Remove(band);
             db.SaveChanges();
             return RedirectToAction("Index");
