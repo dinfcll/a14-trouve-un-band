@@ -9,6 +9,8 @@ using TrouveUnBand.Models;
 using System.Drawing;
 using System.IO;
 using TrouveUnBand.Classes;
+using System.Data.Entity.Infrastructure;
+using System.Data.Objects.DataClasses;
 
 namespace TrouveUnBand.Controllers
 {
@@ -50,6 +52,16 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Create(Event events)
         {
+            string GenresList = Request["EventGenreDB"];
+            string[] GenresArray = GenresList.Split(',');
+
+            for (int i = 0; i < GenresArray.Length; i++)
+            {
+                string GenreName = GenresArray[i];
+                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                events.Genres.Add(UnGenre);
+            }
+
             if (ModelState.IsValid)
             {
                 var genreName = Request["EventGenreDB"];
@@ -65,6 +77,7 @@ namespace TrouveUnBand.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View();
         }
 
@@ -84,10 +97,9 @@ namespace TrouveUnBand.Controllers
         {
             events.Creator_ID = Convert.ToInt32(Request["Creator"]);
             events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
-            var genreStr = Request["EventGenreDB"];
-            var genre = db.Genres.FirstOrDefault(x => x.Name == genreStr);
-            events.Genres.Add(genre);
-            db.Entry(events).State = EntityState.Modified;
+            string GenresList = Request["EventGenreDB"];
+            string[] StringGenresArray = GenresList.Split(',');
+            
             if (Request.Files[0].ContentLength != 0)
             {
                 events.Photo = GetPostedEventPhoto();
@@ -102,14 +114,31 @@ namespace TrouveUnBand.Controllers
 
             if (ModelState.IsValid)
             {
+                db.Entry(events).State = EntityState.Modified;
+                db.SaveChanges();
+                ((IObjectContextAdapter)db).ObjectContext.Detach(events);
+                
+                var eventBD = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
+                db.Set(typeof(Event)).Attach(eventBD);
+                eventBD.Genres.Clear();
+                for (int i = 0; i < StringGenresArray.Length; i++)
+                {
+                    string GenreName = StringGenresArray[i];
+                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                    eventBD.Genres.Add(UnGenre);
+                }
+                db.Entry(eventBD).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            else
+            for (int i = 0; i < StringGenresArray.Length; i++)
             {
-                ViewBag.GenreListDB = new List<Genre>(db.Genres);
-                return View(events);
+                string GenreName = StringGenresArray[i];
+                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                events.Genres.Add(UnGenre);
             }
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
+            return View(events);
         }
 
         public ActionResult Delete(int id = 0)

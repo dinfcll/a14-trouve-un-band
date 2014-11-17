@@ -19,7 +19,7 @@ namespace TrouveUnBand.Models.Partial
         [Required(ErrorMessage = "Le status est obligatoire")]
         public string Status { get; set; }
         public System.DateTime CreationDate { get; set; }
-        [Required(ErrorMessage = "La date d'expiration de la demande est requis")]
+        [Required(ErrorMessage = "La date d'expiration de la demande est requise")]
         public System.DateTime ExpirationDate { get; set; }
         [Required(ErrorMessage = "L'emplacement de la demande est requis")]
         public string Location { get; set; }

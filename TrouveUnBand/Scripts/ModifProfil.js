@@ -5,11 +5,25 @@
     cell.className = document.getElementById("tablecell").className.toString();
 }
 
+function AddGenresTable(row, cellid) {
+    var cell = row.insertCell(0);
+    var instcell = document.getElementById(cellid);
+    cell.innerHTML = instcell.outerHTML;
+    cell.className = document.getElementById("tablecellG").className.toString();
+}
+
 function AddTableX(row, cellid, randomname) {
     var cell = row.insertCell(0);
     var newX = "<a id=\"Xfermer\" href=\"#\" onclick=\"DeleteInstrument('" + randomname + "')\">X</a>";
     cell.innerHTML = newX;
     cell.className = document.getElementById("tablecell").className.toString();
+}
+
+function AddTableGenreX(row, cellid, randomname) {
+    var cell = row.insertCell(0);
+    var newX = "<a id=\"Xfermer\" href=\"#\" onclick=\"DeleteGenre('" + randomname + "'); return false;\">X</a>";
+    cell.innerHTML = newX;
+    cell.className = document.getElementById("tablecellX").className.toString();
 }
 
 function AddInstrument() {
@@ -24,8 +38,26 @@ function AddInstrument() {
     AddTable(row, "InstrumentList");
 }
 
+function AddGenre() {
+    var table = document.getElementById("GenresTable");
+    var row = table.insertRow();
+    row.id = "tablerow";
+    row.className = document.getElementById("tablerow").className.toString();
+    var randomname = makeid();
+    row.setAttribute("name", randomname);
+    AddTableGenreX(row, "Xfermer", randomname);
+    AddGenresTable(row, "EventGenreDB");
+    }
+
+
 function DeleteInstrument(name) {
     var table = document.getElementById("InstrumentTable");
+    var row = document.getElementsByName(name).item(0);
+    table.deleteRow(row.rowIndex);
+}
+
+function DeleteGenre(name) {
+    var table = document.getElementById("GenresTable");
     var row = document.getElementsByName(name).item(0);
     table.deleteRow(row.rowIndex);
 }

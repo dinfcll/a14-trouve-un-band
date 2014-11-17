@@ -41,7 +41,10 @@ namespace TrouveUnBand.Classes
             set
             {
                 m_PhotoArray = value;
-                PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(value);
+                if (value != null)
+                {
+                    PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(value);
+                }
             }
         }
 

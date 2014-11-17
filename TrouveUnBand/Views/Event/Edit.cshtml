@@ -90,13 +90,6 @@
                                     new { @class = "form-control", @placeholder = "Salaire pour l'événement" })
                                 @Html.ValidationMessageFor(model => model.Salary)
                             </div>
-
-                            <div class="form-group col-md-6">
-                                @Html.Label("Genre de l'événement")
-                                @Html.DropDownList("EventGenreDB", 
-                                    new SelectList(ViewBag.GenreListDB, "Name", "Name", Model.Genres.FirstOrDefault().Name), new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Genres)
-                            </div>
                 
                             <div class="form-group col-md-6">
                                 @Html.Label("Dimension de la scène (mètres carrés)")
@@ -104,6 +97,38 @@
                                     new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
                                 @Html.ValidationMessageFor(model => model.StageSize)
                             </div>
+                            <div class="col-md-12">
+                            <hr class="colorgraph col-md-12">
+                            @Html.Label("Genres Musicaux de l'événement")
+                            </div>
+                            <table id="GenresTable" class="form-group col-md-10">
+
+                            @{
+                                int i = 0;
+                            }
+                            @foreach (TrouveUnBand.Models.Genre GenreEvent in Model.Genres)
+                            {
+                                i++;
+                                <tr name="@i" id="tablerow" class="form-group col-md-12 row">
+                                    <td id="tablecellG" class="col-md-6">
+                                        @Html.DropDownList("EventGenreDB",
+                                            new SelectList(ViewBag.GenreListDB, "Name", "Name", @GenreEvent.Name), new { @class = "form-control" })
+                                    </td>
+                                    <td id="tablecellX" class="col-md-3">
+                                        @if (i > 1)
+                                        {
+                                            <a id="Xfermer" href="#" onclick='DeleteGenre("@i"); return false;'>X</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        
+                                
+                            </table>
+                            <div class="form-group col-md-12">
+                                <input type="button" onclick="AddGenre()" class="btn btn-info" value="Ajouter un Genre" />
+                            </div>
+                            <hr class="colorgraph col-md-12">
                             <div class="col-md-12">
                                 <div class="col-md-12">
                                     <hr class="colorgraph"/>
