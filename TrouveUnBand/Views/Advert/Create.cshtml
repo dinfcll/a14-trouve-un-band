@@ -32,10 +32,10 @@ else
                                 new { @class = "form-control", @placeholder = "Emplacement" })
                             @Html.ValidationMessageFor(model => model.Location)
                         </div>
-                        <div class="form-group col-md-6">
+                        @*<div class="form-group col-md-6">
                             @Html.DropDownList("GenreAdvertDB", (IEnumerable<SelectListItem>)ViewBag.GenresAdvert, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Genres)
-                        </div>
+                        </div>*@
                         <div class="form-group col-md-6">
                                 @Html.DropDownListFor(model => model.Status, new SelectList(
                                           new List<Object>{
@@ -56,6 +56,18 @@ else
                             @Html.TextAreaFor(model => model.Description,
                                 new { @class = "form-control", @placeholder = "Description" })
                             @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                        <table id="GenresTable" class="form-group col-md-10">
+                            <tr name="1" id="tablerow" class="form-group col-md-12 row">
+                                <td id="tablecellG" class="col-md-6">
+                                    @Html.DropDownList("GenreAdvertDB",
+                                    (IEnumerable<SelectListItem>)ViewBag.GenresAdvert, new { @class = "form-control" })
+                                </td>
+                                <td id="tablecellX" class="col-md-3"></td>
+                            </tr>
+                        </table>
+                        <div class="form-group col-md-12">
+                            <input type="button" onclick="AddGenre()" class="btn btn-info" value="Ajouter un Genre" />
                         </div>
                         <div class="form-group col-md-12">
                             @Html.Label("Photo de l'annonce")

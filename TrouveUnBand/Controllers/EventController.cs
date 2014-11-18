@@ -52,21 +52,18 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Create(Event events)
         {
-            string GenresList = Request["EventGenreDB"];
-            string[] GenresArray = GenresList.Split(',');
-
-            for (int i = 0; i < GenresArray.Length; i++)
-            {
-                string GenreName = GenresArray[i];
-                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                events.Genres.Add(UnGenre);
-            }
-
             if (ModelState.IsValid)
             {
-                var genreName = Request["EventGenreDB"];
-                var genre = db.Genres.FirstOrDefault(x => x.Name == genreName);
-                events.Genres.Add(genre);
+                string GenresList = Request["EventGenreDB"];
+                string[] GenresArray = GenresList.Split(',');
+
+                for (int i = 0; i < GenresArray.Length; i++)
+                {
+                    string GenreName = GenresArray[i];
+                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                    events.Genres.Add(UnGenre);
+                }
+
                 var creatorStr = Request["Creator"];
                 events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creatorStr).User_ID;
                 if (Request.Files[0].ContentLength != 0)

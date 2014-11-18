@@ -393,3 +393,5 @@ D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\T
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll.config
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
