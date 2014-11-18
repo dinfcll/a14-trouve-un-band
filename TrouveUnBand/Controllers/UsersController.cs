@@ -85,9 +85,9 @@ namespace TrouveUnBand.Controllers
 
                 return "L'utilisateur existe déjà";
             }
-            catch
+            catch(Exception ex)
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard.";
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard."+ex;
             }
         }
 
