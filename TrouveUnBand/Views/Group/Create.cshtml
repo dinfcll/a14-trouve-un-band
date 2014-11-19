@@ -5,23 +5,26 @@
     @if (Request.IsAuthenticated && (TrouveUnBand.Models.Band)Session["myBand"] != null)
     {
         <!-- Button trigger modal -->
-        <div class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">
-            @Ajax.ActionLink("Terminer", "UpdateModal", FormMethod.Get,
+    <div class="btn btn-primary btn-lg btn-block">
+        @Ajax.ActionLink("Terminer", "UpdateModal", FormMethod.Get,
                     new AjaxOptions
                     {
                         HttpMethod = "Get",
-                        UpdateTargetId = "ConfirmModalDialog",
-                        OnSuccess = "$('#thisdiv').load(document.URL +  '#thisdiv');"
-                    }, new { @class = "btn btn-default btn-lg btn-block"})
-        </div>
-    
+                        UpdateTargetId = "ConfirmCreateDialog",
+                        OnSuccess = "$('#ConfirmCreateDialog').modal('show');"
+                    }, new { @class = "btn btn-default btn-lg btn-block" })
+    </div>
+
+    <div class="modal fade" id="ConfirmCreateDialog">
+    </div>
+
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li class="active"><a href="#basetab" role="tab" data-toggle="tab">Information de base</a></li>
-          <li><a href="#genretab" role="tab" data-toggle="tab">Genre</a></li>
-          <li><a href="#musiciantab" role="tab" data-toggle="tab">Musicien</a></li>
+            <li class="active"><a href="#basetab" role="tab" data-toggle="tab">Information de base</a></li>
+            <li><a href="#genretab" role="tab" data-toggle="tab">Genre</a></li>
+            <li><a href="#musiciantab" role="tab" data-toggle="tab">Musicien</a></li>
         </ul>
-    
+
         <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane in active" id="basetab">
@@ -46,8 +49,4 @@
             </div>
         </div>
     }
-</div>
-
-<div id="ConfirmModalDialog">
-
 </div>

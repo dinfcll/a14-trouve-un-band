@@ -13,6 +13,7 @@ namespace TrouveUnBand.Models
     public class Results
     {
         public Geometry geometry { get; set; }
+        public string formatted_address { get; set; }
     }
 
     public class Geometry

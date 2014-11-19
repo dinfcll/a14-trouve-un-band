@@ -27,15 +27,15 @@
         </div>
     }
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Musicians)
+         @Html.DisplayNameFor(model => model.Users)
     </div>
 
-    @foreach (var item in Model.Musicians)
+    @foreach (var item in Model.Users)
     {
         <div class="display-field">
-            @Html.DisplayFor(model => item.User.FirstName)
-            @Html.DisplayFor(model => item.User.LastName)
-            @Html.DisplayFor(model => item.User.Nickname)
+            @Html.DisplayFor(model => item.FirstName)
+            @Html.DisplayFor(model => item.LastName)
+            @Html.DisplayFor(model => item.Nickname)
         </div>
     }
 
@@ -54,7 +54,7 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.BandId }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Band_ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
@@ -99,9 +99,9 @@ else
             @Html.Label("Musiciens")
         </div>
         <div>
-        @foreach (var item in (List<TrouveUnBand.Models.Musician>)Session["myMusicians"])
+        @foreach (var item in (List<TrouveUnBand.Models.User>)Session["myMusicians"])
         {
-            <p>@item.User.FirstName @item.User.LastName</p>
+            <p>@item.FirstName @item.LastName</p>
         }
         </div>
 </div>

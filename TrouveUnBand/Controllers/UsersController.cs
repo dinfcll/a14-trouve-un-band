@@ -6,6 +6,7 @@ using System.Web.Security;
 using TrouveUnBand.Models;
 using System.Drawing;
 using TrouveUnBand.Classes;
+using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
@@ -31,26 +32,26 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Register(User userModel)
         {
-            string RC = "";
+            var returnCode = "";
             if (ModelState.IsValid)
             {
                 if (userModel.Password == userModel.ConfirmPassword)
                 {
-                    RC = Insertcontact(userModel);
-                    if (RC == "")
+                    returnCode = Insertcontact(userModel);
+                    if (returnCode == "")
                     {
-                        TempData["success"] = POCO.AlertMessages.REGISTRATION_CONFIRMED;
+                        TempData["success"] = AlertMessages.REGISTRATION_CONFIRMED;
                         FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    RC = "Le mot de passe et sa confirmation ne sont pas identiques.";
+                    returnCode = "Le mot de passe et sa confirmation ne sont pas identiques.";
                 }
             }
 
-            TempData["TempDataError"] = RC;
+            TempData["TempDataError"] = returnCode;
             return View();
         }
 
@@ -58,33 +59,35 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                var ValidUserQuery = (from User in db.Users
+                var validUserQuery = (from user in db.Users
                                       where
-                                      User.Email.Equals(userbd.Email) ||
-                                      User.Nickname.Equals(userbd.Nickname)
+                                      user.Email.Equals(userbd.Email) ||
+                                      user.Nickname.Equals(userbd.Nickname)
                                       select new SearchUserInfo
                                       {
-                                          Nickname = User.Nickname,
-                                          Email = User.Email
+                                          Nickname = user.Nickname,
+                                          Email = user.Email
                                       }).FirstOrDefault();
 
-                if (ValidUserQuery == null)
+                if (validUserQuery == null)
                 {
-                    CreateUser(userbd);
+                    userbd.Photo = Photo.StockPhoto;
+                    userbd.Password = Encrypt(userbd.Password);
+                    userbd = Geolocalisation.SetUserLocation(userbd);
+
                     db.Database.Connection.Open();
                     db.Users.Add(userbd);
                     db.SaveChanges();
                     db.Database.Connection.Close();
+
                     return "";
                 }
-                else
-                {
-                    return "L'utilisateur existe déjà";
-                }
+
+                return "L'utilisateur existe déjà";
             }
-            catch
+            catch(Exception ex)
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard.";
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard."+ex;
             }
         }
 
@@ -101,10 +104,10 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
-                string ReturnLoginValid = LoginValid(model.Nickname, model.Password);
-                if (ReturnLoginValid != "")
+                string returnLoginValid = LoginValid(model.Nickname, model.Password);
+                if (returnLoginValid != "")
                 {
-                    model.Nickname = ReturnLoginValid;
+                    model.Nickname = returnLoginValid;
                     FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }
@@ -123,25 +126,25 @@ namespace TrouveUnBand.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private String LoginValid(string NicknameOrEmail, string Password)
+        private String LoginValid(string nicknameOrEmail, string password)
         {
             try
             {
-                string EncryptedPass = Encrypt(Password);
-                var LoginQuery = (from User in db.Users
+                string encryptedPass = Encrypt(password);
+                var loginQuery = (from user in db.Users
                                   where
-                                  (User.Email.Equals(NicknameOrEmail) ||
-                                  User.Nickname.Equals(NicknameOrEmail)) &&
-                                  User.Password.Equals(EncryptedPass)
+                                  (user.Email.Equals(nicknameOrEmail) ||
+                                  user.Nickname.Equals(nicknameOrEmail)) &&
+                                  user.Password.Equals(encryptedPass)
                                   select new LoginModel
                                   {
-                                      Nickname = User.Nickname,
-                                      Email = User.Email,
-                                      Password = User.Password
+                                      Nickname = user.Nickname,
+                                      Email = user.Email,
+                                      Password = user.Password
                                   }).FirstOrDefault();
-                if (LoginQuery != null)
+                if (loginQuery != null)
                 {
-                    return LoginQuery.Nickname;
+                    return loginQuery.Nickname;
                 }
                 return "";
             }
@@ -155,8 +158,8 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                var LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
-                UpdateUser(LoggedOnUser, user);
+                var loggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == user.Nickname);
+                SetUserInfo(loggedOnUser, user);
                 db.SaveChanges();
 
                 return "";
@@ -171,16 +174,16 @@ namespace TrouveUnBand.Controllers
         {
             ViewBag.InstrumentListDD = new List<Instrument>(db.Instruments);
 
-            User LoggedOnUserValid = GetUserInfo(User.Identity.Name);
+            User loggedOnUserValid = GetUserInfo(User.Identity.Name);
 
-            ViewData["UserData"] = LoggedOnUserValid;
+            ViewData["UserData"] = loggedOnUserValid;
 
-            User MusicianQuery = db.Users.FirstOrDefault(x => x.User_ID == LoggedOnUserValid.User_ID);
-            if (MusicianQuery == null)
+            User musicianQuery = db.Users.FirstOrDefault(x => x.User_ID == loggedOnUserValid.User_ID);
+            if (musicianQuery == null)
             {
-                MusicianQuery = new User();
+                musicianQuery = new User();
             }
-            ViewData["MusicianProfilData"] = MusicianQuery;
+            ViewData["MusicianProfilData"] = musicianQuery;
             return View();
         }
 
@@ -188,68 +191,63 @@ namespace TrouveUnBand.Controllers
         public ActionResult UserProfileModification(User userModel)
         {
             userModel.Nickname = User.Identity.Name;
-            string RC = "";
 
-            RC = UpdateProfil(userModel);
+            var returnCode = UpdateProfil(userModel);
 
-            if (RC == "")
+            if (returnCode == "")
             {
                 TempData["success"] = "Le profil a été mis à jour.";
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                TempData["TempDataError"] = "Une erreur interne s'est produite";
-                return RedirectToAction("ProfileModification", "Users");
-            }
+
+            TempData["TempDataError"] = "Une erreur interne s'est produite";
+            return RedirectToAction("ProfileModification", "Users");
         }
 
         [HttpPost]
         public ActionResult MusicianProfileModification(User user)
         {
-            string InstrumentList = Request["InstrumentList"];
-            string[] InstrumentArray = InstrumentList.Split(',');
-            string RC;
+            string instrumentList = Request["InstrumentList"];
+            string[] instrumentArray = instrumentList.Split(',');
+            bool isUpdated;
 
-            if (AllUnique(InstrumentArray))
+            if (AllUnique(instrumentArray))
             {
                 user = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
-                string SkillList = Request["SkillsList"];
-                string[] SkillArray = SkillList.Split(',');
-                string DescriptionMusician = Request["TextArea"];
+                string skillList = Request["SkillsList"];
+                string[] skillArray = skillList.Split(',');
+                string descriptionMusician = Request["TextArea"];
 
-                user.Description = DescriptionMusician;
-                for (int i = 0; i < InstrumentArray.Length; i++)
+                user.Description = descriptionMusician;
+                user.Users_Instruments.Clear();
+
+                for (int i = 0; i < instrumentArray.Length; i++)
                 {
-                    int currentInstrumentID = Convert.ToInt32(InstrumentArray[i]);
-                    var instrument = db.Instruments.FirstOrDefault(x => x.Instrument_ID == currentInstrumentID);
-                    Users_Instruments UserInstruments = new Users_Instruments();
+                    var userInstruments = new Users_Instruments();
+                    int currentInstrumentId = Convert.ToInt32(instrumentArray[i]);
+                    var instrument = db.Instruments.FirstOrDefault(x => x.Instrument_ID == currentInstrumentId);
 
-                    UserInstruments.Instrument_ID = instrument.Instrument_ID;
-                    UserInstruments.Skills = Convert.ToInt32(SkillArray[i]);
-                    UserInstruments.User_ID = user.User_ID;
+                    userInstruments.Instrument_ID = instrument.Instrument_ID;
+                    userInstruments.Skills = Convert.ToInt32(skillArray[i]);
+                    userInstruments.User_ID = user.User_ID;
 
-                    user.Users_Instruments.Add(UserInstruments);
+                    user.Users_Instruments.Add(userInstruments);
                 }
-                
-                RC = UpdateProfil(user);
-                if (RC == "")
+
+                isUpdated = SaveUpdatedUser();
+
+                if (isUpdated)
                 {
                     TempData["success"] = "Le profil musicien a été mis à jour.";
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    TempData["TempDataError"] = "Une erreur interne s'est produite";
-                    return RedirectToAction("ProfileModification", "Users");
-                }
-            }
-            else
-            {
-                TempData["TempDataError"] = "Vous ne pouvez pas entrer deux fois le même instrument";
+
+                TempData["TempDataError"] = "Une erreur interne s'est produite";
                 return RedirectToAction("ProfileModification", "Users");
             }
 
+            TempData["TempDataError"] = "Vous ne pouvez pas entrer deux fois le même instrument";
+            return RedirectToAction("ProfileModification", "Users");
         }
 
         private bool AllUnique(string[] array)
@@ -258,24 +256,23 @@ namespace TrouveUnBand.Controllers
             return allUnique;
         }
 
-        private User GetUserInfo(string Nickname)
+        private User GetUserInfo(string nickname)
         {
-            User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == Nickname);
-            LoggedOnUser.Photo = LoggedOnUser.Photo;
-            return LoggedOnUser;
+            User loggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == nickname);
+            loggedOnUser.Photo = loggedOnUser.Photo;
+            return loggedOnUser;
         }
 
         public string GetUserFullName()
         {
-            var LoggedOnUser = GetUserInfo(User.Identity.Name);
-            return LoggedOnUser.FirstName + " " + LoggedOnUser.LastName;
+            var loggedOnUser = GetUserInfo(User.Identity.Name);
+            return loggedOnUser.FirstName + " " + loggedOnUser.LastName;
         }
 
         public string GetPhotoSrc()
         {
-            var LoggedOnUser = GetUserInfo(User.Identity.Name);
-            Photo profilePhoto = new Photo();
-            profilePhoto.PhotoArray = LoggedOnUser.Photo;
+            var loggedOnUser = GetUserInfo(User.Identity.Name);
+            var profilePhoto = new Photo {PhotoArray = loggedOnUser.Photo};
             return profilePhoto.PhotoSrc;
         }
 
@@ -283,58 +280,49 @@ namespace TrouveUnBand.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult CropImage(User UserPicture)
+        public virtual ActionResult CropImage(User userPicture)
         {
-            var PostedPhoto = Request.Files[0];
+            var postedPhoto = Request.Files[0];
 
-            if (PostedPhoto.ContentLength == 0)
+            if (postedPhoto.ContentLength == 0)
             {
-                TempData["TempDataError"] = POCO.AlertMessages.POSTED_FILES_ERROR;
+                TempData["TempDataError"] = AlertMessages.POSTED_FILES_ERROR;
                 return RedirectToAction("ProfileModification");
             }
 
             try
             {
-                User LoggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
+                User loggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
 
-                if(!Photo.IsPhoto(PostedPhoto))
+                if(!Photo.IsPhoto(postedPhoto))
                 {
-                    TempData["TempDataError"] = POCO.AlertMessages.FILE_TYPE_INVALID;
+                    TempData["TempDataError"] = AlertMessages.FILE_TYPE_INVALID;
                     return RedirectToAction("ProfileModification");
                 }
 
-                Image image = Image.FromStream(PostedPhoto.InputStream, true, true);
+                Image image = Image.FromStream(postedPhoto.InputStream, true, true);
 
                 if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
                 {
                     image = PhotoResizer.ResizeImage(image, 172, 250, 413, 600);
                 }
 
-                byte[] croppedPhoto = PhotoCropper.CropImage(image, UserPicture.ProfilePicture.CropRect);
+                byte[] croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);
 
-                LoggedOnUser.Photo = croppedPhoto;
+                loggedOnUser.Photo = croppedPhoto;
                 db.SaveChanges();
 
-                TempData["success"] = POCO.AlertMessages.PICTURE_CHANGED;
+                TempData["success"] = AlertMessages.PICTURE_CHANGED;
                 return RedirectToAction("ProfileModification", "Users");
             }
             catch
             {
-                TempData["TempDataError"] = POCO.AlertMessages.INTERNAL_ERROR;
+                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
                 return RedirectToAction("ProfileModification");
             }
         }
 
-        private User CreateUser(User userToCreate)
-        {
-            userToCreate.Photo = Photo.StockPhoto;
-            userToCreate.Password = Encrypt(userToCreate.Password);
-            userToCreate = Geolocalisation.SetUserLocation(userToCreate);
-
-            return userToCreate;
-        }
-
-        private User UpdateUser(User currentUser, User newUser)
+        private void SetUserInfo(User currentUser, User newUser)
         {
             if ((currentUser.Latitude == 0.0 || currentUser.Longitude == 0.0) || currentUser.Location != newUser.Location)
             {
@@ -347,9 +335,19 @@ namespace TrouveUnBand.Controllers
             currentUser.BirthDate = newUser.BirthDate;
             currentUser.Gender = newUser.Gender;
             currentUser.Email = newUser.Email;
-            currentUser.Users_Instruments = newUser.Users_Instruments;
+        }
 
-            return currentUser;
+        private bool SaveUpdatedUser()
+        {
+            try
+            {
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
