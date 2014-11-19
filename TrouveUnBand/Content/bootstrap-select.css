@@ -262,3 +262,8 @@
 .bootstrap-select{
     padding:0;
 }
+
+.bs-searchbox .glyphicon{
+    padding-top: 4px;
+    padding-right: 16px;
+}
