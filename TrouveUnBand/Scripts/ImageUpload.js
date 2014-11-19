@@ -71,4 +71,3 @@ $("#closeDialog").click(function () {
     $("#ImageUploader").unwrap();
     return;
 });
-

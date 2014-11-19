@@ -35,7 +35,8 @@ namespace TrouveUnBand
                 "~/Scripts/ImageUpload.js",
                 "~/Scripts/ProfilePage.js",
                 "~/Scripts/PictureDialog.js",
-                "~/Scripts/TopSecret.js"
+                "~/Scripts/TopSecret.js",
+                "~/Scripts/bootstrap-select.js"
                 ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes
@@ -45,7 +46,9 @@ namespace TrouveUnBand
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/site.css",
-                "~/Content/Site.css"));
+                "~/Content/Site.css",
+                 "~/Content/bootstrap-select.css"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                 "~/Content/themes/base/jquery.ui.core.css",

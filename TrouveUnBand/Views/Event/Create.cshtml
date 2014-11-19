@@ -73,21 +73,15 @@ else
                             new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
                         @Html.ValidationMessageFor(model => model.StageSize)
                     </div>
-                    <div class="col-md-12">
-                        <hr class="colorgraph col-md-12">
-                        @Html.Label("Genres Musicaux de l'événement")
-                    </div>
-                    <table id="GenresTable" class="form-group col-md-10">
-                        <tr name="1" id="tablerow" class="form-group col-md-12 row">
-                            <td id="tablecellG" class="col-md-6">
-                                        @Html.DropDownList("EventGenreDB", 
-                                        new SelectList(ViewBag.GenreListDB, "Name", "Name", 0), new { @class = "form-control" })
-                            </td>
-                            <td id="tablecellX" class="col-md-3"></td>
-                        </tr>
-                    </table>
-                    <div class="form-group col-md-12">
-                        <input type="button" onclick="AddGenre()" class="btn btn-info" value="Ajouter un Genre" />
+                    <div class="form-group col-md-6">
+                        <select name="EventGenreDB" class="selectpicker" title="Genres musicaux de l'événement"
+                                data-width="100%" data-live-search="true"
+                                data-selected-text-format="count>3" multiple>
+                            @foreach (var genre in ViewBag.GenreListDB)
+                            {
+                                <option>@genre.Name</option>
+                            }
+                        </select>
                     </div>
                     <hr class="colorgraph col-md-12">
                     <div class="form-group col-md-6">

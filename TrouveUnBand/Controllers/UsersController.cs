@@ -12,7 +12,7 @@ namespace TrouveUnBand.Controllers
     public class UsersController : Controller
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
-        
+
         public ActionResult Index()
         {
             return View();

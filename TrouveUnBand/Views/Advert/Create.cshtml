@@ -22,7 +22,7 @@ else
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Hidden("CreatorName", User.Identity.Name)
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             @Html.TextBoxFor(model => model.Type,
                                 new { @class = "form-control", @placeholder = "Nom de l'annonce" })
                             @Html.ValidationMessageFor(model => model.Type)
@@ -32,18 +32,13 @@ else
                                 new { @class = "form-control", @placeholder = "Emplacement" })
                             @Html.ValidationMessageFor(model => model.Location)
                         </div>
-                        @*<div class="form-group col-md-6">
-                            @Html.DropDownList("GenreAdvertDB", (IEnumerable<SelectListItem>)ViewBag.GenresAdvert, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Genres)
-                        </div>*@
                         <div class="form-group col-md-6">
                                 @Html.DropDownListFor(model => model.Status, new SelectList(
                                           new List<Object>{
                                                new { value = "En attente" , text = "En attente"  },
                                                new { value = "En cours" , text = "En cours" }
-                                            },
-                                          "value",
-                                            "text", 1),"Statut de la demande", new { @class = "form-control" })
+                                            },"value","text", 1), 
+                                          "Statut de la demande", new { @class = "form-control selectpicker" })
                             @Html.ValidationMessageFor(model => model.Status)
                         </div>
 
@@ -52,22 +47,20 @@ else
                                 new { @class = "form-control", @placeholder = "Date d'expiration de l'annonce", @id = "datepickernotime2", @type = "date" })
                             @Html.ValidationMessageFor(model => model.ExpirationDate)
                         </div>
+                        <div class="form-group col-md-6">
+                            <select name="GenreAdvertDB" class="selectpicker" title="Genres musicaux de l'annonce"
+                                    data-width="100%" data-live-search="true"
+                                    data-selected-text-format="count>3" multiple>
+                                @foreach (var genre in ViewBag.GenresAdvert)
+                                {
+                                    <option>@genre.Name</option>
+                                }
+                            </select>
+                        </div>
                         <div class="form-group col-md-12">
                             @Html.TextAreaFor(model => model.Description,
                                 new { @class = "form-control", @placeholder = "Description" })
                             @Html.ValidationMessageFor(model => model.Description)
-                        </div>
-                        <table id="GenresTable" class="form-group col-md-10">
-                            <tr name="1" id="tablerow" class="form-group col-md-12 row">
-                                <td id="tablecellG" class="col-md-6">
-                                    @Html.DropDownList("GenreAdvertDB",
-                                    (IEnumerable<SelectListItem>)ViewBag.GenresAdvert, new { @class = "form-control" })
-                                </td>
-                                <td id="tablecellX" class="col-md-3"></td>
-                            </tr>
-                        </table>
-                        <div class="form-group col-md-12">
-                            <input type="button" onclick="AddGenre()" class="btn btn-info" value="Ajouter un Genre" />
                         </div>
                         <div class="form-group col-md-12">
                             @Html.Label("Photo de l'annonce")
