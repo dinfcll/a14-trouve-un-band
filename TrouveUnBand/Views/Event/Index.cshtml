@@ -20,7 +20,7 @@
 </p>
 <div class="row">
 @foreach (var item in Model)
-    {
+{
         <div class="col-md-3">
             <div class="thumbnail card">
             @if (item.Photo == null)
@@ -44,7 +44,19 @@
                         <span class="glyphicon glyphicon-map-marker"></span>
                         @Html.DisplayName(item.City)
                     </p>
-                    <b>@Html.DisplayName(item.Genres.FirstOrDefault().Name)</b>
+                    @{var TextPopOver = "";}
+                    @foreach (var genre in item.Genres)
+                    {
+                        TextPopOver += genre.Name+"\n";
+                    }
+                    <p>
+                        <span class="glyphicon glyphicon-music"></span>
+                        @Html.DisplayName(@item.Genres.FirstOrDefault().Name)
+                            <span class="label label-default label-popover" tabindex="0" role="button" 
+                                  data-toggle="popover" title="Genres de l'événement" 
+                                  data-content="@TextPopOver">...</span>
+                        
+                    </p>
                     <p>
                         @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-default" })
                         @if (item.User.Nickname == User.Identity.Name)
@@ -59,3 +71,4 @@
     }
 </div>
 </div>
+

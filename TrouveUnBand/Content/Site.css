@@ -1,4 +1,4 @@
-.top-80{
+﻿.top-80{
    margin-top: -80px;
 }
 
@@ -703,3 +703,13 @@ div.profile-tab-menu div.list-group{
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+
+.popover{
+    color:#333333;
+}
+
+.label-popover{
+    cursor:pointer;
+    vertical-align:middle;
+}
+
