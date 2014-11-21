@@ -23,7 +23,30 @@
                     <span class="glyphicon glyphicon-map-marker"></span><span>@Model.Location, @Model.City</span>
                 </li>
                 <li>
-                    <span class="glyphicon glyphicon-music"></span><span>@Model.Genres.FirstOrDefault().Name</span>
+                    <span class="glyphicon glyphicon-music"></span>
+                    <span>
+                        @{var i = 0;
+                          var TextPopOver = ""; 
+                            foreach (var genre in Model.Genres)
+                            {
+                                TextPopOver += Html.DisplayName(genre.Name) + "\n";
+                                if(i < 4)
+                                {
+                                    @Html.DisplayName(genre.Name + ", ");
+                                                                        i++;
+                                }
+                                if (i == 4)
+                                {
+                                    @Html.DisplayName(genre.Name + "");
+                                    i++;
+                                }
+                            }  
+                        }  
+                        <a href="#" tabindex="0" role="button"
+                            data-toggle="popover" title="Genres de l'événement" data-content="@TextPopOver">
+                                <span class="label label-default">...</span>
+                        </a>
+                    </span>
                 </li>
                 <li>
                     <span class="glyphicon glyphicon-user"></span><span>@Model.User.Nickname</span>
