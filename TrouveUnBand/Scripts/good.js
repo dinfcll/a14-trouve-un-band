@@ -19,23 +19,34 @@
 }
 
 function GetArtistTracks(artist) {
-    console.log(artist);
-    SC.get(artist, { limit: 1 }, function (tracks) {
-        alert("Latest track: " + tracks[0].title);
+    SC.get('/tracks',
+    {
+        artist: artist
+    }, function (tracks) {
+        var random = Math.floor(Math.random() * 10);
+        SC.oEmbed(tracks[random].uri, {
+            auto_play: false
+        }, document.getElementById('Widget'));
     });
 }
+
+
+
+function GetArtist(artist) {
+        SC.oEmbed('https://soundcloud.com/' + artist, {
+            auto_play: false
+        }, document.getElementById('Widget'));
+    }
+
+
 
 window.onload = function() {
     SC.initialize({
         client_id: '96fcd16e1df481197be64f94a6d0f35a'
     });
-
-
-    var myBandName = document.getElementById('BandName');
-
-
-    var artist = myBandName.innerHTML;
-    GetArtistTracks(artist);
+    var artist = document.getElementById('BandName').innerHTML;
+    console.log(artist);
+    GetArtist(artist);
 
 
 /*
