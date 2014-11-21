@@ -50,6 +50,46 @@ namespace TrouveUnBand.Services
             return adverts;
         }
 
+        public static List<Advert> GetAdverts(string[] genres, string keyWord, string location, int radius)
+        {
+            var db = new TrouveUnBandEntities();
+
+            var adverts = (from advert in db.Adverts select advert).ToList();
+
+            if (genres != null)
+            {
+                foreach (String genreName in genres)
+                {
+                    adverts = adverts.Where(x => x.Genres.Any(genre => genre.Name == genreName)).ToList();
+                }
+            }
+
+            if (!String.IsNullOrEmpty(keyWord))
+            {
+                adverts = adverts.Where(x => x.Description.Contains(keyWord)).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(location))
+            {
+                var advertsToRemove = new List<Advert>();
+
+                foreach (var ad in adverts)
+                {
+                    if (!Geolocalisation.CheckIfInRange(ad.Location, location, radius))
+                    {
+                        advertsToRemove.Add(ad);
+                    }
+                }
+
+                foreach (var ad in advertsToRemove)
+                {
+                    adverts.Remove(ad);
+                }
+            }
+
+            return adverts;
+        }
+
         public static List<Advert> GetAdverts(int? genre_ID)
         {
             var db = new TrouveUnBandEntities();

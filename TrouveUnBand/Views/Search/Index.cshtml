@@ -21,37 +21,30 @@
 
     <div class="form-inline searchform">
         @Html.DropDownList("selectedCategory", (SelectList)ViewBag.Categories, new { @class = "form-control" })
-        @Html.DropDownList("selectedGenre", (SelectList)ViewBag.Genres, "tous les genres", new { @class = "form-control" })
         @Html.TextBox("location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
         <div class="input-group">
             @Html.TextBox("radius", "20", new { @class = "form-control", @placeholder = "Rayon" })
             <span class="input-group-addon"><label>KM</label></span>
         </div>
     </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="dropdown">
-                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
-                    tous les genres <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                    @foreach (var genre in (SelectList)ViewBag.Genres)
+    
+    <select name="cbSelectedGenres" class="selectpicker form-control" title="tous les genres"
+        data-width="100%" data-live-search="true"
+        data-selected-text-format="count>3" multiple>
+        @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
+        {   
+            <li class="dropdown-submenu">
+                <optgroup label="@list.FirstOrDefault()">
+                    <ul class="dropdown-menu">
+                    @foreach (var genre in list)
                     {
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#">@genre.Text</a>
-                            <ul class="dropdown-menu">
-                            @foreach (var subgenre in (List<SelectList>)ViewBag.Subgenres)
-                            {
-                                <li><a tabindex="-1" href="#">@subgenre.Select(x => x.Text)</a></li>
-                            }
-                            </ul>
-                        </li>
-                    }       
-                </ul>
-            </div>
-        </div>
-    </div>
+                        <option>@genre</option>
+                    }
+                    </ul>
+                </optgroup>
+            </li>
+        }
+    </select>
 }
 </div>
 

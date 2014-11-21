@@ -229,6 +229,7 @@
     <Compile Include="Services\AdvertDAO.cs" />
     <Compile Include="Services\BandDAO.cs" />
     <Compile Include="Services\EventDAO.cs" />
+    <Compile Include="Services\GenreDao.cs" />
     <Compile Include="Services\UserDao.cs" />
     <Compile Include="ViewModels\ResultViewModels.cs" />
   </ItemGroup>

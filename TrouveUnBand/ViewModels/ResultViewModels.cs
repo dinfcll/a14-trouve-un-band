@@ -40,10 +40,11 @@ namespace TrouveUnBand.ViewModels
             Description = user.Description;
             Genres = user.Genres.Select(x => x.Name).ToList();
             Location = user.Location;
-            Type = "Utilisateur";
-            if (user.isMusician())
+            Type = "Musicien";
+            if (!user.isMusician())
             {
-                Type = "Musician";
+                Type = "Utilisateur";
+                Description = "";
             }
             Photo = user.Photo;
             CreationDate = user.CreationDate;

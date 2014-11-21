@@ -21,20 +21,13 @@ namespace TrouveUnBand.Controllers
         public ActionResult Index(string searchString)
         {
             var results = new List<ResultViewModels>();
-            var subgenres = new List<SelectList>();
+            var subgenres = GenreDao.GetAllSubgenresByGenres();
             var genres = new SelectList(db.Genres.Where(x => x.Parent_ID == null), "Genre_ID", "Name");
             var categories = new SelectList(new List<Object>{
                 new { value=LATEST, text="Les nouveautés" },
                 new { value=MOST_POPULAR, text="Les plus populaires" },
                 new { value=HIGHEST_RATING, text="Les mieux notés" }
             }, "value", "text");
-
-            foreach (var genre in genres)
-            {
-                var genreChildren = new SelectList(db.Genres.Where(x => x.Parent_ID != null), "Genre_ID", "Name");
-                genreChildren.OrderBy(x => x.Value);
-                subgenres.Add(genreChildren);
-            }
 
             var bandsList = BandDao.GetBands(searchString);
             var musiciansList = UserDao.GetMusicians(searchString);
@@ -60,14 +53,14 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult Filter(int selectedCategory, int? selectedGenre, string searchstring, string location, int radius,
+        public ActionResult Filter(int selectedCategory, string[] cbSelectedGenres, string searchstring, string location, int radius,
                                    bool cbBandsChecked, bool cbMusiciansChecked, bool cbAdvertsChecked, bool cbEventsChecked)
         {
             var results = new List<ResultViewModels>();
 
             if (cbBandsChecked)
             {
-                var bands = BandDao.GetBands(selectedGenre, searchstring, location, radius);
+                var bands = BandDao.GetBands(cbSelectedGenres, searchstring, location, radius);
                 foreach (var band in bands)
                 {
                     results.Add(new ResultViewModels(band));
@@ -76,7 +69,7 @@ namespace TrouveUnBand.Controllers
 
             if (cbMusiciansChecked)
             {
-                var musicians = UserDao.GetMusicians(selectedGenre, searchstring, location, radius);
+                var musicians = UserDao.GetMusicians(cbSelectedGenres, searchstring, location, radius);
                 foreach (var musician in musicians)
                 {
                     results.Add(new ResultViewModels(musician));
@@ -85,7 +78,7 @@ namespace TrouveUnBand.Controllers
 
             if (cbAdvertsChecked)
             {
-                var adverts = AdvertDao.GetAdverts(selectedGenre, searchstring, location, radius);
+                var adverts = AdvertDao.GetAdverts(cbSelectedGenres, searchstring, location, radius);
                 foreach (var advert in adverts)
                 {
                     results.Add(new ResultViewModels(advert));

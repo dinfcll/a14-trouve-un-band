@@ -15,6 +15,12 @@
                     </p>
                     <b>@Html.DisplayName(item.Type)</b>
                     <p>
+                    @foreach (var genre in item.Genres)
+                    {
+                        <span class="label label-default">@genre</span>
+                    }
+                    </p>
+                    <p>
                         @Html.ActionLink("Voir profil", "ViewProfile", "Search", new { type = item.Type, Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
                         <a href="#" class="btn btn-default" role="button">Button</a>
                     </p>

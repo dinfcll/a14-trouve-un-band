@@ -53,13 +53,13 @@ namespace TrouveUnBand.Services
             return lstResults;
         }
 
-        public static List<Band> GetBands(List<String> genres, string bandName, string location, int radius)
+        public static List<Band> GetBands(string[] genres, string bandName, string location, int radius)
         {
             var db = new TrouveUnBandEntities();
             var lstResults = new List<Band>();
             var bands = db.Bands.ToList();
 
-            if (genres.Count > 0)
+            if (genres != null)
             {
                 foreach (String genreName in genres)
                 {

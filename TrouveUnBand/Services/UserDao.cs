@@ -21,32 +21,38 @@ namespace TrouveUnBand.Services
         public static List<User> GetMusicians(string[] genres, string userName, string location, int radius)
         {
             var db = new TrouveUnBandEntities();
-            var users = new List<User>();
+            var users = db.Users.ToList();
+            var usersToRemove = new List<User>();
 
-            users = db.Users.Where(x => x.FirstName.Contains(userName) || 
+            
+            if(!String.IsNullOrEmpty(userName))
+            {
+                users = users.Where(x => x.FirstName.Contains(userName) || 
                                    x.LastName.Contains(userName) || 
                                    x.Nickname.Contains(userName)).ToList();
+            }
 
             foreach (var user in users)
             {
                 if (!user.isMusician())
                 {
-                    users.Remove(user);
+                    usersToRemove.Add(user);
                 }
 
-                foreach (var genre in genres)
+                if (genres != null)
                 {
-                    if (user.Genres.All(x => x.Name != genre))
+                    foreach (var genre in genres)
                     {
-                        users.Remove(user);
+                        if (user.Genres.All(x => x.Name != genre))
+                        {
+                            usersToRemove.Add(user);
+                        }
                     }
                 }
             }
 
             if (!String.IsNullOrEmpty(location))
             {
-                var usersToRemove = new List<User>();
-
                 foreach (var user in users)
                 {
                     if (Geolocalisation.CheckIfInRange(user.Location, location, radius))
@@ -54,11 +60,11 @@ namespace TrouveUnBand.Services
                         usersToRemove.Add(user);
                     }
                 }
+            }
 
-                foreach (var user in usersToRemove)
-                {
-                    users.Remove(user);
-                }
+            foreach (var user in usersToRemove)
+            {
+                users.Remove(user);
             }
 
             return users;
