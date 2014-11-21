@@ -66,10 +66,13 @@ namespace TrouveUnBand
                 "~/Content/bootstrap.min.css",
                 "~/Content/bootstrap-responsive.min.css"));
 
+            /*  Normalement ils sont chargé sur le cloud, mais en les chargeant 
+                localement on améliore grandement la vitesse de chargement de la page.
+                De plus le SDK de Facebook se charge une fois sur deux sur le cloud*/
             bundles.Add(new ScriptBundle("~/bundles/SocialMedia").Include(
-                "~/Scripts/TwitterSDK.js",
-                "~/Scripts/FacebookSDK.js",
-                "~/Scripts/GoogleSDK.js"));
+                "~/Scripts/SDKs/Twitter.js",
+                "~/Scripts/SDKs/Facebook.js",
+                "~/Scripts/SDKs/GooglePlus.js"));
         }
     }
 }
