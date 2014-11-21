@@ -14,7 +14,14 @@
         console.log(tracks[random].uri);
         SC.oEmbed(tracks[random].uri, {
             auto_play: true
-        }, document.getElementById('target'));
+        }, document.getElementById('Widget'));
+    });
+}
+
+function GetArtistTracks(artist) {
+    console.log(artist);
+    SC.get(artist, { limit: 1 }, function (tracks) {
+        alert("Latest track: " + tracks[0].title);
     });
 }
 
@@ -23,6 +30,15 @@ window.onload = function() {
         client_id: '96fcd16e1df481197be64f94a6d0f35a'
     });
 
+
+    var myBandName = document.getElementById('BandName');
+
+
+    var artist = myBandName.innerHTML;
+    GetArtistTracks(artist);
+
+
+/*
     var menuLinks = document.getElementsByClassName('genre');
 
     for (var i = 0; i < menuLinks.length; i++) {
@@ -33,5 +49,5 @@ window.onload = function() {
             PlaySomeSound(menuLink.innerHTML);
             console.log(menuLink.innerHTML);
         };
-    }
+    }*/
 };
