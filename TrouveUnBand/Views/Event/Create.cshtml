@@ -17,7 +17,7 @@ else
         @Html.Hidden("Creator", User.Identity.Name)
         <div  id="CreateEventForm">
             <div class="container">
-                <div class="row form-group col-md-12">
+                <div class="row form-group col-md-8 col-md-push-2">
                     <div class="col-md-12">
                         <h3>Créer un événement</h3>
                         <hr class="colorgraph">
@@ -54,10 +54,9 @@ else
 
                     <div class="form-group col-md-12">
                         @Html.TextBoxFor(model => model.EventDate, 
-                            new { @class = "form-control", @placeholder = "Date de l'événement", @id = "datepicker", @type = "date" })
+                            new { @class = "form-control", @placeholder = "Date de l'événement", @id = "datepicker" })
                         @Html.ValidationMessageFor(model => model.EventDate)
                     </div>
-
                     <div class="form-group col-md-6">
                         @Html.TextBoxFor(model => model.MaxAudience, 
                             new { @class = "form-control", @placeholder = "Audience maximale" })
@@ -69,23 +68,27 @@ else
                             new { @class = "form-control", @placeholder = "Salaire pour l'événement ($)" })
                         @Html.ValidationMessageFor(model => model.Salary)
                     </div>
-
-                    <div class="form-group col-md-6">
-                        @Html.DropDownList("EventGenreDB", 
-                            new SelectList(ViewBag.GenreListDB, "Name", "Name", 0), new { @class = "form-control" })
-                    </div>
-
                     <div class="form-group col-md-6">
                         @Html.TextBoxFor(model => model.StageSize, 
                             new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
                         @Html.ValidationMessageFor(model => model.StageSize)
                     </div>
-
+                    <div class="form-group col-md-6">
+                        <select name="EventGenreDB" class="selectpicker form-control" title="Genres musicaux de l'événement"
+                                data-width="100%" data-live-search="true"
+                                data-selected-text-format="count>3" multiple>
+                            @foreach (var genre in ViewBag.GenreListDB)
+                            {
+                                <option>@genre.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <hr class="colorgraph col-md-12">
                     <div class="form-group col-md-6">
                         @Html.Label("Photo de l'événement")
                         <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
                     </div>
-
+                    
                     <div class="col-md-12">
                         <hr class="colorgraph"/>
                     </div>

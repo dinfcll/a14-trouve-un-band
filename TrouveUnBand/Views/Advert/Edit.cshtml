@@ -26,7 +26,7 @@ else
                     <div class="form-group col-md-12">
 
                         @Html.Hidden("CreatorName", User.Identity.Name)
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             @Html.Label("Nom de l'annonce")
                             @Html.TextBoxFor(model => model.Type,
                                 new { @class = "form-control", @placeholder = "Type d'Annonce" })
@@ -39,21 +39,35 @@ else
                             @Html.ValidationMessageFor(model => model.Location)
                         </div>
                         <div class="form-group col-md-6">
-                            @Html.Label("Genre Musical")
-                            @Html.DropDownList("GenreAdvertDB", (IEnumerable<SelectListItem>)ViewBag.GenresAdvert, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Genres)
-                        </div>
-                        <div class="form-group col-md-6">
                             @Html.Label("Status")
                             @Html.DropDownListFor(model => model.Status, new SelectList(
                                           new List<Object>{
                                                new { value = "En attente" , text = "En attente"  },
                                                new { value = "En cours" , text = "En cours" }
                                             },
-                                          "value",
-                                            "text", Model.Status), new { @class = "form-control" })
+                                            "value","text", Model.Status), 
+                                            new { @class = "form-control selectpicker" })
                             @Html.ValidationMessageFor(model => model.Status)
                         </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Genres Musicaux de l'événement")
+                            <select name="GenreAdvertDB" class="selectpicker" title="Genres musicaux de l'événement"
+                                    data-width="100%" data-live-search="true"
+                                    data-selected-text-format="count>3" multiple>
+                                @foreach (var genre in ViewBag.GenresAdvert)
+                                {
+                                    if (Model.Genres.Contains(genre))
+                                    {
+                                        <option selected>@genre.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option>@genre.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
                         <div class="form-group col-md-6">
                             @Html.Label("Date de Création")
                             @Html.TextBoxFor(model => model.CreationDate,

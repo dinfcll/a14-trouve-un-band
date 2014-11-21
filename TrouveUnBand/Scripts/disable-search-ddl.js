@@ -1,5 +1,4 @@
-﻿$(document).ready(function () {
-
+﻿
     /**
     * This function hides the 'Genres' dropdown list when 'Utilisateur' is selected
     * in the 'Categorie' dropdown list.
@@ -21,4 +20,3 @@
     $('#advanced-search-link').click(function () {
         $('#advanced-search').toggle();
     });
-});
