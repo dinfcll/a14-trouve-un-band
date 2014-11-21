@@ -313,8 +313,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
-    <Content Include="Scripts\good.js" />
-    <Content Include="Scripts\mySoundCloud.js" />
+    <Content Include="Scripts\SoundCloud.js" />
     <Content Include="Scripts\SDKs\Facebook.js" />
     <Content Include="Scripts\SDKs\GooglePlus.js" />
     <Content Include="Scripts\holder.js" />
@@ -476,7 +475,6 @@
     <Content Include="Views\Users\_UserProfilModif.cshtml" />
     <Content Include="Views\Users\TermsAndConditionsDialog.cshtml" />
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
-    <Content Include="Views\SocialMedia\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
