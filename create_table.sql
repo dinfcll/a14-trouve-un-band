@@ -3,7 +3,7 @@
 	FirstName NVARCHAR(100) NOT NULL,
 	LastName NVARCHAR(100) NOT NULL,
 	Nickname NVARCHAR(100) NOT NULL,
-	BirthDate DATETIME NOT NULL,
+	BirthDate datetime2 NOT NULL,
 	Gender NVARCHAR(100) NOT NULL,
 	Email NVARCHAR(100) NOT NULL,
 	Password NVARCHAR(100) NOT NULL,
@@ -12,7 +12,7 @@
 	Latitude FLOAT(40) NOT NULL,
 	Longitude FLOAT(40) NOT NULL,
 	Description text NULL,
-	CreationDate datetime NOT NULL DEFAULT (GETDATE())
+	CreationDate datetime2 NOT NULL DEFAULT (GETDATE())
 );
 
 create table Bands(
@@ -23,7 +23,7 @@ create table Bands(
 	Latitude FLOAT(40) NOT NULL,
 	Longitude FLOAT(40) NOT NULL,
 	Photo varbinary(max),
-	CreationDate datetime NOT NULL DEFAULT (GETDATE())
+	CreationDate datetime2 NOT NULL DEFAULT (GETDATE())
 );
 
 create table Instruments(
@@ -45,14 +45,14 @@ create table Events(
 	Longitude FLOAT(40) NOT NULL,
 	Address NVARCHAR(100) NOT NULL,
 	City NVARCHAR(100) NOT NULL,
-	EventDate datetime NOT NULL,
+	EventDate datetime2 NOT NULL,
 	MaxAudience int NOT NULL,
 	Salary float(10) NOT NULL,
 	StageSize CHAR NOT NULL,
 	Photo varbinary(max),
 	Creator_ID int constraint fk_event_creator_id references Users(User_ID),
 	Description text NOT NULL,
-	CreationDate datetime NOT NULL DEFAULT (GETDATE())
+	CreationDate datetime2 NOT NULL DEFAULT (GETDATE())
 );
 
 create table Events_Genres(
@@ -104,8 +104,8 @@ create table Adverts(
 	Type NVARCHAR(100) NOT NULL,	
 	Description NVARCHAR(max) NOT NULL,
 	Status nvarchar(100) NOT NULL,
-	CreationDate datetime NOT NULL DEFAULT (GETDATE()),
-	ExpirationDate DATETIME NOT NULL,
+	CreationDate datetime2 NOT NULL DEFAULT (GETDATE()),
+	ExpirationDate datetime2 NOT NULL,
 	Location NVARCHAR(100),
 	Latitude FLOAT(40) NOT NULL,
 	Longitude FLOAT(40) NOT NULL,

@@ -21,12 +21,20 @@ namespace TrouveUnBand.Controllers
         public ActionResult Index(string searchString)
         {
             var results = new List<ResultViewModels>();
+            var subgenres = new List<SelectList>();
             var genres = new SelectList(db.Genres.Where(x => x.Parent_ID == null), "Genre_ID", "Name");
             var categories = new SelectList(new List<Object>{
                 new { value=LATEST, text="Les nouveautés" },
                 new { value=MOST_POPULAR, text="Les plus populaires" },
                 new { value=HIGHEST_RATING, text="Les mieux notés" }
             }, "value", "text");
+
+            foreach (var genre in genres)
+            {
+                var genreChildren = new SelectList(db.Genres.Where(x => x.Parent_ID != null), "Genre_ID", "Name");
+                genreChildren.OrderBy(x => x.Value);
+                subgenres.Add(genreChildren);
+            }
 
             var bandsList = BandDao.GetBands(searchString);
             var musiciansList = UserDao.GetMusicians(searchString);
@@ -42,6 +50,7 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.Genres = genres;
+            ViewBag.Subgenres = subgenres;
             ViewBag.Categories = categories;
             ViewBag.SearchString = searchString;
             ViewBag.Results = results;
