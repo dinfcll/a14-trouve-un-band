@@ -313,8 +313,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
-    <Content Include="Scripts\FacebookSDK.js" />
-    <Content Include="Scripts\GoogleSDK.js" />
+    <Content Include="Scripts\good.js" />
+    <Content Include="Scripts\mySoundCloud.js" />
+    <Content Include="Scripts\SDKs\Facebook.js" />
+    <Content Include="Scripts\SDKs\GooglePlus.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\ImageUpload.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
@@ -337,8 +339,8 @@
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
     <Content Include="Scripts\TopSecret.js" />
-    <Content Include="Scripts\TwitterSDK.js" />
-    <Content Include="Views\SocialMedia\callback.html" />
+    <Content Include="Scripts\SDKs\Twitter.js" />
+    <Content Include="Views\SocialMedia\soundcloud-callback.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -474,6 +476,7 @@
     <Content Include="Views\Users\_UserProfilModif.cshtml" />
     <Content Include="Views\Users\TermsAndConditionsDialog.cshtml" />
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
+    <Content Include="Views\SocialMedia\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\_SearchResults.cshtml" />
