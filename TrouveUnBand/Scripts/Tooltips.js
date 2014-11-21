@@ -1,11 +1,7 @@
 ﻿$('[data-toggle="tooltip"]').hover(function () {
-    $(this).tooltip('show');
-}, function () {
-
+    $(this).tooltip('toggle');
 });
 
-$('[data-toggle="tooltip"]').hover(function () {
-
-}, function () {
-    $(this).tooltip('destroy');
+$('[data-toggle="popover"]').popover({
+    trigger: 'focus'
 });

@@ -16,15 +16,13 @@ namespace TrouveUnBand.Models
     {
         public Instrument()
         {
-            this.Join_Musician_Instrument = new HashSet<Join_Musician_Instrument>();
-            this.Join_Users_Instrument = new HashSet<Join_Users_Instrument>();
+            this.Users_Instruments = new HashSet<Users_Instruments>();
         }
     
-        public int InstrumentId { get; set; }
+        public int Instrument_ID { get; set; }
         public string Name { get; set; }
     
-        public virtual ICollection<Join_Musician_Instrument> Join_Musician_Instrument { get; set; }
-        public virtual ICollection<Join_Users_Instrument> Join_Users_Instrument { get; set; }
+        public virtual ICollection<Users_Instruments> Users_Instruments { get; set; }
     }
     
 }

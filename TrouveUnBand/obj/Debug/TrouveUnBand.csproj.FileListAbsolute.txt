@@ -205,7 +205,6 @@ C:\Users\Vincent\Documents\Visual Studio 2012\Projects\a14-trouve-un-band\Trouve
 C:\Users\Vincent\Documents\Visual Studio 2012\Projects\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
 C:\Users\Vincent\Documents\Visual Studio 2012\Projects\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 C:\Users\Vincent\Documents\Visual Studio 2012\Projects\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
-Z:\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
 Z:\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll
 Z:\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.pdb
 Z:\a14-trouve-un-band\TrouveUnBand\bin\Antlr3.Runtime.dll
@@ -333,4 +332,69 @@ C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\Microso
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.WebData.resources.dll
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
+<<<<<<< HEAD
+=======
+Z:\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.pdb
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\Antlr3.Runtime.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.AspNet.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.Core.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OAuth.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OpenId.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\EntityFramework.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.Web.Infrastructure.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.Web.WebPages.OAuth.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\Newtonsoft.Json.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.WebRequest.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Helpers.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Mvc.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Optimization.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Razor.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.WebPages.Deployment.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.WebPages.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.WebPages.Razor.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\WebGrease.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\WebMatrix.Data.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\WebMatrix.WebData.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\EntityFramework.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\Newtonsoft.Json.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.WebRequest.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Helpers.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Mvc.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Razor.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.WebPages.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.WebPages.Deployment.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\System.Web.WebPages.Razor.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\WebMatrix.Data.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\WebMatrix.WebData.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.AspNet.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.Core.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OAuth.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OpenId.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\EntityFramework.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Net.Http.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Net.Http.WebRequest.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Helpers.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Mvc.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Optimization.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Razor.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.WebPages.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.WebPages.Deployment.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.WebPages.Razor.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.Data.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\Microsoft.Web.WebPages.OAuth.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.WebData.resources.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
+D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll.config
+>>>>>>> origin/master
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache

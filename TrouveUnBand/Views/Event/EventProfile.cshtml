@@ -8,7 +8,7 @@
         <div class="thumbnail card col-md-3">
             <a href="#" data-toggle="modal" data-target="#PicModal">
                 @{
-                    var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.EventPhoto);
+                    var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo);
                     <img id="ProfilePic" alt="" src="@photo" width="250" class="photo" />
                 }
             </a>
@@ -17,16 +17,39 @@
             <ul class="list-unstyled">
                 <li>
                     <span class="label label-primary pull-right label-profile-type">Événement</span>
-                    <h1>@Model.EventName</h1>
+                    <h1>@Model.Name</h1>
                 </li>
                 <li>
-                    <span class="glyphicon glyphicon-map-marker"></span><span>@Model.EventLocation, @Model.EventCity</span>
+                    <span class="glyphicon glyphicon-map-marker"></span><span>@Model.Location, @Model.City</span>
                 </li>
                 <li>
-                    <span class="glyphicon glyphicon-music"></span><span>@Model.EventGender</span>
+                    <span class="glyphicon glyphicon-music"></span>
+                    <span>
+                        @{var i = 0;
+                          var TextPopOver = ""; 
+                            foreach (var genre in Model.Genres)
+                            {
+                                TextPopOver += Html.DisplayName(genre.Name) + "\n";
+                                if(i < 4)
+                                {
+                                    @Html.DisplayName(genre.Name + ", ");
+                                                                        i++;
+                                }
+                                if (i == 4)
+                                {
+                                    @Html.DisplayName(genre.Name + "");
+                                    i++;
+                                }
+                            }  
+                        }  
+                        <a href="#" tabindex="0" role="button"
+                            data-toggle="popover" title="Genres de l'événement" data-content="@TextPopOver">
+                                <span class="label label-default">...</span>
+                        </a>
+                    </span>
                 </li>
                 <li>
-                    <span class="glyphicon glyphicon-user"></span><span>@Model.EventCreator</span>
+                    <span class="glyphicon glyphicon-user"></span><span>@Model.User.Nickname</span>
                     <div class="pull-right">
                         <span class="glyphicon glyphicon-eye-open"></span><span>Billet disponible</span>
                     </div>

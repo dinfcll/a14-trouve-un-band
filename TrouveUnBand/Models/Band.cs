@@ -17,18 +17,22 @@ namespace TrouveUnBand.Models
         public Band()
         {
             this.Genres = new HashSet<Genre>();
-            this.Musicians = new HashSet<Musician>();
             this.Users = new HashSet<User>();
+            this.Events = new HashSet<Event>();
         }
     
-        public int BandId { get; set; }
+        public int Band_ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
+        public byte[] Photo { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     
         public virtual ICollection<Genre> Genres { get; set; }
-        public virtual ICollection<Musician> Musicians { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
     
 }

@@ -12,7 +12,7 @@
     <fieldset>
         <legend>CreateGroupModel</legend>
 
-        @Html.HiddenFor(model => model.BandId)
+        @Html.HiddenFor(model => model.Band_ID)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
@@ -31,11 +31,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Musicians)
+            @Html.LabelFor(model => model.Users)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Musicians)
-            @Html.ValidationMessageFor(model => model.Musicians)
+            @Html.EditorFor(model => model.Users)
+            @Html.ValidationMessageFor(model => model.Users)
         </div>
 
         <div class="editor-label">

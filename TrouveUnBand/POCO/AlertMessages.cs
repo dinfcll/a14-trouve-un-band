@@ -16,9 +16,9 @@ namespace TrouveUnBand.POCO
         //INFO
 
         //WARNING
-        public static string MUSICIAN_ALREADY_SELECTED (Musician musician)
+        public static string MUSICIAN_ALREADY_SELECTED (User user)
         {
-            return String.Format("Le musicien {0} {1} est déjà sélectionné.", musician.User.FirstName, musician.User.LastName);
+            return String.Format("Le musicien {0} {1} est déjà sélectionné.", user.FirstName, user.LastName);
         }
         public static string GENRE_ALREADY_SELECTED (Genre genre)
         {

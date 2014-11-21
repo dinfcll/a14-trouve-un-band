@@ -1,7 +1,7 @@
 ﻿<!--Search Results-->
 <div class="row">
     <h3 class="col-md-12">@ViewBag.ResultNumber résultats trouvés</h3>
-    @foreach (var item in (List<TrouveUnBand.Models.SearchResult>)ViewData["ResultsList"])
+    @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["Results"])
     {
         <div class="col-md-3">
             <div class="thumbnail card">
@@ -14,6 +14,12 @@
                         @Html.DisplayName(item.Location)
                     </p>
                     <b>@Html.DisplayName(item.Type)</b>
+                    <p>
+                    @foreach (var genre in item.Genres)
+                    {
+                        <span class="label label-default">@genre</span>
+                    }
+                    </p>
                     <p>
                         @Html.ActionLink("Voir profil", "ViewProfile", "Search", new { type = item.Type, Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
                         <a href="#" class="btn btn-default" role="button">Button</a>

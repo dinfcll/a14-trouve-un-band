@@ -1,15 +1,19 @@
 ﻿//Menu
-var menuTopPosition = $(".profile-tab-menu").offset().top;
+var menuTopPosition;
+
+if ($(".profile-tab-menu")[0]) {
+    menuTopPosition = $(".profile-tab-menu").offset().top;
+}
+
 
 $(".profile-tab-menu>div.list-group>a").click(function (event) {
     var index = $(this).index();
-
-    event.preventDefault();
 
     $(this).siblings(".active").removeClass("active");
     $(this).addClass("active");
     $(".profile-tab-content").removeClass("active");
     $(".profile-tab-content").eq(index).addClass("active");
+    return false;
 });
 
 $(window).scroll(function () {

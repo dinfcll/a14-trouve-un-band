@@ -9,30 +9,30 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace TrouveUnBand.Models
 {
     public partial class Advert
     {
-        public int AdvertId { get; set; }
-        [Required(ErrorMessage = "Le type d'annonce est requis")]
+        public Advert()
+        {
+            this.Genres = new HashSet<Genre>();
+        }
+    
+        public int Advert_ID { get; set; }
         public string Type { get; set; }
-        [Required(ErrorMessage = "Vous devez être connecter pour créer des annonces")]
-        public int Creator { get; set; }
-        [Required(ErrorMessage = "Le genre est requis")]
-        public int GenresAdvert { get; set; }
+        public int Creator_ID { get; set; }
         public string Description { get; set; }
-        [Required(ErrorMessage = "Le status est obligatoire")]
         public string Status { get; set; }
         public System.DateTime CreationDate { get; set; }
-        [Required(ErrorMessage = "La date d'expiration de la demande est requis")]
         public System.DateTime ExpirationDate { get; set; }
-        [Required(ErrorMessage = "L'emplacement de la demande est requis")]
         public string Location { get; set; }
-        public byte[] AdvertPhoto { get; set; }
+        public byte[] Photo { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+    
         public virtual User User { get; set; }
-        public virtual Genre Genre { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
     }
     
 }

@@ -9,6 +9,8 @@ using TrouveUnBand.Models;
 using System.Drawing;
 using System.IO;
 using TrouveUnBand.Classes;
+using System.Data.Entity.Infrastructure;
+using System.Data.Objects.DataClasses;
 
 namespace TrouveUnBand.Controllers
 {
@@ -52,11 +54,21 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
-                events.EventGender = Request["EventGenreDB"];
-                events.EventCreator = Request["Creator"];
+                string GenresList = Request["EventGenreDB"];
+                string[] GenresArray = GenresList.Split(',');
+
+                for (int i = 0; i < GenresArray.Length; i++)
+                {
+                    string GenreName = GenresArray[i];
+                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                    events.Genres.Add(UnGenre);
+                }
+
+                var creatorStr = Request["Creator"];
+                events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creatorStr).User_ID;
                 if (Request.Files[0].ContentLength != 0)
                 {
-                    events.EventPhoto = GetPostedEventPhoto();
+                    events.Photo = GetPostedEventPhoto();
                 }
                 db.Events.Add(events);
                 db.SaveChanges();
@@ -80,31 +92,50 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Edit(Event events)
         {
-            events.EventCreator = Request["Creator"];
-            events.EventGender = Request["EventGenreDB"];
-            db.Entry(events).State = EntityState.Modified;
+            events.Creator_ID = Convert.ToInt32(Request["Creator"]);
+            events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
+            string GenresList = Request["EventGenreDB"];
+            string[] StringGenresArray = GenresList.Split(',');
+            
             if (Request.Files[0].ContentLength != 0)
             {
-                events.EventPhoto = GetPostedEventPhoto();
+                events.Photo = GetPostedEventPhoto();
             }
             else
             {
-                if (GetEventPhotoByte(events.EventId) != null)
+                if (GetEventPhotoByte(events.Event_ID) != null)
                 {
-                    events.EventPhoto = GetEventPhotoByte(events.EventId);
+                    events.Photo = GetEventPhotoByte(events.Event_ID);
                 }
             }
 
             if (ModelState.IsValid)
             {
+                db.Entry(events).State = EntityState.Modified;
+                db.SaveChanges();
+                ((IObjectContextAdapter)db).ObjectContext.Detach(events);
+                
+                var eventBD = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
+                db.Set(typeof(Event)).Attach(eventBD);
+                eventBD.Genres.Clear();
+                for (int i = 0; i < StringGenresArray.Length; i++)
+                {
+                    string GenreName = StringGenresArray[i];
+                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                    eventBD.Genres.Add(UnGenre);
+                }
+                db.Entry(eventBD).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            else
+            for (int i = 0; i < StringGenresArray.Length; i++)
             {
-                ViewBag.GenreListDB = new List<Genre>(db.Genres);
-                return View(events);
+                string GenreName = StringGenresArray[i];
+                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                events.Genres.Add(UnGenre);
             }
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
+            return View(events);
         }
 
         public ActionResult Delete(int id = 0)
@@ -121,6 +152,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Event events = db.Events.Find(id);
+            events.Genres.Clear();
+            db.SaveChanges();
             db.Events.Remove(events);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -137,10 +170,10 @@ namespace TrouveUnBand.Controllers
         {
             var PicQuery = (from Events in db.Events
                             where
-                            Events.EventId.Equals(eventID)
+                            Events.Event_ID.Equals(eventID)
                             select new Photo
                             {
-                                PhotoArray = Events.EventPhoto
+                                PhotoArray = Events.Photo
                             }).FirstOrDefault();
             return PicQuery.PhotoArray;
         }

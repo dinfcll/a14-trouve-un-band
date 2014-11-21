@@ -9,6 +9,8 @@ using TrouveUnBand.Models;
 using System.IO;
 using System.Drawing;
 using TrouveUnBand.Classes;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace TrouveUnBand.Controllers
 {
@@ -18,42 +20,52 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
-            var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genre);
+            var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
         }
 
         public ActionResult MyAdverts()
         {
-            var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genre);
+            var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
         }
 
         public ActionResult Create()
         {
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name");
+            ViewBag.GenresAdvert = new List<Genre>(db.Genres);
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(Advert advert)
         {
+            string GenresList = Request["GenreAdvertDB"];
+            string[] GenresArray = GenresList.Split(',');
+
+            for (int i = 0; i < GenresArray.Length; i++)
+            {
+                string GenreName = GenresArray[i];
+                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                advert.Genres.Add(UnGenre);
+            }
+
             string CreatorNameDB = Request["CreatorName"];
-            advert.Creator = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB).UserId;
-            advert.GenresAdvert = Convert.ToInt32(Request["GenreAdvertDB"]);
+            advert.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB).User_ID;
             advert.CreationDate = (DateTime)DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 if (Request.Files[0].ContentLength != 0)
                 {
-                    advert.AdvertPhoto = GetPostedAdvertPhoto();
+                    advert.Photo = GetPostedAdvertPhoto();
                 }
                 db.Adverts.Add(advert);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator);
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.GenresAdvert);
+            ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
+            ViewBag.GenresAdvert = new SelectList(db.Genres, "Genre_Id", "Name", advert.Genres.Any());
             return View(advert);
         }
 
@@ -65,33 +77,55 @@ namespace TrouveUnBand.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator);
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.GenresAdvert);
+            ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
+            ViewBag.GenresAdvert = new List<Genre>(db.Genres);
             return View(advert);
         }
 
         [HttpPost]
         public ActionResult Edit(Advert advert)
         {
+            string GenresList = Request["GenreAdvertDB"];
+            string[] GenresArray = GenresList.Split(',');
+
             string CreatorNameDB = Request["CreatorName"];
-            advert.Creator = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB).UserId;
-            advert.GenresAdvert = Convert.ToInt32(Request["GenreAdvertDB"]);
+            advert.User = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB);
+            advert.Creator_ID = advert.User.User_ID;
+
+            if (Request.Files[0].ContentLength != 0)
+            {
+                advert.Photo = GetPostedAdvertPhoto();
+            }
+            else
+            {
+                advert.Photo = GetAdvertPhotoByte(advert.Advert_ID);
+            }
+
             if (ModelState.IsValid)
             {
-                if (Request.Files[0].ContentLength != 0)
-                {
-                    advert.AdvertPhoto = GetPostedAdvertPhoto();
-                }
-                else
-                {
-                    advert.AdvertPhoto = GetAdvertPhotoByte(advert.AdvertId);
-                }
                 db.Entry(advert).State = EntityState.Modified;
                 db.SaveChanges();
+                ((IObjectContextAdapter)db).ObjectContext.Detach(advert);
+
+                var advertBD = db.Adverts.FirstOrDefault(x => x.Advert_ID == advert.Advert_ID);
+                db.Set(typeof(Advert)).Attach(advertBD);
+
+                advertBD.Genres.Clear();
+                for (int i = 0; i < GenresArray.Length; i++)
+                {
+                    string GenreName = GenresArray[i];
+                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                    advertBD.Genres.Add(UnGenre);
+                }
+
+                db.Entry(advertBD).State = EntityState.Modified;
+                db.SaveChanges();
+
                 return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
             }
-            ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator);
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "GenreId", "Name", advert.GenresAdvert);
+            ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
+            ViewBag.GenresAdvert = new SelectList(db.Genres, "Genre_Id", "Name", advert.Genres.Any());
+
             return View(advert);
         }
 
@@ -109,6 +143,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Advert advert = db.Adverts.Find(id);
+            advert.Genres.Clear();
+            db.SaveChanges();
             db.Adverts.Remove(advert);
             db.SaveChanges();
             return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
@@ -141,7 +177,7 @@ namespace TrouveUnBand.Controllers
         public ActionResult CloseConfirmed(int id)
         {
             Advert advert = db.Adverts.Find(id);
-            db.Adverts.FirstOrDefault(x => x.AdvertId == advert.AdvertId).Status = "Fermée";
+            db.Adverts.FirstOrDefault(x => x.Advert_ID == advert.Advert_ID).Status = "Fermée";
             db.SaveChanges();
             return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
         }
@@ -163,10 +199,10 @@ namespace TrouveUnBand.Controllers
         {
             var PicQuery = (from Adverts in db.Adverts
                             where
-                            Adverts.AdvertId.Equals(AdvertIDView)
+                            Adverts.Advert_ID.Equals(AdvertIDView)
                             select new Photo
                             {
-                                PhotoArray = Adverts.AdvertPhoto
+                                PhotoArray = Adverts.Photo
                             }).FirstOrDefault();
             return PicQuery.PhotoArray;
         }
