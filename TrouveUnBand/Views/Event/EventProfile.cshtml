@@ -54,6 +54,11 @@
                         <span class="glyphicon glyphicon-eye-open"></span><span>Billet disponible</span>
                     </div>
                 </li>
+                <li>
+                    <div class="pull-right">
+                        @Html.Partial("../SocialMedia/_ShareButtons")
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -141,4 +146,8 @@
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
      aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
+</div>
+
+<div visibility="hidden">
+    @Html.Partial("../SocialMedia/_Metadata-Event")
 </div>

@@ -214,5 +214,16 @@ namespace TrouveUnBand.Controllers
             byte[] bytephoto = imageToByteArray(img);
             return bytephoto;
         }
+
+        public ActionResult ViewAdvertProfil(Advert myAdvert)
+        {
+            return View("AdvertProfil", myAdvert);
+        }
+
+        public ActionResult ViewAdvertProfil(int AdvertId)
+        {
+            var myAdvert = db.Adverts.FirstOrDefault(x => x.AdvertId == AdvertId);
+            return View("AdvertProfil", myAdvert);
+        }
     }
 }
