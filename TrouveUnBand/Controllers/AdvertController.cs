@@ -222,7 +222,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult ViewAdvertProfil(int AdvertId)
         {
-            var myAdvert = db.Adverts.FirstOrDefault(x => x.AdvertId == AdvertId);
+            var myAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == AdvertId);
             return View("AdvertProfil", myAdvert);
         }
     }
