@@ -40,50 +40,45 @@
             @Html.Label("Description")
             @Html.DisplayFor(modelItem => item.Description)
             </div>
-            <div class="row">
-            @Html.ActionLink("Details", "Details", new { id = item })
-            </div>
-            <a href="#" class="btn btn-primary" role="button">Button</a> 
-            <a href="#" class="btn btn-default" role="button">Button</a>
+            @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "BAND", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
         </div>
      </div>      
 }
 </div>
 
 <div id="NewsfeedEvent" class="row">
-@foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedEvent"])
-{
-    <div class="col-md-4 thumbnail">
-        <div class="thumbnail card">
-            @if (item.Photo == null)
-            {
-                <img src="http://placehold.it/250x172" alt="Image">
-            }
-            else
-            {
-                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                <img src="@photo" width="250" height="172" class="photo" alt="Image">
-            }
-        </div>
-        <div class="caption container-fluid">
-                    <div class="row">
+    @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedEvent"])
+    {
+        <div class="col-md-4 thumbnail">
+            <div class="thumbnail card">
+                @if (item.Photo == null)
+                {
+                    <img src="http://placehold.it/250x172" alt="Image">
+                }
+                else
+                {
+                    var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
+                    <img src="@photo" width="250" height="172" class="photo" alt="Image">
+                }
+            </div>
+            <div class="caption container-fluid">
+                <div class="row">
                     @Html.Label("Nom")
                     @Html.DisplayFor(modelItem => item.Name)
-                    </div>
-                    <div class="row">
+                </div>
+                <div class="row">
                     @Html.Label("Location")
                     @Html.DisplayFor(modelItem => item.Location)
-                    </div>
-                    <div class="row">
+                </div>
+                <div class="row">
                     @Html.Label("Genre")
                     <span>@item.Genres</span>
-                    </div>
-                    <div class="row">
-                    @Html.ActionLink("Details", "Details", new { id = item})
-                    </div>
-    </div>
+                </div>
+                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "EVENT", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
+            </div>
+        </div>
+    }
 </div>
-}
 
 <div id="NewsfeedAdvert" class="row">
 @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedAdvert"])
@@ -113,8 +108,8 @@
                 @Html.Label("Description")
                 @Html.DisplayFor(modelItem => item.Description)
             </div>
-            <div class="row">
-            @Html.ActionLink("Details", "Details", new { id = item })
+            <div>
+                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "ADVERT", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
             </div>
         </div>
     </div>

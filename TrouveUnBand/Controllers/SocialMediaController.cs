@@ -16,6 +16,11 @@ namespace TrouveUnBand.Controllers
             return View();
         }
 
+        public ActionResult test()
+        {
+            return View();
+        }
+
         public static Band GetBand(int i)
         {
             TrouveUnBandEntities statdb = new TrouveUnBandEntities();

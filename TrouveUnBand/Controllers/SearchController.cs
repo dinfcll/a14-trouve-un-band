@@ -119,7 +119,7 @@ namespace TrouveUnBand.Controllers
         {
             switch (type.ToUpper())
             {
-                case "MUSICIAN":
+                case "MUSICIEN":
                     User musician = db.Users.FirstOrDefault(x => x.User_ID == Id);
                     MusicianProfileViewModel MusicianProfile = CreateProfile.CreateMusicianProfileView(musician);
                     return View("../Users/MusicianProfile", MusicianProfile);

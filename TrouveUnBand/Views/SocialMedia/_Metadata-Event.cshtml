@@ -7,17 +7,17 @@
 <div>
     <div vocab="http://schema.org/" typeof="MusicEvent">
         <div property="location" typeof"MusicVenue">
-            <meta property="name" content="@Model.EventLocation"/>
-            <meta property="adress" content="@Model.Adress @Model.City"/>
+            <meta property="name" content="@Model.Location"/>
+            <meta property="adress" content="@Model.Address @Model.City"/>
         </div>
         <a property="url" href="@Request.Url"></a>
         <h2 property="name">@Model.Name</h2>
-        <div property="Person" content="@Model.EventCreator"></div>
+        <div property="Person" content="@Model.User.Nickname"></div>
         <div property="startDate">
             @Html.DisplayFor(Modelitem => Model.EventDate)
         </div>
         <div property="Performer" typeof="MusicGroup">
-            <meta property="Name" content="@Model.Band.Name" />
+            <meta property="Name" content="@Model.Bands" />
         </div>
     </div>
 </div>
