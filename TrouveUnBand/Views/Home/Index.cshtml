@@ -1,18 +1,12 @@
-﻿<script>
-    var onglet = document.getElementById("accueil");
-    onglet.setAttribute("class", "active");
-</script>
-
-@{
+﻿@{
     ViewBag.Title = "Page d'accueil";
 }
-
 
 <div id="NewsfeedUser" class="row">
 @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedUser"])
 {  
-    <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems thumbnail">
-        <div class="thumbnail card">
+    <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems">
+        <div class="thumbnail card btn btn-default"  data-toggle="tooltip" data-placement="bottom" title="@Html.DisplayFor(modelItem => item.Name)">
             @if (item.Photo == null)
             {
                 <img src="http://placehold.it/100x100" alt="Image">
@@ -87,12 +81,9 @@
                     <div class="row">
                     @Html.ActionLink("Details", "Details", new { id = item})
                     </div>
-                    <a href="#" class="btn btn-primary" role="button">Button</a> 
-                    <a href="#" class="btn btn-default" role="button">Button</a>
-                </div>
     </div>
-}
 </div>
+}
 
 <div id="NewsfeedAdvert" class="row">
 @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedAdvert"])
@@ -111,22 +102,20 @@
         </div>
         <div class="caption container-fluid">
             <div class="row">
-            @Html.Label("Type")
-            @Html.DisplayFor(modelItem => item.Type)
+                @Html.Label("Type")
+                @Html.DisplayFor(modelItem => item.Type)
             </div>
             <div class="row">
             @Html.Label("Genre")
             @Html.DisplayFor(modelItem => item.Genres)
             </div>
             <div class="row">
-            @Html.Label("Description")
-            @Html.DisplayFor(modelItem => item.Description)
+                @Html.Label("Description")
+                @Html.DisplayFor(modelItem => item.Description)
             </div>
             <div class="row">
             @Html.ActionLink("Details", "Details", new { id = item })
             </div>
-            <a href="#" class="btn btn-primary" role="button">Button</a> 
-            <a href="#" class="btn btn-default" role="button">Button</a>
         </div>
     </div>
 }
