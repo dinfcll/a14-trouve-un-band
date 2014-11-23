@@ -328,12 +328,6 @@ img.jcrop-preview {
 }
 
 .CropThumbNail{
-    /*height:auto;
-    max-height:600px;
-    max-width:800px;
-    min-height:172px;
-    min-width:250px;*/
-
     display: block;
     margin-left: auto;
     margin-right: auto
