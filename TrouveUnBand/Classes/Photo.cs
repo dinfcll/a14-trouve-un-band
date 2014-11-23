@@ -48,7 +48,7 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        public static byte[] StockPhoto
+        public static string StockPhoto
         {
             get
             {
@@ -56,12 +56,11 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        private static byte[] getStockPhoto()
+        private static string getStockPhoto()
         {
-            string path = HttpContext.Current.Server.MapPath("~/Images/stock_user.jpg");
-            var stock = Image.FromFile(path);
+            string path = HttpContext.Current.Server.MapPath("~/Photos/UserProfilePhoto/_stock_user.jpg");
 
-            return imageToByteArray(stock);
+            return path;
         }
 
         private static byte[] imageToByteArray(Image imageIn)

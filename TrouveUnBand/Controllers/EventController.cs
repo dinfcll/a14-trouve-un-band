@@ -68,7 +68,7 @@ namespace TrouveUnBand.Controllers
                 events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creatorStr).User_ID;
                 if (Request.Files[0].ContentLength != 0)
                 {
-                    events.Photo = GetPostedEventPhoto();
+                    //events.Photo = GetPostedEventPhoto();
                 }
                 db.Events.Add(events);
                 db.SaveChanges();
@@ -99,13 +99,13 @@ namespace TrouveUnBand.Controllers
             
             if (Request.Files[0].ContentLength != 0)
             {
-                events.Photo = GetPostedEventPhoto();
+                //events.Photo = GetPostedEventPhoto();
             }
             else
             {
                 if (GetEventPhotoByte(events.Event_ID) != null)
                 {
-                    events.Photo = GetEventPhotoByte(events.Event_ID);
+                    //events.Photo = GetEventPhotoByte(events.Event_ID);
                 }
             }
 
@@ -173,7 +173,7 @@ namespace TrouveUnBand.Controllers
                             Events.Event_ID.Equals(eventID)
                             select new Photo
                             {
-                                PhotoArray = Events.Photo
+                                //PhotoArray = Events.Photo
                             }).FirstOrDefault();
             return PicQuery.PhotoArray;
         }

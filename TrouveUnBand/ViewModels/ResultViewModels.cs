@@ -15,7 +15,7 @@ namespace TrouveUnBand.ViewModels
         public string City { get; set; }
         public string Type { get; set; }
         public List<string> Genres { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public DateTime CreationDate { get; set; }
         public int ID { get; set; }
 

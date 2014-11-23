@@ -57,7 +57,7 @@ namespace TrouveUnBand.Controllers
             {
                 if (Request.Files[0].ContentLength != 0)
                 {
-                    advert.Photo = GetPostedAdvertPhoto();
+                    //advert.Photo = GetPostedAdvertPhoto();
                 }
                 db.Adverts.Add(advert);
                 db.SaveChanges();
@@ -94,11 +94,11 @@ namespace TrouveUnBand.Controllers
 
             if (Request.Files[0].ContentLength != 0)
             {
-                advert.Photo = GetPostedAdvertPhoto();
+                //advert.Photo = GetPostedAdvertPhoto();
             }
             else
             {
-                advert.Photo = GetAdvertPhotoByte(advert.Advert_ID);
+                //advert.Photo = GetAdvertPhotoByte(advert.Advert_ID);
             }
 
             if (ModelState.IsValid)
@@ -202,7 +202,7 @@ namespace TrouveUnBand.Controllers
                             Adverts.Advert_ID.Equals(AdvertIDView)
                             select new Photo
                             {
-                                PhotoArray = Adverts.Photo
+                                //PhotoArray = Adverts.Photo
                             }).FirstOrDefault();
             return PicQuery.PhotoArray;
         }

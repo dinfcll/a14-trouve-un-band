@@ -7,15 +7,7 @@
 {  
     <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems">
         <div class="thumbnail card btn btn-default"  data-toggle="tooltip" data-placement="bottom" title="@Html.DisplayFor(modelItem => item.Name)">
-            @if (item.Photo == null)
-            {
-                <img src="http://placehold.it/100x100" alt="Image">
-            }
-            else
-            {
-                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                <img src="@photo" width="100" height="100" class="photo" alt="Image">
-            }
+                <img src="@item.Photo" width="100" height="100" class="photo" alt="Image">
         </div>
         @Html.DisplayFor(modelItem => item.Name)
     </div>
@@ -51,15 +43,7 @@
     {
         <div class="col-md-4 thumbnail">
             <div class="thumbnail card">
-                @if (item.Photo == null)
-                {
-                    <img src="http://placehold.it/250x172" alt="Image">
-                }
-                else
-                {
-                    var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                    <img src="@photo" width="250" height="172" class="photo" alt="Image">
-                }
+                <img src="@item.Photo" width="250" height="172" class="photo" alt="Image">
             </div>
             <div class="caption container-fluid">
                 <div class="row">
@@ -85,15 +69,7 @@
 {
     <div class="col-md-4 thumbnail">
         <div class="thumbnail card">
-            @if (item.Photo == null)
-            {
-                <img src="http://placehold.it/250x172" alt="Image">
-            }
-            else
-            {
-                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                <img src="@photo" width="250" height="172" class="photo" alt="Image">
-            }
+            <img src="@item.Photo" width="250" height="172" class="photo" alt="Image">
         </div>
         <div class="caption container-fluid">
             <div class="row">
