@@ -2,17 +2,38 @@
 var imageCropHeight = 0;
 var cropPointX = 0;
 var cropPointY = 0;
-var Percentage;
+var modal;
+
+if ($("#CropperDialog")[0]) {
+    modal = $("#CropperDialog");
+}
+
+modal.on("hidden.bs.modal", function (e) {
+    api.destroy();
+});
 
 function readURL(input) {
     if (input.files && input.files[0]) {
 
         var reader = new FileReader();
+        var image = new Image();
+        var imageSrc;
 
         reader.onload = function (event) {
-            api.destroy();
-            $('#PicToCrop').replaceWith('<img id="PicToCrop" class="CropThumbNail" src="' + event.target.result + '"/>');
-            initCrop();
+            imageSrc = event.target.result;
+            image.src = imageSrc;
+
+            image.onload = function () {
+                var imgWidth = this.width;
+                var imgHeight = this.height;
+
+                if (imgWidth < 250 || imgHeight < 172 || imgWidth > 800 || imgHeight > 600) {
+                    imageSrc = resizeImage(image);
+                }
+
+                $("#PicToCrop").attr("src", imageSrc);
+                initCrop();
+            };
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -29,10 +50,6 @@ $("#ImageUploader").change(function () {
     }
     readURL(this);
     $("#CropperDialog").modal("show");
-});
-
-$(document).ready(function () {
-    initCrop();
 });
 
 function initCrop() {
@@ -71,3 +88,46 @@ $("#closeDialog").click(function () {
     $("#ImageUploader").unwrap();
     return;
 });
+
+function resizeImage(image) {
+    var width = image.width;
+    var height = image.height;
+    var MAX_WIDTH = 800;
+    var MAX_HEIGHT = 600;
+    var MIN_WIDTH = 250;
+    var MIN_HEIGHT = 172;
+    var canvas = document.createElement("canvas");
+
+    if (width < MIN_WIDTH) {
+        height *= MIN_WIDTH / width;
+        width = MIN_WIDTH;
+    }
+
+    if (height < MIN_HEIGHT) {
+        width *= MIN_HEIGHT / height;
+        height = MIN_HEIGHT;
+    }
+
+    if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+    }
+
+    if (height > MAX_HEIGHT) {
+        width *= MAX_HEIGHT / height;
+        height = MAX_HEIGHT;
+     }
+
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(image, 0, 0, width, height);
+
+    setModalWidth(width);
+
+    return canvas.toDataURL();
+}
+
+function setModalWidth(modalWidth) {
+    modal.find('.modal-dialog').css({ 'width': modalWidth + 100 });
+}

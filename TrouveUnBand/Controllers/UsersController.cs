@@ -302,9 +302,9 @@ namespace TrouveUnBand.Controllers
 
                 Image image = Image.FromStream(postedPhoto.InputStream, true, true);
 
-                if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
+                if (image.Width < 250 || image.Height < 172 || image.Width > 800 || image.Height > 600)
                 {
-                    image = PhotoResizer.ResizeImage(image, 172, 250, 413, 600);
+                    image = PhotoResizer.ResizeImage(image, 250, 172, 800, 600);
                 }
 
                 var croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);

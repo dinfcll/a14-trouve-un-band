@@ -14,7 +14,7 @@ namespace TrouveUnBand.Classes
             try
             {
                 string name = GenerateRandomName();
-                string path = HttpContext.Current.Server.MapPath("~/Photos/"+name+".jpg");
+                string path = HttpContext.Current.Server.MapPath("~/Photos/UserProfilePhoto/" + name + ".jpg");
                 image.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
                 return path;
             }
