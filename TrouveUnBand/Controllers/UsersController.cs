@@ -272,8 +272,7 @@ namespace TrouveUnBand.Controllers
         public string GetPhotoSrc()
         {
             var loggedOnUser = GetUserInfo(User.Identity.Name);
-            var profilePhoto = new Photo {PhotoArray = loggedOnUser.Photo};
-            return profilePhoto.PhotoSrc;
+            return loggedOnUser.Photo;
         }
 
 
@@ -308,9 +307,9 @@ namespace TrouveUnBand.Controllers
                 }
 
                 var croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);
-                var savedPath = FileHelper.SaveProfilePhoto(croppedPhoto, loggedOnUser.Nickname);
-                //loggedOnUser.Photo = croppedPhoto;
-                //db.SaveChanges();
+                var savedPhotoPath = FileHelper.SaveProfilePhoto(croppedPhoto, loggedOnUser.Nickname);
+                loggedOnUser.Photo = savedPhotoPath;
+                db.SaveChanges();
 
                 TempData["success"] = AlertMessages.PICTURE_CHANGED;
                 return RedirectToAction("ProfileModification", "Users");
