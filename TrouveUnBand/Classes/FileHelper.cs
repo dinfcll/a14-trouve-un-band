@@ -14,7 +14,7 @@ namespace TrouveUnBand.Classes
             try
             {
                 string name = GenerateRandomName();
-                string path = HttpContext.Current.Server.MapPath("~/Photos/UserProfilePhoto/" + name + ".jpg");
+                string path = HttpContext.Current.Server.MapPath("~/Photos/" + name + ".jpg");
                 image.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
                 return path;
             }
@@ -38,9 +38,30 @@ namespace TrouveUnBand.Classes
 
             return name;
         }
+
+        //public static void SaveAlbum(List<Image> Photos, )
+        //{
+
+        //}
+
         //private static void CreateDirectory(string name, )
         //{
         //    Directory.CreateDirectory();
         //}
+
+        public static string SaveProfilePhoto(Image image,string nickName)
+        {
+            try
+            {
+                string path = HttpContext.Current.Server.MapPath("~/Photos/UserProfilePhoto/" + nickName + ".jpg");
+                image.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                return path;
+            }
+            catch
+            {
+                return "";
+            }
+
+        }
     }
 }
