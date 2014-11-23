@@ -58,7 +58,7 @@ namespace TrouveUnBand.Classes
 
         private static string getStockPhoto()
         {
-            string path = HttpContext.Current.Server.MapPath("~/Photos/UserProfilePhoto/_stock_user.jpg");
+            string path = "/Photos/UserProfilePhoto/_stock_user.jpg";
 
             return path;
         }

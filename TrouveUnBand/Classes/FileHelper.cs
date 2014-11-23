@@ -53,8 +53,9 @@ namespace TrouveUnBand.Classes
         {
             try
             {
-                string path = HttpContext.Current.Server.MapPath("~/Photos/UserProfilePhoto/" + nickName + ".jpg");
-                image.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                string path = "/Photos/UserProfilePhoto/" + nickName + ".jpg";
+                string serverPath = HttpContext.Current.Server.MapPath(path);
+                image.Save(serverPath, System.Drawing.Imaging.ImageFormat.Jpeg);
                 return path;
             }
             catch
