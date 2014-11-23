@@ -307,10 +307,10 @@ namespace TrouveUnBand.Controllers
                     image = PhotoResizer.ResizeImage(image, 172, 250, 413, 600);
                 }
 
-                byte[] croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);
-
-                loggedOnUser.Photo = croppedPhoto;
-                db.SaveChanges();
+                var croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);
+                var t = FileHelper.SavePhoto(croppedPhoto);
+                //loggedOnUser.Photo = croppedPhoto;
+                //db.SaveChanges();
 
                 TempData["success"] = AlertMessages.PICTURE_CHANGED;
                 return RedirectToAction("ProfileModification", "Users");

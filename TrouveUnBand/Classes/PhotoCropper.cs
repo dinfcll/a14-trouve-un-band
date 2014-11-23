@@ -10,7 +10,7 @@ namespace TrouveUnBand.Classes
 {
     public static class PhotoCropper
     {
-        public static byte[] CropImage(Image image, Rectangle CropRect)
+        public static Image CropImage(Image image, Rectangle CropRect)
         {
             var OriginalImage = new Bitmap(image);
 
@@ -18,33 +18,33 @@ namespace TrouveUnBand.Classes
             {
                 var NewImage = new Bitmap(CropRect.Width, CropRect.Height);
 
-                NewImage = DrawNewImage(OriginalImage, NewImage, CropRect);
+                var newImage = DrawNewImage(OriginalImage, NewImage, CropRect);
                 
-                return GetBitmapBytes(NewImage);
+                return NewImage;
             }
 
-            return GetBitmapBytes(OriginalImage);
+            return (Image)OriginalImage;
         }
 
-        private static byte[] GetBitmapBytes(Bitmap source)
-        {
-            ImageCodecInfo codec = ImageCodecInfo.GetImageEncoders()[4];
-            EncoderParameters parameters = new EncoderParameters(1);
-            parameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+        //private static byte[] GetBitmapBytes(Bitmap source)
+        //{
+        //    ImageCodecInfo codec = ImageCodecInfo.GetImageEncoders()[4];
+        //    EncoderParameters parameters = new EncoderParameters(1);
+        //    parameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
 
-            using (MemoryStream tmpStream = new MemoryStream())
-            {
-                source.Save(tmpStream, codec, parameters);
+        //    using (MemoryStream tmpStream = new MemoryStream())
+        //    {
+        //        source.Save(tmpStream, codec, parameters);
 
-                byte[] result = new byte[tmpStream.Length];
-                tmpStream.Seek(0, SeekOrigin.Begin);
-                tmpStream.Read(result, 0, (int)tmpStream.Length);
+        //        byte[] result = new byte[tmpStream.Length];
+        //        tmpStream.Seek(0, SeekOrigin.Begin);
+        //        tmpStream.Read(result, 0, (int)tmpStream.Length);
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
-        private static Bitmap DrawNewImage(Bitmap OriginalImage, Bitmap NewImage, Rectangle CropRect)
+        private static Image DrawNewImage(Bitmap OriginalImage, Bitmap NewImage, Rectangle CropRect)
         {
             using (Graphics g = Graphics.FromImage(NewImage))
             {
@@ -56,7 +56,7 @@ namespace TrouveUnBand.Classes
                 g.DrawImage(OriginalImage, new Rectangle(0, 0, NewImage.Width, NewImage.Height), CropRect, GraphicsUnit.Pixel);
             }
 
-            return NewImage;
+            return (Image)NewImage;
         }
     }
 }
