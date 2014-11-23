@@ -68,7 +68,7 @@ namespace TrouveUnBand.Controllers
                 events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creatorStr).User_ID;
                 if (Request.Files[0].ContentLength != 0)
                 {
-                    //events.Photo = GetPostedEventPhoto();
+                    events.Photo = GetPostedEventPhoto();
                 }
                 db.Events.Add(events);
                 db.SaveChanges();
@@ -99,14 +99,11 @@ namespace TrouveUnBand.Controllers
             
             if (Request.Files[0].ContentLength != 0)
             {
-                //events.Photo = GetPostedEventPhoto();
+                events.Photo = GetPostedEventPhoto();
             }
             else
             {
-                if (GetEventPhotoByte(events.Event_ID) != null)
-                {
-                    //events.Photo = GetEventPhotoByte(events.Event_ID);
-                }
+                events.Photo = GetEventPhoto(events.Event_ID);
             }
 
             if (ModelState.IsValid)
@@ -166,24 +163,25 @@ namespace TrouveUnBand.Controllers
             return ms.ToArray();
         }
 
-        public byte[] GetEventPhotoByte(int eventID)
+        public string GetEventPhoto(int eventID)
         {
             var PicQuery = (from Events in db.Events
                             where
                             Events.Event_ID.Equals(eventID)
                             select new Photo
                             {
-                                //PhotoArray = Events.Photo
+                                PhotoSrc = Events.Photo
                             }).FirstOrDefault();
-            return PicQuery.PhotoArray;
+
+            return PicQuery.PhotoSrc;
         }
 
-        private byte[] GetPostedEventPhoto()
+        private string GetPostedEventPhoto()
         {
             HttpPostedFileBase PostedPhoto = Request.Files[0];
             Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-            byte[] bytephoto = imageToByteArray(img);
-            return bytephoto;
+            string path = FileHelper.SavePhoto(img,FileHelper.Category.EVENT_PHOTO);
+            return path;
         }
     }
 }

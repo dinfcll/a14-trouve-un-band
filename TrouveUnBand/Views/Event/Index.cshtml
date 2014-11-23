@@ -4,71 +4,62 @@
 </script>
 <div class="top-80">
 
-@model IEnumerable<TrouveUnBand.Models.Event>
+    @model IEnumerable<TrouveUnBand.Models.Event>
 
-@{
-    ViewBag.Title = "Événements";
-}
-
-<h2>Événements</h2>
-
-<p>
-    @if(User.Identity.Name != "")
-    {
-        @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class="btn btn-primary" })
+    @{
+        ViewBag.Title = "Événements";
     }
-</p>
-<div class="row">
-@foreach (var item in Model)
-{
-        <div class="col-md-3">
-            <div class="thumbnail card">
-            @if (item.Photo == null)
-            {
-                <img src="http://placehold.it/250x172" alt="Image">
-            }
-            else
-            {
-                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                <img src="@photo" width="250" height="172" class="photo" alt="Image">
-            }
-                <div class="caption">
-                    <h3><span class="glyphicon glyphicon-music"></span> @Html.DisplayName(item.Name)</h3>
-                    <p>
-                        @Html.DisplayName(item.Location)
-                    </p>
-                    <p>
-                        @Html.DisplayName(item.EventDate.ToString("dd MMMM yyyy à HH:mm"))
-                    </p>
-                    <p>
-                        <span class="glyphicon glyphicon-map-marker"></span>
-                        @Html.DisplayName(item.City)
-                    </p>
-                    @{var TextPopOver = "";}
-                    @foreach (var genre in item.Genres)
-                    {
-                        TextPopOver += genre.Name+"\n";
-                    }
-                    <p>
-                        <span class="glyphicon glyphicon-music"></span>
-                        @Html.DisplayName(@item.Genres.FirstOrDefault().Name)
-                            <span class="label label-default label-popover" tabindex="0" role="button" 
-                                  data-toggle="popover" title="Genres de l'événement" 
-                                  data-content="@TextPopOver">...</span>
-                        
-                    </p>
-                    <p>
-                        @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-default" })
-                        @if (item.User.Nickname == User.Identity.Name)
+
+    <h2>Événements</h2>
+
+    <p>
+        @if (User.Identity.Name != "")
+        {
+            @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class = "btn btn-primary" })
+        }
+    </p>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="thumbnail card">
+                    <img src="@item.Photo" width="250" height="172" class="photo" alt="Image">
+                    <div class="caption">
+                        <h3><span class="glyphicon glyphicon-music"></span> @Html.DisplayName(item.Name)</h3>
+                        <p>
+                            @Html.DisplayName(item.Location)
+                        </p>
+                        <p>
+                            @Html.DisplayName(item.EventDate.ToString("dd MMMM yyyy à HH:mm"))
+                        </p>
+                        <p>
+                            <span class="glyphicon glyphicon-map-marker"></span>
+                            @Html.DisplayName(item.City)
+                        </p>
+                        @{var TextPopOver = "";}
+                        @foreach (var genre in item.Genres)
                         {
-                            @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-primary" })
-                            <label> @Html.ActionLink("Annuler", "Delete", new { id = item.Event_ID }, new { @class = "btn btn-danger" })</label>
+                            TextPopOver += genre.Name + "\n";
                         }
-                    </p>
+                        <p>
+                            <span class="glyphicon glyphicon-music"></span>
+                            @Html.DisplayName(@item.Genres.FirstOrDefault().Name)
+                            <span class="label label-default label-popover" tabindex="0" role="button"
+                                  data-toggle="popover" title="Genres de l'événement"
+                                  data-content="@TextPopOver">...</span>
+
+                        </p>
+                        <p>
+                            @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-default" })
+                            @if (item.User.Nickname == User.Identity.Name)
+                            {
+                                @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-primary" })
+                                <label> @Html.ActionLink("Annuler", "Delete", new { id = item.Event_ID }, new { @class = "btn btn-danger" })</label>
+                            }
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
-</div>
-

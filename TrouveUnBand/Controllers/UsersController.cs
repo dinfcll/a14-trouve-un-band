@@ -307,7 +307,7 @@ namespace TrouveUnBand.Controllers
                 }
 
                 var croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);
-                var savedPhotoPath = FileHelper.SaveProfilePhoto(croppedPhoto, loggedOnUser.Nickname);
+                var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, loggedOnUser.Nickname, FileHelper.Category.USER_PROFILE_PHOTO);
                 loggedOnUser.Photo = savedPhotoPath;
                 db.SaveChanges();
 
