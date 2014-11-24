@@ -8,8 +8,15 @@
         <div class="thumbnail card col-md-3">
             <a href="#" data-toggle="modal" data-target="#PicModal">
                 @{
-                    var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo);
-                    <img id="ProfilePic" alt="" src="@photo" width="250" class="photo" />
+                    if(Model.Photo != null)
+                    {
+                        var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo);
+                        <img id="ProfilePic" alt="" src="@photo" width="250" class="photo" />
+                    }
+                    else
+                    {
+                        <img id="ProfilePic" alt="" src="http://placehold.it/250x172" alt="Image">
+                    }   
                 }
             </a>
         </div>
@@ -26,21 +33,21 @@
                     <span class="glyphicon glyphicon-music"></span>
                     <span>
                         @{var i = 0;
-                          var TextPopOver = ""; 
-                            foreach (var genre in Model.Genres)
-                            {
-                                TextPopOver += Html.DisplayName(genre.Name) + "\n";
-                                if(i < 4)
-                                {
+                          var TextPopOver = "";
+                          foreach (var genre in Model.Genres)
+                          {
+                              TextPopOver += Html.DisplayName(genre.Name) + "\n";
+                              if (i < 4)
+                              {
                                     @Html.DisplayName(genre.Name + ", ");
                                                                         i++;
-                                }
-                                if (i == 4)
-                                {
+                              }
+                              if (i == 4)
+                              {
                                     @Html.DisplayName(genre.Name + "");
-                                    i++;
-                                }
-                            }  
+                                                                      i++;
+                              }
+                          }  
                         }  
                         <a href="#" tabindex="0" role="button"
                             data-toggle="popover" title="Genres de l'événement" data-content="@TextPopOver">
