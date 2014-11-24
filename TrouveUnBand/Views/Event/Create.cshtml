@@ -86,7 +86,7 @@ else
                     <hr class="colorgraph col-md-12">
                     <div class="form-group col-md-6">
                         @Html.Label("Photo de l'événement")
-                        <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
+                        <input id="ImageUploader" class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
                     </div>
                     
                     <div class="col-md-12">
@@ -103,6 +103,9 @@ else
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="modal fade" id="CropperDialog">
+            @RenderPage("../Photo/ImageCropperDialog.cshtml")
         </div>
     }
 }

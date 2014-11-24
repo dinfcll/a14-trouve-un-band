@@ -33,6 +33,8 @@ namespace TrouveUnBand.Classes
                     break;
 
                 case "EVENT_PHOTO":
+                    path = "/Photos/EventPhotos/" + name + ".jpg";
+                    isSaved = Save(image, path);
                     break;
 
                 case "ADVERT_PHOTO":

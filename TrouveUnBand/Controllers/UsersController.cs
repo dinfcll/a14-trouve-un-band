@@ -279,7 +279,7 @@ namespace TrouveUnBand.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult CropImage(User userPicture)
+        public virtual ActionResult CropImage(Photo userPhoto)
         {
             var postedPhoto = Request.Files[0];
 
@@ -306,7 +306,7 @@ namespace TrouveUnBand.Controllers
                     image = PhotoResizer.ResizeImage(image, 250, 172, 800, 600);
                 }
 
-                var croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);
+                var croppedPhoto = PhotoCropper.CropImage(image, userPhoto.CropRect);
                 var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, loggedOnUser.Nickname, FileHelper.Category.USER_PROFILE_PHOTO);
                 loggedOnUser.Photo = savedPhotoPath;
                 db.SaveChanges();

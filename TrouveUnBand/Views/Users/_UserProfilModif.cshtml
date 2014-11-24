@@ -1,5 +1,6 @@
 @model TrouveUnBand.Models.User
 <div class="row pad-top-30">
+
     @using (Html.BeginForm("CropImage", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
@@ -17,9 +18,10 @@
             </div>
         </div>
         <div class="modal fade" id="CropperDialog">
-            @RenderPage("../Photo/ImageCropperDialog.cshtml")
+            @Html.Partial("../Photo/ImageCropperDialog",Model.ProfilePicture)
         </div>
     }
+
     @using (Html.BeginForm("UserProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form" }))
     {
         <div class="pad-top-10">
