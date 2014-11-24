@@ -11,6 +11,7 @@ using System.IO;
 using TrouveUnBand.Classes;
 using System.Data.Entity.Infrastructure;
 using System.Data.Objects.DataClasses;
+using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
@@ -52,6 +53,7 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Create(Event events)
         {
+            //TODO cropper l'image
             if (ModelState.IsValid)
             {
                 string GenresList = Request["EventGenreDB"];
@@ -90,49 +92,36 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Event events)
+        public ActionResult Edit(Event newEventInfo)
         {
-            events.Creator_ID = Convert.ToInt32(Request["Creator"]);
-            events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
+            var oldEvent = db.Events.FirstOrDefault(x => x.Event_ID == newEventInfo.Event_ID);
+            newEventInfo.Photo = oldEvent.Photo;
+            newEventInfo.User = oldEvent.User;
+
             string GenresList = Request["EventGenreDB"];
             string[] StringGenresArray = GenresList.Split(',');
-            
-            if (Request.Files[0].ContentLength != 0)
-            {
-                events.Photo = GetPostedEventPhoto();
-            }
-            else
-            {
-                events.Photo = GetEventPhoto(events.Event_ID);
-            }
 
             if (ModelState.IsValid)
             {
-                db.Entry(events).State = EntityState.Modified;
-                db.SaveChanges();
-                ((IObjectContextAdapter)db).ObjectContext.Detach(events);
-                
-                var eventBD = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
-                db.Set(typeof(Event)).Attach(eventBD);
-                eventBD.Genres.Clear();
+                oldEvent.Genres.Clear();
                 for (int i = 0; i < StringGenresArray.Length; i++)
                 {
                     string GenreName = StringGenresArray[i];
                     var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                    eventBD.Genres.Add(UnGenre);
+                    oldEvent.Genres.Add(UnGenre);
                 }
-                db.Entry(eventBD).State = EntityState.Modified;
+                db.Entry(oldEvent).State = EntityState.Modified;
                 db.SaveChanges();
+
+                ((IObjectContextAdapter)db).ObjectContext.Detach(oldEvent);
+                db.Entry(newEventInfo).State = EntityState.Modified;
+                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
-            for (int i = 0; i < StringGenresArray.Length; i++)
-            {
-                string GenreName = StringGenresArray[i];
-                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                events.Genres.Add(UnGenre);
-            }
+
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
-            return View(events);
+            return View(newEventInfo);
         }
 
         public ActionResult Delete(int id = 0)
@@ -182,6 +171,48 @@ namespace TrouveUnBand.Controllers
             Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
             string path = FileHelper.SavePhoto(img,FileHelper.Category.EVENT_PHOTO);
             return path;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult CropImage(Event eventWithPhoto)
+        {
+            var postedPhoto = Request.Files[0];
+
+            if (postedPhoto.ContentLength == 0)
+            {
+                TempData["TempDataError"] = AlertMessages.FILE_TYPE_INVALID;
+                return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
+            }
+
+            try
+            {
+                Image image = Image.FromStream(postedPhoto.InputStream, true, true);
+                Event existingEvent = db.Events.FirstOrDefault(x => x.Event_ID == eventWithPhoto.Event_ID);
+
+                if (image.Width < 250 || image.Height < 172 || image.Width > 800 || image.Height > 600)
+                {
+                    image = PhotoResizer.ResizeImage(image, 250, 172, 800, 600);
+                }
+
+                var croppedPhoto = PhotoCropper.CropImage(image, eventWithPhoto.PhotoCrop.CropRect);
+
+                string eventPhotoName = existingEvent.Event_ID.ToString();
+
+                var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, eventPhotoName, FileHelper.Category.EVENT_PHOTO);
+                existingEvent.Photo = savedPhotoPath;
+                db.SaveChanges();
+
+                TempData["success"] = AlertMessages.PICTURE_CHANGED;
+
+                return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
+                
+            }
+            catch
+            {
+                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
+            }
         }
     }
 }

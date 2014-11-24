@@ -10,66 +10,71 @@
 }
 else
 {
-    using (Html.BeginForm("Create", "Event", FormMethod.Post, new { @role = "form", @class="top-80", enctype = "multipart/form-data" }))
-    {
-        @Html.ValidationSummary(true)
-
-        @Html.Hidden("Creator", User.Identity.Name)
-        <div  id="CreateEventForm">
+    using (Html.BeginForm("Create", "Event", FormMethod.Post, new { @role = "form", @class = "top-80", enctype = "multipart/form-data" }))
+    {     <div  id="CreateEventForm">
             <div class="container">
                 <div class="row form-group col-md-8 col-md-push-2">
                     <div class="col-md-12">
                         <h3>Créer un événement</h3>
                         <hr class="colorgraph">
                     </div>
+                    <div class="form-group col-md-12">
+                        @Html.Label("Photo de l'événement")
+                        <input id="ImageUploader" class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
+                    </div>
+        
+                    @Html.ValidationSummary(true)
+
+                    @Html.Hidden("Creator", User.Identity.Name)
+       
                     <div class="form-group col-md-6">
-                        @Html.TextBoxFor(model => model.Name, 
+                        @Html.TextBoxFor(model => model.Name,
                             new { @class = "form-control", @placeholder = "Nom de l'événement" })
                         @Html.ValidationMessageFor(model => model.Name)
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.TextBoxFor(model => model.Location, 
+                        @Html.TextBoxFor(model => model.Location,
                             new { @class = "form-control", @placeholder = "Emplacement de l'événement" })
                         @Html.ValidationMessageFor(model => model.Location)
                     </div>
 
                     <div class="form-group col-md-12">
-                        @Html.TextBoxFor(model => model.Address, 
+                        @Html.TextBoxFor(model => model.Address,
                             new { @class = "form-control", @placeholder = "Adresse de l'emplacement" })
                         @Html.ValidationMessageFor(model => model.Address)
                     </div>
 
                     <div class="form-group col-md-12">
-                        @Html.TextBoxFor(model => model.City, 
+                        @Html.TextBoxFor(model => model.City,
                             new { @class = "form-control", @placeholder = "Ville de l'emplacement" })
                         @Html.ValidationMessageFor(model => model.City)
                     </div>
                     
                     <div class="form-group col-md-12">
-                        @Html.TextBoxFor(model => model.Description, 
+                        @Html.TextBoxFor(model => model.Description,
                             new { @class = "form-control", @placeholder = "Description" })
                         @Html.ValidationMessageFor(model => model.Description)
                     </div>
 
                     <div class="form-group col-md-12">
-                        @Html.TextBoxFor(model => model.EventDate, 
+                        @Html.TextBoxFor(model => model.EventDate,
                             new { @class = "form-control", @placeholder = "Date de l'événement", @id = "datepicker" })
                         @Html.ValidationMessageFor(model => model.EventDate)
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.TextBoxFor(model => model.MaxAudience, 
+                        @Html.TextBoxFor(model => model.MaxAudience,
                             new { @class = "form-control", @placeholder = "Audience maximale" })
                         @Html.ValidationMessageFor(model => model.MaxAudience)
                     </div>
 
                     <div class="form-group col-md-6">
-                        @Html.TextBoxFor(model => model.Salary, 
+                        @Html.TextBoxFor(model => model.Salary,
                             new { @class = "form-control", @placeholder = "Salaire pour l'événement ($)" })
                         @Html.ValidationMessageFor(model => model.Salary)
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.TextBoxFor(model => model.StageSize, 
+                        @Html.TextBoxFor(model => model.StageSize,
                             new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
                         @Html.ValidationMessageFor(model => model.StageSize)
                     </div>
@@ -84,28 +89,28 @@ else
                         </select>
                     </div>
                     <hr class="colorgraph col-md-12">
-                    <div class="form-group col-md-6">
-                        @Html.Label("Photo de l'événement")
-                        <input id="ImageUploader" class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
-                    </div>
                     
                     <div class="col-md-12">
                         <hr class="colorgraph"/>
                     </div>
 
                     <div class="col-md-6">
-                         @Html.ActionLink("Retour", "Index", new { controller = "Event" }, 
+                         @Html.ActionLink("Retour", "Index", new { controller = "Event" },
                             new { @class = "btn btn-default col-md-12" })
                     </div>
 
                     <div class="col-md-6">
                         <input type="submit" value="Créer l'événement" class="btn btn-primary col-md-12" />
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
-        <div class="modal fade" id="CropperDialog">
+        <div class="modal fade" id="CropperDialog" data-send="false">
             @RenderPage("../Photo/ImageCropperDialog.cshtml")
+            @Html.HiddenFor(model => model.PhotoCrop.PicX, new { id = "X" })
+            @Html.HiddenFor(model => model.PhotoCrop.PicY, new { id = "Y" })
+            @Html.HiddenFor(model => model.PhotoCrop.PicWidth, new { id = "Width" })
+            @Html.HiddenFor(model => model.PhotoCrop.PicHeight, new { id = "Height" })
         </div>
     }
 }

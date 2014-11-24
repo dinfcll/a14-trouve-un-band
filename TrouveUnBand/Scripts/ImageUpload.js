@@ -41,14 +41,14 @@ function readURL(input) {
 }
 
 $("#ImageUploader").change(function () {
-    if (FileSize = this.files[0].size > 3145728)
-    {
+    if (FileSize = this.files[0].size > 3145728) {
         alert("La taille de l'image ne doit pas dépasser 3 mo.");
         $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
         $("#ImageUploader").unwrap();
         return;
     }
     readURL(this);
+    setModalButton();
     $("#CropperDialog").modal("show");
 });
 
@@ -131,3 +131,16 @@ function resizeImage(image) {
 function setModalWidth(modalWidth) {
     modal.find('.modal-dialog').css({ 'width': modalWidth + 100 });
 }
+
+function setModalButton() {
+    var isToSend = modal.attr("data-send");
+
+    if (isToSend == "false") {
+        $("#sendButton").prop("type", "button");
+        return;
+    }
+}
+
+$("#sendButton").click(function () {
+    $("#CropperDialog").modal("hide");
+});

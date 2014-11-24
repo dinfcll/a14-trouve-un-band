@@ -11,6 +11,8 @@ namespace TrouveUnBand.Models
     [MetadataType(typeof(Event.EventMetadata))]
     public partial class Event
     {
+        public Photo PhotoCrop { get; set; }
+
         public sealed class EventMetadata
         {
             public int Event_ID { get; set; }
@@ -35,7 +37,7 @@ namespace TrouveUnBand.Models
             [Required(ErrorMessage = "Ce champ est requis")]
             //[RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
             public string StageSize { get; set; }
-            public byte[] Photo { get; set; }
+            public string Photo { get; set; }
             public string Creator_ID { get; set; }
         }
     }
