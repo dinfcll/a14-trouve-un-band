@@ -8,6 +8,22 @@ if ($("#CropperDialog")[0]) {
     modal = $("#CropperDialog");
 }
 
+if ($("#X")[0]) {
+    var element;
+
+    element = document.getElementById("X");
+    element.value = 0;
+
+    element = document.getElementById("Y");
+    element.value = 0;
+
+    element = document.getElementById("Width");
+    element.value = 0;
+
+    element = document.getElementById("Height");
+    element.value = 0;
+}
+
 modal.on("hidden.bs.modal", function (e) {
     api.destroy();
 });

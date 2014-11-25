@@ -71,7 +71,7 @@ namespace TrouveUnBand.Controllers
 
                 if (validUserQuery == null)
                 {
-                    userbd.Photo = Photo.StockPhoto;
+                    userbd.Photo = Photo.USER_STOCK_PHOTO;
                     userbd.Password = Encrypt(userbd.Password);
                     userbd = Geolocalisation.SetUserLocation(userbd);
 

@@ -12,7 +12,7 @@
                         Modifier un événement</h3>
                     <hr class="colorgraph" id="eventline">
                 </div>
-                @using (Html.BeginForm("CropImage", "Event", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("CropImageDialog", "Event", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="modal-body col-md-12">

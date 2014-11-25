@@ -11,6 +11,7 @@ namespace TrouveUnBand.Models
     [MetadataType(typeof(Event.EventMetadata))]
     public partial class Event
     {
+        [NotMapped]
         public Photo PhotoCrop { get; set; }
 
         public sealed class EventMetadata

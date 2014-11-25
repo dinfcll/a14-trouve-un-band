@@ -11,6 +11,11 @@ namespace TrouveUnBand.Classes
 {
     public class Photo
     {
+       public static string USER_STOCK_PHOTO = "/Photos/UserProfilePhoto/_stock_user.jpg";
+       public static string BAND_STOCK_PHOTO = "BAND_PHOTO";
+       public static string EVENT_STOCK_PHOTO = "/Photos/EventPhotos/_stock_event.jpg";
+       public static string ADVERT_STOCK_PHOTO = "ADVERT_PHOTO";
+
         byte[] m_PhotoArray;
 
         public string PhotoSrc { get; set; }
@@ -46,21 +51,6 @@ namespace TrouveUnBand.Classes
                     PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(value);
                 }
             }
-        }
-
-        public static string StockPhoto
-        {
-            get
-            {
-                return getStockPhoto();
-            }
-        }
-
-        private static string getStockPhoto()
-        {
-            string path = "/Photos/UserProfilePhoto/_stock_user.jpg";
-
-            return path;
         }
 
         private static byte[] imageToByteArray(Image imageIn)
