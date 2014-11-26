@@ -137,6 +137,8 @@ namespace TrouveUnBand.Controllers
             db.SaveChanges();
             db.Adverts.Remove(advert);
             db.SaveChanges();
+            FileHelper.DeletePhoto(id.ToString(), FileHelper.Category.ADVERT_PHOTO);
+
             return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
         }
 
