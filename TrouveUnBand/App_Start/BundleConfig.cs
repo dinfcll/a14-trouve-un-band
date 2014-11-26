@@ -47,7 +47,8 @@ namespace TrouveUnBand
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/site.css",
                 "~/Content/Site.css",
-                 "~/Content/bootstrap-select.css"
+                 "~/Content/bootstrap-select.css",
+                  "~/Content/profile-page.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

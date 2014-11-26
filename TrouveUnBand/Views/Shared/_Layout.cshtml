@@ -12,15 +12,15 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="titre">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="titre">
             <!--NAVBAR-->
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
 
                     @Html.ActionLink("TrouveUnBand.com", "Index", "Home", new { @class = "navbar-brand" })
@@ -35,11 +35,11 @@
                         <li id="event">@Html.ActionLink("Événements", "Index", "Event")</li>
                         <li id="Advert">@Html.ActionLink("Annonces", "Index", "Advert")</li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right" >
+                    <ul class="nav navbar-nav navbar-right">
                         <li>@Html.Partial("_LoginPartial")</li>
                     </ul>
-                    
-                    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class="navbar-form navbar-right", @role="search" }))
+
+                    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "navbar-form navbar-right", @role = "search" }))
                     {
                         @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
                         @Html.ValidationMessage("SearchString")

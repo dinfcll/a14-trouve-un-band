@@ -236,6 +236,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\profile-page.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -297,8 +299,6 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -448,6 +448,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Users\NewProfilePage.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
