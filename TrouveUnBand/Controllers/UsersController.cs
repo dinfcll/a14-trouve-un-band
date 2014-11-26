@@ -71,7 +71,12 @@ namespace TrouveUnBand.Controllers
 
                 if (validUserQuery == null)
                 {
-                    userbd.Photo = Photo.USER_STOCK_PHOTO;
+                    userbd.Photo = Photo.USER_STOCK_PHOTO_MALE;
+                    if(userbd.Gender == "Femme")
+                    {
+                        userbd.Photo = Photo.USER_STOCK_PHOTO_FEMALE;
+                    }
+
                     userbd.Password = Encrypt(userbd.Password);
                     userbd = Geolocalisation.SetUserLocation(userbd);
 
