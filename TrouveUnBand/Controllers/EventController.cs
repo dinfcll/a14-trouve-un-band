@@ -99,11 +99,11 @@ namespace TrouveUnBand.Controllers
             newEventInfo.Photo = oldEvent.Photo;
             newEventInfo.User = oldEvent.User;
 
-            string GenresList = Request["EventGenreDB"];
-            string[] StringGenresArray = GenresList.Split(',');
-
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && newEventInfo.Genres.Count>0)
             {
+                string GenresList = Request["EventGenreDB"];
+                string[] StringGenresArray = GenresList.Split(',');
+
                 oldEvent.Genres.Clear();
                 for (int i = 0; i < StringGenresArray.Length; i++)
                 {

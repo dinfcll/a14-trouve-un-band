@@ -23,6 +23,7 @@ namespace TrouveUnBand.Models
             public int Creator_ID { get; set; }
             [Required(ErrorMessage = "Le genre est requis")]
             public List<Genre> Genres { get; set; }
+            [Required(ErrorMessage = "Une description est requise")]
             public string Description { get; set; }
             [Required(ErrorMessage = "Le status est obligatoire")]
             public string Status { get; set; }

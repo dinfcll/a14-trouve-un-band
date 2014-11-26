@@ -12,7 +12,6 @@ else
 {
     using (Html.BeginForm("Create", "Advert", FormMethod.Post, new { @role = "form", @class = "top-80", enctype = "multipart/form-data" }))
     {
-        @Html.ValidationSummary(true)
         <div  id="CreateEventForm">
             <div class="container">
                 <div class="row form-group col-md-8 col-md-push-2">
@@ -55,7 +54,7 @@ else
                             <select name="GenreAdvertDB" class="selectpicker" title="Genres musicaux de l'annonce"
                                     data-width="100%" data-live-search="true"
                                     data-selected-text-format="count>3" multiple>
-                                @foreach (var genre in ViewBag.GenresAdvert)
+                                @foreach (var genre in ViewBag.GenreListDB)
                                 {
                                     <option>@genre.Name</option>
                                 }

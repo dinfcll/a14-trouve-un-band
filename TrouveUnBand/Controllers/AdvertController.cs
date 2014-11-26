@@ -33,7 +33,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.GenresAdvert = new List<Genre>(db.Genres);
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advertToCreate.Creator_ID);
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "Genre_Id", "Name", advertToCreate.Genres.Any());
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View(advertToCreate);
         }
 
@@ -80,7 +80,7 @@ namespace TrouveUnBand.Controllers
             }
 
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
-            ViewBag.GenresAdvert = new List<Genre>(db.Genres);
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View(advert);
         }
 
@@ -91,11 +91,11 @@ namespace TrouveUnBand.Controllers
             newAdvertInfo.Photo = oldAdvert.Photo;
             newAdvertInfo.User = oldAdvert.User;
 
-            string GenresList = Request["GenreAdvertDB"];
-            string[] GenresArray = GenresList.Split(',');
-
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && newAdvertInfo.Genres.Count>0)
             {
+                string GenresList = Request["GenreAdvertDB"];
+                string[] GenresArray = GenresList.Split(',');
+
                 oldAdvert.Genres.Clear();
                 for (int i = 0; i < GenresArray.Length; i++)
                 {
@@ -114,7 +114,7 @@ namespace TrouveUnBand.Controllers
                 return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
             }
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", newAdvertInfo.Creator_ID);
-            ViewBag.GenresAdvert = new SelectList(db.Genres, "Genre_Id", "Name", newAdvertInfo.Genres.Any());
+            ViewBag.GenreListDB = new List<Genre>(db.Genres);
 
             return View(newAdvertInfo);
         }
@@ -178,32 +178,6 @@ namespace TrouveUnBand.Controllers
             base.Dispose(disposing);
         }
 
-        public byte[] imageToByteArray(System.Drawing.Image imageIn)
-        {
-            var ms = new MemoryStream();
-            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-            return ms.ToArray();
-        }
-
-        public byte[] GetAdvertPhotoByte(int AdvertIDView)
-        {
-            var PicQuery = (from Adverts in db.Adverts
-                            where
-                            Adverts.Advert_ID.Equals(AdvertIDView)
-                            select new Photo
-                            {
-                                //PhotoArray = Adverts.Photo
-                            }).FirstOrDefault();
-            return PicQuery.PhotoArray;
-        }
-
-        private byte[] GetPostedAdvertPhoto()
-        {
-            HttpPostedFileBase PostedPhoto = Request.Files[0];
-            Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-            byte[] bytephoto = imageToByteArray(img);
-            return bytephoto;
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult CropImageDialog(Advert advertWithPhoto)
