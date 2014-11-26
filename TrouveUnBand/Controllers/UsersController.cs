@@ -337,8 +337,18 @@ namespace TrouveUnBand.Controllers
             currentUser.FirstName = newUser.FirstName;
             currentUser.LastName = newUser.LastName;
             currentUser.BirthDate = newUser.BirthDate;
-            currentUser.Gender = newUser.Gender;
             currentUser.Email = newUser.Email;
+
+            if (currentUser.Gender != newUser.Gender &&
+                currentUser.Photo.Contains("_stock_user_"))
+            {
+                currentUser.Photo = Photo.USER_STOCK_PHOTO_MALE;
+                if(newUser.Gender == "Femme")
+                {
+                    currentUser.Photo = Photo.USER_STOCK_PHOTO_FEMALE;
+                }
+            }
+            currentUser.Gender = newUser.Gender;
         }
 
         private bool SaveUpdatedUser()
