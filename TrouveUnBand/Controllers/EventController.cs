@@ -55,15 +55,6 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid)
             {
-                string savedPhotoPath = CropAndSavePhoto(eventToCreate);
-
-                if (savedPhotoPath == "")
-                {
-                    savedPhotoPath = Photo.EVENT_STOCK_PHOTO;
-                }
-
-                eventToCreate.Photo = savedPhotoPath;
-
                 string GenresList = Request["EventGenreDB"];
                 string[] GenresArray = GenresList.Split(',');
 
@@ -79,6 +70,11 @@ namespace TrouveUnBand.Controllers
 
                 db.Events.Add(eventToCreate);
                 db.SaveChanges();
+
+                var savedPhotoPath = CropAndSavePhoto(eventToCreate);
+                eventToCreate.Photo = savedPhotoPath;
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
@@ -143,10 +139,13 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Event events = db.Events.Find(id);
+
             events.Genres.Clear();
             db.SaveChanges();
             db.Events.Remove(events);
             db.SaveChanges();
+            FileHelper.DeletePhoto(id.ToString(), FileHelper.Category.EVENT_PHOTO);
+
             return RedirectToAction("Index");
         }
 
@@ -155,27 +154,6 @@ namespace TrouveUnBand.Controllers
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             return ms.ToArray();
-        }
-
-        public string GetEventPhoto(int eventID)
-        {
-            var PicQuery = (from Events in db.Events
-                            where
-                            Events.Event_ID.Equals(eventID)
-                            select new Photo
-                            {
-                                PhotoSrc = Events.Photo
-                            }).FirstOrDefault();
-
-            return PicQuery.PhotoSrc;
-        }
-
-        private string GetPostedEventPhoto()
-        {
-            HttpPostedFileBase PostedPhoto = Request.Files[0];
-            Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-            string path = FileHelper.SavePhoto(img, FileHelper.Category.EVENT_PHOTO);
-            return path;
         }
 
         [HttpPost]
@@ -211,7 +189,7 @@ namespace TrouveUnBand.Controllers
 
             if (postedPhoto.ContentLength == 0)
             {
-                return "";
+                return Photo.EVENT_STOCK_PHOTO;
             }
 
             Image image = Image.FromStream(postedPhoto.InputStream, true, true);
@@ -222,10 +200,13 @@ namespace TrouveUnBand.Controllers
             }
 
             var croppedPhoto = PhotoCropper.CropImage(image, eventWithPhoto.PhotoCrop.CropRect);
-
             string eventPhotoName = eventWithPhoto.Event_ID.ToString();
-
             var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, eventPhotoName, FileHelper.Category.EVENT_PHOTO);
+
+            if (savedPhotoPath == "")
+            {
+                savedPhotoPath = Photo.EVENT_STOCK_PHOTO;
+            }
 
             return savedPhotoPath;
         }

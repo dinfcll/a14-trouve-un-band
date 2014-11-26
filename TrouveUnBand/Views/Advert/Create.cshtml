@@ -21,6 +21,10 @@ else
                         <hr class="colorgraph">
                     </div>
                     <div class="form-group col-md-12">
+                        @Html.Label("Photo de l'annonce")
+                        <input id="ImageUploader" class="btn" type="file" name="FileUpload" value="Choisir Fichier" accept="image/*" />
+                    </div>
+                    <div class="form-group col-md-12">
                         @Html.Hidden("CreatorName", User.Identity.Name)
                         <div class="form-group col-md-12">
                             @Html.TextBoxFor(model => model.Type,
@@ -62,10 +66,6 @@ else
                                 new { @class = "form-control", @placeholder = "Description" })
                             @Html.ValidationMessageFor(model => model.Description)
                         </div>
-                        <div class="form-group col-md-12">
-                            @Html.Label("Photo de l'annonce")
-                            <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
-                        </div>
                         <div class="col-md-12">
                             <hr class="colorgraph"/>
                         </div>
@@ -79,6 +79,14 @@ else
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="modal fade" id="CropperDialog" data-send="false">
+                @RenderPage("../Photo/ImageCropperDialog.cshtml")
+                @Html.HiddenFor(model => model.PhotoCrop.PicX, new { id = "X" })
+                @Html.HiddenFor(model => model.PhotoCrop.PicY, new { id = "Y" })
+                @Html.HiddenFor(model => model.PhotoCrop.PicWidth, new { id = "Width" })
+                @Html.HiddenFor(model => model.PhotoCrop.PicHeight, new { id = "Height" })
+                
             </div>
     }
 }

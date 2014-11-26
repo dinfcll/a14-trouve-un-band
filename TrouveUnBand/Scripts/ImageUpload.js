@@ -3,6 +3,7 @@ var imageCropHeight = 0;
 var cropPointX = 0;
 var cropPointY = 0;
 var modal;
+var isClosedByButton = false;
 
 if ($("#CropperDialog")[0]) {
     modal = $("#CropperDialog");
@@ -25,7 +26,12 @@ if ($("#X")[0]) {
 }
 
 modal.on("hidden.bs.modal", function (e) {
+    if (!isClosedByButton) {
+        $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
+        $("#ImageUploader").unwrap();
+    }
     api.destroy();
+    return;
 });
 
 function readURL(input) {
@@ -43,9 +49,7 @@ function readURL(input) {
                 var imgWidth = this.width;
                 var imgHeight = this.height;
 
-                if (imgWidth < 250 || imgHeight < 172 || imgWidth > 800 || imgHeight > 600) {
-                    imageSrc = resizeImage(image);
-                }
+                imageSrc = resizeImage(image);
 
                 $("#PicToCrop").attr("src", imageSrc);
                 initCrop();
@@ -65,6 +69,7 @@ $("#ImageUploader").change(function () {
     }
     readURL(this);
     setModalButton();
+    isClosedByButton = false;
     $("#CropperDialog").modal("show");
 });
 
@@ -99,11 +104,12 @@ function setCoordsAndImgSize(e) {
     element.value = Math.round(e.h);
 }
 
-$("#closeDialog").click(function () {
-    $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
-    $("#ImageUploader").unwrap();
-    return;
-});
+//$("#closeDialog").click(function () {
+//    $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
+//    $("#ImageUploader").unwrap();
+//    api.destroy();
+//    return;
+//});
 
 function resizeImage(image) {
     var width = image.width;
@@ -158,5 +164,6 @@ function setModalButton() {
 }
 
 $("#sendButton").click(function () {
+    isClosedByButton = true;
     $("#CropperDialog").modal("hide");
 });

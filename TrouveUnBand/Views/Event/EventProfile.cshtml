@@ -7,10 +7,7 @@
     <div class="jumbotron col-md-12">
         <div class="thumbnail card col-md-3">
             <a href="#" data-toggle="modal" data-target="#PicModal">
-                @{
-                    var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo);
-                    <img id="ProfilePic" alt="" src="@photo" width="250" class="photo" />
-                }
+                    <img id="ProfilePic" alt="" src="@Model.Photo" width="250" class="photo" />
             </a>
         </div>
         <div class="col-md-9 profile-header-info">

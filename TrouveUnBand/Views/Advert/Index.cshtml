@@ -31,15 +31,7 @@
             {
                 <div class="col-md-12">
                     <div class="row col-md-4 form-group">
-                        @if (item.Photo == null)
-                        {
-                            <img src="http://placehold.it/250x200" alt="Image">
-                        }
-                        else
-                        {
-                            var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                            <img src="@photo" width="250" class="photo" alt="Image">
-                        }
+                        <img src="@item.Photo" width="250" class="photo" alt="Image">
                     </div>
                     <div class="col-md-8 col-md-pull-1" id="AdvertDesc">
                         <div class="col-md-12 form-group">

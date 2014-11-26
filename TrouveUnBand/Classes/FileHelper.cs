@@ -11,38 +11,18 @@ namespace TrouveUnBand.Classes
     {
         public static class Category
         {
-            public static string USER_PROFILE_PHOTO = "USER_PROFILE_PHOTO";
+            public static string USER_PROFILE_PHOTO = "/Photos/UserProfilePhoto/";
             public static string BAND_PHOTO = "BAND_PHOTO";
-            public static string EVENT_PHOTO = "EVENT_PHOTO";
-            public static string ADVERT_PHOTO = "ADVERT_PHOTO";
+            public static string EVENT_PHOTO = "/Photos/EventPhotos/";
+            public static string ADVERT_PHOTO = "/Photos/AdvertPhotos/";
         }
-
+        
         public static string SavePhoto(Image image, string name, string category)
         {
-            string path = "";
             bool isSaved = false;
+            string path = category + name + ".jpg";
 
-            switch (category)
-            {
-                case "USER_PROFILE_PHOTO":
-                    path = "/Photos/UserProfilePhoto/" + name + ".jpg";
-                    isSaved = Save(image, path);
-                    break;
-
-                case "BAND_PHOTO":
-                    break;
-
-                case "EVENT_PHOTO":
-                    path = "/Photos/EventPhotos/" + name + ".jpg";
-                    isSaved = Save(image, path);
-                    break;
-
-                case "ADVERT_PHOTO":
-                    break;
-
-                    default:
-                    break;
-            }
+             isSaved = Save(image, path);
 
             if(!isSaved)
             {
@@ -79,6 +59,22 @@ namespace TrouveUnBand.Classes
             {
                 string serverPath = HttpContext.Current.Server.MapPath(path);
                 image.Save(serverPath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool DeletePhoto(string name, string category)
+        {
+            string path = category + name + ".jpg";
+            string serverPath = HttpContext.Current.Server.MapPath(path);
+
+            try
+            {
+                File.Delete(serverPath);
                 return true;
             }
             catch

@@ -10,22 +10,41 @@
 }
 else
 {
-    using (Html.BeginForm("Edit", "Advert", FormMethod.Post, new { @role = "form", @class = "top-80", enctype = "multipart/form-data" }))
-    {
-        @Html.ValidationSummary(true)
-        <div  id="CreateEventForm">
-            <div class="container">
-                <div class="row form-group col-md-8 col-md-push-1">
-                    <div class="col-md-12">
-                        <h3>Modifier une annonce</h3>
-                        <hr class="colorgraph">
-                    </div>
-                    @Html.HiddenFor(model => model.Advert_ID,
-                                new { @class = "form-control", @placeholder = "AdvertId" })
-                            @Html.ValidationMessageFor(model => model.Type)
-                    <div class="form-group col-md-12">
 
-                        @Html.Hidden("CreatorName", User.Identity.Name)
+    <div id="CreateEventForm">
+        <div class="container">
+            <div class="row form-group col-md-8 col-md-push-1">
+                <div class="col-md-12">
+                    <h3>Modifier une annonce</h3>
+                    <hr class="colorgraph">
+                </div>
+                <div class="form-group col-md-12">
+
+                    @using (Html.BeginForm("CropImageDialog", "Advert", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="modal-body col-md-12">
+                            <img src="@Model.Photo" width="400" class="photo" alt="Image">
+                        </div>
+                        <div class="form-group col-md-12">
+                            @Html.Label("Photo de l'annonce")
+                            <input id="ImageUploader" class="btn" type="file" name="FileUpload" accept="image/*" />
+                        </div>
+                        <div class="modal fade" id="CropperDialog">
+                            @Html.Partial("../Photo/ImageCropperDialog", Model.PhotoCrop)
+                            @Html.HiddenFor(model => model.PhotoCrop.PicX, new { id = "X" })
+                            @Html.HiddenFor(model => model.PhotoCrop.PicY, new { id = "Y" })
+                            @Html.HiddenFor(model => model.PhotoCrop.PicWidth, new { id = "Width" })
+                            @Html.HiddenFor(model => model.PhotoCrop.PicHeight, new { id = "Height" })
+                            @Html.HiddenFor(model => model.Advert_ID, new { @Model.Advert_ID })
+                        </div>
+                    }
+                    @using (Html.BeginForm("Edit", "Advert", FormMethod.Post, new { @role = "form", @class = "top-80", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.Advert_ID, new { Model.Advert_ID })
+                        @Html.HiddenFor(model => model.Creator_ID, new { Model.Creator_ID })
+
                         <div class="form-group col-md-12">
                             @Html.Label("Nom de l'annonce")
                             @Html.TextBoxFor(model => model.Type,
@@ -45,7 +64,7 @@ else
                                                new { value = "En attente" , text = "En attente"  },
                                                new { value = "En cours" , text = "En cours" }
                                             },
-                                            "value","text", Model.Status), 
+                                            "value", "text", Model.Status),
                                             new { @class = "form-control selectpicker" })
                             @Html.ValidationMessageFor(model => model.Status)
                         </div>
@@ -86,25 +105,21 @@ else
                                 new { @class = "form-control", @placeholder = "Description" })
                             @Html.ValidationMessageFor(model => model.Description)
                         </div>
-                        <div class="form-group col-md-6">
-                            @Html.Label("Photo de l'événement")
-                            <input class="btn" type="file" name="FileUpload" value="Choisir Fichier" />
-                        </div>
                         <div class="col-md-12">
-                            <hr class="colorgraph"/>
+                            <hr class="colorgraph" />
                         </div>
                         <div class="col-md-6">
-                             @Html.ActionLink("Retour", "Index", new { controller = "Advert" }, 
+                            @Html.ActionLink("Retour", "Index", new { controller = "Advert" },
                                 new { @class = "btn btn-default col-md-12" })
                         </div>
                         <div class="col-md-6">
                             <input type="submit" value="Modifier l'annonce" class="btn btn-primary col-md-12" />
                         </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
-    }
+        </div>
+    </div>
 }
 
 @section Scripts {
