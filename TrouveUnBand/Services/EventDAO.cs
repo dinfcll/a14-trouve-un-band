@@ -6,7 +6,7 @@ using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Services
 {
-    public class EventDAO
+    public class EventDao
     {   
         public static List<Event> GetAllEvents()
         {
