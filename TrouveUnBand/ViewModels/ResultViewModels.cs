@@ -19,9 +19,6 @@ namespace TrouveUnBand.ViewModels
         public DateTime CreationDate { get; set; }
         public int ID { get; set; }
 
-
-        private readonly TrouveUnBandEntities db = new TrouveUnBandEntities();
-
         public ResultViewModels(Band band)
         {
             Name = band.Name;
