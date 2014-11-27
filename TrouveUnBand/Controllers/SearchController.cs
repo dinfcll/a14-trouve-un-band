@@ -87,7 +87,7 @@ namespace TrouveUnBand.Controllers
 
             if (cbEventsChecked)
             {
-                var events = EventDAO.GetEvents(cbSelectedGenres, searchstring, location, radius);
+                var events = EventDao.GetEvents(cbSelectedGenres, searchstring, location, radius);
                 foreach (var even in events)
                 {
                     results.Add(new ResultViewModels(even));
