@@ -1,3 +1,53 @@
-﻿.profile-page-content{
+﻿.profile-section{
+    padding-right:0 !important;
+    padding-left:0 !important;
+}
+
+.profile-header{
+    padding:10px 15px;
+    font-weight:500;
+}
+
+.profile-header-menu{
+    background-color:#585858;
+}
+
+.profile-header-sidebar{
+    background-color:#888888;
+}
+
+.profile-header-info{
+    background-color:#E5E4E4;
+    color:black;
+}
+
+.profile-content{
+    padding:15px;
     background-color:white;
+    color:#3498db;
+}
+
+.profile-content > ul > li{
+    position:relative;
+}
+
+.profile-user-info > ul > li,
+.profile-content > ul > li > a{
+    padding-top:10px;
+    padding-bottom:10px;
+    display:block;
+    color:#3498db;
+}
+
+.profile-content > ul > li > a:hover{
+    color:white;
+    background-color:#3498db;
+}
+
+.profile-user-info{
+    background-color:#EEEEEE;
+}
+
+.profile-user-info > ul{
+    padding:15px;
 }

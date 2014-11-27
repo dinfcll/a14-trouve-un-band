@@ -343,7 +343,7 @@ img.jcrop-preview {
       line-height: 30px;
   }
 
-.profile-container{
+/*.profile-container{
     background-clip: padding-box;
 }
 
@@ -585,7 +585,7 @@ div.profile-tab-menu div.list-group{
 }
 
 #profile-photo-carousel .carousel-control { visibility: hidden; }
-#profile-photo-carousel:hover .carousel-control { visibility: visible; }
+#profile-photo-carousel:hover .carousel-control { visibility: visible; }*/
 
 #PicModal .modal-content {
     display: inline-block;
