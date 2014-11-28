@@ -112,7 +112,6 @@
 var menuTopPosition;
 
 if ($(".profile-menu")[0]) {
-    alert("1");
     menuTopPosition = $(".profile-menu").offset().top;
 }
 
