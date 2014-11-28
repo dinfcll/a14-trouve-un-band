@@ -21,7 +21,7 @@ namespace TrouveUnBand.Classes
             MusicianView.Description = user.Description;
             MusicianView.Name = user.FirstName + " " + user.LastName;
             MusicianView.Location = user.Location;
-            MusicianView.ProfilePicture.PhotoSrc = user.Photo;
+            MusicianView.Photo = user.Photo;
             MusicianView.Id = user.User_ID;
 
             return MusicianView;
