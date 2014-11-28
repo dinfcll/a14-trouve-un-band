@@ -3,8 +3,8 @@
 }
 
 <div class="row">
-    <div class="col-md-2 profile-section">
-        <div class="profile-menu">
+    <div class="col-md-2 profile-section profile-menu">
+        <div class="">
             <div class="profile-header profile-header-menu">
                 <span>Menu</span>
             </div>
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="col-md-3 profile-section">
+    <div class="col-md-3 profile-section profile-quickinfo-tab">
         <div class="profile-header profile-header-sidebar">
             <span>Jeandit</span>
         </div>
@@ -73,6 +73,42 @@
                 <div class="profile-tab-header">
                     <span>Description</span>
                 </div>
+
+<div id="instrument-panel" class="profile-info-panel row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Instruments</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-12 col-lg-12">
+                        <table class="table table-musician-info">
+                            <thead>
+                                <tr>
+                                    <th>Instrument:</th>
+                                    <th>Niveau d'expérience:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*@for (i = 0; i < Model.InstrumentInfo.InstrumentNames.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.InstrumentInfo.InstrumentNames[i]</td>
+                                        <td>@Model.InstrumentInfo.Skills[i]</td>
+                                    </tr>
+                                }*@
+                                <span>Chant</span>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
             </div>
             <div class="profile-section">
                 <div class="profile-tab-header">

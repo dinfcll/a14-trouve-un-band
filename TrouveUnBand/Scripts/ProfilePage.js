@@ -109,6 +109,13 @@
 //    return false;
 //});
 
+var menuTopPosition;
+
+if ($(".profile-menu")[0]) {
+    alert("1");
+    menuTopPosition = $(".profile-menu").offset().top;
+}
+
 $(".profile-content > ul > li").click(function (event) {
         var index = $(this).index();
 
@@ -120,5 +127,22 @@ $(".profile-content > ul > li").click(function (event) {
         //$(".profile-tab-content").eq(index).addClass("active");
         return false;
 });
+
+$(window).scroll(function () {
+
+    var scrollPosition = $(document).scrollTop();
+    var isOnTop = scrollPosition >= menuTopPosition - 70;
+
+    if (isOnTop) {
+        var newMenuTopPosition = scrollPosition - menuTopPosition + 70;
+//        $(".profile-menu").css("top", newMenuTopPosition);
+//        $(".profile-quickinfo-tab").css("top", newMenuTopPosition);
+    }
+    else {
+//        $('.profile-menu').css("top", 0);
+//        $(".profile-quickinfo-tab").css("top", 0);
+    }
+});
+
 
 //position pour le always-on-screen ~20px
