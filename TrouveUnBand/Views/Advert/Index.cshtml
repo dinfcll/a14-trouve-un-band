@@ -33,7 +33,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <div class="row col-md-4 form-group">
+                        <div class="row col-md-3 form-group">
                             @if (item.Photo == null)
                             {
                                 <img src="http://placehold.it/250x200" alt="Image">
@@ -44,10 +44,7 @@
                                 <img src="@photo" width="250" class="photo" alt="Image">
                             }
                         </div>
-                        <div class="col-md-8 col-md-pull-1" id="AdvertDesc">
-                            <div class="col-md-12 form-group">
-                                <h3>@Html.DisplayName(item.Type)</h3>
-                            </div>
+                        <div class="col-md-4">
                             <div class="col-md-12 form-group">
                                 <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayName(item.CreationDate.ToString("dd MMMM yyyy"))
                             </div>
@@ -59,11 +56,11 @@
                                         foreach (var genre in item.Genres)
                                         {
                                             TextPopOver += "<p>" + Html.DisplayName(genre.Name) + "</p>";
-                                            if (i < 2)
+                                            if (i < 1)
                                             {
                                                 @Html.DisplayName(genre.Name + ", ");
                                             }
-                                            if (i == 2)
+                                            if (i == 1)
                                             {
                                                 @Html.DisplayName(genre.Name + "");
                                             }
@@ -83,7 +80,7 @@
                                 <span class="glyphicon glyphicon-ok"></span> @Html.DisplayName(item.Status)
                             </div>
                         </div>
-                        <div class="row col-md-12 form-group">
+                        <div id="AdvertDesc" class="row col-md-5 form-group">
                             <hr class="colorgraph"/>
                             <h4>Description de l'annonce</h4>
                             <p>

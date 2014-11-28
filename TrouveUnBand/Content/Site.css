@@ -718,3 +718,6 @@ display: inline;
     vertical-align:middle;
 }
 
+.popover{
+    width:200px;
+}

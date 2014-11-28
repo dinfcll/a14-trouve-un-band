@@ -11,6 +11,7 @@ using System.IO;
 using TrouveUnBand.Classes;
 using System.Data.Entity.Infrastructure;
 using System.Data.Objects.DataClasses;
+using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
@@ -52,7 +53,7 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Create(Event events)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Request["EventGenreDB"] != null)
             {
                 string GenresList = Request["EventGenreDB"];
                 string[] GenresArray = GenresList.Split(',');
@@ -74,6 +75,7 @@ namespace TrouveUnBand.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            string messageAlert = AlertMessages.NOT_MUSICIAN;
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View();
         }
