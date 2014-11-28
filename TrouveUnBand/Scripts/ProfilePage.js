@@ -134,12 +134,12 @@ $(window).scroll(function () {
 
     if (isOnTop) {
         var newMenuTopPosition = scrollPosition - menuTopPosition + 70;
-//        $(".profile-menu").css("top", newMenuTopPosition);
-//        $(".profile-quickinfo-tab").css("top", newMenuTopPosition);
+        $(".profile-menu").css("top", newMenuTopPosition);
+        $(".profile-quickinfo-tab").css("top", newMenuTopPosition);
     }
     else {
-//        $('.profile-menu').css("top", 0);
-//        $(".profile-quickinfo-tab").css("top", 0);
+        $('.profile-menu').css("top", 0);
+        $(".profile-quickinfo-tab").css("top", 0);
     }
 });
 

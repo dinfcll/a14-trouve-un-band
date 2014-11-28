@@ -1,55 +1,14 @@
 ﻿@{
     ViewBag.Title = "NewProfilePage";
 }
-
 <div class="row">
-    <div class="col-md-2 profile-section profile-menu">
-        <div class="">
-            <div class="profile-header profile-header-menu">
-                <span>Menu</span>
-            </div>
-            <div class="profile-content">
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#" class="">
-                            <span>Description</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="">
-                            <span>Écouter</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="">
-                            <span>Recherche</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="">
-                            <span>Photo</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="">
-                            <span>Contacter</span>
-                        </a>
-                    </li>
-                </ul>
-                <hr />
-                <div class="profile-footer-menu">
-                    <span>FB/Twitter/G+</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="col-md-3 profile-section profile-quickinfo-tab">
         <div class="profile-header profile-header-sidebar">
             <span>Jeandit</span>
         </div>
         <div class="profile-content">
-            <img id="ProfilePic" alt="" src="/Photos/UserProfilePhoto/_stock_user_female.jpg" class="photo" width="250">
+            <img id="ProfilePic" alt="" src="/Photos/UserProfilePhoto/_stock_user_female.jpg"
+                class="photo" width="100%" />
             <div class="profile-user-quickinfo">
                 <ul class="list-unstyled">
                     <li>Nom</li>
@@ -62,9 +21,7 @@
             </div>
         </div>
     </div>
-
-
-    <div class="col-md-7 profile-section" style="height:100%;">
+    <div class="col-md-7 profile-section" style="height: 100%;">
         <div class="profile-header profile-header-info">
             <span>Informations</span>
         </div>
@@ -73,42 +30,45 @@
                 <div class="profile-tab-header">
                     <span>Description</span>
                 </div>
-
-<div id="instrument-panel" class="profile-info-panel row">
-    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Instruments</h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class=" col-md-12 col-lg-12">
-                        <table class="table table-musician-info">
-                            <thead>
-                                <tr>
-                                    <th>Instrument:</th>
-                                    <th>Niveau d'expérience:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @*@for (i = 0; i < Model.InstrumentInfo.InstrumentNames.Count; i++)
+                <div class="profile-tab-content">
+                    <div id="instrument-panel" class="profile-info-panel row">
+                        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        Instruments</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class=" col-md-12 col-lg-12">
+                                            <table class="table table-musician-info">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Instrument:
+                                                        </th>
+                                                        <th>
+                                                            Niveau d'expérience:
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @*@for (i = 0; i < Model.InstrumentInfo.InstrumentNames.Count; i++)
                                 {
                                     <tr>
                                         <td>@Model.InstrumentInfo.InstrumentNames[i]</td>
                                         <td>@Model.InstrumentInfo.Skills[i]</td>
                                     </tr>
-                                }*@
-                                <span>Chant</span>
-                            </tbody>
-                        </table>
+                                }*@ <span>Chant</span>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
             </div>
             <div class="profile-section">
                 <div class="profile-tab-header">
@@ -130,36 +90,114 @@
                     <span>Contacter</span>
                 </div>
             </div>
-            <center>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-                <p>Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
-            </center>
+            <div class="profile-tab-content">
+                <center>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                    <p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 profile-section profile-menu">
+        <div class="">
+            <div class="profile-header profile-header-menu">
+                <span>Menu</span>
+            </div>
+            <div class="profile-content">
+                <ul class="list-unstyled">
+                    <li><a href="#" class=""><span>Description</span> </a></li>
+                    <li><a href="#" class=""><span>Écouter</span> </a></li>
+                    <li><a href="#" class=""><span>Recherche</span> </a></li>
+                    <li><a href="#" class=""><span>Photo</span> </a></li>
+                    <li><a href="#" class=""><span>Contacter</span> </a></li>
+                </ul>
+                <hr />
+                <div class="profile-footer-menu">
+                    <span>FB/Twitter/G+</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
