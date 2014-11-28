@@ -5,33 +5,36 @@
 
 .profile-header{
     padding:10px 15px;
+    font-size:16px;
     font-weight:500;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
 }
 
 .profile-header-menu{
-    background-color:#585858;
+    background-color:black;
 }
 
 .profile-header-sidebar{
-    background-color:#888888;
+    background-color:#585858;
 }
 
 .profile-header-info{
-    background-color:#E5E4E4;
-    color:black;
+    background-color:#888888;
 }
 
+.profile-main-content,
 .profile-content{
     padding:15px;
     background-color:white;
     color:#3498db;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
 }
 
 .profile-content > ul > li{
     position:relative;
 }
 
-.profile-user-info > ul > li,
+.profile-user-quickinfo > ul > li,
 .profile-content > ul > li > a{
     padding-top:10px;
     padding-bottom:10px;
@@ -39,15 +42,45 @@
     color:#3498db;
 }
 
-.profile-content > ul > li > a:hover{
-    color:white;
-    background-color:#3498db;
-}
-
-.profile-user-info{
+.profile-content > ul > li:hover{
     background-color:#EEEEEE;
 }
 
-.profile-user-info > ul{
-    padding:15px;
+.profile-content > ul > li > a {
+    text-decoration: none;
+}
+
+.profile-content > ul > li.active > a{
+    color:white;
+    background-color:#3498db;
+    text-decoration:none;
+    outline:0;
+}
+
+.profile-user-quickinfo{
+    background-color:#F5F5F5;
+    border: 1px solid #e3e3e3;
+}
+
+.profile-user-quickinfo > ul{
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.profile-tab-header{
+    padding:10px 15px;
+    background-color:#585858;
+    color:white;
+    font-size:16px;
+    font-weight:500;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+    width:101%;
+}
+
+.profile-main-content{
+    padding:0;
+}
+
+.profile-section{
+    padding-top:15px;
 }
