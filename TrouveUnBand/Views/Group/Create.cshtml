@@ -1,6 +1,4 @@
 ﻿@using System
-@using System.Collections.Generic
-@using System.Linq
 @model TrouveUnBand.Models.Band
 @{
     ViewBag.Title = "Création band";
@@ -27,14 +25,17 @@
             </li>
         }
     </select>
-
-    @Html.Label((String)ViewBag.AuthenticatedUser)
 }
+
+
+
 
 @using (Ajax.BeginForm("SearchMusician", "Group", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "user-results" }))
 {
     @Html.TextBox("searchString")
     <button type="submit">Rechercher un musician</button>
 }
+
+<div id="band-members"></div>
 
 <div id="user-results"></div>

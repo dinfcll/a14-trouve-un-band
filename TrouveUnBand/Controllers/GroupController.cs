@@ -45,7 +45,11 @@ namespace TrouveUnBand.Controllers
 
             ViewBag.AuthenticatedUser = user.FirstName + " " + user.LastName;
             ViewBag.Subgenres = subgenres;
-            return View();
+
+            var band = new Band();
+            band.Users.Add(user);
+
+            return View(band);
         }
 
         [HttpPost]
@@ -219,12 +223,9 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPut]
-        public ActionResult AddMusician(int userid)
+        public ActionResult AddMusician(int MusicianId)
         {
-            if (ViewBag.BandMembers != null)
-            {
-                var bandMembers = ViewBag.BandMembers;
-            }
+            return View();
         }
 
         [HttpDelete]
@@ -279,7 +280,7 @@ namespace TrouveUnBand.Controllers
             ViewBag.Results = musicians;
             ViewBag.ResultsCount = musicians.Count;
 
-            return PartialView("_SearchResults");
+            return PartialView("_MusicianFinder");
         }
     }
 }

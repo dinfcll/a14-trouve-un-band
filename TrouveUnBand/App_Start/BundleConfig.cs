@@ -24,6 +24,7 @@ namespace TrouveUnBand
                 "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
+                "~/Scripts/AddBandMember.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
                 "~/Scripts/alert.js",
                 "~/Scripts/star-rating.js",
