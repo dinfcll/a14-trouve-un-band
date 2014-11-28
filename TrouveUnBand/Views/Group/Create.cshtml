@@ -1,52 +1,40 @@
-﻿@{
+﻿@using System
+@using System.Collections.Generic
+@using System.Linq
+@model TrouveUnBand.Models.Band
+@{
     ViewBag.Title = "Création band";
 }
-<div class="row col-md-8 col-md-offset-2" >
-    @if (Request.IsAuthenticated && (TrouveUnBand.Models.Band)Session["myBand"] != null)
-    {
-        <!-- Button trigger modal -->
-    <div class="btn btn-primary btn-lg btn-block">
-        @Ajax.ActionLink("Terminer", "UpdateModal", FormMethod.Get,
-                    new AjaxOptions
-                    {
-                        HttpMethod = "Get",
-                        UpdateTargetId = "ConfirmCreateDialog",
-                        OnSuccess = "$('#ConfirmCreateDialog').modal('show');"
-                    }, new { @class = "btn btn-default btn-lg btn-block" })
-    </div>
 
-    <div class="modal fade" id="ConfirmCreateDialog">
-    </div>
+@using (Html.BeginForm("Create", "Group"))
+{
+    @Html.TextBoxFor(model => model.Name, "", new { @class = "form-control", @placeholder = "Nom du band" })
+    @Html.TextBoxFor(model => model.Location, "", new { @class = "form-control", @placeholder = "Ville" })
+    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Description" })
+    <select name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
+            data-width="100%" data-live-search="true" data-selected-text-format="count>3" multiple>
+        @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
+        {
+            <li class="dropdown-submenu">
+                <optgroup label="@list.FirstOrDefault()">
+                    <ul class="dropdown-menu">
+                        @foreach (var genre in list)
+                        {
+                            <option>@genre</option>
+                        }
+                    </ul>
+                </optgroup>
+            </li>
+        }
+    </select>
 
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="#basetab" role="tab" data-toggle="tab">Information de base</a></li>
-            <li><a href="#genretab" role="tab" data-toggle="tab">Genre</a></li>
-            <li><a href="#musiciantab" role="tab" data-toggle="tab">Musicien</a></li>
-        </ul>
+    @Html.Label((String)ViewBag.AuthenticatedUser)
+}
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div class="tab-pane in active" id="basetab">
-                @Html.Partial("_BaseTab")
-            </div>
-            <div class="tab-pane" id="genretab">
-                @Html.Partial("_GenreTab")
-            </div>
-            <div class="tab-pane" id="musiciantab">
-                @Html.Partial("_MusicianTab")
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="row">
-            <div class="col-lg-3 span3 offset2">
-                <h2>@Html.ActionLink("S'identifier", "Login", "Users", routeValues: null, htmlAttributes: new { id = "LoginLink" })</h2>
-            </div>
-            <div class="col-lg-3 span3">
-                <h2>@Html.ActionLink("S'enregistrer", "Register", "Users", routeValues: null, htmlAttributes: new { id = "RegisterLink" })</h2>
-            </div>
-        </div>
-    }
-</div>
+@using (Ajax.BeginForm("SearchMusician", "Group", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "user-results" }))
+{
+    @Html.TextBox("searchString")
+    <button type="submit">Rechercher un musician</button>
+}
+
+<div id="user-results"></div>
