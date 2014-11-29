@@ -36,7 +36,8 @@ namespace TrouveUnBand
                 "~/Scripts/ProfilePage.js",
                 "~/Scripts/PictureDialog.js",
                 "~/Scripts/TopSecret.js",
-                "~/Scripts/bootstrap-select.js"
+                "~/Scripts/bootstrap-select.js",
+                 "~/Scripts/back-to-top.js"
                 ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes

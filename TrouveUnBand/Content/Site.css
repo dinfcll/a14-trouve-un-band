@@ -633,8 +633,13 @@ div.profile-tab-menu div.list-group{
     position: fixed;
     bottom: 20px;
     right: 20px;
+    background-color:rgba(0, 0, 0, 0.3);
+    color:#F3F3F3;
     display:none;
+}
 
+.back-to-top:hover {
+    background-color:#0099DA;
 }
 
 #share-buttons img {
