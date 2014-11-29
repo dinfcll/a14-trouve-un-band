@@ -77,7 +77,7 @@ namespace TrouveUnBand.Controllers
         }
         
         [HttpGet]
-        public ActionResult ConfirmCreate()
+        public ActionResult ConfirmCreate(Band model)
         {
             var queryExistingBand = from Q in db.Bands
                                     where Q.Name == model.Name
@@ -112,7 +112,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult UpdateModal()
+        public ActionResult UpdateModal(Band model)
         {
             if (IsValidBand(model))
             {
@@ -225,7 +225,7 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult SearchMusician(string searchString)
         {
-            var musicians = UserDao.SearchBandMember(searchString);
+            var musicians = UserDao.SearchBandMembers(searchString);
             ViewBag.Results = musicians;
             ViewBag.ResultsCount = musicians.Count;
 
