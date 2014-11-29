@@ -79,26 +79,28 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult ConfirmCreate()
         {
-            var band = (Band)Session["myBand"];
-            var existingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
-            var currentUser = GetAuthenticatedUser();
+            var queryExistingBand = from Q in db.Bands
+                                    where Q.Name == model.Name
+                                    select Q;
 
-            if (existingBand != null)
+            if (queryExistingBand.Any())
             {
-                TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, band);
+                var existingBand = queryExistingBand.ToList()[0];
+                if (existingBand != null)
+                {
+                    TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, model);
+                    db.Entry(existingBand).State = EntityState.Unchanged;
+                }
             }
 
             try
             {
-                band.Users = (List<User>)Session["myMusicians"];
-                currentUser.Bands.Add(band);
                 db.Database.Connection.Open();
-                db.Bands.Add(band);
+                db.Bands.Add(model);
                 db.SaveChanges();
                 db.Database.Connection.Close();
 
-                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(band);
-                Session["myBand"] = new Band();
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(model);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -112,15 +114,13 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult UpdateModal()
         {
-            var myBand = (Band)Session["myBand"];
-            myBand.Users = (List<User>)Session["myMusicians"];
-            if (IsValidBand(myBand))
+            if (IsValidBand(model))
             {
                 TempData["TempDataError"] = AlertMessages.EMPTY_INPUT;
                 return View("Create");
             }
 
-            return PartialView("_ConfirmCreateDialog", myBand);
+            return PartialView("_ConfirmCreateDialog", model);
         }
 
 
@@ -220,57 +220,6 @@ namespace TrouveUnBand.Controllers
                 return false;
             }
             return true;
-        }
-
-        [HttpPut]
-        public ActionResult AddMusician(int MusicianId)
-        {
-            return View();
-        }
-
-        [HttpDelete]
-        public ActionResult RemoveMusician(int musicianid)
-        {
-            db.Database.Connection.Open();
-            var query = db.Users.FirstOrDefault(x => x.User_ID == musicianid);
-            var myMusician = (List<User>)Session["myMusicians"];
-            myMusician.Remove(myMusician.Single(s => s.User_ID == query.User_ID));
-            Session["myMusicians"] = myMusician;
-            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-            db.Database.Connection.Close();
-            return PartialView("_MusicianTab");
-        }
-
-        [HttpPut]
-        public ActionResult AddGenre(int genrelist)
-        {
-            db.Database.Connection.Open();
-            var query = db.Genres.FirstOrDefault(x => x.Genre_ID == genrelist);
-            if (((Band)Session["myBand"]).Genres.Any(x => x.Genre_ID == genrelist))
-            {
-                TempData["TempDataError"] = AlertMessages.GENRE_ALREADY_SELECTED(query);
-            }
-            else
-            {
-                ((Band)Session["myBand"]).Genres.Add(query);
-            }
-            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-            db.Database.Connection.Close();
-            return PartialView("_GenreTab");
-        }
-
-        [HttpDelete]
-        public ActionResult RemoveGenre(int genreId)
-        {
-            db.Database.Connection.Open();
-            var query = db.Genres.FirstOrDefault(x => x.Genre_ID == genreId);
-            var myBand = ((Band)Session["myBand"]);
-            myBand.Genres.Remove(myBand.Genres.Single( s => s.Genre_ID == query.Genre_ID));
-            Session["myBand"] = myBand;
-            ViewBag.GenrelistDD = new List<Genre>(db.Genres);
-            db.Database.Connection.Close();
-
-            return PartialView("_GenreTab");
         }
 
         [HttpGet]
