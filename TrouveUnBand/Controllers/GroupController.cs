@@ -225,7 +225,7 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult SearchMusician(string searchString)
         {
-            var musicians = UserDao.GetMusicians(searchString);
+            var musicians = UserDao.SearchBandMember(searchString);
             ViewBag.Results = musicians;
             ViewBag.ResultsCount = musicians.Count;
 
