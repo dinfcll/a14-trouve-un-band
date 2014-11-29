@@ -27,7 +27,6 @@ namespace TrouveUnBand
                 "~/Scripts/jquery-ui-timepicker-addon.js",
                 "~/Scripts/alert.js",
                 "~/Scripts/star-rating.js",
-                "~/Scripts/tooltips.js",
                 "~/Scripts/ModifProfil.js",
                 "~/Scripts/disable-search-ddl.js",
                 "~/Scripts/jquery.unobtrusive-ajax.js",
@@ -37,7 +36,8 @@ namespace TrouveUnBand
                 "~/Scripts/PictureDialog.js",
                 "~/Scripts/TopSecret.js",
                 "~/Scripts/bootstrap-select.js",
-                 "~/Scripts/back-to-top.js"
+                "~/Scripts/back-to-top.js",
+                "~/Scripts/tooltips.js"
                 ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes

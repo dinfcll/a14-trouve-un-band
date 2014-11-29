@@ -135,12 +135,10 @@ $(window).scroll(function () {
         var newMenuTopPosition = scrollPosition - menuTopPosition + 70;
         $(".profile-menu").css("top", newMenuTopPosition);
         $(".profile-quickinfo-tab").css("top", newMenuTopPosition);
-        $('#back-to-top').fadeIn();
     }
     else {
         $('.profile-menu').css("top", 0);
         $(".profile-quickinfo-tab").css("top", 0);
-        $('#back-to-top').fadeOut();
     }
 });
 

@@ -1,4 +1,7 @@
-﻿.top-80{
+﻿:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+.top-80{
    margin-top: -80px;
 }
 
@@ -631,8 +634,8 @@ div.profile-tab-menu div.list-group{
 .back-to-top {
     cursor: pointer;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 15px;
+    right: 15px;
     background-color:rgba(0, 0, 0, 0.3);
     color:#F3F3F3;
     display:none;
@@ -715,11 +718,31 @@ body{
 }
 
 .navbar-default {
-    background-color:#444444 !important;
+    background-color:#333333 !important;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: white !important;
   background-color: #0099DA !important;
+}
+
+#header-search-form input{
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+    border:1px solid #555555;
+    background-color:#555555;
+    color:white;
+    font-size:17px;
+}
+
+#header-search-form .btn{
+    border-top-right-radius:0;
+    border-bottom-right-radius:0;
+    border:1px solid #0099DA;
+    background-color:#0099DA;
+}
+
+#header-search-form .btn:hover{
+    border-left-color: #3B3B3B;
 }

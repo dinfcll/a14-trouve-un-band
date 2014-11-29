@@ -39,11 +39,17 @@
                         <li>@Html.Partial("_LoginPartial")</li>
                     </ul>
 
-                    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "navbar-form navbar-right", @role = "search" }))
+                    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "navbar-form navbar-right", @role = "search", @id="header-search-form" }))
                     {
-                        @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
-                        @Html.ValidationMessage("SearchString")
-                        <button type="submit" class="hidden" value="search"></button>
+                        <div class="input-group">
+                            @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
+                            @Html.ValidationMessage("SearchString")
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit" value="search">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
                     }
                 </div><!--/.nav-collapse -->
             </div>
