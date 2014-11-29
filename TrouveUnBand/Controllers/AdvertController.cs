@@ -61,7 +61,7 @@ namespace TrouveUnBand.Controllers
                 }
                 db.Adverts.Add(advert);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyAdverts");
             }
 
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
