@@ -4,14 +4,14 @@ var TrId = 0;
 function AddBandMember(json) {
     bandMembers.push(json);
     var div = document.getElementById('band-members');
-    $('#band-members').html('<input id="btnRmvMember" type="button" value="Enlever au groupe" onclick="RemoveBandMember()" />');
+    $('#band-members').append('<input id="'+ json["User_ID"] +'" type="button" value="' + json["FirstName"] + '" onclick="RemoveBandMember(' + json["User_ID"] + ')" />');
     TrId++;
     alert(bandMembers);
 };
 
-function RemoveBandMember(json) {
+function RemoveBandMember(i) {
     bandMembers = $.grep(bandMembers, function (value) {
-        return value != json;
+        return value.User_ID != i;
     });
-    $("#" + TrId).remove();
+    $('#' + i).remove();
 };
