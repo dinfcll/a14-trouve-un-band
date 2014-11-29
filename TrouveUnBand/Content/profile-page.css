@@ -7,11 +7,11 @@
 }
 
 .profile-header-menu{
-    background-color:black;
+    background-color:#444444;
 }
 
 .profile-header-sidebar{
-    background-color:#585858;
+    background-color:#444444;
 }
 
 .profile-header-info{
@@ -48,7 +48,7 @@
 
 .profile-content > ul > li.active > a{
     color:white;
-    background-color:#3498db;
+    background-color:#0099DA;
     text-decoration:none;
     outline:0;
 }
@@ -65,11 +65,12 @@
 
 .profile-tab-header{
     padding:10px 15px;
-    background-color:#585858;
+    background-color:#444444;
     color:white;
     font-size:16px;
     font-weight:500;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+    cursor:pointer;
 }
 
 .profile-main-content{
@@ -82,4 +83,15 @@
 
 .profile-tab-content{
     padding:10px 15px;
+}
+
+.profile-tab-header .chevron{
+    background-color:#0099DA;
+    color:white;
+    margin:-10px -15px;
+    display: table-cell;
+    padding:13px 13px;
+    vertical-align:middle;
+    max-height:100%;
+    top:0;
 }

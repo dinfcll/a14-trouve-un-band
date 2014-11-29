@@ -9,7 +9,7 @@
         </div>
         <div class="profile-content">
             <img id="ProfilePic" alt="" src="@Model.Photo"
-                class="photo" width="100%" />
+                 class="photo" width="100%" />
             <div class="profile-user-quickinfo">
                 <ul class="list-unstyled">
                     <li>@Model.Name</li>
@@ -28,17 +28,21 @@
         </div>
         <div class="profile-main-content">
             <div class="profile-section">
+
                 <div class="profile-tab-header">
                     <span>Description</span>
-                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
+                    <span class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></span>
+
                 </div>
+
                 <div class="profile-tab-content">
                     <div id="instrument-panel" class="profile-info-panel row">
                         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
-                                        Instruments</h3>
+                                        Instruments
+                                    </h3>
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">
@@ -56,12 +60,13 @@
                                                 </thead>
                                                 <tbody>
                                                     @*@for (i = 0; i < Model.InstrumentInfo.InstrumentNames.Count; i++)
-                                {
-                                    <tr>
-                                        <td>@Model.InstrumentInfo.InstrumentNames[i]</td>
-                                        <td>@Model.InstrumentInfo.Skills[i]</td>
-                                    </tr>
-                                }*@ <span>Chant</span>
+                                                        {
+                                                            <tr>
+                                                                <td>@Model.InstrumentInfo.InstrumentNames[i]</td>
+                                                                <td>@Model.InstrumentInfo.Skills[i]</td>
+                                                            </tr>
+                                                        }*@
+                                                    <span>Chant</span>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -75,109 +80,141 @@
             <div class="profile-section">
                 <div class="profile-tab-header">
                     <span>Écouter</span>
+                    <span class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></span>
                 </div>
             </div>
             <div class="profile-section">
                 <div class="profile-tab-header">
                     <span>Recherche</span>
+                    <span class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></span>
                 </div>
             </div>
             <div class="profile-section">
                 <div class="profile-tab-header">
                     <span>Photo</span>
+                    <span class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></span>
                 </div>
             </div>
             <div class="profile-section">
                 <div class="profile-tab-header">
                     <span>Contacter</span>
+                    <span class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></span>
                 </div>
             </div>
             <div class="profile-tab-content">
                 <center>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                     <p>
                         Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
-                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...</p>
+                        Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                    </p>
                 </center>
             </div>
         </div>
