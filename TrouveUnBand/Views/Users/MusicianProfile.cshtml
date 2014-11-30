@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "NewProfilePage";
 }
+
 <div class="row">
     <div class="col-md-3 profile-section profile-quickinfo-tab">
         <div class="profile-header profile-header-sidebar">
@@ -9,7 +10,7 @@
         </div>
         <div class="profile-content">
             <img id="ProfilePic" alt="" src="@Model.Photo"
-                 class="photo" width="100%" />
+                 class="photo" />
             <div class="profile-user-quickinfo">
                 <ul class="list-unstyled">
                     <li>@Model.Name</li>
@@ -17,12 +18,12 @@
                     <li>Musicien</li>
                     <li>Style</li>
                     <li>@Model.InstrumentInfo.InstrumentNames[0]</li>
-                    <li>Recherche(4)</li>
+                    <li>Recherche</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="col-md-7 profile-section">
+    <div id="information" class="col-md-7 profile-main-tab">
         <div class="profile-main-content">
             <div class="profile-section">
                 <div class="profile-tab-header">
@@ -34,7 +35,7 @@
                     @Html.Partial("../Users/_MusicianProfileInfo", Model)
                 </div>
             </div>
-            <div class="profile-section">
+            <div id="listen" class="profile-section">
                 <div class="profile-tab-header">
                     <strong>Écouter</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
@@ -43,7 +44,7 @@
                 <div class="profile-tab-content">
                 </div>
             </div>
-            <div class="profile-section">
+            <div id="seeking" class="profile-section">
                 <div class="profile-tab-header">
                     <strong>Recherche</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
@@ -52,7 +53,7 @@
                 <div class="profile-tab-content">
                 </div>
             </div>
-            <div class="profile-section">
+            <div id="photo" class="profile-section">
                 <div class="profile-tab-header">
                     <strong>Photo</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
@@ -61,7 +62,7 @@
                 <div class="profile-tab-content">
                 </div>
             </div>
-            <div class="profile-section">
+            <div id="contact" class="profile-section">
                 <div class="profile-tab-header">
                     <strong>Contacter</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
@@ -186,18 +187,18 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 profile-section profile-menu">
+    <div id="profile-menu" class="col-md-2 profile-section">
         <div class="">
             <div class="profile-header profile-header-menu">
                 <strong>Menu</strong>
             </div>
-            <div class="profile-content">
-                <ul class="list-unstyled">
-                    <li class="active"><a href="#" class=""><span>Description</span> </a></li>
-                    <li><a href="#" class=""><span>Écouter</span> </a></li>
-                    <li><a href="#" class=""><span>Recherche</span> </a></li>
-                    <li><a href="#" class=""><span>Photo</span> </a></li>
-                    <li><a href="#" class=""><span>Contacter</span> </a></li>
+            <div class="profile-content" id="st">
+                <ul class="list-unstyled nav">
+                    <li data-scroll-spy="information" class="active"><a href="#information" class=""><span>Description</span> </a></li>
+                    <li data-scroll-spy="listen"><a href="#listen" class=""><span>Écouter</span> </a></li>
+                    <li data-scroll-spy="seeking"><a href="#seeking" class=""><span>Recherche</span> </a></li>
+                    <li data-scroll-spy="photo"><a href="#photo" class=""><span>Photo</span> </a></li>
+                    <li data-scroll-spy="contact"><a href="#contact" class=""><span>Contacter</span> </a></li>
                 </ul>
                 <hr />
                 <div class="profile-footer-menu">

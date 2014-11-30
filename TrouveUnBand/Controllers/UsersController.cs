@@ -14,6 +14,11 @@ namespace TrouveUnBand.Controllers
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
+        public ActionResult View1()
+        {
+            return View();
+        }
+
         public ActionResult NewProfilePage()
         {
             return View();

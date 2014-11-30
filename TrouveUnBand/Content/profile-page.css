@@ -46,7 +46,7 @@
     text-decoration: none;
 }
 
-.profile-content > ul > li.active > a{
+#profile-menu ul > li.active > a{
     color:white;
     background-color:#0099DA;
     text-decoration:none;
@@ -123,4 +123,12 @@
 
 .profile-main-content .table{
     border:1px solid #0099da;
+}
+
+.profile-main-tab{
+    padding-top:15px;
+}
+
+#ProfilePic{
+    width:100%;
 }
