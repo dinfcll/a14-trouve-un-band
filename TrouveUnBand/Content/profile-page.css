@@ -7,15 +7,15 @@
 }
 
 .profile-header-menu{
-    background-color:#444444;
+    background-color:#888888;
 }
 
 .profile-header-sidebar{
-    background-color:#444444;
+    background-color:#888888;
 }
 
 .profile-header-info{
-    background-color:#888888;
+    background-color:#333333;
 }
 
 .profile-main-content,
@@ -77,6 +77,10 @@
     padding:0;
 }
 
+.profile-main-content .profile-section:first-child{
+    padding-top:0;
+}
+
 .profile-section{
     padding-top:15px;
 }
@@ -94,4 +98,29 @@
     vertical-align:middle;
     max-height:100%;
     top:0;
+}
+
+.profile-main-content .panel{
+    border-radius:0;
+    border:1px solid #0099da;
+}
+
+.profile-main-content .panel-heading{
+    border-bottom:2px solid #e5e5e5 !important;
+    background-color:#0099da !important;
+    color:white !important;
+    border-radius:0;
+}
+
+.profile-main-content thead > tr{
+    background-color:#0099da;
+    color:white;
+}
+
+.profile-main-content .table tr:not(:last-child){
+    border-bottom:1px solid #E3E3E3;
+}
+
+.profile-main-content .table{
+    border:1px solid #0099da;
 }

@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-3 profile-section profile-quickinfo-tab">
         <div class="profile-header profile-header-sidebar">
-            <span>Jeandit</span>
+            <strong>@Model.Name</strong>
         </div>
         <div class="profile-content">
             <img id="ProfilePic" alt="" src="@Model.Photo"
@@ -22,37 +22,21 @@
             </div>
         </div>
     </div>
-    <div class="col-md-7 profile-section" style="height: 100%;">
-        <div class="profile-header profile-header-info">
-            <span>Informations</span>
-        </div>
+    <div class="col-md-7 profile-section">
         <div class="profile-main-content">
-
             <div class="profile-section">
-
                 <div class="profile-tab-header">
-                    <span>Description</span>
+                    <strong>Informations</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
                 <div class="profile-tab-content">
-                    <span>tstttdtstdstfstdfstdstdf</span>
-                    <p>dkljsdj</p>
-                    <p>skdjkasjh</p>
+                    @Html.Partial("../Users/_MusicianProfileInfo", Model)
                 </div>
             </div>
             <div class="profile-section">
                 <div class="profile-tab-header">
-                    <span>Écouter</span>
-                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
-                </div>
-
-                <div class="profile-tab-content">
-                </div>
-            </div>
-            <div class="profile-section">
-                <div class="profile-tab-header">
-                    <span>Recherche</span>
+                    <strong>Écouter</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
@@ -61,7 +45,7 @@
             </div>
             <div class="profile-section">
                 <div class="profile-tab-header">
-                    <span>Photo</span>
+                    <strong>Recherche</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
@@ -70,7 +54,16 @@
             </div>
             <div class="profile-section">
                 <div class="profile-tab-header">
-                    <span>Contacter</span>
+                    <strong>Photo</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
+                </div>
+
+                <div class="profile-tab-content">
+                </div>
+            </div>
+            <div class="profile-section">
+                <div class="profile-tab-header">
+                    <strong>Contacter</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
@@ -196,7 +189,7 @@
     <div class="col-md-2 profile-section profile-menu">
         <div class="">
             <div class="profile-header profile-header-menu">
-                <span>Menu</span>
+                <strong>Menu</strong>
             </div>
             <div class="profile-content">
                 <ul class="list-unstyled">
@@ -213,12 +206,6 @@
             </div>
         </div>
     </div>
-</div>
-<div class="input-group">
-    <input type="text" class="form-control">
-    <span class="input-group-btn">
-        <button class="btn btn-default ttb" type="button">Go!</button>
-    </span>
 </div>
 
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
