@@ -8,13 +8,20 @@ if ($("#profile-menu")[0]) {
 $("#profile-menu ul > li").click(function (event) {
     var scrollSpy = $(this).attr("data-scroll-spy");
 
+    var tabContent = $("#" + scrollSpy).children(".profile-tab-content");
+    tabContent.slideDown("fast", function () {
+    })
+
     $(this).siblings(".active").removeClass("active");
     $(this).addClass("active");
-       
+
+    if (scrollSpy == "information") {
+        scrollSpy = "profile-main-tab";
+    }
+
     $('html,body').animate({
         scrollTop: $("#" + scrollSpy).offset().top - profileTabOffset
-    },
-        'slow');
+    },'fast');
 
     return false;
 });
@@ -48,7 +55,7 @@ $(".profile-tab-header").click(function () {
         chevron.addClass("glyphicon-chevron-left");
     }
 
-    tabContent.slideToggle(250, function () {
+    tabContent.slideToggle("fast", function () {
     })
 });
 
@@ -61,4 +68,29 @@ $("#profile-photo-carousel").carousel({
 $(".indicator-list img").click(function () {
     $(".indicator-list img").removeClass("active");
     $(this).addClass("active");
+});
+
+$(".profile-photo-rightarrow").click(function () {
+    photoList = document.querySelectorAll(".indicator-list li");
+
+    photoList[photoList.length - 1].parentNode.appendChild(photoList[0]);
+    photoList[0].style.display = "none";
+    photoList[5].style.display = "inline-block";
+});
+
+$(".profile-photo-leftarrow").click(function () {
+    photoList = document.querySelectorAll(".indicator-list li");
+
+    $(photoList[0]).parent().prepend(photoList[photoList.length - 1]);
+    photoList[4].style.display = "none";
+    photoList[photoList.length - 1].style.display = "inline-block";
+});
+
+$("#profile-photo-carousel").on("slide.bs.carousel", function (event) {
+    $(".indicator-list").find("img.active").removeClass("active");
+
+    var nextSlide = $(event.relatedTarget).index();
+    var selectorString = "[data-slide-to='" + nextSlide + "']";
+    var newActiveSlide = document.querySelector(selectorString);
+    $(newActiveSlide).addClass("active");
 });

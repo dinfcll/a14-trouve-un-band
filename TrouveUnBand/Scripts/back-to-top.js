@@ -16,7 +16,7 @@
     });
 
     $(".back-to-top").click(function () {
-        $("html, body").animate({ scrollTop: 0 }, 800);
+        $("html, body").animate({ scrollTop: 0 }, "fast");
         $("#back-to-top").tooltip("hide");
         return false;
     });

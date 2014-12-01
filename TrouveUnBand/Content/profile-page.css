@@ -127,7 +127,7 @@
     border: 1px solid #0099da;
 }
 
-.profile-main-tab {
+#profile-main-tab {
     padding-top: 15px;
 }
 
@@ -207,7 +207,8 @@
     display:none;
 }
 
-.profile-photo-arrow{
+.profile-photo-leftarrow,
+.profile-photo-rightarrow{
     display: inline-block;
     height:4.9em;
     vertical-align:middle;
@@ -216,12 +217,14 @@
     cursor:pointer;
 }
 
-.profile-photo-arrow:hover{
+.profile-photo-leftarrow:hover,
+.profile-photo-rightarrow:hover{
     border:2px solid #0099DA;
     color:#0099DA;
 }
 
-.profile-photo-arrow span{
+.profile-photo-leftarrow span,
+.profile-photo-rightarrow span{
     top:1.9em;
     padding-left:0.3em;
     padding-right:0.3em;

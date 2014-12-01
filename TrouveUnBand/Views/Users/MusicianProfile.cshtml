@@ -9,12 +9,14 @@
             <strong>@Model.Name</strong>
         </div>
         <div class="profile-content">
-            <img id="ProfilePic" alt="" src="@Model.Photo"
-                 class="photo" />
+        <a href="#" data-toggle="modal" data-target="#PicModal">
+            <img id="ProfilePic" alt="" src="@Model.Photo" class="photo" />
+        </a>
+                 
             <div class="profile-user-quickinfo">
                 <ul class="list-unstyled">
-                    <li>@Model.Name</li>
-                    <li>@Model.Location</li>
+                    <li><span>@Model.Name</span></li>
+                    <li><span class="glyphicon glyphicon-map-marker"></span>@Model.Location</li>
                     <li>Musicien</li>
                     <li>Style</li>
                     <li>@Model.InstrumentInfo.InstrumentNames[0]</li>
@@ -23,9 +25,9 @@
             </div>
         </div>
     </div>
-    <div id="information" class="col-md-7 profile-main-tab">
+    <div id="profile-main-tab" class="col-md-7">
         <div class="profile-main-content col-md-12">
-            <div class="profile-section col-md-12">
+            <div id="information" class="profile-section col-md-12">
                 <div class="profile-tab-header">
                     <span class="glyphicon glyphicon-user"></span><strong>Informations</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
