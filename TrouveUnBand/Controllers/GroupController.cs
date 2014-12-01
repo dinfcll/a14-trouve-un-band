@@ -63,6 +63,8 @@ namespace TrouveUnBand.Controllers
             var coord = Geolocalisation.GetCoordinatesByLocation(myBand.Location);
             myBand.Latitude = coord.latitude;
             myBand.Longitude = coord.longitude;
+
+
             return View("index");
         }
 

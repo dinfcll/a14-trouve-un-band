@@ -1,6 +1,4 @@
-﻿@model TrouveUnBand.Models.Band
-
-@{
+﻿@{
     ViewBag.Title = "Confirmation";
 }
 
@@ -13,68 +11,62 @@
             </div>
             <div class="modal-body">
                 <fieldset>
+                    
                     <div class="container-fluid">
                         <div class="display-label">
-                            <h2>@Html.DisplayNameFor(model => model.Name)</h2>
+                            <h2></h2>
                         </div>
                         <blockquote>
-                            <div class="display-field">
-                                @Html.DisplayFor(model => model.Name)
-                            </div>
+                        <div id="ModalName">
+                        
+                        </div>
                         </blockquote>
                     </div>
 
                     <div class="container-fluid">
                         <div class="display-label">
-                            <h2>@Html.DisplayNameFor(model => model.Genres)</h2>
+                            <h2></h2>
                         </div>
                         <blockquote>
-                            @foreach (var item in Model.Genres)
-                            {
-                                <div class="display-field">
-                                    @Html.DisplayFor(model => item.Name)
-                                </div>
-                            }
+                        <div id="ModalLocation">
+                        
+                        </div>
                         </blockquote>
                     </div>
 
                     <div class="container-fluid">
                         <div class="display-label">
-                            <h2>@Html.DisplayNameFor(model => model.Users)</h2>
+                            <h2></h2>
                         </div>
                         <blockquote>
-                            @foreach (var item in Model.Users)
-                            {
-                                <div class="display-field">
-                                    @Html.DisplayFor(model => item.FirstName)
-                                    @Html.DisplayFor(model => item.LastName)
-                                    @Html.DisplayFor(model => item.Nickname)
-                                </div>
-                            }
+                        <div id="ModalDescription">
+                        
+                        </div>
                         </blockquote>
                     </div>
 
                     <div class="container-fluid">
                         <div class="display-label">
-                            <h2>@Html.DisplayNameFor(model => model.Location)</h2>
+                            <h2></h2>
                         </div>
                         <blockquote>
-                            <div class="display-field">
-                                @Html.DisplayFor(model => model.Location)
-                            </div>
+                        <div id="ModalGenres">
+                        
+                        </div>
                         </blockquote>
                     </div>
 
                     <div class="container-fluid">
                         <div class="display-label">
-                            <h2>@Html.DisplayNameFor(model => model.Description)</h2>
+                            <h2></h2>
                         </div>
                         <blockquote>
-                            <div class="display-field">
-                                @Html.DisplayFor(model => model.Description)
-                            </div>
+                        <div id="ModalMembers">
+                        
+                        </div>
                         </blockquote>
                     </div>
+
                 </fieldset>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>

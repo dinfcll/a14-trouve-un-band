@@ -61,3 +61,26 @@ function getInfo() {
 
     return JSON.stringify(obj);
 };
+
+function UpdateModal() {
+    var objInfo = getInfo();
+    $('#modalName').innerHTML = FormatOutput(objInfo["Name"]);
+    $('#modalLocation').innerHTML = FormatOutput(objInfo["Location"]);
+    $('#modalDescription').innerHTML = FormatOutput(objInfo["Description"]);
+
+    var objGenres = $('#MultiSelect').val();
+    objGenres.each(function(i) {
+        $element('#modalGenres').append(FormatOutput(i));
+    });
+
+    BandMembers.each(function (i) {
+        $element('#modalMusicians').innerHTML(FormatOutput(i["FirstName"]));
+        $element('#modalMusicians').innerHTML(FormatOutput(i["LastName"]));
+
+    });
+
+};
+
+function FormatOutput(data) {
+    return '@Html.Display("' + data + '")';
+};

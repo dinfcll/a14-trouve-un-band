@@ -231,6 +231,7 @@
     <Compile Include="Services\BandDao.cs" />
     <Compile Include="Services\EventDao.cs" />
     <Compile Include="Services\GenreDao.cs" />
+    <Compile Include="Services\JsonToModel.cs" />
     <Compile Include="Services\UserDao.cs" />
     <Compile Include="ViewModels\ResultViewModels.cs" />
   </ItemGroup>

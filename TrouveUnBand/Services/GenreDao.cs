@@ -25,10 +25,11 @@ namespace TrouveUnBand.Services
             return subgenresByGenres;
         }
 
-        public static List<Genre> getGenresByNames(string[] NamesArray)
+        public static List<Genre> GetGenresByNames(string[] namesArray)
         {
             var db = new TrouveUnBandEntities();
-            return NamesArray.Select(t => db.Genres.FirstOrDefault(x => x.Name == t)).ToList();
+
+            return namesArray.Select(t => db.Genres.FirstOrDefault(x => x.Name == t)).ToList();
         }
     }
 }
