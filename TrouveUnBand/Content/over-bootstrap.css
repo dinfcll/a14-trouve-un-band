@@ -31,7 +31,7 @@ body{
 }
 
 #header-search-form .btn:hover{
-    border-left-color: #3B3B3B;
+    border-left-color: #555555;
 }
 
 .navbar-brand:hover{
@@ -44,3 +44,4 @@ body{
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
+   

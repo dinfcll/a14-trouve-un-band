@@ -19,10 +19,10 @@ namespace TrouveUnBand.Models
         public sealed class UserMetadata
         {
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
+            [RegularExpression(@"^([-':a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
             public string FirstName { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
+            [RegularExpression(@"^([-':a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
             public string LastName { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             public DateTime BirthDate { get; set; }
