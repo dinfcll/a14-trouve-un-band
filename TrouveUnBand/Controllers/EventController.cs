@@ -24,16 +24,6 @@ namespace TrouveUnBand.Controllers
             return View(db.Events.ToList());
         }
 
-        public ActionResult Details(int id = 0)
-        {
-            Event events = db.Events.Find(id);
-            if (events == null)
-            {
-                return HttpNotFound();
-            }
-            return View(events);
-        }
-
         public ActionResult EventProfile(int id = 0)
         {
             Event events = db.Events.Find(id);
@@ -142,6 +132,7 @@ namespace TrouveUnBand.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
+            ViewBag.BandsListDB = new List<Band>(db.Bands);
             return View(events);
         }
 

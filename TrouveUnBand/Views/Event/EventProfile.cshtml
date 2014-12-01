@@ -30,13 +30,39 @@
                     <span class="glyphicon glyphicon-map-marker"></span><span>@Model.Location, @Model.City</span>
                 </li>
                 <li>
-                    <span class="glyphicon glyphicon-music"></span>
+                    <i class="fa fa-users"></i>
                     <span>
                         @{var i = 0;
                           var TextPopOver = "";
+                          foreach (var band in Model.Bands)
+                          {
+                              TextPopOver += Html.DisplayName(band.Name) + "<br/>";
+                              if (i < 4)
+                              {
+                                    @Html.DisplayName(band.Name + ", ");
+                                    i++;
+                              }
+                              if (i == 4)
+                              {
+                                    @Html.DisplayName(band.Name + "");
+                                    i++;
+                              }
+                          }  
+                        }  
+                        <a href="#" tabindex="0" role="button"
+                            data-toggle="popover" data-html="true" title="Groupe(s) de l'événement" data-content="@TextPopOver">
+                                <span class="label label-default">...</span>
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-music"></span>
+                    <span>
+                        @{i = 0;
+                          TextPopOver = "";
                           foreach (var genre in Model.Genres)
                           {
-                              TextPopOver += Html.DisplayName(genre.Name) + "\n";
+                              TextPopOver += Html.DisplayName(genre.Name) + "<br/>";
                               if (i < 4)
                               {
                                     @Html.DisplayName(genre.Name + ", ");
@@ -50,7 +76,7 @@
                           }  
                         }  
                         <a href="#" tabindex="0" role="button"
-                            data-toggle="popover" title="Genres de l'événement" data-content="@TextPopOver">
+                            data-toggle="popover" data-html="true" title="Genres de l'événement" data-content="@TextPopOver">
                                 <span class="label label-default">...</span>
                         </a>
                     </span>
