@@ -51,22 +51,18 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Event events)
+        public ActionResult Create(Event events, string[] EventGenreDB, string Creator)
         {
-            if (ModelState.IsValid && Request["EventGenreDB"] != null)
+            if (ModelState.IsValid && EventGenreDB != null)
             {
-                string GenresList = Request["EventGenreDB"];
-                string[] GenresArray = GenresList.Split(',');
-
-                for (int i = 0; i < GenresArray.Length; i++)
+                for (int i = 0; i < EventGenreDB.Length; i++)
                 {
-                    string GenreName = GenresArray[i];
+                    string GenreName = EventGenreDB[i];
                     var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
                     events.Genres.Add(UnGenre);
                 }
 
-                var creatorStr = Request["Creator"];
-                events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creatorStr).User_ID;
+                events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == Creator).User_ID;
                 if (Request.Files[0].ContentLength != 0)
                 {
                     events.Photo = GetPostedEventPhoto();
@@ -92,12 +88,10 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Event events)
+        public ActionResult Edit(Event events, string[] EventGenreDB, string Creator_ID)
         {
-            events.Creator_ID = Convert.ToInt32(Request["Creator"]);
+            events.Creator_ID = Convert.ToInt32(Creator_ID);
             events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
-            string GenresList = Request["EventGenreDB"];
-            string[] StringGenresArray = GenresList.Split(',');
             
             if (Request.Files[0].ContentLength != 0)
             {
@@ -120,21 +114,15 @@ namespace TrouveUnBand.Controllers
                 var eventBD = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
                 db.Set(typeof(Event)).Attach(eventBD);
                 eventBD.Genres.Clear();
-                for (int i = 0; i < StringGenresArray.Length; i++)
+                for (int i = 0; i < EventGenreDB.Length; i++)
                 {
-                    string GenreName = StringGenresArray[i];
+                    string GenreName = EventGenreDB[i];
                     var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
                     eventBD.Genres.Add(UnGenre);
                 }
                 db.Entry(eventBD).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            for (int i = 0; i < StringGenresArray.Length; i++)
-            {
-                string GenreName = StringGenresArray[i];
-                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                events.Genres.Add(UnGenre);
             }
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View(events);
