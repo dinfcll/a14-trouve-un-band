@@ -93,8 +93,8 @@
                 
                             <div class="form-group col-md-6">
                                 @Html.Label("Dimension de la scène (mètres carrés)")
-                                @Html.TextBoxFor(model => model.StageSize, 
-                                    new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
+                                @Html.TextBoxFor(model => model.StageSize,
+                                    new { @class = "form-control", @placeholder = "Dimension de la scène (P, M ou L)" })
                                 @Html.ValidationMessageFor(model => model.StageSize)
                             </div>
                             <div class="form-group col-md-6">
