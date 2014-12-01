@@ -36,14 +36,14 @@
                     <h3><span class="glyphicon glyphicon-music"></span> @Html.DisplayName(item.Name)</h3>
                     <hr class="colorgraph"/>
                     <p>
-                        <h4><span class="glyphicon glyphicon-home"></span> @Html.DisplayName(item.Location)</h4>
+                        <h4><i class="fa fa-building" style="font-size: 150%;"></i> @Html.DisplayName(item.Location)</h4>
                     </p>
                     <p>
-                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <span class="glyphicon glyphicon-map-marker" style="font-size: 150%;"></span>
                         @Html.DisplayName(item.City)
                     </p>
                     <p>
-                        <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayName(item.EventDate.ToString("dd MMMM yyyy à HH:mm"))
+                        <span class="glyphicon glyphicon-calendar" style="font-size: 150%;"></span> @Html.DisplayName(item.EventDate.ToString("dd MMMM yyyy à HH:mm"))
                     </p>
                     @{var TextPopOver = "";}
                     @if (item.Bands.FirstOrDefault() != null)
@@ -53,7 +53,7 @@
                             TextPopOver += band.Name + "<br/>";
                         }
                         <p>
-                            <i class="fa fa-users"></i>
+                            <i class="fa fa-users" style="font-size: 150%;"></i>
                             @Html.DisplayName(@item.Bands.FirstOrDefault().Name)
                                 <span id="popovercustom" class="label label-default label-popover" tabindex="0" role="button" 
                                       data-toggle="popover" data-html="true" title="Groupe(s) de l'événement" 
@@ -67,7 +67,7 @@
                         TextPopOver += genre.Name + "<br/>";
                     }
                     <p>
-                        <span class="glyphicon glyphicon-music"></span>
+                        <span class="glyphicon glyphicon-headphones" style="font-size: 150%;"></span>
                         @Html.DisplayName(@item.Genres.FirstOrDefault().Name)
                             <span id="popovercustom" class="label label-default label-popover" tabindex="0" role="button" 
                                   data-toggle="popover" data-html="true" title="Genres de l'événement" 
