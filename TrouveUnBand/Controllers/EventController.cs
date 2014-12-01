@@ -47,19 +47,27 @@ namespace TrouveUnBand.Controllers
         public ActionResult Create()
         {
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
+            ViewBag.BandsListDB = new List<Band>(db.Bands);
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Event events, string[] EventGenreDB, string Creator)
+        public ActionResult Create(Event events, string[] EventGenreDB, string Creator, string[] BandsListDB)
         {
-            if (ModelState.IsValid && EventGenreDB != null)
+            if (ModelState.IsValid && EventGenreDB != null && BandsListDB != null)
             {
                 for (int i = 0; i < EventGenreDB.Length; i++)
                 {
                     string GenreName = EventGenreDB[i];
                     var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
                     events.Genres.Add(UnGenre);
+                }
+
+                for (int i = 0; i < BandsListDB.Length; i++)
+                {
+                    string BandName = BandsListDB[i];
+                    var UnBand = db.Bands.FirstOrDefault(x => x.Name == BandName);
+                    events.Bands.Add(UnBand);
                 }
 
                 events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == Creator).User_ID;
@@ -73,12 +81,14 @@ namespace TrouveUnBand.Controllers
             }
             string messageAlert = AlertMessages.NOT_MUSICIAN;
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
+            ViewBag.BandsListDB = new List<Band>(db.Bands);
             return View();
         }
 
         public ActionResult Edit(int id = 0)
         {
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
+            ViewBag.BandsListDB = new List<Band>(db.Bands);
             Event events = db.Events.Find(id);
             if (events == null)
             {
@@ -88,9 +98,9 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Event events, string[] EventGenreDB, string Creator_ID)
+        public ActionResult Edit(Event events, string[] EventGenreDB, string Creator, string[] BandsListDB)
         {
-            events.Creator_ID = Convert.ToInt32(Creator_ID);
+            events.Creator_ID = Convert.ToInt32(Creator);
             events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
             
             if (Request.Files[0].ContentLength != 0)
@@ -105,7 +115,7 @@ namespace TrouveUnBand.Controllers
                 }
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && EventGenreDB != null && BandsListDB != null)
             {
                 db.Entry(events).State = EntityState.Modified;
                 db.SaveChanges();
@@ -114,11 +124,18 @@ namespace TrouveUnBand.Controllers
                 var eventBD = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
                 db.Set(typeof(Event)).Attach(eventBD);
                 eventBD.Genres.Clear();
+                eventBD.Bands.Clear();
                 for (int i = 0; i < EventGenreDB.Length; i++)
                 {
                     string GenreName = EventGenreDB[i];
                     var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
                     eventBD.Genres.Add(UnGenre);
+                }
+                for (int i = 0; i < BandsListDB.Length; i++)
+                {
+                    string BandName = BandsListDB[i];
+                    var UnBand = db.Bands.FirstOrDefault(x => x.Name == BandName);
+                    eventBD.Bands.Add(UnBand);
                 }
                 db.Entry(eventBD).State = EntityState.Modified;
                 db.SaveChanges();

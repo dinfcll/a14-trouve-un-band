@@ -13,19 +13,19 @@
 <h2>Événements</h2>
 
 <p>
-    @if(User.Identity.Name != "")
+    @if (User.Identity.Name != "")
     {
-        @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class="btn btn-primary" })
+        @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class = "btn btn-primary" })
     }
 </p>
 <div class="row">
 @foreach (var item in Model)
 {
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="thumbnail card">
             @if (item.Photo == null)
             {
-                <img src="http://placehold.it/250x172" alt="Image">
+                <img src="http://placehold.it/325x224" alt="Image">
             }
             else
             {
@@ -34,17 +34,34 @@
             }
                 <div class="caption">
                     <h3><span class="glyphicon glyphicon-music"></span> @Html.DisplayName(item.Name)</h3>
+                    <hr class="colorgraph"/>
                     <p>
-                        @Html.DisplayName(item.Location)
-                    </p>
-                    <p>
-                        @Html.DisplayName(item.EventDate.ToString("dd MMMM yyyy à HH:mm"))
+                        <h4><span class="glyphicon glyphicon-home"></span> @Html.DisplayName(item.Location)</h4>
                     </p>
                     <p>
                         <span class="glyphicon glyphicon-map-marker"></span>
                         @Html.DisplayName(item.City)
                     </p>
+                    <p>
+                        <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayName(item.EventDate.ToString("dd MMMM yyyy à HH:mm"))
+                    </p>
                     @{var TextPopOver = "";}
+                    @if (item.Bands.FirstOrDefault() != null)
+                    {
+                        foreach (var band in item.Bands)
+                        {
+                            TextPopOver += band.Name + "<br/>";
+                        }
+                        <p>
+                            <i class="fa fa-users"></i>
+                            @Html.DisplayName(@item.Bands.FirstOrDefault().Name)
+                                <span id="popovercustom" class="label label-default label-popover" tabindex="0" role="button" 
+                                      data-toggle="popover" data-html="true" title="Groupe(s) de l'événement" 
+                                      data-content="@TextPopOver">...</span>
+                        
+                        </p>
+                    }
+                    @{TextPopOver = "";}
                     @foreach (var genre in item.Genres)
                     {
                         TextPopOver += genre.Name + "<br/>";
@@ -57,18 +74,20 @@
                                   data-content="@TextPopOver">...</span>
                         
                     </p>
+                    <hr class="colorgraph"/>
                     <p>
-                        @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-default col-md-3" })
                         @if (item.User.Nickname == User.Identity.Name)
                         {
-                            @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-primary" })
-                            <label> @Html.ActionLink("Annuler", "Delete", new { id = item.Event_ID }, new { @class = "btn btn-danger" })</label>
+                            @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-primary col-md-4 col-md-push-1" })
+                            @Html.ActionLink("Annuler", "Delete", new { id = item.Event_ID }, new { @class = "btn btn-danger col-md-3 col-md-push-2" })
+                            <label></label>
                         }
                     </p>
                 </div>
             </div>
         </div>
-    }
+}
 </div>
 </div>
 
