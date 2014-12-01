@@ -19,9 +19,9 @@ namespace TrouveUnBand.Services
 
             Band myBand = new Band();
 
-            myBand.Name = jsBand["info"]["Name"];
-            myBand.Location = jsBand["info"]["Location"];
-            myBand.Description = jsBand["info"]["Description"];
+            myBand.Name = jsBand["info"].Name;
+            myBand.Location = jsBand["info"].Location;
+            myBand.Description = jsBand["info"].Description;
             myBand.Genres = GenreDao.GetGenresByNames(jsBand["Genres"]);
             myBand.Genres = UserDao.GetUsersById((jsBand["Members"]));
 

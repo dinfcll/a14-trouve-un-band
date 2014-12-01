@@ -65,24 +65,10 @@ namespace TrouveUnBand.Controllers
             myBand.Longitude = coord.longitude;
 
 
-            return View("index");
-        }
-
-        [HttpGet]
-        public PartialViewResult SubmitInfo(Band band)
-        {
-            var existingBand = db.Bands.FirstOrDefault(x => x.Name == band.Name);
-
-            var bandToUpdate = (Band)Session["myBand"];
-            bandToUpdate.Name = band.Name;
-            bandToUpdate.Location = band.Location;
-            bandToUpdate.Description = band.Description;
-            Session["myBand"] = bandToUpdate;
-
-            return PartialView("_ConfirmCreateDialog", band);
+            return View("CreateConfirm", myBand);
         }
         
-        [HttpGet]
+        [HttpPost]
         public ActionResult ConfirmCreate(Band model)
         {
             var queryExistingBand = from Q in db.Bands
@@ -126,7 +112,7 @@ namespace TrouveUnBand.Controllers
                 return View("Create");
             }
 
-            return PartialView("_ConfirmCreateDialog", model);
+            return View("index");
         }
 
 
