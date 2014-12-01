@@ -6,10 +6,13 @@
 
 @using (Html.BeginForm("Create", "Group"))
 {
-    @Html.TextBoxFor(model => model.Name, "", new { @class = "form-control", @placeholder = "Nom du band" })
-    @Html.TextBoxFor(model => model.Location, "", new { @class = "form-control", @placeholder = "Ville" })
-    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Description" })
-    <select name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
+    
+    <input type="button" onclick="SendData()" value="Terminer"/>
+    
+    @Html.TextBox("BandName", "", new { @class = "form-control", @placeholder = "Nom du band" })
+    @Html.TextBox("BandLocation", "", new { @class = "form-control", @placeholder = "Ville" })
+    @Html.TextArea("BandDescription", new { @class = "form-control", @placeholder = "Description" })
+    <select id="MultiSelect" name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
             data-width="100%" data-live-search="true" data-selected-text-format="count>3" multiple>
         @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
         {

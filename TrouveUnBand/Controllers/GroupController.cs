@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 using TrouveUnBand.Services;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {
@@ -42,8 +45,9 @@ namespace TrouveUnBand.Controllers
         {
             var subgenres = GenreDao.GetAllSubgenresByGenres();
             var user = GetAuthenticatedUser();
+            var bandMember = GetAuthenticatedBandMember();
 
-            ViewBag.AuthenticatedUser = user.FirstName + " " + user.LastName;
+            ViewBag.AuthenticatedUser = new JavaScriptSerializer().Serialize(bandMember);
             ViewBag.Subgenres = subgenres;
 
             var band = new Band();
@@ -53,13 +57,13 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Band band, User[] bandMembers, String[] cbSelectedGenres)
+        public ActionResult Create(string bandJSON)
         {
-            if (ModelState.IsValid)
-            {
-                
-            }
-            return View();
+            var myBand = JsonToModel.ToBand(bandJSON);
+            var coord = Geolocalisation.GetCoordinatesByLocation(myBand.Location);
+            myBand.Latitude = coord.latitude;
+            myBand.Longitude = coord.longitude;
+            return View("index");
         }
 
         [HttpGet]
@@ -194,6 +198,27 @@ namespace TrouveUnBand.Controllers
             var authenticatedUser = db.Users.FirstOrDefault(x => x.Nickname == userName);
 
             return authenticatedUser;      
+        }
+
+        private BandMemberModel GetAuthenticatedBandMember()
+        {
+            if (!CurrentUserIsAuthenticated())
+            {
+                throw new Exception("User is not authenticated");
+            }
+            var userName = System.Web.HttpContext.Current.User.Identity.Name;
+            var Query = from bandMember in db.Users
+                        where bandMember.Nickname == userName
+                        select new BandMemberModel()
+                        {
+                            User_ID = bandMember.User_ID,
+                            FirstName = bandMember.FirstName,
+                            LastName = bandMember.LastName,
+                            Nickname = bandMember.Nickname,
+                            Location = bandMember.Location
+                        };
+
+            return Query.ToList()[0];
         }
 
         public bool IsValidBand(Band myBand)
