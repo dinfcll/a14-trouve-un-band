@@ -57,3 +57,8 @@ $(".profile-tab-header").click(function () {
 $("#profile-photo-carousel").carousel({
     interval: 0
 });
+
+$(".indicator-list img").click(function () {
+    $(".indicator-list img").removeClass("active");
+    $(this).addClass("active");
+});
