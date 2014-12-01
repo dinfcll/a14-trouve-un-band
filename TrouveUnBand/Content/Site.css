@@ -746,3 +746,7 @@ body{
 #header-search-form .btn:hover{
     border-left-color: #3B3B3B;
 }
+
+.navbar-brand:hover{
+    color:#0099DA !important;
+}

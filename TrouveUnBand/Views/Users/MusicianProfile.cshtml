@@ -24,10 +24,10 @@
         </div>
     </div>
     <div id="information" class="col-md-7 profile-main-tab">
-        <div class="profile-main-content">
-            <div class="profile-section">
+        <div class="profile-main-content col-md-12">
+            <div class="profile-section col-md-12">
                 <div class="profile-tab-header">
-                    <strong>Informations</strong>
+                    <span class="glyphicon glyphicon-user"></span><strong>Informations</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
@@ -35,36 +35,40 @@
                     @Html.Partial("../Users/_MusicianProfileInfo", Model)
                 </div>
             </div>
-            <div id="listen" class="profile-section">
+
+            <div id="listen" class="profile-section col-md-12">
                 <div class="profile-tab-header">
-                    <strong>Écouter</strong>
+                    <span class="glyphicon glyphicon-headphones"></span><strong>Écouter</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
+                </div>
+                <div class="profile-tab-content">
+                </div>
+            </div>
+
+            <div id="seeking" class="profile-section col-md-12">
+                <div class="profile-tab-header">
+                    <span class="glyphicon glyphicon-eye-open"></span><strong>Recherche</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
                 <div class="profile-tab-content">
                 </div>
             </div>
-            <div id="seeking" class="profile-section">
+
+            <div id="photo" class="profile-section col-md-12">
                 <div class="profile-tab-header">
-                    <strong>Recherche</strong>
+                    <span class="glyphicon glyphicon-picture"></span><strong>Photo</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
                 <div class="profile-tab-content">
+                    @Html.Partial("../Users/_MusicianProfilePhoto", Model)
                 </div>
             </div>
-            <div id="photo" class="profile-section">
-                <div class="profile-tab-header">
-                    <strong>Photo</strong>
-                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
-                </div>
 
-                <div class="profile-tab-content">
-                </div>
-            </div>
-            <div id="contact" class="profile-section">
+            <div id="contact" class="profile-section col-md-12">
                 <div class="profile-tab-header">
-                    <strong>Contacter</strong>
+                    <span class="glyphicon glyphicon-envelope"></span><strong>Contacter</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
@@ -192,13 +196,38 @@
             <div class="profile-header profile-header-menu">
                 <strong>Menu</strong>
             </div>
-            <div class="profile-content" id="st">
-                <ul class="list-unstyled nav">
-                    <li data-scroll-spy="information" class="active"><a href="#information" class=""><span>Description</span> </a></li>
-                    <li data-scroll-spy="listen"><a href="#listen" class=""><span>Écouter</span> </a></li>
-                    <li data-scroll-spy="seeking"><a href="#seeking" class=""><span>Recherche</span> </a></li>
-                    <li data-scroll-spy="photo"><a href="#photo" class=""><span>Photo</span> </a></li>
-                    <li data-scroll-spy="contact"><a href="#contact" class=""><span>Contacter</span> </a></li>
+            <div class="profile-content">
+                <ul class="list-unstyled">
+                    <li data-scroll-spy="information" class="active">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span>Informations</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="listen">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-headphones"></span>
+                            <span>Écouter</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="seeking">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>Recherche</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="photo">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-picture"></span>
+                            <span>Photo</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="contact">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            <span>Contacter</span>
+                        </a>
+                    </li>
                 </ul>
                 <hr />
                 <div class="profile-footer-menu">

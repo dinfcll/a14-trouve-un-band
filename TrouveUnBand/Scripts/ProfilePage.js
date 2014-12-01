@@ -3,14 +3,9 @@ var profileTabOffset = 70;
 
 if ($("#profile-menu")[0]) {
     menuTopPosition = $("#profile-menu").offset().top;
-    $("body").scrollspy({
-        target: "#profile-menu",
-        offset: profileTabOffset
-    })
 }
 
 $("#profile-menu ul > li").click(function (event) {
-    var index = $(this).index();
     var scrollSpy = $(this).attr("data-scroll-spy");
 
     $(this).siblings(".active").removeClass("active");
@@ -55,4 +50,10 @@ $(".profile-tab-header").click(function () {
 
     tabContent.slideToggle(250, function () {
     })
+});
+
+//Photo section
+
+$("#profile-photo-carousel").carousel({
+    interval: 0
 });
