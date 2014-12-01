@@ -20,12 +20,14 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
         }
 
         public ActionResult MyAdverts()
         {
+            ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
         }
