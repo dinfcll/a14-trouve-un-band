@@ -104,13 +104,6 @@ function setCoordsAndImgSize(e) {
     element.value = Math.round(e.h);
 }
 
-//$("#closeDialog").click(function () {
-//    $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
-//    $("#ImageUploader").unwrap();
-//    api.destroy();
-//    return;
-//});
-
 function resizeImage(image) {
     var width = image.width;
     var height = image.height;

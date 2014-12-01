@@ -1,0 +1,46 @@
+﻿/*Over bootstrap*/
+body{
+    background-color:#F3F3F3 !important;
+}
+
+.navbar-default {
+    background-color:#333333 !important;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: white !important;
+  background-color: #0099DA !important;
+}
+
+#header-search-form input{
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+    border:1px solid #555555;
+    background-color:#555555;
+    color:white;
+    font-size:17px;
+}
+
+#header-search-form .btn{
+    border-top-right-radius:0;
+    border-bottom-right-radius:0;
+    border:1px solid #0099DA;
+    background-color:#0099DA;
+    color:White;
+}
+
+#header-search-form .btn:hover{
+    border-left-color: #3B3B3B;
+}
+
+.navbar-brand:hover{
+    color:#0099DA !important;
+}
+
+#header-search-form input:focus,
+#header-search-form input:active{
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
