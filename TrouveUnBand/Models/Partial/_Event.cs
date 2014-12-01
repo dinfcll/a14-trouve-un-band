@@ -38,5 +38,13 @@ namespace TrouveUnBand.Models
             public byte[] Photo { get; set; }
             public string Creator_ID { get; set; }
         }
+
+        public void SetLocation()
+        {
+            var coord = Geolocalisation.GetCoordinatesByLocation(this.Location);
+            this.Location = coord.formattedAddress;
+            this.Latitude = coord.latitude;
+            this.Longitude = coord.longitude;
+        }
     }
 }

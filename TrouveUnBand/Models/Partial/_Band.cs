@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
-    [MetadataType(typeof(User.UserMetadata))]
-    public partial class User
+    [MetadataType(typeof(BandMetadata))]
+    public partial class Band
     {
-        [NotMapped]
-        public string ConfirmPassword { get; set; }
-        [NotMapped]
-        public Photo ProfilePicture { get; set; }
-
-        public sealed class UserMetadata
+        public sealed class BandMetadata
         {
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
@@ -50,26 +44,6 @@ namespace TrouveUnBand.Models
             this.Location = coord.formattedAddress;
             this.Latitude = coord.latitude;
             this.Longitude = coord.longitude;
-        }
-
-        public bool isMusician()
-        {
-            if (this.Users_Instruments.Any())
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool IsBandMember()
-        {
-            if (this.Bands.Any())
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }

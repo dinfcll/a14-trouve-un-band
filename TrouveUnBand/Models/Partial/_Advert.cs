@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models.Partial
 { 
@@ -24,5 +25,13 @@ namespace TrouveUnBand.Models.Partial
         [Required(ErrorMessage = "L'emplacement de la demande est requis")]
         public string Location { get; set; }
         public byte[] AdvertPhoto { get; set; }
+
+        public void SetLocation()
+        {
+            var coord = Geolocalisation.GetCoordinatesByLocation(this.Location);
+            this.Location = coord.formattedAddress;
+
+            // TODO: Add geolocalisation coordinates
+        }
     }
 }

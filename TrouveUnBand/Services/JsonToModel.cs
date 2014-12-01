@@ -10,8 +10,6 @@ namespace TrouveUnBand.Services
 {
     public static class JsonToModel
     {
-
-
         public static Band ToBand(string stringJson)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
@@ -27,7 +25,5 @@ namespace TrouveUnBand.Services
 
             return myBand;
         }
-
-
     }
 }
