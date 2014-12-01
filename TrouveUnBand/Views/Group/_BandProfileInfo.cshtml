@@ -81,8 +81,8 @@
 
 <div class="profile-info-row row" data-panel-id="event-panel">
     <div class="profile-info-header col-xs-8 col-sm-9 col-md-10 col-lg-10 col-md-push-1">
-        <strong class="row ">Évènements</strong>
-        <span class="text-muted col-md-12 row">Évènements passés et futurs du groupe</span>
+        <strong class="row ">Événements</strong>
+        <span class="text-muted col-md-12 row">Événements passés et futurs du groupe</span>
     </div>
     <i class="chevron glyphicon glyphicon-chevron-down text-muted col-md-offset-1"></i>
 </div>
@@ -91,12 +91,26 @@
     <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-push-1">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Évènements</h3>
+                <h3 class="panel-title">Événements</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class=" col-md-12 col-lg-12">
-                        <strong>contenue</strong>
+                        <strong>
+                            @{ 
+                                var eventName = "";
+                                foreach (var events in ViewBag.EventBD)
+                                {
+                                    foreach (var band in events.Bands)
+                                    {
+                                        if (band.Name == Model.Name)
+                                        {
+                                            <a href="/Event/EventProfile/@events.Event_ID">@events.Name</a> <span>@events.City</span> <span>@events.Location</span><br />
+                                        }
+                                    }
+                                }
+                            }
+                        </strong>
                     </div>
                 </div>
             </div>
