@@ -35,7 +35,7 @@ function SendData() {
         type: 'POST',
         data: { bandJSON: ArrayToComplexJson() },
         dataType: 'JSON',
-        success: alert('Success'),
+        success: alert('Success' + ArrayToComplexJson()),
         error: function(request, error) {
             console.log(arguments);
             alert("Erreur parce que: " + error);
@@ -48,16 +48,16 @@ function ArrayToComplexJson() {
     var obj = new Object();
     obj.BandMembers = BandMembers;
     obj.Genres = $('#MultiSelect').val();
-    obj.info = getInfo();
+    obj.Name = $('#BandName').val();
+    obj.Location = $('#BandLocation').val();
+    obj.Description = $('#BandDescription').val();
 
     return JSON.stringify(obj);
 };
 
 function getInfo() {
     var obj = new Object();
-    obj.Name = $('#BandName').val();
-    obj.Location = $('#BandLocation').val();
-    obj.Description = $('#BandDescription').val();
+
 
     return JSON.stringify(obj);
 };
