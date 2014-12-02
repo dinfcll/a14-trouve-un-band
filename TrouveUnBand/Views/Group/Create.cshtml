@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Create", "Group"))
 {
     
-    <input type="button" onclick="SendData()" data-toggle="modal" data-target="#myModal" value="Terminer"/>
+    <input type="button" onclick="SendData()" value="Terminer"/>
     
     @Html.TextBox("BandName", "", new { @class = "form-control", @placeholder = "Nom du band" })
     @Html.TextBox("BandLocation", "", new { @class = "form-control", @placeholder = "Ville" })
@@ -48,7 +48,3 @@
 </div>
 
 <div id="user-results" style="padding-top: 5em;"></div>
-
-<div id="CreateConfirmDialog">
-
-</div>

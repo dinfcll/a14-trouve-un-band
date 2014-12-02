@@ -31,10 +31,9 @@ function containsObject(obj) {
 function SendData() {
 
     $.ajax({
-        url: 'create',
+        url: '<%=Url.Action("Group", "Create")%>',
         type: 'POST',
         data: { bandJSON: ArrayToComplexJson() },
-        dataType: 'JSON',
         error: function(request, error) {
             console.log(arguments);
         }
