@@ -14,18 +14,20 @@ namespace TrouveUnBand.Services
 
         public static Band ToBand(string stringJson)
         {
-            var js = new JavaScriptSerializer();
+            JavaScriptSerializer js = new JavaScriptSerializer();
             dynamic jsBand = js.Deserialize<dynamic>(stringJson);
 
-            var myBand = new Band();
-                
-                myBand.Name = jsBand["info"]["Name"],
-                /*myBand.Location = jsBand["info"]["Location"],
-                myBand.Description = jsBand["info"]["Description"],
-                Genres = GenreDao.GetGenresByNames(jsBand["Genres"]),
-                Users = UserDao.GetUsersById((jsBand["BandMembers"]))*/
-                
+            Band myBand = new Band();
+
+            myBand.Name = jsBand["info"].Name;
+            myBand.Location = jsBand["info"].Location;
+            myBand.Description = jsBand["info"].Description;
+            myBand.Genres = GenreDao.GetGenresByNames(jsBand["Genres"]);
+            myBand.Genres = UserDao.GetUsersById((jsBand["Members"]));
+
             return myBand;
         }
+
+
     }
 }
