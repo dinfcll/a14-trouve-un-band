@@ -310,6 +310,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
+    <Content Include="Scripts\dropdown-fix.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\ImageUpload.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
@@ -451,7 +452,7 @@
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Users\NewProfilePage.cshtml" />
-    <Content Include="Views\Users\View1.cshtml" />
+    <Content Include="Views\Users\Test.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

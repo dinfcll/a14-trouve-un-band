@@ -39,7 +39,7 @@ else
                             @Html.HiddenFor(model => model.Advert_ID, new { @Model.Advert_ID })
                         </div>
                     }
-                    @using (Html.BeginForm("Edit", "Advert", FormMethod.Post, new { @role = "form", @class = "top-80", enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Edit", "Advert", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
                     {
                         @Html.ValidationSummary(true)
                         @Html.HiddenFor(model => model.Advert_ID, new { Model.Advert_ID })
@@ -70,7 +70,10 @@ else
                         </div>
                         <div class="form-group col-md-6">
                             @Html.Label("Genres Musicaux de l'événement")
-                            <select name="GenreAdvertDB" class="selectpicker" title="Genres musicaux de l'événement"
+                            <button type="button" class="btn btn-default dropdown-toggle col-md-12 selectpicker-over" data-toggle="dropdown">
+                                <span class="pull-left">Genres musicaux de l'annonce</span> <span class="caret"></span>
+                            </button>
+                            <select name="GenreAdvertDB" class="selectpicker hidden" title="Genres musicaux de l'annonce"
                                     data-width="100%" data-live-search="true"
                                     data-selected-text-format="count>3" multiple>
                                 @foreach (var genre in ViewBag.GenreListDB)

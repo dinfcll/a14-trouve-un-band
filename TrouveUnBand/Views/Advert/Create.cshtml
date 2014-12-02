@@ -10,7 +10,7 @@
 }
 else
 {
-    using (Html.BeginForm("Create", "Advert", FormMethod.Post, new { @role = "form", @class = "top-80", enctype = "multipart/form-data" }))
+    using (Html.BeginForm("Create", "Advert", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
     {
         <div  id="CreateEventForm">
             <div class="container">
@@ -51,7 +51,10 @@ else
                             @Html.ValidationMessageFor(model => model.ExpirationDate)
                         </div>
                         <div class="form-group col-md-6">
-                            <select name="GenreAdvertDB" class="selectpicker" title="Genres musicaux de l'annonce"
+                            <button type="button" class="btn btn-default dropdown-toggle col-md-12 selectpicker-over" data-toggle="dropdown">
+                                <span class="pull-left">Genres musicaux de l'annonce</span> <span class="caret"></span>
+                            </button>
+                            <select name="GenreAdvertDB" class="selectpicker hidden" title="Genres musicaux de l'annonce"
                                     data-width="100%" data-live-search="true"
                                     data-selected-text-format="count>3" multiple>
                                 @foreach (var genre in ViewBag.GenreListDB)

@@ -9,7 +9,7 @@
                 @Html.Label("Photo de Profil")
             </div>
             <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#PicModal">
-                <img id="ProfilePic" alt="" src="@Model.Photo" width="350" class="photo" />
+                <img id="ProfilePic" alt="" src="@Model.Photo" class="photo" width="350"/>
             </a>
             <input id="ImageUploader" class="btn" type="file" name="FileUpload" accept="image/*" />
             <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
@@ -54,7 +54,7 @@
                                               new { value = "Femme" , text = "Femme" },
                                             },
                                       "value",
-                                      "text", Model.Gender), new { @class = "form-control" })
+                                      "text", Model.Gender), new { @class = "form-control selectpicker" })
             </div>
             <div class="form-group col-md-3 col-md-push-1">
                 @Html.Label("Ville:")

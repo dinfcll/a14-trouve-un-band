@@ -21,5 +21,7 @@
         return false;
     });
 
-    $("#back-to-top").tooltip("show");
+    $(".back-to-top").hover(function () {
+        $("#back-to-top").tooltip("show");
+    });
 });
