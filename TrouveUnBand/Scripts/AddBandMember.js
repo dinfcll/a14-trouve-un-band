@@ -35,10 +35,8 @@ function SendData() {
         type: 'POST',
         data: { bandJSON: ArrayToComplexJson() },
         dataType: 'JSON',
-        success: alert('Success' + ArrayToComplexJson()),
         error: function(request, error) {
             console.log(arguments);
-            alert("Erreur parce que: " + error);
         }
     });
 

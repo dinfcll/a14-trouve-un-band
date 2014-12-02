@@ -35,11 +35,14 @@ namespace TrouveUnBand.Services
             myBand.Location = jsBand["Location"];
             myBand.Description = jsBand["Description"];
 
-            int[] keys;
-            string[] stringValues;
-            jsBand["Genres"].flatten().ToArrays(out keys, out stringValues);
+            var stringValues = new List<string>();
 
-            myBand.Genres = GenreDao.GetGenresByNames(stringValues);
+            foreach (var item in jsBand["Genres"])
+            {
+                stringValues.Add(item);
+            }
+
+            myBand.Genres = GenreDao.GetGenresByNames(stringValues.ToArray());
 
             var intValues = new List<int>();
             foreach (var item in jsBand["BandMembers"])
