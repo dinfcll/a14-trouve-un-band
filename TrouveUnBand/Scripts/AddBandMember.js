@@ -31,17 +31,16 @@ function containsObject(obj) {
 function SendData() {
 
     $.ajax({
-        url: '<%=Url.Action("Group", "Create")%>',
+        url: 'Create',
         type: 'POST',
         data: { bandJSON: ArrayToComplexJson() },
         success: function(data) {
-            return data;
+            $('#ConfirmForm').append(data);
         },
         error: function(request, error) {
             console.log(arguments);
         }
     });
-
 };
 
 function ArrayToComplexJson() {
@@ -84,3 +83,13 @@ function UpdateModal() {
 function FormatOutput(data) {
     return '@Html.Display("' + data + '")';
 };
+
+
+$('#btnTerminer').click(function () {
+    SendData();
+    if ($("#ConfirmForm:first").is(":hidden")) {
+        $("#ConfirmForm").slideDown("slow");
+    } else {
+        $("#MainForm").hide();
+    }
+});

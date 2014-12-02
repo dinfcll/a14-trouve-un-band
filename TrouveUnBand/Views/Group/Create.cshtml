@@ -3,48 +3,45 @@
 @{
     ViewBag.Title = "Création band";
 }
-
-@using (Html.BeginForm("Create", "Group"))
-{
+<div id="MainForm">
+    @using (Html.BeginForm("Create", "Group"))
+    {
     
-    <input type="button" onclick="SendData()" value="Terminer"/>
+        <input id="btnTerminer"type="button" value="Terminer"/>
     
-    @Html.TextBox("BandName", "", new { @class = "form-control", @placeholder = "Nom du band" })
-    @Html.TextBox("BandLocation", "", new { @class = "form-control", @placeholder = "Ville" })
-    @Html.TextArea("BandDescription", new { @class = "form-control", @placeholder = "Description" })
-    <select id="MultiSelect" name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
-            data-width="100%" data-live-search="true" data-selected-text-format="count>3" multiple>
-        @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
-        {
-            <li class="dropdown-submenu">
-                <optgroup label="@list.FirstOrDefault()">
-                    <ul class="dropdown-menu">
-                        @foreach (var genre in list)
-                        {
-                            <option>@genre</option>
-                        }
-                    </ul>
-                </optgroup>
-            </li>
-        }
-    </select>
-}
-
-
-
-
-@using (Ajax.BeginForm("SearchMusician", "Group", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "user-results" }))
-{
-    @Html.TextBox("searchString")
-    <button type="submit">Rechercher un musician</button>
-}
-
-<div>
-    <table>
-        <td  id="band-members">
+        @Html.TextBox("BandName", "", new { @class = "form-control", @placeholder = "Nom du band" })
+        @Html.TextBox("BandLocation", "", new { @class = "form-control", @placeholder = "Ville" })
+        @Html.TextArea("BandDescription", new { @class = "form-control", @placeholder = "Description" })
+        <select id="MultiSelect" name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
+                data-width="100%" data-live-search="true" data-selected-text-format="count>3" multiple>
+            @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
+            {
+                <li class="dropdown-submenu">
+                    <optgroup label="@list.FirstOrDefault()">
+                        <ul class="dropdown-menu">
+                            @foreach (var genre in list)
+                            {
+                                <option>@genre</option>
+                            }
+                        </ul>
+                    </optgroup>
+                </li>
+            }
+        </select>
+    }
+    @using (Ajax.BeginForm("SearchMusician", "Group", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "user-results" }))
+    {
+        @Html.TextBox("searchString")
+        <button type="submit">Rechercher un musician</button>
+    }
+    <div>
+        <table>
+            <td  id="band-members">
             
-        </td>
-    </table>
-</div>
+            </td>
+        </table>
+    </div>
 
-<div id="user-results" style="padding-top: 5em;"></div>
+    <div id="user-results" style="padding-top: 5em;"></div>
+</div>
+<div id="ConfirmForm"></div>

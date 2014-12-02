@@ -12,12 +12,12 @@
 
 @foreach (var item in Model.Genres)
 {
-    @Html.Display(item.Name)
+    @Html.DisplayFor(item.Name)
 }
 
 @foreach (var item in Model.Users)
 {
-    @Html.Display(item.FirstName + " " + item.LastName)
+    @Html.DisplayFor(item.FirstName + " " + item.LastName)
 }
 
 

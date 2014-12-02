@@ -65,7 +65,7 @@ namespace TrouveUnBand.Controllers
             myBand.Longitude = coord.longitude;
 
 
-            return View("CreateConfirm", myBand);
+            return PartialView("_CreateConfirm", myBand);
         }
         
         [HttpPost]
