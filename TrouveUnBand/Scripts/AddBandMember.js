@@ -34,8 +34,8 @@ function SendData() {
         url: 'Create',
         type: 'POST',
         data: { bandJSON: ArrayToComplexJson() },
-        success: function(data) {
-            $('#ConfirmForm').append(data);
+        success: function (data) {
+            $('#ConfirmForm').html(data);
         },
         error: function(request, error) {
             console.log(arguments);
@@ -54,42 +54,14 @@ function ArrayToComplexJson() {
     return JSON.stringify(obj);
 };
 
-function getInfo() {
-    var obj = new Object();
-
-
-    return JSON.stringify(obj);
-};
-
-function UpdateModal() {
-    var objInfo = getInfo();
-    $('#modalName').innerHTML = FormatOutput(objInfo["Name"]);
-    $('#modalLocation').innerHTML = FormatOutput(objInfo["Location"]);
-    $('#modalDescription').innerHTML = FormatOutput(objInfo["Description"]);
-
-    var objGenres = $('#MultiSelect').val();
-    objGenres.each(function(i) {
-        $element('#modalGenres').append(FormatOutput(i));
-    });
-
-    BandMembers.each(function (i) {
-        $element('#modalMusicians').innerHTML(FormatOutput(i["FirstName"]));
-        $element('#modalMusicians').innerHTML(FormatOutput(i["LastName"]));
-
-    });
-
-};
-
-function FormatOutput(data) {
-    return '@Html.Display("' + data + '")';
-};
-
-
 $('#btnTerminer').click(function () {
-    SendData();
-    if ($("#ConfirmForm:first").is(":hidden")) {
         $("#ConfirmForm").slideDown("slow");
-    } else {
         $("#MainForm").hide();
-    }
+        SendData();
 });
+
+function Cancel() {
+        $("#MainForm").slideDown("slow");
+        $("#ConfirmForm").hide();
+};
+
