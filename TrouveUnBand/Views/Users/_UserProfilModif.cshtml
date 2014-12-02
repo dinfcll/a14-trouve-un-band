@@ -37,7 +37,7 @@
             </div>
             <div class="form-group col-md-3 col-md-push-1">
                 @Html.Label("Date de naissance:")
-                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @Value = Model.BirthDate.ToString("yyyy/MM/dd") })
+                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @Value = Model.BirthDate.ToString("yyyy/MM/dd"),@id = "datepickernotime", @type = "date"  })
                 @Html.ValidationMessage("BirthDate")
             </div>
             <div class="form-group col-md-3 col-md-push-1">
