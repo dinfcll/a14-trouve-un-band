@@ -34,6 +34,9 @@ function SendData() {
         url: '<%=Url.Action("Group", "Create")%>',
         type: 'POST',
         data: { bandJSON: ArrayToComplexJson() },
+        success: function(data) {
+            return data;
+        },
         error: function(request, error) {
             console.log(arguments);
         }

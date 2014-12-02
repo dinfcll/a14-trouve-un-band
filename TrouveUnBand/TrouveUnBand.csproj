@@ -451,6 +451,7 @@
     </None>
     <Content Include="Views\Group\_MusicianFinder.cshtml" />
     <Content Include="Views\Group\CreateConfirm.cshtml" />
+    <Content Include="Views\Group\_CreateConfirm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
