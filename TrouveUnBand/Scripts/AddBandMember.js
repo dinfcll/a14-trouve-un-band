@@ -55,13 +55,13 @@ function ArrayToComplexJson() {
 };
 
 $('#btnTerminer').click(function () {
-        $("#ConfirmForm").slideDown("slow");
+        $("#ConfirmForm").slideDown("fast");
         $("#MainForm").hide();
         SendData();
 });
 
 function Cancel() {
-        $("#MainForm").slideDown("slow");
+        $("#MainForm").slideDown("fast");
         $("#ConfirmForm").hide();
 };
 
