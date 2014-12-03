@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Création band";
 }
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Création</h2>
+    </div>
+</div>
 <div id="MainForm">
     @using (Html.BeginForm("Create", "Group"))
     {
@@ -44,4 +49,11 @@
 
     <div id="user-results" style="padding-top: 5em;"></div>
 </div>
-<div id="ConfirmForm">x</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Confirmation</h2>
+    </div>
+</div>
+
+<div id="ConfirmForm"></div>

@@ -4,8 +4,6 @@
     ViewBag.Title = "Confirmation";
 }
 
-<h2>Confirmation</h2>
-
 @Html.DisplayFor(model => model.Name)
 @Html.DisplayFor(model => model.Location)
 @Html.DisplayFor(model => model.Description)
@@ -22,6 +20,4 @@
 
 
 <input type="button" id="btnCancel" onclick="Cancel()" value="Corriger"/>
-<button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("CreateConfirm", "Group", new { id = Model.Band_ID })'">
-    Confirmer
-</button>
+@Html.ActionLink("Confirmer","Confirm", Model)
