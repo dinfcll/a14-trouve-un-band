@@ -45,3 +45,15 @@ body{
     -webkit-box-shadow: none;
 }
    
+hr {
+  border-top: 1px solid #DCE4EC !important;
+}
+
+.navbar-fixed-top{
+    border-width:0px 0px 0px !important;
+}
+
+.navbar-default .navbar-nav > .active > a {
+  color: white !important;
+  background-color: #555555 !important;
+}

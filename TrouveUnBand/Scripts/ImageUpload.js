@@ -68,6 +68,9 @@ $("#ImageUploader").change(function () {
         return;
     }
     readURL(this);
+    $(".photo-upload-filename").val(this.value);
+    $(".photo-upload-clear").show()
+
     setModalButton();
     isClosedByButton = false;
     $("#CropperDialog").modal("show");

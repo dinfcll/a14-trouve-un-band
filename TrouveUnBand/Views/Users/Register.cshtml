@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <div class="form-group DropDownListNoArrow">
+                                <div class="form-group">
                                      @Html.DropDownListFor(model => model.Gender, 
                                      new SelectList(
                                          new List<Object>{
@@ -83,10 +83,10 @@
                     <hr class="colorgraph">
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <input type="submit" value="Inscription" class="btn btn-primary btn-block ">
+                            <input type="Button" value="Réinitialiser" class="btn btn-default btn-block " onclick="window.location.href='@Url.Action("Register")'" />
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <input type="Button" value="Réinitialiser" class="btn btn-default btn-block " onclick="window.location.href='@Url.Action("Register")'" />
+                            <input type="submit" value="Inscription" class="btn btn-primary btn-block ">
                         </div>
                     </div>
                 </form>

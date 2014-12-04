@@ -72,18 +72,22 @@ $(".indicator-list img").click(function () {
 
 $(".profile-photo-rightarrow").click(function () {
     photoList = document.querySelectorAll(".indicator-list li");
-
-    photoList[photoList.length - 1].parentNode.appendChild(photoList[0]);
-    photoList[0].style.display = "none";
-    photoList[5].style.display = "inline-block";
+    
+    if (photoList.length > 5) {
+        photoList[photoList.length - 1].parentNode.appendChild(photoList[0]);
+        photoList[0].style.display = "none";
+        photoList[5].style.display = "inline-block";
+    }
 });
 
 $(".profile-photo-leftarrow").click(function () {
     photoList = document.querySelectorAll(".indicator-list li");
 
-    $(photoList[0]).parent().prepend(photoList[photoList.length - 1]);
-    photoList[4].style.display = "none";
-    photoList[photoList.length - 1].style.display = "inline-block";
+    if (photoList.length > 5) {
+        $(photoList[0]).parent().prepend(photoList[photoList.length - 1]);
+        photoList[4].style.display = "none";
+        photoList[photoList.length - 1].style.display = "inline-block";
+    }
 });
 
 $("#profile-photo-carousel").on("slide.bs.carousel", function (event) {

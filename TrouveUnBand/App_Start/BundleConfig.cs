@@ -11,8 +11,8 @@ namespace TrouveUnBand
             bundles.IgnoreList.Clear();
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-1.8.1.min.js",
-                "~/Scripts/jquery.Jcrop.js"));
+                "~/Scripts/jquery-1.11.1.min.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                 "~/Scripts/bootstrap.min.js",
@@ -29,7 +29,6 @@ namespace TrouveUnBand
                 "~/Scripts/star-rating.js",
                 "~/Scripts/ModifProfil.js",
                 "~/Scripts/disable-search-ddl.js",
-                "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/jquery.Jcrop.js",
                 "~/Scripts/ImageUpload.js",
                 "~/Scripts/ProfilePage.js",
@@ -51,7 +50,9 @@ namespace TrouveUnBand
                 "~/Content/Site.css",
                  "~/Content/bootstrap-select.css",
                  "~/Content/profile-page.css",
-                 "~/Content/over-bootstrap.css"
+                 "~/Content/over-bootstrap.css",
+                 "~/Content/jquery.Jcrop.css",
+                 "~/Content/timepicker.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
