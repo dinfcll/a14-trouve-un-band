@@ -146,6 +146,10 @@
 
 /*section photo*/
 
+#profile-photo-carousel{
+    border: 0.5em solid black;
+}
+
 #profile-photo-carousel .carousel-control {
     height: 40px;
     width: 40px;

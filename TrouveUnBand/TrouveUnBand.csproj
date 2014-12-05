@@ -309,7 +309,6 @@
     <Content Include="Images\Jcrop.gif" />
     <Content Include="Scripts\back-to-top.js" />
     <Content Include="Scripts\bootstrap-select.js" />
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
     <Content Include="Scripts\dropdown-fix.js" />
@@ -319,6 +318,7 @@
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-1.11.2-ui.min.js" />
     <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -332,6 +332,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
+    <Content Include="Scripts\over-bootstrap.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
     <Content Include="Scripts\TopSecret.js" />

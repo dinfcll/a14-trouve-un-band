@@ -11,7 +11,8 @@ namespace TrouveUnBand
             bundles.IgnoreList.Clear();
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-1.11.1.min.js"
+                "~/Scripts/jquery-1.11.1.min.js",
+                "~/Scripts/jquery-1.11.2-ui.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
@@ -37,7 +38,8 @@ namespace TrouveUnBand
                 "~/Scripts/bootstrap-select.js",
                 "~/Scripts/back-to-top.js",
                 "~/Scripts/tooltips.js",
-                "~/Scripts/dropdown-fix.js"
+                "~/Scripts/dropdown-fix.js",
+                "~/Scripts/over-bootstrap.js"
                 ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes
@@ -46,7 +48,6 @@ namespace TrouveUnBand
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/site.css",
                 "~/Content/Site.css",
                  "~/Content/bootstrap-select.css",
                  "~/Content/profile-page.css",

@@ -58,8 +58,8 @@
 else
 {
     <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Inscription", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Connexion", "Login", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li data-path="/Users/Register">@Html.ActionLink("Inscription", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li data-path="/Users/Login">@Html.ActionLink("Connexion", "Login", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 
 }
