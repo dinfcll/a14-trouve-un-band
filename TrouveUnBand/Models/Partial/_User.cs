@@ -33,7 +33,7 @@ namespace TrouveUnBand.Models
             [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Le courriel doit être valide")]
             public string Email { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
+            [RegularExpression(@"^[a-z,äáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
             public string Location { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Doit avoir 4 caractères minimum")]
@@ -62,6 +62,22 @@ namespace TrouveUnBand.Models
             }
 
             return false;
+        }
+
+        public void SetLocation(string location)
+        {
+            var coord = Geolocalisation.GetCoordinatesByLocation(location);
+            this.Location = coord.formattedAddress;
+            this.Latitude = coord.latitude;
+            this.Longitude = coord.longitude;
+        }
+
+        public void SetLocation()
+        {
+            var coord = Geolocalisation.GetCoordinatesByLocation(this.Location);
+            this.Location = coord.formattedAddress;
+            this.Latitude = coord.latitude;
+            this.Longitude = coord.longitude;
         }
     }
 }

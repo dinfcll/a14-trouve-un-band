@@ -8,31 +8,6 @@ namespace TrouveUnBand.Classes
 {
     public static class Geolocalisation
     {
-        public static User SetUserLocation(User user)
-        {
-            var client = new HttpClient();
-
-            client.BaseAddress = new Uri("https://maps.googleapis.com");
-
-            var response = client.GetAsync("/maps/api/geocode/json?address="
-                                            + user.Location
-                                            + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
-                                            ).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                string responseBody = response.Content.ReadAsStringAsync().Result;
-
-                var location = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
-                user.Latitude = location.results[location.results.Count - 1].geometry.location.lat;
-                user.Longitude = location.results[location.results.Count - 1].geometry.location.lng;
-                return user;
-            }
-            user.Latitude = 0.0;
-            user.Longitude = 0.0;
-            return user;
-        }
-
         public static bool CheckIfInRange(string locationA, string locationB, int radius)
         {
             var coordA = GetCoordinatesByLocation(locationA);
@@ -53,7 +28,7 @@ namespace TrouveUnBand.Classes
             var client = new HttpClient {BaseAddress = new Uri("https://maps.googleapis.com")};
             var response = client.GetAsync("/maps/api/geocode/json?address="
                                             + location
-                                            + ",Canada,+CA&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
+                                            + ",Canada,+CA&language=fr-ca&key=AIzaSyAzPU-uqEi7U9Ry15EgLAVZ03_4rbms8Ds"
                                             ).Result;
 
             if (response.IsSuccessStatusCode)

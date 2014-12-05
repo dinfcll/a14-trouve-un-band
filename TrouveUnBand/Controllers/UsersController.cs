@@ -73,8 +73,7 @@ namespace TrouveUnBand.Controllers
                 {
                     userbd.Photo = Photo.StockPhoto;
                     userbd.Password = Encrypt(userbd.Password);
-                    userbd = Geolocalisation.SetUserLocation(userbd);
-
+                    userbd.SetLocation();
                     db.Database.Connection.Open();
                     db.Users.Add(userbd);
                     db.SaveChanges();
@@ -326,8 +325,7 @@ namespace TrouveUnBand.Controllers
         {
             if ((currentUser.Latitude == 0.0 || currentUser.Longitude == 0.0) || currentUser.Location != newUser.Location)
             {
-                currentUser.Location = newUser.Location;
-                currentUser = Geolocalisation.SetUserLocation(currentUser);
+                currentUser.SetLocation(newUser.Location);
             }
 
             currentUser.FirstName = newUser.FirstName;
