@@ -27,6 +27,7 @@ namespace TrouveUnBand.Models
             [RegularExpression(@"^[a-zäáàâëéèêíìöóòôúùñçA-ZÂÄÀÊËÈÉÌÔÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
             public string City { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
+            [DataType(DataType.Time)]
             public System.DateTime EventDate { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
