@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using DotNetOpenAuth.Messaging;
+using Microsoft.Ajax.Utilities;
 using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 using TrouveUnBand.Services;
@@ -57,41 +59,42 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string bandJSON)
+        public ActionResult Create(Band band)
         {
             var myBand = JsonToModel.ToBand(bandJSON);
             var coord = Geolocalisation.GetCoordinatesByLocation(myBand.Location);
             myBand.Latitude = coord.latitude;
             myBand.Longitude = coord.longitude;
 
-
             return PartialView("_CreateConfirm", myBand);
         }
 
-        public ActionResult Confirm(Band model)
+        public ActionResult Confirm(string jsonBand)
         {
+            var Model = (Band)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonBand);
             var queryExistingBand = from Q in db.Bands
-                                    where model.Name != null && Q.Name == model.Name
+                                    where Model.Name != null && Q.Name == Model.Name
                                     select Q;
-
+            var currentuser = GetAuthenticatedUser();
             if (queryExistingBand.Any())
             {
                 var existingBand = queryExistingBand.ToList()[0];
                 if (existingBand != null)
                 {
-                    TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, model);
+                    TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, Model);
                     db.Entry(existingBand).State = EntityState.Unchanged;
                 }
             }
 
             try
             {
+                var queryUsers = UserDao.GetUsersByList(Model.Users.ToList());
                 db.Database.Connection.Open();
-                db.Bands.Add(model);
+                db.Bands.Add(Model);
                 db.SaveChanges();
                 db.Database.Connection.Close();
 
-                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(model);
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(Model);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

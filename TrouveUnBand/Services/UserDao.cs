@@ -169,5 +169,12 @@ namespace TrouveUnBand.Services
 
             return idsArray.Select(t => db.Users.FirstOrDefault(x => x.User_ID == t)).ToList();
         }
+
+        public static List<User> GetUsersByList(List<User> userList)
+        {
+            var db = new TrouveUnBandEntities();
+
+            return userList.Select(t => db.Users.FirstOrDefault(x => x == t)).ToList();
+        }
     }
 }

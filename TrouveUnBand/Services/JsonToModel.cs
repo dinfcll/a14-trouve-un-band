@@ -16,16 +16,6 @@ namespace TrouveUnBand.Services
 
         public static Band ToBand(string stringJson)
         {
-
-            /*  expected json result
-              {
-                "BandMembers":  [{"User_ID":1,"FirstName":"Vincent","LastName":"Bernier","Nickname":"gogluness","Location":"St-Adalbert"},{"User_ID":2,"FirstName":"Steven","LastName":"Seagulls","Nickname":"StevenSeagulls","Location":"USA"}],
-
-                "Genres":["Blues","Blues rock"],
-
-                "info":{"Name":"monband","Location":"ici","Description":"ok"}
-               }
-            */
             JavaScriptSerializer js = new JavaScriptSerializer();
             dynamic jsBand = js.Deserialize<dynamic>(stringJson);
 

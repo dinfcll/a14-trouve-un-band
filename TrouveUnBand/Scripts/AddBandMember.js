@@ -7,7 +7,13 @@ function AddBandMember(json) {
     {
         BandMembers.push(json);
         var div = document.getElementById('band-members');
-        $('#band-members').append('<input id="' + json["User_ID"] + '" type="button" value="' + json["FirstName"] + '" onclick="RemoveBandMember(' + json["User_ID"] + ')" />');
+        $('#band-members').append(
+        '<div id="' + json["User_ID"] + '">' +
+        json["FirstName"] + ' ' + json["LastName"] +
+        '<button class="btn btn-default" type="button" onclick="RemoveBandMember(' + json["User_ID"] + ')" >' +
+        '<span class="glyphicon glyphicon-minus" aria-hidden="true"> </span>' +
+        '</button>' +
+        '</div>');
     }
 };
 
