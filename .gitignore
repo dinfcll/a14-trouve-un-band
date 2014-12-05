@@ -21,3 +21,10 @@
 # SQL Server files
 *.mdf
 *.ldf
+*.trx
+*.suo
+*.sln
+*.dat
+*.dll
+*.pdb
+*.dll

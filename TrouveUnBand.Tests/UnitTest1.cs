@@ -3,18 +3,20 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Tests
 {
     [TestClass]
-    public class TestsSearchController
+    public class TestUserClass
     {
         [TestMethod]
-        public void GetAllBands()
+        public void TestUserVide()
         {
-            // Given
-            // When
-            // Then
+            //Given
+            User user = new User();
+            //Then
+            Assert.IsInstanceOfType(user, typeof(User));
         }
     }
 }
