@@ -448,7 +448,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Shared\konami.cshtml" />
     <None Include="Views\Shared\roms\contra\Contra.nes" />
     <None Include="Views\Shared\roms\croom\croom.nes" />
     <None Include="Views\Shared\roms\lj65\lj65.nes" />
