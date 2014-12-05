@@ -68,7 +68,6 @@ namespace TrouveUnBand.Controllers
             return PartialView("_CreateConfirm", myBand);
         }
 
-        [HttpPost]
         public ActionResult Confirm(Band model)
         {
             var queryExistingBand = from Q in db.Bands

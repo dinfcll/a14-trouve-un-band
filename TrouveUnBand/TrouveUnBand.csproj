@@ -332,6 +332,7 @@
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
     <Content Include="Scripts\TopSecret.js" />
+    <Content Include="Views\SocialMedia\soundcloud-callback.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -452,6 +453,13 @@
     <Content Include="Views\Group\_MusicianFinder.cshtml" />
     <Content Include="Views\Group\CreateConfirm.cshtml" />
     <Content Include="Views\Group\_CreateConfirm.cshtml" />
+    <Content Include="Views\SocialMedia\test.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Annonce.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Band.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Event.cshtml" />
+    <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
+    <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
+    <Content Include="Views\Group\Confirm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
