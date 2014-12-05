@@ -23,7 +23,6 @@
 *.ldf
 *.trx
 *.suo
-*.sln
 *.dat
 *.dll
 *.pdb
