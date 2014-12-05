@@ -105,6 +105,8 @@ var Konami = function (callback) {
 };
 
 var easter_egg = new Konami();
-easter_egg.code = function () { alert('Konami code!'); }
+easter_egg.code = function () {
+    $('#myModal').modal('show');
+}
 easter_egg.load();
 

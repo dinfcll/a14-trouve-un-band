@@ -86,6 +86,106 @@
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/SocialMedia")
         @Scripts.Render("~/bundles/customjs") 
-        <script src="~/Scripts/konami.js"></script>
+        @Scripts.Render("~/Scripts/konami.js")
+        
+            
+
+        <!-- JSNES Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                <h1>JSNES</h1>
+    
+                <div id="emulator"></div>
+    
+                <h2>Controls</h2>
+                <table id="controls">
+                    <tr>
+                        <th>Button</th>
+                        <th>Player 1</th>
+                        <th>Player 2</th>
+                    </tr>
+                    <tr>
+                        <td>Left</td>
+                        <td>Left</td>
+                        <td>Num-4</td>
+                    <tr>
+                        <td>Right</td>
+                        <td>Right</td>
+                        <td>Num-6</td>
+                    </tr>
+                    <tr>
+                        <td>Up</td>
+                        <td>Up</td>
+                        <td>Num-8</td>
+                    </tr>
+                    <tr>
+                        <td>Down</td>
+                        <td>Down</td>
+                        <td>Num-2</td>
+                    </tr>
+                    <tr>
+                        <td>A</td>
+                        <td>X</td>
+                        <td>Num-7</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>Z/Y</td>
+                        <td>Num-9</td>
+                    </tr>
+                    <tr>
+                        <td>Start</td>
+                        <td>Enter</td>
+                        <td>Num-1</td>
+                    </tr>
+                    <tr>
+                        <td>Select</td>
+                        <td>Ctrl</td>
+                        <td>Num-3</td>
+                    </tr>
+                </table>
+                @Scripts.Render("~/Scripts/NES/dynamicaudio-min.js")
+            @Scripts.Render("~/Scripts/NES/nes.js")
+            @Scripts.Render("~/Scripts/NES/utils.js")
+            @Scripts.Render("~/Scripts/NES/cpu.js")
+            @Scripts.Render("~/Scripts/NES/keyboard.js")
+            @Scripts.Render("~/Scripts/NES/mappers.js")
+            @Scripts.Render("~/Scripts/NES/papu.js")
+            @Scripts.Render("~/Scripts/NES/ppu.js")
+            @Scripts.Render("~/Scripts/NES/rom.js")
+            @Scripts.Render("~/Scripts/NES/ui.js")
+                <script type="text/javascript" charset="utf-8">
+                    var nes;
+                    $(function () {
+                        nes = new JSNES({
+                            'ui': $('#emulator').JSNESUI({
+                                "Jeux": [
+                        ['Contra', 'roms/NES/Contra.nes'],
+                        ['Donkey Kong', 'roms/NES/Donkey Kong (JU).nes'],
+                        ['Dr. Mario', 'roms/NES/Dr. Mario (JU).nes'],
+                        ['The Legend of Zelda', 'roms/NES/Legend of Zelda, The (U) (PRG1).nes'],
+                        ['Mario Bros.', 'roms/NES/Mario Bros. (JU) [!].nes'],
+                        ['Mega Man', 'roms/NES/Mega Man (U).nes'],
+                        ['Tetris', 'roms/NES/Tetris.nes']
+                    ],
+                            })
+                        });
+                    });
+    </script>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- JSNES Modal -->
     </body>
 </html>
