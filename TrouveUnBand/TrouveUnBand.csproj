@@ -456,6 +456,7 @@
     </Content>
     <Content Include="Views\Users\NewProfilePage.cshtml" />
     <Content Include="Views\Users\Test.cshtml" />
+    <Content Include="Views\Photo\_PhotoAlbum.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,6 +1,6 @@
 ﻿@model TrouveUnBand.Models.MusicianProfileViewModel
 @{
-    ViewBag.Title = "NewProfilePage";
+    ViewBag.Title = "Profil de " + @Model.Name ;
 }
 
 <div class="row">
@@ -16,7 +16,7 @@
             <div class="profile-user-quickinfo">
                 <ul class="list-unstyled">
                     <li><span>@Model.Name</span></li>
-                    <li><span class="glyphicon glyphicon-map-marker"></span>@Model.Location</li>
+                    <li></span>@Model.Location</li>
                     <li>Musicien</li>
                     <li>Style</li>
                     <li>@Model.InstrumentInfo.InstrumentNames[0]</li>
@@ -29,7 +29,7 @@
         <div class="profile-main-content col-md-12">
             <div id="information" class="profile-section col-md-12">
                 <div class="profile-tab-header">
-                    <span class="glyphicon glyphicon-user"></span><strong>Informations</strong>
+                    <span class="glyphicon glyphicon-info-sign"></span><strong>Informations</strong>
                     <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
 
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="profile-tab-content">
-                    @Html.Partial("../Users/_MusicianProfilePhoto", Model)
+                    @Html.Partial("../Photo/_PhotoAlbum", Model.Photo)
                 </div>
             </div>
 
@@ -202,7 +202,7 @@
                 <ul class="list-unstyled">
                     <li data-scroll-spy="information" class="active">
                         <a href="#">
-                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="glyphicon glyphicon-info-sign"></span>
                             <span>Informations</span>
                         </a>
                     </li>
