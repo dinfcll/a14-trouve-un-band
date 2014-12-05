@@ -2,7 +2,7 @@
 @{int i;}
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title">Description du musicien</h3>
     </div>
@@ -11,23 +11,25 @@
     </div>
 </div>
 
-
-<table class="table table-musician-info table-striped">
-    <thead>
-        <tr>
-            <th>Instrument:</th>
-            <th>Niveau d'expérience:</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            for (i = 0; i < Model.InstrumentInfo.InstrumentNames.Count; i++)
-            {
-                <tr>
-                    <td>@Model.InstrumentInfo.InstrumentNames[i]</td>
-                    <td>@Model.InstrumentInfo.Skills[i]</td>
-                </tr>
+<div class="panel panel-primary">
+    <table class="table table-musician-info table-striped">
+        <thead class="panel-heading">
+            <tr>
+                <th>Instrument:</th>
+                <th>Niveau d'expérience:</th>
+            </tr>
+        </thead>
+        <tbody class="panel-body">
+            @{
+                for (i = 0; i < Model.InstrumentInfo.InstrumentNames.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.InstrumentInfo.InstrumentNames[i]</td>
+                        <td>@Model.InstrumentInfo.Skills[i]</td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+

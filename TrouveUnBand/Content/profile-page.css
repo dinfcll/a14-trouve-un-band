@@ -109,8 +109,6 @@
 
 .profile-main-content .panel-heading {
     border-bottom: 2px solid #e5e5e5 !important;
-    background-color: #0099da !important;
-    color: white !important;
     border-radius: 0;
 }
 
@@ -121,10 +119,6 @@
 
 .profile-main-content .table tr:not(:last-child) {
     border-bottom: 1px solid #E3E3E3;
-}
-
-.profile-main-content .table {
-    border: 1px solid #0099da;
 }
 
 #profile-main-tab {
@@ -142,6 +136,15 @@
 #profile-menu span.glyphicon {
     margin-right: 5px;
     padding-left: 5px;
+}
+
+.panel > table > thead > tr > th{
+    font-weight:500;
+    font-size: 18px !important;
+}
+
+.panel > table > tbody td{
+    border-top:0 !important;
 }
 
 /*section photo*/

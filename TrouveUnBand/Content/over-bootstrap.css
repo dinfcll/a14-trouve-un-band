@@ -57,3 +57,21 @@ hr {
   color: white !important;
   background-color: #555555 !important;
 }
+
+.tooltip{
+    font-size:13px !important;
+}
+
+.panel-title{
+    font-size: 18px !important;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: white;
+ }
+
+.table-striped>tbody>tr:nth-child(even)>td, 
+.table-striped>tbody>tr:nth-child(even)>th {
+   background-color: #F9F9F9;
+ }

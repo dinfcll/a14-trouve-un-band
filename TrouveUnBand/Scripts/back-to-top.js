@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $("body").append('<a id="back-to-top" href="#" class="btn back-to-top" role="button"'+
-                        'title="Retour en haut de la page." data-toggle="tooltip" data-placement="left">'+
+                        'title="Retourner en haut de la page" data-toggle="tooltip" data-placement="left">'+
                         '<span class="glyphicon glyphicon-chevron-up"></span>' +
                      '</a>');
 
