@@ -24,7 +24,7 @@ namespace TrouveUnBand.Models
             [Required(ErrorMessage = "Ce champ est requis")]
             public string Address { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
+            [RegularExpression(@"^[a-zäáàâëéèêíìöóòôúùñçA-ZÂÄÀÊËÈÉÌÔÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
             public string City { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             public System.DateTime EventDate { get; set; }
