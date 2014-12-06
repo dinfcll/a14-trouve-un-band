@@ -311,7 +311,6 @@
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
-    <Content Include="Scripts\dropdown-fix.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\ImageUpload.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
@@ -420,7 +419,6 @@
     <Content Include="Views\Photo\ViewPictureDialog.cshtml" />
     <Content Include="Views\Users\MusicianProfile.cshtml" />
     <Content Include="Views\Users\_MusicianProfileInfo.cshtml" />
-    <Content Include="Views\Users\_MusicianProfilePhoto.cshtml" />
     <Content Include="Views\Group\BandProfile.cshtml" />
     <Content Include="Views\Group\_BandProfileInfo.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
@@ -454,8 +452,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Users\NewProfilePage.cshtml" />
-    <Content Include="Views\Users\Test.cshtml" />
     <Content Include="Views\Photo\_PhotoAlbum.cshtml" />
   </ItemGroup>
   <PropertyGroup>

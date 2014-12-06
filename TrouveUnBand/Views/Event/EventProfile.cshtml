@@ -13,12 +13,12 @@
             </a>
             <div class="profile-user-quickinfo">
                 <ul class="list-unstyled">
-                    <li><span>@Model.Name</span></li>
-                    <li></span>@Model.Location</li>
+                    <li>@Model.Name</li>
+                    <li>@Model.Location</li>
                     <li>Événement</li>
                     <li>Styles</li>
                     <li>@Model.EventDate</li>
-                    <li>@Model.MaxAudience</li>
+                    <li>Info pertinante</li>
                 </ul>
             </div>
         </div>
@@ -42,14 +42,6 @@
                 <div class="profile-tab-content">
                 </div>
             </div>
-            <div id="seeking" class="profile-section col-md-12">
-                <div class="profile-tab-header">
-                    <span class="glyphicon glyphicon-eye-open"></span><strong>Recherche</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
-                    </i>
-                </div>
-                <div class="profile-tab-content">
-                </div>
-            </div>
             <div id="photo" class="profile-section col-md-12">
                 <div class="profile-tab-header">
                     <span class="glyphicon glyphicon-picture"></span><strong>Photo</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
@@ -59,9 +51,17 @@
                     @Html.Partial("../Photo/_PhotoAlbum", Model.Photo)
                 </div>
             </div>
-            <div id="contact" class="profile-section col-md-12">
+            <div id="seeking" class="profile-section col-md-12">
                 <div class="profile-tab-header">
-                    <span class="glyphicon glyphicon-envelope"></span><strong>Contacter</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
+                    <span class="glyphicon glyphicon-eye-open"></span><strong>Recherche</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
+                    </i>
+                </div>
+                <div class="profile-tab-content">
+                </div>
+            </div>
+            <div id="localisation" class="profile-section col-md-12">
+                <div class="profile-tab-header">
+                    <span class="glyphicon glyphicon-envelope"></span><strong>Localisation</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
                     </i>
                 </div>
                 <div class="profile-tab-content">
@@ -190,16 +190,36 @@
             </div>
             <div class="profile-content">
                 <ul class="list-unstyled">
-                    <li data-scroll-spy="information" class="active"><a href="#"><span class="glyphicon glyphicon-info-sign">
-                    </span><span>Informations</span> </a></li>
-                    <li data-scroll-spy="listen"><a href="#"><span class="glyphicon glyphicon-headphones">
-                    </span><span>Écouter</span> </a></li>
-                    <li data-scroll-spy="seeking"><a href="#"><span class="glyphicon glyphicon-eye-open">
-                    </span><span>Recherche</span> </a></li>
-                    <li data-scroll-spy="photo"><a href="#"><span class="glyphicon glyphicon-picture"></span>
-                        <span>Photo</span> </a></li>
-                    <li data-scroll-spy="contact"><a href="#"><span class="glyphicon glyphicon-envelope">
-                    </span><span>Contacter</span> </a></li>
+                    <li data-scroll-spy="information" class="active">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-info-sign">
+                            </span><span>Informations</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="listen">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-headphones">
+                            </span><span>Écouter</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="seeking">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-eye-open">
+                            </span><span>Recherche</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="photo">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-picture"></span>
+                            <span>Photo</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="localisation">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-envelope">
+                            </span><span>Localisation</span>
+                        </a>
+                    </li>
                 </ul>
                 <hr />
                 <div class="profile-footer-menu">
@@ -210,7 +230,7 @@
     </div>
 </div>
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
-    aria-hidden="true">
+     aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
 </div>
 <div class="hidden">

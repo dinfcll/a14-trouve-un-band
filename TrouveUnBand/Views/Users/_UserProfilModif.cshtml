@@ -12,8 +12,6 @@
                 <img id="ProfilePic" alt="" src="@Model.Photo" class="photo" width="350" />
             </a>
 
-            @*<input id="ImageUploader" class="btn" type="file" name="FileUpload" accept="image/*" />*@
-
             <div class="col-md-11 file-uploader row">
                 <div class="btn btn-default photo-upload-browser col-md-12">
                     <span class="glyphicon glyphicon-folder-open"></span>
@@ -58,6 +56,12 @@
             </div>
             <div class="form-group col-md-6">
                 @Html.Label("Sexe:")
+                <div class="btn-group bootstrap-select form-control selectpicker-over">
+                    <button title="Sexe" data-id="Gender" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                        <span class="filter-option pull-left">@Model.Gender</span>&nbsp;<span class="caret"></span>
+                    </button>
+                </div>
+                
                 @Html.DropDownListFor(model => model.Gender,
                                       new SelectList(
                                           new List<Object>{
@@ -65,7 +69,7 @@
                                               new { value = "Femme" , text = "Femme" },
                                             },
                                       "value",
-                                      "text", Model.Gender), new { @class = "form-control selectpicker" })
+                                      "text", Model.Gender), new { @class = "form-control selectpicker hidden" })
             </div>
             <div class="form-group col-md-6">
                 @Html.Label("Ville:")

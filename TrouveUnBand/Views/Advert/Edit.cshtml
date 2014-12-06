@@ -59,20 +59,27 @@ else
                         </div>
                         <div class="form-group col-md-6">
                             @Html.Label("Status")
+                            <div class="btn-group bootstrap-select form-control selectpicker-over">
+                                <button title="Status" data-id="Gender" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                                    <span class="filter-option pull-left">@Model.Status</span>&nbsp;<span class="caret"></span>
+                                </button>
+                            </div>
                             @Html.DropDownListFor(model => model.Status, new SelectList(
                                           new List<Object>{
                                                new { value = "En attente" , text = "En attente"  },
                                                new { value = "En cours" , text = "En cours" }
                                             },
                                             "value", "text", Model.Status),
-                                            new { @class = "form-control selectpicker" })
+                                            new { @class = "form-control selectpicker hidden" })
                             @Html.ValidationMessageFor(model => model.Status)
                         </div>
                         <div class="form-group col-md-6">
-                            @Html.Label("Genres Musicaux de l'événement")
-                            <button type="button" class="btn btn-default dropdown-toggle col-md-12 selectpicker-over" data-toggle="dropdown">
-                                <span class="pull-left">Genres musicaux de l'annonce</span> <span class="caret"></span>
-                            </button>
+                            @Html.Label("Genres musicaux de l'annonce")
+                            <div class="btn-group bootstrap-select form-control selectpicker-over">
+                                <button title="Sexe" data-id="Gender" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                                    <span class="filter-option pull-left">Genres musicaux de l'annonce</span>&nbsp;<span class="caret"></span>
+                                </button>
+                            </div>
                             <select name="GenreAdvertDB" class="selectpicker hidden" title="Genres musicaux de l'annonce"
                                     data-width="100%" data-live-search="true"
                                     data-selected-text-format="count>3" multiple>

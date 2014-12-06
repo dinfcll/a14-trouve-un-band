@@ -236,3 +236,7 @@
     padding-left:0.3em;
     padding-right:0.3em;
 }
+
+#profile-photo-carousel .carousel-inner img{
+    cursor: pointer;
+}
