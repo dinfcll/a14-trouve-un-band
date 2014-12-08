@@ -163,18 +163,15 @@ namespace TrouveUnBand.Services
                 return Query.ToList();          
         }
 
-        public static List<User> GetUsersById(int[] idsArray)
+        public static List<User> GetUsersById(int[] idsArray, TrouveUnBandEntities db)
         {
-            var db = new TrouveUnBandEntities();
-
             return idsArray.Select(t => db.Users.FirstOrDefault(x => x.User_ID == t)).ToList();
         }
 
-        public static List<User> GetUsersByList(List<User> userList)
+        public static List<User> GetUsersById(int[] idsArray)
         {
             var db = new TrouveUnBandEntities();
-
-            return userList.Select(t => db.Users.FirstOrDefault(x => x == t)).ToList();
+            return idsArray.Select(t => db.Users.FirstOrDefault(x => x.User_ID == t)).ToList();
         }
     }
 }
