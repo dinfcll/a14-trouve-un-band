@@ -60,12 +60,11 @@ function ArrayToComplexJson() {
 };
 
 $('#btnTerminer').click(function () {
-    if (bandJSON.BandMembers !== undefined &&
-        bandJSON.Genres !== undefined &&
-        bandJSON.Name !== undefined &&
-        bandJSON.Location !== undefined &&
-        bandJSON.Description !== undefined) 
-    {
+    if (BandMembers.length != 0 &&
+        $('#MultiSelect').val() != "" &&
+       $('#BandName').val() != "" &&
+        $('#BandLocation').val() != "" &&
+        $('#BandDescription').val() != "") {
         $("#ConfirmForm").slideDown("fast");
         $("#MainForm").hide();
         SendData();
