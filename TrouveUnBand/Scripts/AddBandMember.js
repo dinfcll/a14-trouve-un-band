@@ -35,18 +35,17 @@ function containsObject(obj) {
 }
 
 function SendData() {
-
-    $.ajax({
-        url: 'Create',
-        type: 'POST',
-        data: { bandJSON: ArrayToComplexJson() },
-        success: function (data) {
-            $('#ConfirmForm').html(data);
-        },
-        error: function(request, error) {
-            console.log(arguments);
-        }
-    });
+        $.ajax({
+            url: 'Create',
+            type: 'POST',
+            data: { bandJSON:  ArrayToComplexJson()},
+            success: function(data) {
+                $('#ConfirmForm').html(data);
+            },
+            error: function(request, error) {
+                console.log(arguments);
+            }
+        });
 };
 
 function ArrayToComplexJson() {
@@ -61,9 +60,16 @@ function ArrayToComplexJson() {
 };
 
 $('#btnTerminer').click(function () {
+    if (bandJSON.BandMembers !== undefined &&
+        bandJSON.Genres !== undefined &&
+        bandJSON.Name !== undefined &&
+        bandJSON.Location !== undefined &&
+        bandJSON.Description !== undefined) 
+    {
         $("#ConfirmForm").slideDown("fast");
         $("#MainForm").hide();
         SendData();
+    }
 });
 
 function Cancel() {
