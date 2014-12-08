@@ -18,6 +18,7 @@ namespace TrouveUnBand.ViewModels
         public string Photo { get; set; }
         public DateTime CreationDate { get; set; }
         public int ID { get; set; }
+        public DateTime EventDate { get; set; }
 
 
         private readonly TrouveUnBandEntities db = new TrouveUnBandEntities();
@@ -63,6 +64,7 @@ namespace TrouveUnBand.ViewModels
             Photo = evenement.Photo;
             CreationDate = evenement.CreationDate;
             ID = evenement.Event_ID;
+            EventDate = evenement.EventDate;
         }
 
         public ResultViewModels(Advert advert)

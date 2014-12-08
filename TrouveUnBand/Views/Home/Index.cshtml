@@ -95,23 +95,54 @@
                     {
                         <div class="col-md-12 event-panel">
                             <div class="col-md-3 row">
-                                <img src="@item.Photo" width="250" height="172" class="photo" alt="Image">
+                                <img src="@item.Photo" width="250" height="172" class="photo" alt="Image"/>
                             </div>
                             <div class="col-md-9 event-panel-info">
-                                <div class="">
-                                    @Html.Label("Nom")
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                <div class="col-md-12">
+                                    <h3>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </h3>
                                 </div>
-                                <div class="">
-                                    @Html.Label("Location")
-                                    @Html.DisplayFor(modelItem => item.Location)
+                                <div class="col-md-12">
+                                    <h3>
+                                        <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayFor(modelItem => item.EventDate)
+                                    </h3>
                                 </div>
-                                <div class="">
-                                    @Html.Label("Genre")
-                                    <span>@item.Genres</span>
+
+                                <div class="col-md-12">
+                                    <h4>
+                                        <span class="glyphicon glyphicon-map-marker"></span> @Html.DisplayFor(modelItem => item.Location)
+                                    </h4>
                                 </div>
-                                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "EVENT", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
+                                <div class="col-md-12">
+                                    <h4>
+                                        <span class="glyphicon glyphicon-road"></span> @Html.DisplayFor(modelItem => item.City)
+                                    </h4>
+                                </div>
+                                <div class="col-md-12">
+                                    @{var TextPopOver = "";}
+                                    @foreach (var genre in item.Genres)
+                                    {
+                                        TextPopOver += genre + "<br/>";
+                                    }
+                                    <h4>
+                                        <span class="glyphicon glyphicon-headphones"></span>
+                                        @Html.DisplayName(@item.Genres.FirstOrDefault())
+                                        <span id="popovercustom" class="label label-default label-popover" tabindex="0" role="button"
+                                        data-toggle="popover" data-html="true" title="Genres de l'événement"
+                                        data-content="@TextPopOver">...</span>
+                                    </h4>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5>@Html.DisplayFor(modelItem => item.Description)</h5>
+                                </div>
+                                <div class="col-md-12">
+                                    @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "EVENT", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
+                                </div>
                             </div>
+                        </div>
+                        <div class="col-md-12">
+                            <hr />
                         </div>
                     }
                 </div>
