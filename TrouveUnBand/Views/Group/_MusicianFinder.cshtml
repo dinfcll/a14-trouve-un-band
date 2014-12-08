@@ -1,19 +1,16 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">@ViewBag.ResultsCount musiciens trouvés</div>
     <table class="table">
-        @foreach (var musician in (List<TrouveUnBand.Models.User>)ViewBag.Results)
+        @foreach (var musician in (List<TrouveUnBand.Models.BandMemberModel>)ViewBag.Results)
         {
             <tr>
                 <td>@musician.User_ID</td>
                 <td>@musician.FirstName</td>
                 <td>@musician.LastName</td>
                 <td>@musician.Location</td>
-                <script>
-                    var json = {"FirstName": '@musician.FirstName',"LastName":'@musician.LastName', "ID":'@musician.User_ID', "Location":'@musician.Location'}
-                </script>
-                <td><input id="btnAddMember" type="button" value="Ajouter au groupe" onclick="AddBandMember(json);" /></td>
+
+                <td><input id="btnAddMember" type="button" class="btn btn-default"value="Ajouter au groupe" onclick="AddBandMember(@Json.Encode(musician));" /></td>
             </tr>
-            <input id="btnRmvMember" type="button" value="Enlever au groupe" onclick="RemoveBandMember('@musician.User_ID')" />
         }
     </table>
 </div>

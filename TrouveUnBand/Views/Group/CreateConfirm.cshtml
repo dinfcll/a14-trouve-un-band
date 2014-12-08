@@ -1,0 +1,26 @@
+﻿@model TrouveUnBand.Models.Band
+
+@{
+    ViewBag.Title = "Confirmation";
+}
+
+<h2>Confirmation</h2>
+
+@Html.DisplayFor(model => model.Name)
+@Html.DisplayFor(model => model.Location)
+@Html.DisplayFor(model => model.Description)
+
+@foreach (var item in Model.Genres)
+{
+    @Html.DisplayFor(item.Name)
+}
+
+@foreach (var item in Model.Users)
+{
+    @Html.DisplayFor(item.FirstName + " " + item.LastName)
+}
+
+
+
+<button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("CreateConfirm", "Group", new { id = Model.Band_ID })'">
+</button>

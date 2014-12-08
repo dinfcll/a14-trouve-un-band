@@ -24,5 +24,24 @@ namespace TrouveUnBand.Services
 
             return subgenresByGenres;
         }
+
+        public static List<Genre> GetGenresByNames(string[] namesArray)
+        {
+            var db = new TrouveUnBandEntities();
+
+            return namesArray.Select(t => db.Genres.FirstOrDefault(x => x.Name == t)).ToList();
+        }
+
+        public static List<Genre> GetGenresById(int[] idsArray, TrouveUnBandEntities db)
+        {
+            return idsArray.Select(t => db.Genres.FirstOrDefault(x => x.Genre_ID == t)).ToList();
+        }
+
+
+        public static List<Genre> GetGenresById(int[] idsArray)
+        {
+            var db = new TrouveUnBandEntities();
+            return idsArray.Select(t => db.Genres.FirstOrDefault(x => x.Genre_ID == t)).ToList();
+        }
     }
 }

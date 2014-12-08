@@ -47,13 +47,13 @@
                     @{var TextPopOver = "";}
                     @foreach (var genre in item.Genres)
                     {
-                        TextPopOver += genre.Name+"\n";
+                        TextPopOver += genre.Name + "<br/>";
                     }
                     <p>
                         <span class="glyphicon glyphicon-music"></span>
                         @Html.DisplayName(@item.Genres.FirstOrDefault().Name)
-                            <span class="label label-default label-popover" tabindex="0" role="button" 
-                                  data-toggle="popover" title="Genres de l'événement" 
+                            <span id="popovercustom" class="label label-default label-popover" tabindex="0" role="button" 
+                                  data-toggle="popover" data-html="true" title="Genres de l'événement" 
                                   data-content="@TextPopOver">...</span>
                         
                     </p>
