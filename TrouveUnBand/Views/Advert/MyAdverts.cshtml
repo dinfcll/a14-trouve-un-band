@@ -79,6 +79,19 @@
                             <div class="col-md-12 form-group">
                                 <span class="glyphicon glyphicon-ok"></span> @Html.DisplayName(item.Status)
                             </div>
+                            <div class="col-md-12 form-group">
+                            @{
+                                var band = "";
+                                foreach (var user in ViewBag.UsersListDB)
+                                {
+                                    if(user.User_ID == item.Creator_ID)
+                                    {
+                                        string name = user.FirstName + " " + user.LastName;
+                                        <span class="glyphicon glyphicon-user" style="font-size: 150%;"></span> @Html.DisplayName("Ouvert par:  " + name);
+                                    }
+                                }
+                            }
+                            </div>
                         </div>
                         <div id="AdvertDesc" class="row col-md-5 form-group">
                             <hr class="colorgraph"/>
