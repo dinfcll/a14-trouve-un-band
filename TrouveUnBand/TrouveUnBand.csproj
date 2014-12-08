@@ -306,7 +306,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Images\Jcrop.gif" />
-    <Content Include="Scripts\AddBandMember.js" />
+    <Content Include="Scripts\Alert.js" />
+    <Content Include="Scripts\bootstrap-validation.js" />
+    <Content Include="Scripts\CreateGroup.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -332,6 +334,12 @@
     <Content Include="Scripts\ModifProfil.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
+    <Content Include="Scripts\SDKs\Facebook.js" />
+    <Content Include="Scripts\SDKs\GooglePlus.js" />
+    <Content Include="Scripts\SDKs\Twitter.js" />
+    <Content Include="Scripts\SoundCloud.js" />
+    <Content Include="Scripts\star-rating.js" />
+    <Content Include="Scripts\Tooltips.js" />
     <Content Include="Scripts\TopSecret.js" />
     <Content Include="Views\SocialMedia\soundcloud-callback.html" />
     <Content Include="Web.config">
