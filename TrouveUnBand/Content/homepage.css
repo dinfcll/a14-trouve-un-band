@@ -1,18 +1,50 @@
-﻿#home-jumbotron{
-    padding:0 !important;
-    margin-top:-40px;
+﻿#home-jumbotron
+{
+    padding: 0 !important;
+    margin-top: -40px;
 }
 
-#home-jumbotron img{
-    width:100%;
+#home-jumbotron img
+{
+    width: 100%;
 }
 
-#home-jumbotron h1,
-#home-jumbotron h3,
-#home-jumbotron btn{
-
+#home-jumbotron .carousel-caption
+{
+    background-color: rgba(0,0,0,0.7);
 }
 
-#home-jumbotron .carousel-caption{
-        background-color: rgba(0,0,0,0.7);
+.home-content-container
+{
+}
+
+.home-section-header
+{
+    background-color: #333333;
+}
+
+.home-section-header span
+{
+    color: White;
+    font-size: 20px;
+    font-weight: 800;
+    margin: 10px 20px;
+}
+
+.home-section-content
+{
+    margin-top: 30px;
+}
+
+.event-panel
+{
+    background-color: White;
+    border: 1px solid #DDD;
+    padding: 0 !important;
+}
+
+.event-panel-info
+{
+    margin-left: 10px;
+    padding-top:10px;
 }

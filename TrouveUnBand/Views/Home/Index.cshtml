@@ -6,30 +6,120 @@
         <div id="home-carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="item active">
-
                     <img id="homeImage" src="" alt="">
-
                     <div class="carousel-caption">
-                        <h1 class="col-md-12">À la recherche d'un band?</h1>
-                        <h3>Recherchez un band, un musicien ou un événement.</h3>
-                        <h3>Créez vos propres événements et annonces.</h3>
-                        <h3>Faites la promotion de votre band, votre événement ou votre bar.</h3>
-                        <h3>Tout ça GRATUITEMENT!</h3>
+                        <h1 class="col-md-12">
+                            À la recherche d'un band?</h1>
+                        <h3>
+                            Recherchez un band, un musicien ou un événement.</h3>
+                        <h3>
+                            Créez vos propres événements et annonces.</h3>
+                        <h3>
+                            Faites la promotion de votre band, votre événement ou votre bar.</h3>
+                        <h3>
+                            Tout ça GRATUITEMENT!</h3>
                         <p>@Html.ActionLink("Inscrivez-vous", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary btn-lg col-md-6 col-md-offset-3" })</p>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="container col-md-12">
-
-
+    <div class="container home-content-container">
+        <div class="home-section col-md-12">
+            <div class="home-section-header">
+                <span>Derniers musiciens inscrits</span>
+            </div>
+            <div class="home-section-content">
+                @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedUser"])
+                {
+                    <div class="col-md-3">
+                        <div class="thumbnail card">
+                            <img src="@item.Photo" alt="Image">
+                            <div class="caption">
+                                <h3>@Html.DisplayName(item.Name)</h3>
+                                <p>@Html.DisplayName(item.Description)</p>
+                                <p>
+                                    <span class="glyphicon glyphicon-map-marker"></span>
+                                    @Html.DisplayName(item.Location)
+                                </p>
+                                <b>@Html.DisplayName(item.Type)</b>
+                                <p>
+                                    @foreach (var genre in item.Genres)
+                                    {
+                                        <span class="label label-default">@genre</span>
+                                    }
+                                </p>
+                                <p>
+                                    @Html.ActionLink("Voir profil", "ViewProfile", "Search", new { type = item.Type, Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
+                                    <a href="#" class="btn btn-default" role="button">Button</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="home-section col-md-12">
+                <div class="home-section-header">
+                    <span>Derniers groupes inscrits</span>
+                </div>
+                <div class="home-section-content">
+                    @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedBand"])
+                    {
+                        <div class="col-md-3 NewsfeedItems thumbnail">
+                            <img src="http://placehold.it/200x200">
+                            <div class="caption container-fluid">
+                                <div class="row">
+                                    @Html.Label("Nom")
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </div>
+                                <div class="row">
+                                    @Html.Label("Location")
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </div>
+                                <div class="row">
+                                    @Html.Label("Description")
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </div>
+                                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "BAND", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="home-section col-md-12">
+                <div class="home-section-header">
+                    <span>Événements à venir</span>
+                </div>
+                <div class="home-section-content">
+                    @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedEvent"])
+                    {
+                        <div class="col-md-12 event-panel">
+                            <div class="col-md-3 row">
+                                <img src="@item.Photo" width="250" height="172" class="photo" alt="Image">
+                            </div>
+                            <div class="col-md-9 event-panel-info">
+                                <div class="">
+                                    @Html.Label("Nom")
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </div>
+                                <div class="">
+                                    @Html.Label("Location")
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </div>
+                                <div class="">
+                                    @Html.Label("Genre")
+                                    <span>@item.Genres</span>
+                                </div>
+                                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "EVENT", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-    @*<div id="NewsfeedUser" class="row">
+@*<div id="NewsfeedUser" class="row">
         @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedUser"])
         {
             <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems">
@@ -117,4 +207,4 @@
                 </div>
             </div>
         }
-        </div>*@
+        </div>*@ 
