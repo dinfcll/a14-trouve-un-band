@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Script.Serialization;
 using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
+    [Serializable]
     [MetadataType(typeof(User.UserMetadata))]
     public partial class User
     {

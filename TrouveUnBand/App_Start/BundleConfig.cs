@@ -26,6 +26,7 @@ namespace TrouveUnBand
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
                 "~/Scripts/homepage.js",
+                "~/Scripts/CreateGroup.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
                 "~/Scripts/alert.js",
                 "~/Scripts/star-rating.js",

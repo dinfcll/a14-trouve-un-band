@@ -27,11 +27,11 @@
         <div class="profile-main-content col-md-12">
             <div id="information" class="profile-section col-md-12">
                 <div class="profile-tab-header">
-                    <span class="glyphicon glyphicon-info-sign"></span><strong>Informations</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
-                    </i>
+                    <span class="glyphicon glyphicon-info-sign"></span><strong>Informations</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
                 <div class="profile-tab-content">
-                    <span>jksghfukdfghfdjkfgjdsdfjhsdgfsdfgsdnmhgfjhsgfsdjgfsdjgfsdjh</span>
+                    <span>@Model.Description</span>
                 </div>
             </div>
             <div id="listen" class="profile-section col-md-12">
@@ -61,8 +61,8 @@
             </div>
             <div id="localisation" class="profile-section col-md-12">
                 <div class="profile-tab-header">
-                    <span class="glyphicon glyphicon-envelope"></span><strong>Localisation</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
-                    </i>
+                    <span class="glyphicon glyphicon-envelope"></span><strong>Localisation</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
                 </div>
                 <div class="profile-tab-content">
                     <center>
@@ -190,36 +190,16 @@
             </div>
             <div class="profile-content">
                 <ul class="list-unstyled">
-                    <li data-scroll-spy="information" class="active">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-info-sign">
-                            </span><span>Informations</span>
-                        </a>
-                    </li>
-                    <li data-scroll-spy="listen">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-headphones">
-                            </span><span>Écouter</span>
-                        </a>
-                    </li>
-                    <li data-scroll-spy="seeking">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-eye-open">
-                            </span><span>Recherche</span>
-                        </a>
-                    </li>
-                    <li data-scroll-spy="photo">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-picture"></span>
-                            <span>Photo</span>
-                        </a>
-                    </li>
-                    <li data-scroll-spy="localisation">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-envelope">
-                            </span><span>Localisation</span>
-                        </a>
-                    </li>
+                    <li data-scroll-spy="information" class="active"><a href="#"><span class="glyphicon glyphicon-info-sign">
+                    </span><span>Informations</span> </a></li>
+                    <li data-scroll-spy="listen"><a href="#"><span class="glyphicon glyphicon-headphones">
+                    </span><span>Écouter</span> </a></li>
+                    <li data-scroll-spy="seeking"><a href="#"><span class="glyphicon glyphicon-eye-open">
+                    </span><span>Recherche</span> </a></li>
+                    <li data-scroll-spy="photo"><a href="#"><span class="glyphicon glyphicon-picture"></span>
+                        <span>Photo</span> </a></li>
+                    <li data-scroll-spy="localisation"><a href="#"><span class="glyphicon glyphicon-envelope">
+                    </span><span>Localisation</span> </a></li>
                 </ul>
                 <hr />
                 <div class="profile-footer-menu">
@@ -230,7 +210,7 @@
     </div>
 </div>
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
-     aria-hidden="true">
+    aria-hidden="true">
     @Html.Partial("../Photo/ViewPictureDialog")
 </div>
 <div class="hidden">

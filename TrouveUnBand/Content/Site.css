@@ -1,10 +1,10 @@
-﻿:focus {outline:none;}
+:focus {outline:none;}
 ::-moz-focus-inner {border:0;}
 :-moz-any-link:focus {
   outline: none;
 }
 
-.big-star {
+﻿.big-star {
     font-size: 20px;
 }
 .stars {
@@ -240,11 +240,6 @@ display: inline;
     vertical-align:middle;
 }
 
-.selectpicker-over > span.caret{
-    float:right;
-    margin-top:10px;
-}
-
 .profile-modif-tab-container{
     margin-top:1em;
 }
@@ -292,4 +287,8 @@ display: inline;
 
 .main-container{
     padding-top:100px;
+}
+
+.popover{
+    width:200px;
 }

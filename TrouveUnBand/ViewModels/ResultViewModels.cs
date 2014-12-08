@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.ViewModels
@@ -19,9 +18,6 @@ namespace TrouveUnBand.ViewModels
         public DateTime CreationDate { get; set; }
         public int ID { get; set; }
         public DateTime EventDate { get; set; }
-
-
-        private readonly TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ResultViewModels(Band band)
         {

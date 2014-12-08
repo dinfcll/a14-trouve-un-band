@@ -40,7 +40,7 @@ namespace TrouveUnBand.Controllers
             var bandsResults = new List<ResultViewModels>();
             var advertsResults = new List<ResultViewModels>();
             
-            var events = EventDAO.GetAllEvents();
+            var events = EventDao.GetAllEvents();
             foreach (var evenement in events)
             {
                 eventResults.Add(new ResultViewModels(evenement));

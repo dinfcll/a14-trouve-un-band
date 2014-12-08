@@ -35,9 +35,10 @@ namespace TrouveUnBand.Models
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
             public float Salary { get; set; }
+            [Required(ErrorMessage = "Ce champ est requis")]
             public List<Genre> Genres { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
-            //[RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
+            [RegularExpression(@"^[PMLpml]{1}$", ErrorMessage = "Doit être P, M ou L")]
             public string StageSize { get; set; }
             public string Photo { get; set; }
             public string Creator_ID { get; set; }

@@ -98,3 +98,4 @@ $("#profile-photo-carousel").on("slide.bs.carousel", function (event) {
     var newActiveSlide = document.querySelector(selectorString);
     $(newActiveSlide).addClass("active");
 });
+

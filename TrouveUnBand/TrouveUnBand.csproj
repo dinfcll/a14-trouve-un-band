@@ -177,6 +177,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SocialMediaController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,6 +188,7 @@
     <Compile Include="Models\Band.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BandMemberModel.cs" />
     <Compile Include="Models\BandProfileViewModel.cs" />
     <Compile Include="Models\Event.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -227,10 +229,11 @@
     </Compile>
     <Compile Include="POCO\AlertMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AdvertDAO.cs" />
-    <Compile Include="Services\BandDAO.cs" />
-    <Compile Include="Services\EventDAO.cs" />
+    <Compile Include="Services\AdvertDao.cs" />
+    <Compile Include="Services\BandDao.cs" />
+    <Compile Include="Services\EventDao.cs" />
     <Compile Include="Services\GenreDao.cs" />
+    <Compile Include="Services\JsonToModel.cs" />
     <Compile Include="Services\UserDao.cs" />
     <Compile Include="ViewModels\ResultViewModels.cs" />
   </ItemGroup>
@@ -309,6 +312,9 @@
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Images\Jcrop.gif" />
     <Content Include="Scripts\back-to-top.js" />
+    <Content Include="Scripts\Alert.js" />
+    <Content Include="Scripts\bootstrap-validation.js" />
+    <Content Include="Scripts\CreateGroup.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
@@ -336,7 +342,14 @@
     <Content Include="Scripts\over-bootstrap.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
+    <Content Include="Scripts\SDKs\Facebook.js" />
+    <Content Include="Scripts\SDKs\GooglePlus.js" />
+    <Content Include="Scripts\SDKs\Twitter.js" />
+    <Content Include="Scripts\SoundCloud.js" />
+    <Content Include="Scripts\star-rating.js" />
+    <Content Include="Scripts\Tooltips.js" />
     <Content Include="Scripts\TopSecret.js" />
+    <Content Include="Views\SocialMedia\soundcloud-callback.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -455,6 +468,15 @@
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Photo\_PhotoAlbum.cshtml" />
+    <Content Include="Views\Group\_MusicianFinder.cshtml" />
+    <Content Include="Views\Group\_CreateConfirm.cshtml" />
+    <Content Include="Views\SocialMedia\test.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Annonce.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Band.cshtml" />
+    <Content Include="Views\SocialMedia\_Metadata-Event.cshtml" />
+    <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
+    <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
+    <Content Include="Views\Group\Confirm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -54,13 +54,13 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        private static byte[] imageToByteArray(Image imageIn)
-        {
-            MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, ImageFormat.Jpeg);
+        //private static byte[] imageToByteArray(Image imageIn)
+        //{
+        //    MemoryStream ms = new MemoryStream();
+        //    imageIn.Save(ms, ImageFormat.Jpeg);
 
-            return ms.ToArray();
-        }
+        //    return ms.ToArray();
+        //}
 
         public static bool IsPhoto(HttpPostedFileBase PostedPhoto)
         {

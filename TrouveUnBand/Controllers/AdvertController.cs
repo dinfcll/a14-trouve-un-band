@@ -21,12 +21,14 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
         }
 
         public ActionResult MyAdverts()
         {
+            ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
         }
@@ -38,8 +40,18 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Advert advertToCreate)
+        public ActionResult Create(Advert advertToCreate, string[] GenreAdvertDB, string CreatorName)
         {
+            for (int i = 0; i < GenreAdvertDB.Length; i++)
+            {
+                string GenreName = GenreAdvertDB[i];
+                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
+                advertToCreate.Genres.Add(UnGenre);
+            }
+
+            advertToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == CreatorName).User_ID;
+            advertToCreate.CreationDate = (DateTime)DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 string GenresList = Request["GenreAdvertDB"];
@@ -52,7 +64,6 @@ namespace TrouveUnBand.Controllers
                     advertToCreate.Genres.Add(UnGenre);
                 }
 
-                string CreatorName = Request["CreatorName"];
                 advertToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == CreatorName).User_ID;
                 advertToCreate.CreationDate = (DateTime)DateTime.Now;
 
@@ -85,8 +96,9 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Advert newAdvertInfo)
+        public ActionResult Edit(Advert newAdvertInfo, string[] GenreAdvertDB, string CreatorName)
         {
+
             var oldAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == newAdvertInfo.Advert_ID);
             newAdvertInfo.Photo = oldAdvert.Photo;
             newAdvertInfo.User = oldAdvert.User;
@@ -99,7 +111,7 @@ namespace TrouveUnBand.Controllers
                 oldAdvert.Genres.Clear();
                 for (int i = 0; i < GenresArray.Length; i++)
                 {
-                    string GenreName = GenresArray[i];
+                    string GenreName = GenreAdvertDB[i];
                     var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
                     oldAdvert.Genres.Add(UnGenre);
                 }
