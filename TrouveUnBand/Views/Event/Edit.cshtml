@@ -93,9 +93,27 @@
                 
                             <div class="form-group col-md-6">
                                 @Html.Label("Dimension de la scène (mètres carrés)")
-                                @Html.TextBoxFor(model => model.StageSize, 
-                                    new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
+                                @Html.TextBoxFor(model => model.StageSize,
+                                    new { @class = "form-control", @placeholder = "Dimension de la scène (P, M ou L)" })
                                 @Html.ValidationMessageFor(model => model.StageSize)
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.Label("Genres Musicaux de l'événement")
+                                <select name="BandsListDB" class="selectpicker form-control" title="Groupe(s) à l'événement"
+                                        data-width="100%" data-live-search="true"
+                                        data-selected-text-format="count>3" multiple>
+                                    @foreach (var band in ViewBag.BandsListDB)
+                                    {
+                                        if (Model.Bands.Contains(band))
+                                        {
+                                          <option selected>@band.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option>@band.Name</option>
+                                        }
+                                    }
+                                </select>
                             </div>
                             <div class="form-group col-md-6">
                                 @Html.Label("Genres Musicaux de l'événement")
@@ -104,7 +122,7 @@
                                         data-selected-text-format="count>3" multiple>
                                     @foreach (var genre in ViewBag.GenreListDB)
                                     {
-                                        if(Model.Genres.Contains(genre))
+                                        if (Model.Genres.Contains(genre))
                                         {
                                           <option selected>@genre.Name</option>
                                         }
@@ -118,7 +136,7 @@
                             <hr class="colorgraph col-md-12">
                             <div class="col-md-12">
                                 <div class="col-md-6">
-                                    @Html.ActionLink("Retour", "Index", new { controller = "Event" }, 
+                                    @Html.ActionLink("Retour", "Index", new { controller = "Event" },
                                         new { @class = "btn btn-default col-md-12" })
                                 </div>
 

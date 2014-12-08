@@ -87,7 +87,7 @@ namespace TrouveUnBand.Controllers
 
             if (cbEventsChecked)
             {
-                var events = EventDAO.GetAllEvents();
+                var events = EventDao.GetEvents(cbSelectedGenres, searchstring, location, radius);
                 foreach (var even in events)
                 {
                     results.Add(new ResultViewModels(even));
@@ -119,12 +119,13 @@ namespace TrouveUnBand.Controllers
         {
             switch (type.ToUpper())
             {
-                case "MUSICIAN":
+                case "MUSICIEN":
                     User musician = db.Users.FirstOrDefault(x => x.User_ID == Id);
                     MusicianProfileViewModel MusicianProfile = CreateProfile.CreateMusicianProfileView(musician);
                     return View("../Users/MusicianProfile", MusicianProfile);
 
                 case "BAND":
+                    ViewBag.EventBD = new List<Event>(db.Events);
                     Band band = db.Bands.FirstOrDefault(x => x.Band_ID == Id);
                     BandProfileViewModel BandProfile = CreateProfile.CreateBandProfileView(band);
                     return View("../Group/BandProfile", BandProfile);
@@ -138,9 +139,6 @@ namespace TrouveUnBand.Controllers
                     break;
 
                 case "PROMOTER":
-                    break;
-
-                default:
                     break;
             }
             return RedirectToAction("Index", "Home");

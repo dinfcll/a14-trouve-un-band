@@ -24,14 +24,14 @@ namespace TrouveUnBand.Controllers
         public static Band GetBand(int i)
         {
             TrouveUnBandEntities statdb = new TrouveUnBandEntities();
-            var Query = statdb.Bands.FirstOrDefault(x => x.BandId == i);
+            var Query = statdb.Bands.FirstOrDefault(x => x.Band_ID == i);
             return Query;
         }
 
         public static Event GetEvent(int i)
         {
             TrouveUnBandEntities statdb = new TrouveUnBandEntities();
-            var Query = statdb.Events.FirstOrDefault(x => x.EventId == i);
+            var Query = statdb.Events.FirstOrDefault(x => x.Event_ID == i);
             return Query;
         }
     }

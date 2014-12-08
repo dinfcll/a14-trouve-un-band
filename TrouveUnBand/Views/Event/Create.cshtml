@@ -70,7 +70,7 @@ else
                     </div>
                     <div class="form-group col-md-6">
                         @Html.TextBoxFor(model => model.StageSize, 
-                            new { @class = "form-control", @placeholder = "Dimension de la scène (mètres carrés)" })
+                            new { @class = "form-control", @placeholder = "Dimension de la scène (P, M ou L)" })
                         @Html.ValidationMessageFor(model => model.StageSize)
                     </div>
                     <div class="form-group col-md-6">
@@ -83,6 +83,17 @@ else
                             }
                         </select>
                     </div>
+                    <div class="form-group col-md-6">
+                        <select name="BandsListDB" class="selectpicker form-control" title="Groupe(s) à l'événement"
+                                data-width="100%" data-live-search="true"
+                                data-selected-text-format="count>3" multiple>
+                            @foreach (var band in ViewBag.BandsListDB)
+                            {
+                                <option>@band.Name</option>
+                            }
+                        </select>
+                    </div>
+                    
                     <hr class="colorgraph col-md-12">
                     <div class="form-group col-md-6">
                         @Html.Label("Photo de l'événement")

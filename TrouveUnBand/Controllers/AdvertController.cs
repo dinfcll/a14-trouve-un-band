@@ -20,12 +20,14 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
         }
 
         public ActionResult MyAdverts()
         {
+            ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
         }
@@ -37,20 +39,16 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Advert advert)
+        public ActionResult Create(Advert advert, string[] GenreAdvertDB, string CreatorName)
         {
-            string GenresList = Request["GenreAdvertDB"];
-            string[] GenresArray = GenresList.Split(',');
-
-            for (int i = 0; i < GenresArray.Length; i++)
+            for (int i = 0; i < GenreAdvertDB.Length; i++)
             {
-                string GenreName = GenresArray[i];
+                string GenreName = GenreAdvertDB[i];
                 var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
                 advert.Genres.Add(UnGenre);
             }
 
-            string CreatorNameDB = Request["CreatorName"];
-            advert.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB).User_ID;
+            advert.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == CreatorName).User_ID;
             advert.CreationDate = (DateTime)DateTime.Now;
 
             if (ModelState.IsValid)
@@ -61,7 +59,7 @@ namespace TrouveUnBand.Controllers
                 }
                 db.Adverts.Add(advert);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyAdverts");
             }
 
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", advert.Creator_ID);
@@ -83,13 +81,9 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Advert advert)
+        public ActionResult Edit(Advert advert, string[] GenreAdvertDB, string CreatorName)
         {
-            string GenresList = Request["GenreAdvertDB"];
-            string[] GenresArray = GenresList.Split(',');
-
-            string CreatorNameDB = Request["CreatorName"];
-            advert.User = db.Users.FirstOrDefault(x => x.Nickname == CreatorNameDB);
+            advert.User = db.Users.FirstOrDefault(x => x.Nickname == CreatorName);
             advert.Creator_ID = advert.User.User_ID;
 
             if (Request.Files[0].ContentLength != 0)
@@ -111,9 +105,9 @@ namespace TrouveUnBand.Controllers
                 db.Set(typeof(Advert)).Attach(advertBD);
 
                 advertBD.Genres.Clear();
-                for (int i = 0; i < GenresArray.Length; i++)
+                for (int i = 0; i < GenreAdvertDB.Length; i++)
                 {
-                    string GenreName = GenresArray[i];
+                    string GenreName = GenreAdvertDB[i];
                     var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
                     advertBD.Genres.Add(UnGenre);
                 }
@@ -222,7 +216,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult ViewAdvertProfil(int AdvertId)
         {
-            var myAdvert = db.Adverts.FirstOrDefault(x => x.AdvertId == AdvertId);
+            var myAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == AdvertId);
             return View("AdvertProfil", myAdvert);
         }
     }

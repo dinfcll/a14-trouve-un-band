@@ -11,7 +11,7 @@ namespace TrouveUnBand.Services
         public static List<List<String>> GetAllSubgenresByGenres()
         {
             var db = new TrouveUnBandEntities();
-            var nestedList = new List<List<String>>();
+            var subgenresByGenres = new List<List<String>>();
             var genres = db.Genres.Where(x => x.Parent_ID == null);
             foreach (var genre in genres)
             {
@@ -19,10 +19,27 @@ namespace TrouveUnBand.Services
                 var templist = new List<String>();
                 templist.Add(genre.Name);
                 templist.AddRange(children);
-                nestedList.Add(templist);
+                subgenresByGenres.Add(templist);
             }
 
-            return nestedList;
+            return subgenresByGenres;
+        }
+
+        public static List<Genre> GetGenresByNames(string[] namesArray)
+        {
+            var db = new TrouveUnBandEntities();
+            return namesArray.Select(t => db.Genres.FirstOrDefault(x => x.Name == t)).ToList();
+        }
+
+        public static List<Genre> GetGenresById(int[] idsArray, TrouveUnBandEntities db)
+        {
+            return idsArray.Select(t => db.Genres.FirstOrDefault(x => x.Genre_ID == t)).ToList();
+        }
+
+        public static List<Genre> GetGenresById(int[] idsArray)
+        {
+            var db = new TrouveUnBandEntities();
+            return idsArray.Select(t => db.Genres.FirstOrDefault(x => x.Genre_ID == t)).ToList();
         }
     }
 }

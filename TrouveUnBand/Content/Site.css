@@ -1,8 +1,4 @@
-﻿.top-80{
-   margin-top: -80px;
-}
-
-.big-star {
+﻿.big-star {
     font-size: 20px;
 }
 .stars {
@@ -722,3 +718,6 @@ display: inline;
     vertical-align:middle;
 }
 
+.popover{
+    width:200px;
+}
