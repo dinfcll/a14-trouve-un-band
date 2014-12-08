@@ -130,5 +130,48 @@ namespace TrouveUnBand.Services
 
             return users;
         }
+
+        public static List<BandMemberModel> SearchBandMembers(string userName)
+        {
+            var db = new TrouveUnBandEntities();
+
+            if (String.IsNullOrEmpty(userName))
+            {
+                var users = from bandMember in db.Users
+                            select new BandMemberModel()
+                            {
+                                User_ID = bandMember.User_ID,
+                                FirstName = bandMember.FirstName,
+                                LastName = bandMember.LastName,
+                                Nickname = bandMember.Nickname,
+                                Location = bandMember.Location
+                            };
+                return users.ToList();
+            }
+                var Query = from bandMember in db.Users
+                            where bandMember.FirstName.Contains(userName)
+                                || bandMember.LastName.Contains(userName)
+                                || bandMember.Nickname.Contains(userName)
+                            select new BandMemberModel()
+                            {
+                                User_ID = bandMember.User_ID,
+                                FirstName = bandMember.FirstName,
+                                LastName = bandMember.LastName,
+                                Nickname = bandMember.Nickname,
+                                Location = bandMember.Location
+                            };
+                return Query.ToList();          
+        }
+
+        public static List<User> GetUsersById(int[] idsArray, TrouveUnBandEntities db)
+        {
+            return idsArray.Select(t => db.Users.FirstOrDefault(x => x.User_ID == t)).ToList();
+        }
+
+        public static List<User> GetUsersById(int[] idsArray)
+        {
+            var db = new TrouveUnBandEntities();
+            return idsArray.Select(t => db.Users.FirstOrDefault(x => x.User_ID == t)).ToList();
+        }
     }
 }

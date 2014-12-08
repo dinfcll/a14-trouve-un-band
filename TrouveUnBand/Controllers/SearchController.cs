@@ -140,9 +140,6 @@ namespace TrouveUnBand.Controllers
 
                 case "PROMOTER":
                     break;
-
-                default:
-                    break;
             }
             return RedirectToAction("Index", "Home");
         }
