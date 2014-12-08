@@ -460,7 +460,6 @@
       <LastGenOutput>Model.cs</LastGenOutput>
     </None>
     <Content Include="Views\Group\_MusicianFinder.cshtml" />
-    <Content Include="Views\Group\CreateConfirm.cshtml" />
     <Content Include="Views\Group\_CreateConfirm.cshtml" />
     <Content Include="Views\SocialMedia\test.cshtml" />
     <Content Include="Views\SocialMedia\_Metadata-Annonce.cshtml" />
