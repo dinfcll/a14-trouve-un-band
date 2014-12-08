@@ -44,20 +44,19 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Create(Event events, string[] EventGenreDB, string Creator, string[] BandsListDB)
         {
-            if (ModelState.IsValid && EventGenreDB != null && BandsListDB != null)
+            if (ModelState.IsValid && EventGenreDB != null)
             {
-                for (int i = 0; i < EventGenreDB.Length; i++)
+                foreach(var GenreName in EventGenreDB)
                 {
-                    string GenreName = EventGenreDB[i];
-                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                    events.Genres.Add(UnGenre);
+                    events.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == GenreName));
                 }
 
-                for (int i = 0; i < BandsListDB.Length; i++)
+                if (BandsListDB != null)
                 {
-                    string BandName = BandsListDB[i];
-                    var UnBand = db.Bands.FirstOrDefault(x => x.Name == BandName);
-                    events.Bands.Add(UnBand);
+                    foreach (var BandName in BandsListDB)
+                    {
+                        events.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == BandName));
+                    }
                 }
 
                 events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == Creator).User_ID;
@@ -105,7 +104,7 @@ namespace TrouveUnBand.Controllers
                 }
             }
 
-            if (ModelState.IsValid && EventGenreDB != null && BandsListDB != null)
+            if (ModelState.IsValid && EventGenreDB != null)
             {
                 db.Entry(events).State = EntityState.Modified;
                 db.SaveChanges();
@@ -115,18 +114,20 @@ namespace TrouveUnBand.Controllers
                 db.Set(typeof(Event)).Attach(eventBD);
                 eventBD.Genres.Clear();
                 eventBD.Bands.Clear();
-                for (int i = 0; i < EventGenreDB.Length; i++)
+
+                foreach (var GenreName in EventGenreDB)
                 {
-                    string GenreName = EventGenreDB[i];
-                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                    eventBD.Genres.Add(UnGenre);
+                    eventBD.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == GenreName));
                 }
-                for (int i = 0; i < BandsListDB.Length; i++)
+
+                if (BandsListDB != null)
                 {
-                    string BandName = BandsListDB[i];
-                    var UnBand = db.Bands.FirstOrDefault(x => x.Name == BandName);
-                    eventBD.Bands.Add(UnBand);
+                    foreach (var BandName in BandsListDB)
+                    {
+                        eventBD.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == BandName));
+                    }
                 }
+
                 db.Entry(eventBD).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
