@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.UI;
 using DotNetOpenAuth.Messaging;
 using Microsoft.Ajax.Utilities;
 using TrouveUnBand.Models;
@@ -59,21 +60,33 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Band band)
+        public ActionResult Create(string bandJSON)
         {
             var myBand = JsonToModel.ToBand(bandJSON);
-            var coord = Geolocalisation.GetCoordinatesByLocation(myBand.Location);
-            myBand.Latitude = coord.latitude;
-            myBand.Longitude = coord.longitude;
+
+            ViewBag.sUsers = myBand.Users.Aggregate("", (current, item) => current + (item.User_ID.ToString() + ";")).TrimEnd(';');
+
+            ViewBag.sGenres = myBand.Genres.Aggregate("", (current, item) => current + (item.Genre_ID.ToString() + ";")).TrimEnd(';');
+
 
             return PartialView("_CreateConfirm", myBand);
         }
 
-        public ActionResult Confirm(string jsonBand)
+        public ActionResult Confirm(string bandName, string bandDesc, string bandLocation, string sGenres, string sUsers)
         {
-            var Model = (Band)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonBand);
+            var myBand = new Band
+            {
+                Name = bandName, Description = bandDesc, Location = bandLocation
+            };
+            myBand.Genres = GenreDao.GetGenresById(sGenres.Split(';').Select(n => Convert.ToInt32(n)).ToArray(), db);
+            myBand.Users = UserDao.GetUsersById(sUsers.Split(';').Select(n => Convert.ToInt32(n)).ToArray(), db);
+
+            var coord = Geolocalisation.GetCoordinatesByLocation(myBand.Location);
+            myBand.Latitude = coord.latitude;
+            myBand.Longitude = coord.longitude;
+
             var queryExistingBand = from Q in db.Bands
-                                    where Model.Name != null && Q.Name == Model.Name
+                                    where myBand.Name != null && Q.Name == myBand.Name
                                     select Q;
             var currentuser = GetAuthenticatedUser();
             if (queryExistingBand.Any())
@@ -81,20 +94,19 @@ namespace TrouveUnBand.Controllers
                 var existingBand = queryExistingBand.ToList()[0];
                 if (existingBand != null)
                 {
-                    TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, Model);
+                    TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, myBand);
                     db.Entry(existingBand).State = EntityState.Unchanged;
                 }
             }
 
             try
             {
-                var queryUsers = UserDao.GetUsersByList(Model.Users.ToList());
                 db.Database.Connection.Open();
-                db.Bands.Add(Model);
+                db.Bands.Add(myBand);
                 db.SaveChanges();
                 db.Database.Connection.Close();
 
-                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(Model);
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(myBand);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
