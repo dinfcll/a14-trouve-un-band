@@ -13,9 +13,9 @@
             <h3>Annonces</h3>
         </div>
         <div class="col-md-4">
-            @if(User.Identity.Name != "")
+            @if (User.Identity.Name != "")
             {
-                @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class="btn btn-primary col-md-6 col-md-pull-1" })
+                @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6 col-md-pull-1" })
                 @Html.ActionLink("Mes Annonces", "MyAdverts", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
             }
         </div>
@@ -46,26 +46,26 @@
                         </div>
                         <div class="col-md-4">
                             <div class="col-md-12 form-group">
-                                <span class="glyphicon glyphicon-calendar"></span> @Html.DisplayName(item.CreationDate.ToString("dd MMMM yyyy"))
+                                <span class="glyphicon glyphicon-calendar" style="font-size: 150%;"></span> @Html.DisplayName(item.CreationDate.ToString("dd MMMM yyyy"))
                             </div>
                             <div class="col-md-12 form-group">
-                                <span class="glyphicon glyphicon-music"></span>
+                                <span class="glyphicon glyphicon-music" style="font-size: 150%;"></span>
                                 <span>
                                     @{var i = 0;
-                                        var TextPopOver = "";
-                                        foreach (var genre in item.Genres)
-                                        {
-                                            TextPopOver += "<p>" + Html.DisplayName(genre.Name) + "</p>";
-                                            if (i < 1)
-                                            {
+                                      var TextPopOver = "";
+                                      foreach (var genre in item.Genres)
+                                      {
+                                          TextPopOver += "<p>" + Html.DisplayName(genre.Name) + "</p>";
+                                          if (i < 1)
+                                          {
                                                 @Html.DisplayName(genre.Name + ", ");
-                                            }
-                                            if (i == 1)
-                                            {
+                                          }
+                                          if (i == 1)
+                                          {
                                                 @Html.DisplayName(genre.Name + "");
-                                            }
-                                            i++;
-                                        }  
+                                          }
+                                          i++;
+                                      }  
                                     }  
                                     <a href="#" tabindex="0" role="button"
                                         data-toggle="popover" data-html="true" title="Genres de l'événement" data-content="@TextPopOver">
@@ -74,10 +74,23 @@
                                 </span>
                             </div>
                             <div class="col-md-12 form-group">
-                                <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(item.Location)
+                                <span class="glyphicon glyphicon-map-marker" style="font-size: 150%;"></span>@Html.DisplayName(item.Location)
                             </div>
                             <div class="col-md-12 form-group">
-                                <span class="glyphicon glyphicon-ok"></span> @Html.DisplayName(item.Status)
+                                <span class="glyphicon glyphicon-ok" style="font-size: 150%;"></span> @Html.DisplayName(item.Status)
+                            </div>
+                            <div class="col-md-12 form-group">
+                            @{
+                                foreach (var user in ViewBag.UsersListDB)
+                                {
+                                    if(user.User_ID == item.Creator_ID)
+                                    {
+                                        string name = user.FirstName + " " + user.LastName;
+                                        <span class="glyphicon glyphicon-user" style="font-size: 150%;"></span> @Html.DisplayName("Ouvert par:  " + name);
+                                    }
+                                }
+                                
+                            }
                             </div>
                         </div>
                         <div id="AdvertDesc" class="row col-md-5 form-group">
