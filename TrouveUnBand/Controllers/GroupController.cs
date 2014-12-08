@@ -63,11 +63,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult Create(string bandJSON)
         {
             var myBand = JsonToModel.ToBand(bandJSON);
-
             ViewBag.sUsers = myBand.Users.Aggregate("", (current, item) => current + (item.User_ID.ToString() + ";")).TrimEnd(';');
-
             ViewBag.sGenres = myBand.Genres.Aggregate("", (current, item) => current + (item.Genre_ID.ToString() + ";")).TrimEnd(';');
-
 
             return PartialView("_CreateConfirm", myBand);
         }
@@ -182,12 +179,7 @@ namespace TrouveUnBand.Controllers
 
         private bool CurrentUserIsAuthenticated()
         {
-            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                return true;
-            }
-
-            return false;
+            return System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
         }
 
         private User GetAuthenticatedUser()

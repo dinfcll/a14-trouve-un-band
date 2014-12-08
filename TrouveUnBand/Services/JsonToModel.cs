@@ -12,14 +12,12 @@ namespace TrouveUnBand.Services
 {
     public static class JsonToModel
     {
-
-
         public static Band ToBand(string stringJson)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
+            var js = new JavaScriptSerializer();
             dynamic jsBand = js.Deserialize<dynamic>(stringJson);
 
-            Band myBand = new Band();
+            var myBand = new Band();
 
             myBand.Name = jsBand["Name"];
             myBand.Location = jsBand["Location"];
