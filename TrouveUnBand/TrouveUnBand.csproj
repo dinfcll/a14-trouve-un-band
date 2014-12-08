@@ -237,6 +237,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\homepage.css" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\over-bootstrap.css" />
     <Content Include="Content\profile-page.css" />
@@ -312,6 +313,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\disable-search-ddl.js" />
     <Content Include="Scripts\holder.js" />
+    <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\ImageUpload.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />

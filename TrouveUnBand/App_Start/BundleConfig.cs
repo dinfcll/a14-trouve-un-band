@@ -25,6 +25,7 @@ namespace TrouveUnBand
                 "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
+                "~/Scripts/homepage.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
                 "~/Scripts/alert.js",
                 "~/Scripts/star-rating.js",
@@ -53,7 +54,8 @@ namespace TrouveUnBand
                  "~/Content/profile-page.css",
                  "~/Content/over-bootstrap.css",
                  "~/Content/jquery.Jcrop.css",
-                 "~/Content/timepicker.css"
+                 "~/Content/timepicker.css",
+                 "~/Content/homepage.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

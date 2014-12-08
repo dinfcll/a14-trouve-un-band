@@ -1,0 +1,18 @@
+﻿#home-jumbotron{
+    padding:0 !important;
+    margin-top:-40px;
+}
+
+#home-jumbotron img{
+    width:100%;
+}
+
+#home-jumbotron h1,
+#home-jumbotron h3,
+#home-jumbotron btn{
+    opacity:0.9;
+}
+
+#home-jumbotron .carousel-caption{
+        background-color: rgba(0,0,0,0.7);
+}
