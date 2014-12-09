@@ -21,7 +21,7 @@ namespace TrouveUnBand.Classes
         {
             this.User_ID = user.User_ID;
             this.Photo = user.Photo;
-            this.Name = user.FirstName + user.LastName;
+            this.Name = user.FirstName + " " + user.LastName;
             this.Description = user.Description;
             this.Location = user.Location;
             this.Type = "Musicien";
