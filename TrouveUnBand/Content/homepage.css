@@ -14,13 +14,15 @@
     background-color: rgba(0,0,0,0.7);
 }
 
-.home-content-container
-{
-}
-
 .home-section-header
 {
-    background-color: #333333;
+    text-align:center;
+}
+
+.home-section-header span,
+.home-section-header h1
+{
+    color:black !important;
 }
 
 .home-section-header span
@@ -31,24 +33,23 @@
     margin: 10px 20px;
 }
 
+.home-section
+{
+    padding: 60px 0px !important;
+}
+
 .home-section-content
 {
     margin-top: 30px;
 }
 
-.event-panel
-{
-    background-color: White;
-    border: 1px solid #DDD;
-    padding: 0 !important;
-}
-
-.event-panel-info
-{
-    margin-left: 10px;
-    padding-top:10px;
-}
-
 #popovercustom{
     width: 200px;
+}
+
+.home-colorgraph {
+  height: 3px;
+  border-top: 0;
+  background: #000;
+
 }

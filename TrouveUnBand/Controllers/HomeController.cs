@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using TrouveUnBand.Classes;
 using TrouveUnBand.Models;
 using TrouveUnBand.Services;
 using TrouveUnBand.ViewModels;
@@ -12,7 +13,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Index()
         {
-            Newsfeed();
+            HomePage();
             ViewBag.Message = "Modifiez ce modèle pour dynamiser votre application ASP.NET MVC.";
             RedirectToAction("Newsfeed");
             return View();
@@ -33,42 +34,48 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Newsfeed()
+        public ActionResult HomePage()
         {
-            var eventResults = new List<ResultViewModels>();
-            var usersResults = new List<ResultViewModels>();
-            var bandsResults = new List<ResultViewModels>();
-            var advertsResults = new List<ResultViewModels>();
-            
-            var events = EventDao.GetAllEvents();
-            foreach (var evenement in events)
-            {
-                eventResults.Add(new ResultViewModels(evenement));
-            }
+            var viewModel = new HomePageViewModel();
+            int i;
 
             var users = UserDao.GetAllUsers();
-            foreach (var user in users)
+            i = 0;
+            while (i < 8 && i < users.Count)
             {
-                usersResults.Add(new ResultViewModels(user));
+                var userInfo = new UserInfo(users[i]);
+                viewModel.UserList.Add(userInfo);
+                i++;
             }
 
             var bands = BandDao.GetAllBands();
-            foreach (var band in bands)
+            i = 0;
+            while (i < 8 && i < bands.Count)
             {
-                bandsResults.Add(new ResultViewModels(band));
+                var bandInfo = new BandInfo(bands[i]);
+                viewModel.BandList.Add(bandInfo);
+                i++;
+            }
+
+            var events = EventDao.GetAllEvents();
+            i = 0;
+            while (i < 5 && i < events.Count)
+            {
+                var eventInfo = new EventInfo(events[i]);
+                viewModel.EventList.Add(eventInfo);
+                i++;
             }
 
             var adverts = AdvertDao.GetAllAdverts();
-            foreach (var advert in adverts)
+            i = 0;
+            while (i < 5 && i < adverts.Count)
             {
-                advertsResults.Add(new ResultViewModels(advert));
+                var advertInfo = new AdvertInfo(adverts[i]);
+                viewModel.AdvertList.Add(advertInfo);
+                i++;
             }
 
-            ViewData["NewsfeedBand"] = bandsResults;
-            ViewData["NewsfeedUser"] = usersResults;
-            ViewData["NewsfeedEvent"] = eventResults;
-            ViewData["NewsfeedAdvert"] = advertsResults;
-            return View("index");
+            return View(viewModel);
         }
     }
 }
