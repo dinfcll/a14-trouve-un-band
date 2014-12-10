@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TrouveUnBand.Models;
 using TrouveUnBand.Classes;
 using TrouveUnBand.Services;
@@ -45,26 +41,12 @@ namespace TrouveUnBand.Test
         }
 
         [TestMethod]
-        public void TestAdvertDao()
-        {
-            //Given
-            int genre_id = 5;
-            int radius = 100;
-            string location = "Lévis";
-
-            //When 
-            var adverts = AdvertDao.GetAdverts(genre_id, null, location, radius);
-
-            //Then
-            //Assert.AreEqual(typeof(Advert), adverts);
-        }
-
-        [TestMethod]
         public void TestUserIsMusicianWithOnlyDescription()
         {
             //Given
             User newUser = new User();
             newUser.Description = "Allo";
+
             //When
             bool b = newUser.isMusician();
 
@@ -106,40 +88,6 @@ namespace TrouveUnBand.Test
             Band newBand = new Band();
 
             newUser.Bands.Add(newBand);
-
-            //When
-            bool b = newUser.IsBandMember();
-
-            //Then
-            Assert.IsTrue(b);
-        }
-
-        [TestMethod]
-        public void TestUserIsBandMember()
-        {
-            //Given
-            User newUser = new User();
-            Band newBand = new Band();
-
-            newUser.Bands.Add(newBand);
-
-            //When
-            bool b = newUser.IsBandMember();
-
-            //Then
-            Assert.IsTrue(b);
-        }
-
-        [TestMethod]
-        public void TestDisplayStockPhotoBasedOnGender()
-        {
-            //Given
-            User newUser = new User();
-            User currentUser = new User();
-
-            currentUser.Gender = "Femme";
-
-            newUser.Bands.Add(newUser);
 
             //When
             bool b = newUser.IsBandMember();
