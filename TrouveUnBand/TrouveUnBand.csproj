@@ -322,10 +322,10 @@
     <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\ImageUpload.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
-    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-1.11.2-ui.min.js" />
+    <Content Include="Scripts\jquery-2.1.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -477,6 +477,7 @@
     <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
     <Content Include="Views\Group\Confirm.cshtml" />
+    <None Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
