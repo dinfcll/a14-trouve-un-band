@@ -45,7 +45,7 @@ namespace TrouveUnBand.Controllers
                     returnCode = Insertcontact(userModel);
                     if (returnCode == "")
                     {
-                        TempData["success"] = AlertMessages.REGISTRATION_CONFIRMED;
+                        TempData["mgsSuccess"] = AlertMessages.REGISTRATION_CONFIRMED;
                         FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
@@ -56,7 +56,7 @@ namespace TrouveUnBand.Controllers
                 }
             }
 
-            TempData["TempDataError"] = returnCode;
+            TempData["mgsError"] = returnCode;
             return View();
         }
 
@@ -97,7 +97,7 @@ namespace TrouveUnBand.Controllers
             }
             catch(Exception ex)
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard."+ex;
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard.";
             }
         }
 
@@ -121,10 +121,10 @@ namespace TrouveUnBand.Controllers
                     FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }
-                TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+                TempData["mgsError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
                 return View();
             }
-            TempData["TempDataError"] = "";
+            TempData["mgsError"] = "";
             return View();
         }
 
@@ -206,11 +206,11 @@ namespace TrouveUnBand.Controllers
 
             if (returnCode == "")
             {
-                TempData["success"] = "Le profil a été mis à jour.";
+                TempData["mgsSuccess"] = "Le profil a été mis à jour.";
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["TempDataError"] = "Une erreur interne s'est produite";
+            TempData["mgsError"] = "Une erreur interne s'est produite";
             return RedirectToAction("ProfileModification", "Users");
         }
 
@@ -248,15 +248,15 @@ namespace TrouveUnBand.Controllers
 
                 if (isUpdated)
                 {
-                    TempData["success"] = "Le profil musicien a été mis à jour.";
+                    TempData["mgsSuccess"] = "Le profil musicien a été mis à jour.";
                     return RedirectToAction("Index", "Home");
                 }
 
-                TempData["TempDataError"] = "Une erreur interne s'est produite";
+                TempData["mgsError"] = "Une erreur interne s'est produite";
                 return RedirectToAction("ProfileModification", "Users");
             }
 
-            TempData["TempDataError"] = "Vous ne pouvez pas entrer deux fois le même instrument";
+            TempData["mgsError"] = "Vous ne pouvez pas entrer deux fois le même instrument";
             return RedirectToAction("ProfileModification", "Users");
         }
 
@@ -295,7 +295,7 @@ namespace TrouveUnBand.Controllers
 
             if (postedPhoto.ContentLength == 0)
             {
-                TempData["TempDataError"] = AlertMessages.POSTED_FILES_ERROR;
+                TempData["mgsError"] = AlertMessages.POSTED_FILES_ERROR;
                 return RedirectToAction("ProfileModification");
             }
 
@@ -305,7 +305,7 @@ namespace TrouveUnBand.Controllers
 
                 if(!Photo.IsPhoto(postedPhoto))
                 {
-                    TempData["TempDataError"] = AlertMessages.FILE_TYPE_INVALID;
+                    TempData["mgsError"] = AlertMessages.FILE_TYPE_INVALID;
                     return RedirectToAction("ProfileModification");
                 }
 
@@ -321,12 +321,12 @@ namespace TrouveUnBand.Controllers
                 loggedOnUser.Photo = savedPhotoPath;
                 db.SaveChanges();
 
-                TempData["success"] = AlertMessages.PICTURE_CHANGED;
+                TempData["mgsSuccess"] = AlertMessages.PICTURE_CHANGED;
                 return RedirectToAction("ProfileModification", "Users");
             }
             catch
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                TempData["mgsError"] = AlertMessages.INTERNAL_ERROR;
                 return RedirectToAction("ProfileModification");
             }
         }

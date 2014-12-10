@@ -91,7 +91,7 @@ namespace TrouveUnBand.Controllers
                 var existingBand = queryExistingBand.ToList()[0];
                 if (existingBand != null)
                 {
-                    TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, myBand);
+                    TempData["msgWarning"] = AlertMessages.EXISTING_BAND(existingBand, myBand);
                     db.Entry(existingBand).State = EntityState.Unchanged;
                 }
             }
@@ -103,12 +103,12 @@ namespace TrouveUnBand.Controllers
                 db.SaveChanges();
                 db.Database.Connection.Close();
 
-                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(myBand);
+                TempData["msgSuccess"] = AlertMessages.BAND_CREATION_SUCCESS(myBand);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                TempData["msgError"] = AlertMessages.INTERNAL_ERROR;
                 Console.WriteLine(ex.Message);
             }
             return RedirectToAction("Index", "Home");
@@ -119,7 +119,7 @@ namespace TrouveUnBand.Controllers
         {
             if (IsValidBand(model))
             {
-                TempData["TempDataError"] = AlertMessages.EMPTY_INPUT;
+                TempData["msgError"] = AlertMessages.EMPTY_INPUT;
                 return View("Create");
             }
 

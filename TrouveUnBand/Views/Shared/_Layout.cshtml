@@ -54,25 +54,25 @@
         </div><!--END NAVBAR-->
         <!--MAIN CONTENT-->
         <div class="page-alerts">
-            @if (TempData["TempDataError"] != null && TempData["TempDataError"] != "")
+            @if (TempData["mgsError"] != null && TempData["mgsError"] != "")
             {
                 <div class="alert alert-danger page-alert">
                     <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <span class="glyphicon glyphicon-ban-circle"></span><strong> Oops! </strong><span>@TempData["TempDataError"]</span>
+                    <span class="glyphicon glyphicon-ban-circle"></span><strong> Oops! </strong><span>@TempData["mgsError"]</span>
                 </div>
             }
-            @if (TempData["success"] != null && TempData["success"] != "")
+            @if (TempData["mgsSuccess"] != null && TempData["mgsSuccess"] != "")
             {
                 <div class="alert alert-success page-alert" id="alert-1">
                     <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <span class="glyphicon glyphicon-ok"></span><strong> Bravo! </strong><span>@TempData["success"]</span>
+                    <span class="glyphicon glyphicon-ok"></span><strong> Bravo! </strong><span>@TempData["mgsSuccess"]</span>
                 </div>
             }
-            @if (TempData["warning"] != null && TempData["warning"] != "")
+            @if (TempData["mgsWarning"] != null && TempData["mgsWarning"] != "")
             {
                 <div class="alert alert-warning page-alert" id="alert-2">
                     <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <span class="glyphicon glyphicon-asterisk"></span><strong> Attention </strong><span>@TempData["warning"]</span>
+                    <span class="glyphicon glyphicon-asterisk"></span><strong> Attention </strong><span>@TempData["mgsWarning"]</span>
                 </div>
             }
         </div>

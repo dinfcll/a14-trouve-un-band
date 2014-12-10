@@ -172,14 +172,14 @@ namespace TrouveUnBand.Controllers
                     existingEvent.Photo = savedPhotoPath;
                     db.SaveChanges();
 
-                    TempData["success"] = AlertMessages.PICTURE_CHANGED;
+                    TempData["msgSuccess"] = AlertMessages.PICTURE_CHANGED;
                 }
 
                 return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
             }
             catch
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                TempData["msgError"] = AlertMessages.INTERNAL_ERROR;
                 return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
             }
         }
