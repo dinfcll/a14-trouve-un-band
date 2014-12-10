@@ -3,12 +3,11 @@
     ViewBag.Title = "Page d'accueil";
 }
 <div class="home-container">
-
     <div id="home-jumbotron" class="jumbotron">
         <div id="home-carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="item active">
-                    <img id="homeImage" src="" alt="">
+                    <img id="homeImage" src="" alt="" />
                     <div class="carousel-caption">
                         <h1 class="col-md-12">
                             À la recherche d'un band?
@@ -31,21 +30,26 @@
             </div>
         </div>
     </div>
-
     <div class="home-content-container">
-
         <div class="home-section col-md-12">
             <div class="container">
                 <div class="home-section-header col-md-12">
-                    <h1>Derniers Musiciens Inscrits</h1>
+                    <h1>
+                        Derniers Musiciens Inscrits</h1>
                 </div>
                 <div class="home-section-content">
                     @foreach (var item in Model.UserList)
                     {
-                        <div class="home-thumbnail col-md-3">
-                            <img src="@item.Photo" alt=""/>
+                        <div class="home-thumbnail img-container-banner col-md-3">
+                            <div class="img-container-banner">
+                                <img src="@item.Photo" alt=""/>
+                                <p class="banner">
+                                    Nouveau!
+                                </p>
+                            </div>
                             <div class="home-thumbnail-middle">
-                                <p><strong>@item.Name</strong></p>
+                                <p>
+                                    <strong>@item.Name</strong></p>
                                 <p>@item.Location</p>
                             </div>
                         </div>
@@ -53,11 +57,11 @@
                 </div>
             </div>
         </div>
-
         <div class="home-section-invert home-band-section col-md-12">
             <div class="container">
                 <div class="home-section-header col-md-12">
-                    <h1>Derniers Groups Inscrits</h1>
+                    <h1>
+                        Derniers Groups Inscrits</h1>
                 </div>
                 <div class="home-section-content">
                     @foreach (var item in Model.UserList)
@@ -65,7 +69,8 @@
                         <div class="home-thumbnail-invert col-md-3">
                             <img src="@item.Photo" alt="" />
                             <div class="home-thumbnail-middle">
-                                <p><strong>@item.Name</strong></p>
+                                <p>
+                                    <strong>@item.Name</strong></p>
                                 <p>@item.Location</p>
                             </div>
                         </div>
@@ -73,30 +78,28 @@
                 </div>
             </div>
         </div>
-
         <div class="home-section col-md-12">
             <div class="container">
                 <div class="home-section-header col-md-6 col-md-offset-3">
-                    <h1 class="">Prochains Événements</h1>
-                    <h4>Pour ne rien rater</h4>
+                    <h1 class="">
+                        Prochains Événements</h1>
+                    <h4>
+                        Pour ne rien rater</h4>
                 </div>
                 <div class="home-section-content">
                     @foreach (var item in Model.EventList)
                     {
                         <div class="event-panel col-md-12">
                             <img src="@item.Photo" alt="Image" class="col-md-3">
-
                             <div class="event-panel-date col-md-2">
                                 <h3 class="col-md-3">@item.DayOfTheWeek</h3>
                                 <h1 class="col-md-12">@item.DayAndMonth</h1>
                             </div>
-
                             <div class="event-panel-info col-md-5">
                                 <span class="col-md-12">@item.Location</span>
                                 <h2 class="col-md-12">@item.Name</h2>
                                 <span class="col-md-12">Deicide</span>
                             </div>
-
                             <div class="event-panel-button col-md-2">
                                 @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary col-md-12 pull-right" })
                             </div>
@@ -105,38 +108,36 @@
                 </div>
             </div>
         </div>
-
         <div class="home-section-invert col-md-12">
             <div class="container">
                 <div class="home-section-header col-md-6 col-md-offset-3">
-                    <h1 class="">Dernières Annonces</h1>
-                    <h4>Ne manquez pas votre chance</h4>
+                    <h1 class="">
+                        Dernières Annonces</h1>
+                    <h4>
+                        Ne manquez pas votre chance</h4>
                 </div>
                 <div class="home-section-content">
-                    @foreach (var item in Model.EventList)
+                    @foreach (var item in Model.AdvertList)
                     {
                         <div class="event-panel col-md-12">
                             <img src="@item.Photo" alt="Image" class="col-md-3">
-
                             <div class="event-panel-date col-md-2">
-                                <h3 class="col-md-3">@item.DayOfTheWeek</h3>
-                                <h1 class="col-md-12">@item.DayAndMonth</h1>
+                                <h3 class="col-md-3">
+                                    Expiration/</h3>
+                                <h1 class="col-md-12">@item.ExpirationDate</h1>
                             </div>
-
                             <div class="event-panel-info col-md-5">
                                 <span class="col-md-12">@item.Location</span>
                                 <h2 class="col-md-12">@item.Name</h2>
-                                <span class="col-md-12">Deicide</span>
+                                <span class="col-md-12">@item.Status</span>
                             </div>
-
-                            <div class="event-panel-button col-md-2">
-                                @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary col-md-12 pull-right" })
+                            <div class="event-panel-button">
+                                <p>@item.Description</p>
                             </div>
                         </div>
                     }
                 </div>
             </div>
         </div>
-
     </div>
 </div>

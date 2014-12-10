@@ -14,6 +14,7 @@ namespace TrouveUnBand.Classes
         public string Description { get; set; }
         public string Location { get; set; }
         public string Status { get; set; }
+        public string ExpirationDate { get; set; }
 
         public virtual ICollection<Genre> Genres { get; set; }
 
@@ -26,6 +27,7 @@ namespace TrouveUnBand.Classes
             this.Location = advert.Location;
             this.Status = advert.Status;
             this.Genres = advert.Genres;
+            this.ExpirationDate = DateHelper.GetDayAndMonth(advert.ExpirationDate);
         }
     }
 }
