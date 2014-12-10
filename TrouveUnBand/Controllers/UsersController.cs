@@ -97,7 +97,7 @@ namespace TrouveUnBand.Controllers
             }
             catch(Exception ex)
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard."+ex;
+                return "Une erreur interne s'est produite. Veuillez réessayer plus tard.";
             }
         }
 

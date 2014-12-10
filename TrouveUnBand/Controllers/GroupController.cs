@@ -241,7 +241,6 @@ namespace TrouveUnBand.Controllers
             return true;
         }
 
-        [HttpGet]
         public ActionResult SearchMusician(string searchString)
         {
             var musicians = UserDao.SearchBandMembers(searchString);

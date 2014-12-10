@@ -35,7 +35,7 @@
                 }
             </select>
         }
-        @using (Ajax.BeginForm("SearchMusician", "Group", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "user-results" }))
+        @using (Ajax.BeginForm("SearchMusician", new AjaxOptions{HttpMethod = "Get", UpdateTargetId = "user-results"}))
         {
             @Html.TextBox("searchString", "", new { @class = "col-md-8"})
             <button type="submit" class="btn btn-default col-md-4">Rechercher un musician</button>
@@ -46,7 +46,7 @@
         </div>
 
         <div id="user-results" style="padding-top: 5em;"></div>
-    </div>
+        </div>
 
     <div id="ConfirmForm"></div>
 
