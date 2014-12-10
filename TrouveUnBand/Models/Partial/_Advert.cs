@@ -27,9 +27,9 @@ namespace TrouveUnBand.Models
             public string Description { get; set; }
             [Required(ErrorMessage = "Le status est obligatoire")]
             public string Status { get; set; }
-            public System.DateTime CreationDate { get; set; }
+            public string CreationDate { get; set; }
             [Required(ErrorMessage = "La date d'expiration de la demande est requise")]
-            public System.DateTime ExpirationDate { get; set; }
+            public string ExpirationDate { get; set; }
             [Required(ErrorMessage = "L'emplacement de la demande est requis")]
             public string Location { get; set; }
             public string Photo { get; set; }
