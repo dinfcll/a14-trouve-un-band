@@ -10,27 +10,27 @@ namespace TrouveUnBand.Controllers
     public class baseController : Controller
     {
         public void Success(string message, bool dismissable = false)
-    {
-        AddAlert(Styles.Success, message, dismissable);
-    }
+        {
+            AddAlert(Styles.Success, message, dismissable);
+        }
 
-    public void Information(string message, bool dismissable = false)
-    {
-        AddAlert(Styles.Information, message, dismissable);
-    }
+        public void Information(string message, bool dismissable = false)
+        {
+            AddAlert(Styles.Information, message, dismissable);
+        }
 
-    public void Warning(string message, bool dismissable = false)
-    {
-        AddAlert(Styles.Warning, message, dismissable);
-    }
+        public void Warning(string message, bool dismissable = false)
+        {
+            AddAlert(Styles.Warning, message, dismissable);
+        }
 
-    public void Danger(string message, bool dismissable = false)
-    {
-        AddAlert(Styles.Danger, message, dismissable);
-    }
+        public void Danger(string message, bool dismissable = false)
+        {
+            AddAlert(Styles.Danger, message, dismissable);
+        }
 
-    private void AddAlert(string alertStyle, string message, bool dismissable)
-    {
+        private void AddAlert(string alertStyle, string message, bool dismissable)
+        {
         var alerts = TempData.ContainsKey(Alert.TempDataKey)
             ? (List<Alert>)TempData[Alert.TempDataKey]
             : new List<Alert>();
