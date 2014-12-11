@@ -53,7 +53,7 @@ namespace TrouveUnBand.Controllers
                 }
                 else
                 {
-                    returnCode = "Le mot de passe et sa confirmation ne sont pas identiques.";
+                    returnCode = Messages.PASSWORD_NOT_MATCHING;
                 }
             }
 
@@ -94,11 +94,11 @@ namespace TrouveUnBand.Controllers
                     return "";
                 }
 
-                return "L'utilisateur existe déjà";
+                return Messages.EXISTING_USER(userbd);
             }
             catch(Exception ex)
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard.";
+                return Messages.INTERNAL_ERROR;
             }
         }
 
