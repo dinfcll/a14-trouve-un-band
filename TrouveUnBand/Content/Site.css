@@ -292,3 +292,10 @@ display: inline;
 .popover{
     width:200px;
 }
+
+/* Band Edit */
+
+#EditBandSubmit {
+    position: relative;
+    top: 50px;
+}

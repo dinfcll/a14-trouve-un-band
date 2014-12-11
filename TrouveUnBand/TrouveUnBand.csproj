@@ -235,6 +235,8 @@
     <Compile Include="Services\GenreDao.cs" />
     <Compile Include="Services\JsonToModel.cs" />
     <Compile Include="Services\UserDao.cs" />
+    <Compile Include="ViewModels\BandMembersViewModel.cs" />
+    <Compile Include="ViewModels\MusicianFinderViewModel.cs" />
     <Compile Include="ViewModels\ResultViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -478,6 +480,7 @@
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
     <Content Include="Views\Group\Confirm.cshtml" />
     <None Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Views\Group\_MusicianTable.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

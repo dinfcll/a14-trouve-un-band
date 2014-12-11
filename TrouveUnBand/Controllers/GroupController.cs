@@ -12,6 +12,7 @@ using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 using TrouveUnBand.Services;
 using TrouveUnBand.Classes;
+using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {
@@ -50,6 +51,8 @@ namespace TrouveUnBand.Controllers
             var user = GetAuthenticatedUser();
             var bandMember = GetAuthenticatedBandMember();
 
+            InitialiseSessionForBandMembers();
+
             ViewBag.AuthenticatedUser = new JavaScriptSerializer().Serialize(bandMember);
             ViewBag.Subgenres = subgenres;
 
@@ -60,13 +63,79 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string bandJSON)
+        public ActionResult Create(Band band, string[] cbSelectedGenres)
         {
-            var myBand = JsonToModel.ToBand(bandJSON);
-            ViewBag.sUsers = myBand.Users.Aggregate("", (current, item) => current + (item.User_ID.ToString() + ";")).TrimEnd(';');
-            ViewBag.sGenres = myBand.Genres.Aggregate("", (current, item) => current + (item.Genre_ID.ToString() + ";")).TrimEnd(';');
+            foreach (var genreName in cbSelectedGenres)
+            {
+                var genre = db.Genres.FirstOrDefault(x => x.Name == genreName);
+                band.Genres.Add(genre);
+            }
 
-            return PartialView("_CreateConfirm", myBand);
+            foreach (var musician in (List<BandMemberModel>)Session["BandMembers"])
+            {
+                var user = db.Users.FirstOrDefault(x => x.User_ID == musician.User_ID);
+                band.Users.Add(user);
+            }
+
+            return PartialView("_CreateConfirm", band);
+        }
+
+        public ActionResult AddBandMember(int userId)
+        {
+            AddBandMemberToSession(userId);
+            return PartialView("_MusicianTable");
+        }
+
+        public ActionResult RemoveBandMember(int userId)
+        {
+            RemoveBandMemberFromSession(userId);
+            return PartialView("_MusicianTable");
+        }
+
+        private bool AddBandMemberToSession(int userId)
+        {
+            var bandMembers = (List<BandMemberModel>)Session["BandMembers"];
+
+            if (bandMembers.Any(x => x.User_ID == userId))
+            {
+                return false;
+            }
+
+            var member = (from users in db.Users
+                          where users.User_ID == userId
+                          select new BandMemberModel
+                          {
+                              User_ID = users.User_ID,
+                              FirstName = users.FirstName,
+                              LastName = users.LastName,
+                              Location = users.Location
+                          }).FirstOrDefault();
+
+            bandMembers.Add(member);
+            Session["BandMembers"] = bandMembers;
+
+            return true;
+        }
+
+        private bool RemoveBandMemberFromSession(int userId)
+        {
+            var bandMembers = (List<BandMemberModel>)Session["BandMembers"];
+
+            if (!bandMembers.Any(x => x.User_ID == userId))
+            {
+                return false;
+            }
+
+            var memberToRemove = bandMembers.FirstOrDefault(x => x.User_ID == userId);
+            bandMembers.Remove(memberToRemove);
+            Session["BandMembers"] = bandMembers;
+
+            return true;
+        }
+
+        private void InitialiseSessionForBandMembers()
+        {
+            Session["BandMembers"] = new List<BandMemberModel>();
         }
 
         public ActionResult Confirm(string bandName, string bandDesc, string bandLocation, string sGenres, string sUsers)
@@ -126,14 +195,17 @@ namespace TrouveUnBand.Controllers
             return View("index");
         }
 
-
         public ActionResult Edit(int id = 0)
         {
             var band = db.Bands.Find(id);
+            ViewBag.Members = band.Users.Select(x => x.User_ID);
+            ViewBag.Subgenres = GenreDao.GetAllSubgenresByGenres();
+
             if (band == null)
             {
                 return HttpNotFound();
             }
+
             return View(band);
         }
 
@@ -170,13 +242,13 @@ namespace TrouveUnBand.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        /*
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
-
+        */
         private bool CurrentUserIsAuthenticated()
         {
             return System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
@@ -244,10 +316,14 @@ namespace TrouveUnBand.Controllers
         public ActionResult SearchMusician(string searchString)
         {
             var musicians = UserDao.SearchBandMembers(searchString);
-            ViewBag.Results = musicians;
-            ViewBag.ResultsCount = musicians.Count;
+            BandMembersViewModel potentialMembers = new BandMembersViewModel();
 
-            return PartialView("_MusicianFinder");
+            foreach (var musician in musicians)
+            {
+                potentialMembers.addPotentialMember(musician);
+            }
+
+            return PartialView("_MusicianFinder", potentialMembers);
         }
     }
 }

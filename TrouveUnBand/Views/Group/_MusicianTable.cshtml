@@ -1,0 +1,17 @@
+﻿@using TrouveUnBand.Models
+
+<tr>
+    <th>Nom de musicen</th>
+    <th>Ville</th>
+    <th>Option</th>
+</tr>
+
+@foreach (var member in (List<BandMemberModel>)Session["BandMembers"])
+{
+    <tr>
+        <td class="hidden">@member.User_ID</td>
+        <td>@member.FirstName @member.LastName</td>
+        <td>@member.Location</td>
+        <td>@Ajax.ActionLink("Retirer", "RemoveBandMember", new { userId = member.User_ID }, new AjaxOptions { UpdateTargetId="band-members"})</td>
+    </tr>
+}
