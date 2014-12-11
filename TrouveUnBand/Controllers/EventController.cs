@@ -15,7 +15,7 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class EventController : Controller
+    public class EventController : baseController
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
@@ -36,6 +36,10 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
+            if (!CurrentUserIsAuthenticated())
+            {
+                return View("../Shared/Authentication");
+            }
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             ViewBag.BandsListDB = new List<Band>(db.Bands);
             return View();
