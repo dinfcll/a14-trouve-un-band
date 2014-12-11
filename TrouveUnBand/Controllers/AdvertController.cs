@@ -28,6 +28,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult MyAdverts()
         {
+            return View("../Shared/Authentication");
             ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());

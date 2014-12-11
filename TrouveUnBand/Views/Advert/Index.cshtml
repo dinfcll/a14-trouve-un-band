@@ -9,11 +9,8 @@
                 Annonces</h3>
         </div>
         <div class="col-md-4">
-            @if (User.Identity.Name != "")
-            {
                 @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6 col-md-pull-1" })
                 @Html.ActionLink("Mes Annonces", "MyAdverts", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
-            }
         </div>
     </div>
 </div>

@@ -29,9 +29,8 @@ namespace TrouveUnBand.Controllers
                 {
                     myBands = currentUser.Bands.ToList();
                 }
-                return View(myBands);
             }
-            return View("../Shared/Authentication");
+            return View(myBands);
         }
 
         public ActionResult Details(int id = 0)
@@ -47,6 +46,8 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            if(!CurrentUserIsAuthenticated())
+                return View("../Shared/Authentication");
             var subgenres = GenreDao.GetAllSubgenresByGenres();
             var user = GetAuthenticatedUser();
             var bandMember = GetAuthenticatedBandMember();
