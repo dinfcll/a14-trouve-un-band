@@ -10,7 +10,7 @@ using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {
-    public class SearchController : baseController
+    public class SearchController : BaseController
     {
         private const int LATEST = 1;
         private const int MOST_POPULAR = 2;

@@ -11,7 +11,7 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class UsersController : baseController
+    public class UsersController : BaseController
     {
         public ActionResult NewProfilePage()
         {

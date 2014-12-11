@@ -6,7 +6,7 @@ using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {
-    public class HomeController : baseController
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {

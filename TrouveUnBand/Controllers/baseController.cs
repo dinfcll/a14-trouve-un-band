@@ -8,7 +8,7 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class baseController : Controller
+    public class BaseController : Controller
     {
         protected TrouveUnBandEntities db = new TrouveUnBandEntities();
 

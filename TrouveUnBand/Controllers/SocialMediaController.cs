@@ -7,7 +7,7 @@ using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Controllers
 {
-    public class SocialMediaController : baseController
+    public class SocialMediaController : BaseController
     {
         public ActionResult Index()
         {

@@ -15,7 +15,7 @@ using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {
-    public class GroupController : baseController
+    public class GroupController : BaseController
     {
         public ActionResult Index()
         {

@@ -15,7 +15,7 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class EventController : baseController
+    public class EventController : BaseController
     {
         public ActionResult Index()
         {
