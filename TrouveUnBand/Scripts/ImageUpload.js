@@ -4,6 +4,7 @@ var cropPointX = 0;
 var cropPointY = 0;
 var modal;
 var isClosedByButton = false;
+var image = new Image();
 
 if ($("#CropperDialog")[0]) {
     modal = $("#CropperDialog");
@@ -34,26 +35,21 @@ modal.on("hidden.bs.modal", function (e) {
     return;
 });
 
+image.onload = function () {
+    resizeImage(this);
+    $("#PicToCrop").attr("src", this.src);
+    initCrop();
+};
+
 function readURL(input) {
     if (input.files && input.files[0]) {
 
         var reader = new FileReader();
-        var image = new Image();
         var imageSrc;
 
         reader.onload = function (event) {
             imageSrc = event.target.result;
             image.src = imageSrc;
-
-            image.onload = function () {
-                var imgWidth = this.width;
-                var imgHeight = this.height;
-
-                imageSrc = resizeImage(image);
-
-                $("#PicToCrop").attr("src", imageSrc);
-                initCrop();
-            };
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -114,7 +110,6 @@ function resizeImage(image) {
     var MAX_HEIGHT = 600;
     var MIN_WIDTH = 250;
     var MIN_HEIGHT = 172;
-    var canvas = document.createElement("canvas");
 
     if (width < MIN_WIDTH) {
         height *= MIN_WIDTH / width;
@@ -136,14 +131,10 @@ function resizeImage(image) {
         height = MAX_HEIGHT;
      }
 
-    canvas.width = width;
-    canvas.height = height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(image, 0, 0, width, height);
+    $("#PicToCrop").attr("width", width);
+    $("#PicToCrop").attr("height", height);
 
     setModalWidth(width);
-
-    return canvas.toDataURL();
 }
 
 function setModalWidth(modalWidth) {
@@ -162,4 +153,18 @@ function setModalButton() {
 $("#sendButton").click(function () {
     isClosedByButton = true;
     $("#CropperDialog").modal("hide");
+});
+
+$("#photo-URL-btn").click(function () {
+    var photoSrc = $("#PhotoSrcInput").val();
+
+    if (photoSrc.length === 0) {
+        alert("Veuillez inscrire l'URL d'une photo");
+        return;
+    }
+
+    image.src = photoSrc;
+    $("#PhotoSrc").val(photoSrc);
+
+    $("#CropperDialog").modal("show");
 });
