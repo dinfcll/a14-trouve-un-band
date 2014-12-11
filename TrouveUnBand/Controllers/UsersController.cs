@@ -14,6 +14,11 @@ namespace TrouveUnBand.Controllers
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
+        public ActionResult NewProfilePage()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -71,7 +76,12 @@ namespace TrouveUnBand.Controllers
 
                 if (validUserQuery == null)
                 {
-                    userbd.Photo = Photo.StockPhoto;
+                    userbd.Photo = Photo.USER_STOCK_PHOTO_MALE;
+                    if(userbd.Gender == "Femme")
+                    {
+                        userbd.Photo = Photo.USER_STOCK_PHOTO_FEMALE;
+                    }
+
                     userbd.Password = Encrypt(userbd.Password);
                     userbd = Geolocalisation.SetUserLocation(userbd);
 
@@ -272,15 +282,14 @@ namespace TrouveUnBand.Controllers
         public string GetPhotoSrc()
         {
             var loggedOnUser = GetUserInfo(User.Identity.Name);
-            var profilePhoto = new Photo {PhotoArray = loggedOnUser.Photo};
-            return profilePhoto.PhotoSrc;
+            return loggedOnUser.Photo;
         }
 
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult CropImage(User userPicture)
+        public virtual ActionResult CropImage(User userWithPhoto)
         {
             var postedPhoto = Request.Files[0];
 
@@ -302,14 +311,14 @@ namespace TrouveUnBand.Controllers
 
                 Image image = Image.FromStream(postedPhoto.InputStream, true, true);
 
-                if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
+                if (image.Width < 250 || image.Height < 172 || image.Width > 800 || image.Height > 600)
                 {
-                    image = PhotoResizer.ResizeImage(image, 172, 250, 413, 600);
+                    image = PhotoResizer.ResizeImage(image, 250, 172, 800, 600);
                 }
 
-                byte[] croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);
-
-                loggedOnUser.Photo = croppedPhoto;
+                var croppedPhoto = PhotoCropper.CropImage(image, userWithPhoto.ProfilePicture.CropRect);
+                var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, loggedOnUser.Nickname, FileHelper.Category.USER_PROFILE_PHOTO);
+                loggedOnUser.Photo = savedPhotoPath;
                 db.SaveChanges();
 
                 TempData["success"] = AlertMessages.PICTURE_CHANGED;
@@ -333,8 +342,18 @@ namespace TrouveUnBand.Controllers
             currentUser.FirstName = newUser.FirstName;
             currentUser.LastName = newUser.LastName;
             currentUser.BirthDate = newUser.BirthDate;
-            currentUser.Gender = newUser.Gender;
             currentUser.Email = newUser.Email;
+
+            if (currentUser.Gender != newUser.Gender &&
+                currentUser.Photo.Contains("_stock_user_"))
+            {
+                currentUser.Photo = Photo.USER_STOCK_PHOTO_MALE;
+                if(newUser.Gender == "Femme")
+                {
+                    currentUser.Photo = Photo.USER_STOCK_PHOTO_FEMALE;
+                }
+            }
+            currentUser.Gender = newUser.Gender;
         }
 
         private bool SaveUpdatedUser()

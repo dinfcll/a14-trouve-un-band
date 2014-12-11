@@ -11,6 +11,9 @@ namespace TrouveUnBand.Models
     [MetadataType(typeof(Event.EventMetadata))]
     public partial class Event
     {
+        [NotMapped]
+        public Photo PhotoCrop { get; set; }
+
         public sealed class EventMetadata
         {
             public int Event_ID { get; set; }
@@ -21,9 +24,10 @@ namespace TrouveUnBand.Models
             [Required(ErrorMessage = "Ce champ est requis")]
             public string Address { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
+            [RegularExpression(@"^[a-zäáàâëéèêíìöóòôúùñçA-ZÂÄÀÊËÈÉÌÔÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
             public string City { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
+            [DataType(DataType.Time)]
             public System.DateTime EventDate { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
@@ -36,7 +40,7 @@ namespace TrouveUnBand.Models
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^[PMLpml]{1}$", ErrorMessage = "Doit être P, M ou L")]
             public string StageSize { get; set; }
-            public byte[] Photo { get; set; }
+            public string Photo { get; set; }
             public string Creator_ID { get; set; }
         }
     }
