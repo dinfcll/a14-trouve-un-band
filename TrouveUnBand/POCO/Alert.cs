@@ -13,7 +13,6 @@ namespace TrouveUnBand.POCO
         {
             return String.Format("{0} a été créé avec succès.", band.Name);
         }
-
         public static string PROFILE_UPDATED = "Le profil a été mis à jour.";
         public static string MUSICIAN_PROFILE_UPDATED = "Le profil musicien a été mis à jour.";
         //INFO
@@ -31,14 +30,12 @@ namespace TrouveUnBand.POCO
         {
             return String.Format("le nom de band {0} ({1}) existe déjà. Il sera différencié par sa location: {2} ({3}).", OldBand.Name, OldBand.Location, NewBand.Name, NewBand.Location);
         }
-
         public static string INSTRUMENT_ALREADY_SELECTED = "Vous ne pouvez pas sélectionner deux fois le même instrument";
         //DANGER
         public static string EXISTING_USER(User user)
         {
             return String.Format("L'utilisateur {0} existe déja", user.Nickname);
         }
-
         public static string NOT_CONNECTED = "Vous n'êtes pas connecté. Veuillez vous connecter ou vous enregistrer.";
         public static string NOT_MUSICIAN = "Aucun profile musicien n'est associé a votre compte.";
         public static string INTERNAL_ERROR = "Une erreur interne s'est produite, veuillez réessayer plus tard.";
@@ -55,7 +52,6 @@ namespace TrouveUnBand.POCO
     public class Alert
     {
         public const string TempDataKey = "TempDataAlerts";
-
         public string AlertStyle { get; set; }
         public string Message { get; set; }
         public bool Dismissable { get; set; }
