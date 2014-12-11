@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services.Description;
 using TrouveUnBand.Models;
 using System.Drawing;
 using TrouveUnBand.Classes;
@@ -10,9 +11,14 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : baseController
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
+
+        public ActionResult NewProfilePage()
+        {
+            return View();
+        }
 
         public ActionResult Index()
         {
@@ -40,18 +46,18 @@ namespace TrouveUnBand.Controllers
                     returnCode = Insertcontact(userModel);
                     if (returnCode == "")
                     {
-                        TempData["success"] = AlertMessages.REGISTRATION_CONFIRMED;
+                        Success(Messages.REGISTRATION_CONFIRMED,true);
                         FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    returnCode = "Le mot de passe et sa confirmation ne sont pas identiques.";
+                    returnCode = Messages.PASSWORD_NOT_MATCHING;
                 }
             }
 
-            TempData["TempDataError"] = returnCode;
+            Danger(returnCode,true);
             return View();
         }
 
@@ -71,7 +77,12 @@ namespace TrouveUnBand.Controllers
 
                 if (validUserQuery == null)
                 {
-                    userbd.Photo = Photo.StockPhoto;
+                    userbd.Photo = Photo.USER_STOCK_PHOTO_MALE;
+                    if(userbd.Gender == "Femme")
+                    {
+                        userbd.Photo = Photo.USER_STOCK_PHOTO_FEMALE;
+                    }
+
                     userbd.Password = Encrypt(userbd.Password);
                     userbd = Geolocalisation.SetUserLocation(userbd);
 
@@ -83,11 +94,11 @@ namespace TrouveUnBand.Controllers
                     return "";
                 }
 
-                return "L'utilisateur existe déjà";
+                return Messages.EXISTING_USER(userbd);
             }
             catch(Exception ex)
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard."+ex;
+                return Messages.INTERNAL_ERROR;
             }
         }
 
@@ -111,10 +122,9 @@ namespace TrouveUnBand.Controllers
                     FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }
-                TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+                Danger(Messages.INVALID_LOGIN,true);
                 return View();
             }
-            TempData["TempDataError"] = "";
             return View();
         }
 
@@ -166,7 +176,7 @@ namespace TrouveUnBand.Controllers
             }
             catch
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+                return Messages.INVALID_LOGIN;
             }
         }
 
@@ -196,11 +206,11 @@ namespace TrouveUnBand.Controllers
 
             if (returnCode == "")
             {
-                TempData["success"] = "Le profil a été mis à jour.";
+                Success(Messages.PROFILE_UPDATED,true);
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["TempDataError"] = "Une erreur interne s'est produite";
+            Danger(Messages.INTERNAL_ERROR, true);
             return RedirectToAction("ProfileModification", "Users");
         }
 
@@ -238,15 +248,15 @@ namespace TrouveUnBand.Controllers
 
                 if (isUpdated)
                 {
-                    TempData["success"] = "Le profil musicien a été mis à jour.";
+                    Success(Messages.MUSICIAN_PROFILE_UPDATED,true);
                     return RedirectToAction("Index", "Home");
                 }
 
-                TempData["TempDataError"] = "Une erreur interne s'est produite";
+                Danger(Messages.INTERNAL_ERROR);
                 return RedirectToAction("ProfileModification", "Users");
             }
 
-            TempData["TempDataError"] = "Vous ne pouvez pas entrer deux fois le même instrument";
+            Warning(Messages.INSTRUMENT_ALREADY_SELECTED,true);
             return RedirectToAction("ProfileModification", "Users");
         }
 
@@ -272,21 +282,20 @@ namespace TrouveUnBand.Controllers
         public string GetPhotoSrc()
         {
             var loggedOnUser = GetUserInfo(User.Identity.Name);
-            var profilePhoto = new Photo {PhotoArray = loggedOnUser.Photo};
-            return profilePhoto.PhotoSrc;
+            return loggedOnUser.Photo;
         }
 
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult CropImage(User userPicture)
+        public virtual ActionResult CropImage(User userWithPhoto)
         {
             var postedPhoto = Request.Files[0];
 
             if (postedPhoto.ContentLength == 0)
             {
-                TempData["TempDataError"] = AlertMessages.POSTED_FILES_ERROR;
+                Danger(Messages.POSTED_FILES_ERROR,true);
                 return RedirectToAction("ProfileModification");
             }
 
@@ -296,28 +305,28 @@ namespace TrouveUnBand.Controllers
 
                 if(!Photo.IsPhoto(postedPhoto))
                 {
-                    TempData["TempDataError"] = AlertMessages.FILE_TYPE_INVALID;
+                    Danger(Messages.FILE_TYPE_INVALID,true);
                     return RedirectToAction("ProfileModification");
                 }
 
                 Image image = Image.FromStream(postedPhoto.InputStream, true, true);
 
-                if (image.Height < 172 || image.Width < 250 || image.Height > 413 || image.Width > 600)
+                if (image.Width < 250 || image.Height < 172 || image.Width > 800 || image.Height > 600)
                 {
-                    image = PhotoResizer.ResizeImage(image, 172, 250, 413, 600);
+                    image = PhotoResizer.ResizeImage(image, 250, 172, 800, 600);
                 }
 
-                byte[] croppedPhoto = PhotoCropper.CropImage(image, userPicture.ProfilePicture.CropRect);
-
-                loggedOnUser.Photo = croppedPhoto;
+                var croppedPhoto = PhotoCropper.CropImage(image, userWithPhoto.ProfilePicture.CropRect);
+                var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, loggedOnUser.Nickname, FileHelper.Category.USER_PROFILE_PHOTO);
+                loggedOnUser.Photo = savedPhotoPath;
                 db.SaveChanges();
 
-                TempData["success"] = AlertMessages.PICTURE_CHANGED;
+                Success(Messages.PICTURE_CHANGED,true);
                 return RedirectToAction("ProfileModification", "Users");
             }
             catch
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Danger(Messages.INTERNAL_ERROR,true);
                 return RedirectToAction("ProfileModification");
             }
         }
@@ -333,8 +342,18 @@ namespace TrouveUnBand.Controllers
             currentUser.FirstName = newUser.FirstName;
             currentUser.LastName = newUser.LastName;
             currentUser.BirthDate = newUser.BirthDate;
-            currentUser.Gender = newUser.Gender;
             currentUser.Email = newUser.Email;
+
+            if (currentUser.Gender != newUser.Gender &&
+                currentUser.Photo.Contains("_stock_user_"))
+            {
+                currentUser.Photo = Photo.USER_STOCK_PHOTO_MALE;
+                if(newUser.Gender == "Femme")
+                {
+                    currentUser.Photo = Photo.USER_STOCK_PHOTO_FEMALE;
+                }
+            }
+            currentUser.Gender = newUser.Gender;
         }
 
         private bool SaveUpdatedUser()

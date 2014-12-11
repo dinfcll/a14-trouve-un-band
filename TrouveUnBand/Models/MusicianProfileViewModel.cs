@@ -9,7 +9,7 @@ namespace TrouveUnBand.Models
 {
     public class MusicianProfileViewModel
     {
-        public Photo ProfilePicture { get; set; }
+        public string Photo { get; set; }
 
         //Musician
         public int Id { get; set; }
@@ -30,7 +30,6 @@ namespace TrouveUnBand.Models
         public MusicianProfileViewModel()
         {
             InstrumentInfo = new Musician_Instrument();
-            ProfilePicture = new Photo();
         }
      }
 

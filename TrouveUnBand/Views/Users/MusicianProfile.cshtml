@@ -1,125 +1,244 @@
 ﻿@model TrouveUnBand.Models.MusicianProfileViewModel
 @{
-    ViewBag.Title = "MusicianProfil";
-    int i;
+    ViewBag.Title = "Profil de " + @Model.Name ;
 }
 
-<div class="profile-container">
-    <div class="jumbotron col-md-12">
-        <div class="thumbnail card col-md-3">
-            <a href="#" data-toggle="modal" data-target="#PicModal">
-                <img id="ProfilePic" alt="" src="@Model.ProfilePicture.PhotoSrc" width="250" class="photo" />
-            </a>
+<div class="row">
+    <div class="col-md-3 profile-section profile-quickinfo-tab">
+        <div class="profile-header profile-header-sidebar">
+            <strong>@Model.Name</strong>
         </div>
-        <div class="col-md-9 profile-header-info">
-            <ul class="list-unstyled">
-                <li>
-                    <span class="label label-primary pull-right label-profile-type">Musicien</span>
-                    <h1>@Model.Name</h1>
-                </li>
-                <li>
-                    <span class="glyphicon glyphicon-map-marker"></span><span>@Model.Location</span>
-                </li>
-                <li>
-                    <span class="glyphicon glyphicon-music"></span><span>Rock, Christian Rock, Métal, Blues, Country</span>
-                </li>
-                <li>
-                    <span class="glyphicon glyphicon-user"></span>
-                    @{
-                        i = 0;
-                        while (i < 5 && i < Model.InstrumentInfo.InstrumentNames.Count)
-                        {
-                            <span class="label label-default" data-toggle="tooltip" data-placement="top" title="@Model.InstrumentInfo.Skills[i]">
-                                @Model.InstrumentInfo.InstrumentNames[i]
-                            </span>
-                            i++;
-                        }
-                    }
-                    <div class="pull-right">
-                        <span class="glyphicon glyphicon-eye-open"></span><span>Groupe, Promoteur</span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="profile-info-container col-md-12">
-        <div class="profile-tab-menu col-md-3">
-            <div class="list-group">
-                <a href="#" class="list-group-item text-center active">
-                    <span class="glyphicon glyphicon-play col-md-12"></span>
-                    <span>Media (Soundcloud/Youtube)</span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class="glyphicon glyphicon-user col-md-12"></span>
-                    <span>Description</span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class=" glyphicon glyphicon-eye-open col-md-12"></span>
-                    <span>Recherche </span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class="glyphicon glyphicon-picture col-md-12"></span>
-                    <span>Photos</span>
-                </a>
-
-                <a href="#" class="list-group-item text-center">
-                    <span class="glyphicon glyphicon-envelope col-md-12"></span>
-                    <span>Contacter</span>
-                </a>
+        <div class="profile-content">
+        <a href="#" data-toggle="modal" data-target="#PicModal">
+            <img id="profile-main-pic" alt="" src="@Model.Photo" class="photo" />
+        </a>
+                 
+            <div class="profile-user-quickinfo">
+                <ul class="list-unstyled">
+                    <li><span>@Model.Name</span></li>
+                    <li>@Model.Location</li>
+                    <li>Musicien</li>
+                    <li>Style</li>
+                    <li>@Model.InstrumentInfo.InstrumentNames[0]</li>
+                    <li>Recherche</li>
+                </ul>
             </div>
         </div>
-        <!--Media-->
-        <div class="profile-tab-content col-md-9 active">
-            <center>
-                <h1 class="glyphicon glyphicon-play" style="font-size: 12em; color: #000000"></h1>
-                <h2 style="margin-top: 0; color: #000000">
-                    Bientôt
-                </h2>
-                <h3 style="margin-top: 0; color: #000000">
-                    Disponible
-                </h3>
-            </center>
+    </div>
+    <div id="profile-main-tab" class="col-md-7">
+        <div class="profile-main-content col-md-12">
+            <div id="information" class="profile-section col-md-12">
+                <div class="profile-tab-header">
+                    <span class="glyphicon glyphicon-info-sign"></span><strong>Informations</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
+                </div>
+
+                <div class="profile-tab-content">
+                    @Html.Partial("../Users/_MusicianProfileInfo", Model)
+                </div>
+            </div>
+
+            <div id="listen" class="profile-section col-md-12">
+                <div class="profile-tab-header">
+                    <span class="glyphicon glyphicon-headphones"></span><strong>Écouter</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
+                </div>
+                <div class="profile-tab-content">
+                </div>
+            </div>
+
+            <div id="seeking" class="profile-section col-md-12">
+                <div class="profile-tab-header">
+                    <span class="glyphicon glyphicon-eye-open"></span><strong>Recherche</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
+                </div>
+
+                <div class="profile-tab-content">
+                </div>
+            </div>
+
+            <div id="photo" class="profile-section col-md-12">
+                <div class="profile-tab-header">
+                    <span class="glyphicon glyphicon-picture"></span><strong>Photo</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
+                </div>
+
+                <div class="profile-tab-content">
+                    @Html.Partial("../Photo/_PhotoAlbum", Model.Photo)
+                </div>
+            </div>
+
+            <div id="contact" class="profile-section col-md-12">
+                <div class="profile-tab-header">
+                    <span class="glyphicon glyphicon-envelope"></span><strong>Contacter</strong>
+                    <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right"></i>
+                </div>
+
+                <div class="profile-tab-content">
+                    <center>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                        <p>
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                            Lorem... Lorem... Lorem... Lorem... Lorem... Lorem... Lorem...
+                        </p>
+                    </center>
+                </div>
+            </div>
         </div>
-        <!--Media end-->
-        <!--Desccription-->
-        <div class="profile-tab-content col-md-9">
-            @Html.Partial("../Users/_MusicianProfileInfo", Model)
+    </div>
+    <div id="profile-menu" class="col-md-2 profile-section">
+        <div class="">
+            <div class="profile-header profile-header-menu">
+                <strong>Menu</strong>
+            </div>
+            <div class="profile-content">
+                <ul class="list-unstyled">
+                    <li data-scroll-spy="information" class="active">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            <span>Informations</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="listen">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-headphones"></span>
+                            <span>Écouter</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="seeking">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>Recherche</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="photo">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-picture"></span>
+                            <span>Photo</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="contact">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            <span>Contacter</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr />
+                <div class="profile-footer-menu">
+                    <span>FB/Twitter/G+</span>
+                </div>
+            </div>
         </div>
-        <!--Description end-->
-        <!--Seeking-->
-        <div class="profile-tab-content col-md-9">
-            @Html.Partial("../Users/_MusicianProfileSeeking", Model)
-        </div>
-        <!--Seeking end-->
-        <!--Pictures-->
-        <div class="profile-tab-content col-md-9 profile-photo-tab">
-            @Html.Partial("../Users/_MusicianProfilePhoto", Model)
-        </div>
-        <!--Pictures end-->
-        <!--Contact-->
-        <div class="profile-tab-content col-md-9">
-            <center>
-                <h1 class="glyphicon glyphicon-envelope" style="font-size: 12em; color: #000000"></h1>
-                <h2 style="margin-top: 0; color: #000000">
-                    Bientôt
-                </h2>
-                <h3 style="margin-top: 0; color: #000000">
-                    Disponible
-                </h3>
-            </center>
-        </div>
-        <!--Contact end-->
     </div>
 </div>
-<a href="#" class="btn btn-default btn-lg back-to-top" role="button" 
-            title="Retour vers le haut de la page" data-toggle="tooltip" 
-            data-placement="left">
-
-    <span class="glyphicon glyphicon-chevron-up"></span>
-</a>
 
 <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
      aria-hidden="true">

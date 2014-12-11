@@ -2,17 +2,58 @@
 var imageCropHeight = 0;
 var cropPointX = 0;
 var cropPointY = 0;
-var Percentage;
+var modal;
+var isClosedByButton = false;
+
+if ($("#CropperDialog")[0]) {
+    modal = $("#CropperDialog");
+}
+
+if ($("#X")[0]) {
+    var element;
+
+    element = document.getElementById("X");
+    element.value = 0;
+
+    element = document.getElementById("Y");
+    element.value = 0;
+
+    element = document.getElementById("Width");
+    element.value = 0;
+
+    element = document.getElementById("Height");
+    element.value = 0;
+}
+
+modal.on("hidden.bs.modal", function (e) {
+    if (!isClosedByButton) {
+        $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
+        $("#ImageUploader").unwrap();
+    }
+    api.destroy();
+    return;
+});
 
 function readURL(input) {
     if (input.files && input.files[0]) {
 
         var reader = new FileReader();
+        var image = new Image();
+        var imageSrc;
 
         reader.onload = function (event) {
-            api.destroy();
-            $('#PicToCrop').replaceWith('<img id="PicToCrop" class="CropThumbNail" src="' + event.target.result + '"/>');
-            initCrop();
+            imageSrc = event.target.result;
+            image.src = imageSrc;
+
+            image.onload = function () {
+                var imgWidth = this.width;
+                var imgHeight = this.height;
+
+                imageSrc = resizeImage(image);
+
+                $("#PicToCrop").attr("src", imageSrc);
+                initCrop();
+            };
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -20,19 +61,19 @@ function readURL(input) {
 }
 
 $("#ImageUploader").change(function () {
-    if (FileSize = this.files[0].size > 3145728)
-    {
+    if (FileSize = this.files[0].size > 3145728) {
         alert("La taille de l'image ne doit pas dépasser 3 mo.");
         $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
         $("#ImageUploader").unwrap();
         return;
     }
     readURL(this);
-    $("#CropperDialog").modal("show");
-});
+    $(".photo-upload-filename").val(this.value);
+    $(".photo-upload-clear").show()
 
-$(document).ready(function () {
-    initCrop();
+    setModalButton();
+    isClosedByButton = false;
+    $("#CropperDialog").modal("show");
 });
 
 function initCrop() {
@@ -66,8 +107,59 @@ function setCoordsAndImgSize(e) {
     element.value = Math.round(e.h);
 }
 
-$("#closeDialog").click(function () {
-    $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
-    $("#ImageUploader").unwrap();
-    return;
+function resizeImage(image) {
+    var width = image.width;
+    var height = image.height;
+    var MAX_WIDTH = 800;
+    var MAX_HEIGHT = 600;
+    var MIN_WIDTH = 250;
+    var MIN_HEIGHT = 172;
+    var canvas = document.createElement("canvas");
+
+    if (width < MIN_WIDTH) {
+        height *= MIN_WIDTH / width;
+        width = MIN_WIDTH;
+    }
+
+    if (height < MIN_HEIGHT) {
+        width *= MIN_HEIGHT / height;
+        height = MIN_HEIGHT;
+    }
+
+    if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+    }
+
+    if (height > MAX_HEIGHT) {
+        width *= MAX_HEIGHT / height;
+        height = MAX_HEIGHT;
+     }
+
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(image, 0, 0, width, height);
+
+    setModalWidth(width);
+
+    return canvas.toDataURL();
+}
+
+function setModalWidth(modalWidth) {
+    modal.find('.modal-dialog').css({ 'width': modalWidth + 100 });
+}
+
+function setModalButton() {
+    var isToSend = modal.attr("data-send");
+
+    if (isToSend == "false") {
+        $("#sendButton").prop("type", "button");
+        return;
+    }
+}
+
+$("#sendButton").click(function () {
+    isClosedByButton = true;
+    $("#CropperDialog").modal("hide");
 });
