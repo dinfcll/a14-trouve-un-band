@@ -173,6 +173,7 @@
     <Compile Include="Classes\PhotoCropper.cs" />
     <Compile Include="Classes\PhotoResizer.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
+    <Compile Include="Controllers\baseController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -227,7 +228,7 @@
     <Compile Include="Models\Users_Instruments.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="POCO\AlertMessages.cs" />
+    <Compile Include="POCO\Alert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdvertDao.cs" />
     <Compile Include="Services\BandDao.cs" />
@@ -477,6 +478,7 @@
     <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
     <Content Include="Views\Group\Confirm.cshtml" />
+    <Content Include="Views\Shared\_Alerts.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

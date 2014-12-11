@@ -43,6 +43,8 @@ namespace TrouveUnBand.POCO
         public static string POSTED_FILES_ERROR = "Une erreur s'est produite lors de l'ouverture du fichier. Veuillez réessayer.";
         public static string FILE_TYPE_INVALID = "Le type du fichier n'est pas valide. Assurez-vous que le fichier soit bien une image. ";
         public static string PICTURE_CHANGED = "La photo de profil a été modifiée avec succès.";
+
+        public static string INVALID_LOGIN = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
     }
 
     public class Alert

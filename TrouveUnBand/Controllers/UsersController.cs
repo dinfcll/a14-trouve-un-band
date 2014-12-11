@@ -122,7 +122,7 @@ namespace TrouveUnBand.Controllers
                     FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }
-                Danger("Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.",true;
+                Danger(Messages.INVALID_LOGIN,true);
                 return View();
             }
             return View();
@@ -176,7 +176,7 @@ namespace TrouveUnBand.Controllers
             }
             catch
             {
-                return Messages;
+                return Messages.INVALID_LOGIN;
             }
         }
 
