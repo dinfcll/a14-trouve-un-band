@@ -34,6 +34,11 @@ namespace TrouveUnBand.POCO
 
         public static string INSTRUMENT_ALREADY_SELECTED = "Vous ne pouvez pas sélectionner deux fois le même instrument";
         //DANGER
+        public static string EXISTING_USER(User user)
+        {
+            return String.Format("L'utilisateur {0} existe déja", user.Nickname);
+        }
+
         public static string NOT_CONNECTED = "Vous n'êtes pas connecté. Veuillez vous connecter ou vous enregistrer.";
         public static string NOT_MUSICIAN = "Aucun profile musicien n'est associé a votre compte.";
         public static string INTERNAL_ERROR = "Une erreur interne s'est produite, veuillez réessayer plus tard.";
@@ -45,10 +50,6 @@ namespace TrouveUnBand.POCO
         public static string PICTURE_CHANGED = "La photo de profil a été modifiée avec succès.";
         public static string PASSWORD_NOT_MATCHING = "Le mot de passe et sa confirmation ne sont pas identiques.";
         public static string INVALID_LOGIN = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
-        public static string EXISTING_USER(User user)
-        {
-            return String.Format("L'utilisateur {0} existe déja", user.Nickname);
-        }
     }
 
     public class Alert

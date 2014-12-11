@@ -173,7 +173,7 @@
     <Compile Include="Classes\PhotoCropper.cs" />
     <Compile Include="Classes\PhotoResizer.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
-    <Compile Include="Controllers\baseController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
