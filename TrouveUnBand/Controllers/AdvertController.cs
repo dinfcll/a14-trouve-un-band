@@ -15,9 +15,8 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class AdvertController : Controller
+    public class AdvertController : baseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index()
         {
@@ -28,7 +27,10 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult MyAdverts()
         {
-            return View("../Shared/Authentication");
+            if (!CurrentUserIsAuthenticated())
+            {
+                return View("../Shared/Authentication");
+            }
             ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
@@ -36,6 +38,10 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
+            if (!CurrentUserIsAuthenticated())
+            {
+                return View("../Shared/Authentication");
+            }
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View();
         }

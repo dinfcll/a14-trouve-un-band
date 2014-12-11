@@ -15,9 +15,8 @@ using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {
-    public class GroupController : Controller
+    public class GroupController : baseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index()
         {
@@ -177,23 +176,6 @@ namespace TrouveUnBand.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
-        }
-
-        private bool CurrentUserIsAuthenticated()
-        {
-            return System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
-        }
-
-        private User GetAuthenticatedUser()
-        {
-            if (!CurrentUserIsAuthenticated())
-            {
-                throw new Exception("User is not authenticated");
-            }
-            var userName = System.Web.HttpContext.Current.User.Identity.Name;
-            var authenticatedUser = db.Users.FirstOrDefault(x => x.Nickname == userName);
-
-            return authenticatedUser;      
         }
 
         private BandMemberModel GetAuthenticatedBandMember()
