@@ -53,12 +53,16 @@
             </div>
         </div><!--END NAVBAR-->
         <!--MAIN CONTENT-->
-        <div class="page-alerts">
+        
+                
+        <div id="page-alerts">
             @{ Html.RenderPartial("_Alerts"); }
         </div>
+
         <div class="main-container container">
             @RenderSection("featured", required: false)
             @RenderSection("scripts", required: false)
+
             @RenderBody()
         </div>
 
