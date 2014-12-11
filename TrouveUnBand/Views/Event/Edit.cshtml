@@ -3,13 +3,14 @@
     ViewBag.Title = "Modifier un événement";
 }
 @if (Model.User.Nickname == User.Identity.Name)
-{        
+{
     <div id="CreateEventForm">
         <div class="container">
             <div class="col-md-8 col-md-push-2">
                 <div class="col-md-12">
                     <h3>
-                        Modifier un événement</h3>
+                        Modifier un événement
+                    </h3>
                     <hr class="colorgraph" id="eventline">
                 </div>
                 @using (Html.BeginForm("CropImageDialog", "Event", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
@@ -18,10 +19,17 @@
                     <div class="modal-body col-md-12">
                         <img src="@Model.Photo" width="400" class="photo" alt="Image">
                     </div>
-                    <div class="form-group col-md-12">
-                        @Html.Label("Photo de l'événement")
-                        <input id="ImageUploader" class="btn" type="file" name="FileUpload" accept="image/*" />
+
+                    <h4 class="col-md-12">Photo de l'événement</h4>
+
+                    <div class="form-group file-uploader col-md-12">
+                        <div class="btn btn-default photo-upload-browser col-md-6">
+                            <span class="glyphicon glyphicon-folder-open"></span>
+                            <span class="image-upload-input-title">Choisir une photo dans vos dossiers</span>
+                            <input id="ImageUploader" type="file" accept="image/*" name="photo-upload-browser" />
+                        </div>
                     </div>
+
                     <div class="modal fade" id="CropperDialog">
                         @Html.Partial("../Photo/ImageCropperDialog", Model.PhotoCrop)
                         @Html.HiddenFor(model => model.PhotoCrop.PicX, new { id = "X" })
@@ -71,7 +79,7 @@
                                     new { @class = "form-control", @placeholder = "Date de l'événement", @id = "datepicker" })
                         @Html.ValidationMessageFor(model => model.EventDate)
                     </div>
-                            
+
                     <div class="form-group col-md-6">
                         @Html.Label("Description")
                         @Html.TextBoxFor(model => model.Description,
@@ -91,7 +99,7 @@
                         @Html.TextBoxFor(model => model.Salary,
                                     new { @class = "form-control", @placeholder = "Salaire pour l'événement" })
                         @Html.ValidationMessageFor(model => model.Salary)
-                    </div>               
+                    </div>
                     <div class="form-group col-md-6">
                         @Html.Label("Dimension de la scène (mètres carrés)")
                         @Html.TextBoxFor(model => model.StageSize,
@@ -99,19 +107,19 @@
                         @Html.ValidationMessageFor(model => model.StageSize)
                     </div>
                     <div class="form-group col-md-6">
-                        @Html.Label("Genres Musicaux de l'événement")
+                        @Html.Label("Groupes présents à l'événement")
                         <select name="BandsListDB" class="selectpicker form-control" title="Groupe(s) à l'événement"
-                            data-width="100%" data-live-search="true" data-selected-text-format="count>3"
-                            multiple>
+                                data-width="100%" data-live-search="true" data-selected-text-format="count>3"
+                                multiple>
                             @foreach (var band in ViewBag.BandsListDB)
                             {
                                 if (Model.Bands.Contains(band))
                                 {
-                                <option selected>@band.Name</option>
+                                    <option selected>@band.Name</option>
                                 }
                                 else
                                 {
-                                <option>@band.Name</option>
+                                    <option>@band.Name</option>
                                 }
                             }
                         </select>
@@ -119,17 +127,17 @@
                     <div class="form-group col-md-6">
                         @Html.Label("Genres Musicaux de l'événement")
                         <select name="EventGenreDB" class="selectpicker" title="Genres musicaux de l'événement"
-                            data-width="100%" data-live-search="true" data-selected-text-format="count>3"
-                            multiple>
+                                data-width="100%" data-live-search="true" data-selected-text-format="count>3"
+                                multiple>
                             @foreach (var genre in ViewBag.GenreListDB)
                             {
                                 if (Model.Genres.Contains(genre))
                                 {
-                                <option selected>@genre.Name</option>
+                                    <option selected>@genre.Name</option>
                                 }
                                 else
                                 {
-                                <option>@genre.Name</option>
+                                    <option>@genre.Name</option>
                                 }
                             }
                         </select>
@@ -137,8 +145,8 @@
                     <hr class="colorgraph col-md-12">
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            @Html.ActionLink("Retour", "Index", new { controller = "Event" },
-                                        new { @class = "btn btn-default col-md-12" })
+                            @Html.ActionLink("Annuler l'événement", "Delete", new { id = Model.Event_ID },
+                                        new { @class = "btn btn-danger col-md-12" })
                         </div>
                         <div class="col-md-6">
                             <input type="submit" value="Enregistrer les Modifications" class="btn btn-primary col-md-12" />
@@ -152,7 +160,8 @@
 else
 {
     <h3>
-        Veuillez vous identifier svp</h3>
+        Veuillez vous identifier svp
+    </h3>
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -27,8 +27,15 @@ else
                             <img src="@Model.Photo" width="400" class="photo" alt="Image">
                         </div>
                         <div class="form-group col-md-12">
-                            @Html.Label("Photo de l'annonce")
-                            <input id="ImageUploader" class="btn" type="file" name="FileUpload" accept="image/*" />
+                            <h4 class="col-md-12">Photo de l'annonce (facultatif)</h4>
+
+                            <div class="form-group file-uploader col-md-12">
+                                <div class="btn btn-default photo-upload-browser col-md-6">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                    <span class="image-upload-input-title">Choisir une photo dans vos dossiers</span>
+                                    <input id="ImageUploader" type="file" accept="image/*" name="photo-upload-browser" />
+                                </div>
+                            </div>
                         </div>
                         <div class="modal fade" id="CropperDialog">
                             @Html.Partial("../Photo/ImageCropperDialog", Model.PhotoCrop)
@@ -45,6 +52,7 @@ else
                         @Html.HiddenFor(model => model.Advert_ID, new { Model.Advert_ID })
                         @Html.HiddenFor(model => model.Creator_ID, new { Model.Creator_ID })
 
+                        <h4 class="col-md-12">Informations de l'annonce</h4>
                         <div class="form-group col-md-12">
                             @Html.Label("Nom de l'annonce")
                             @Html.TextBoxFor(model => model.Type,

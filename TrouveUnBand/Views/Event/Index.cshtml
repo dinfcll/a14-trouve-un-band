@@ -28,10 +28,15 @@
             </div>
 
             <div class="event-panel-button col-md-2">
+                @if (item.UserNickname == User.Identity.Name)
+                {
+                    @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-sm btn-default col-md-12" })
+                }
                 @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary col-md-12 pull-right" })
             </div>
         </div>
     }
+
 </div>
 
 

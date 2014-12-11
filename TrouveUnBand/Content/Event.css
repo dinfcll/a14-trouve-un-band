@@ -24,24 +24,29 @@
     }
 
 .event-panel-info {
-    margin-top: 2em
+    margin-top: 2em;
 }
 
     .event-panel-info h2 {
         margin: 0;
         padding-bottom: 5px;
-        overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .event-panel-info span {
-        color:#999;
-        overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
+        color: #999;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
-    .event-panel-button{
-        margin-top:3em;
+.event-panel-button {
+    margin-top: 3em;
 }
+
+    .event-panel-button .btn-sm {
+        margin-top: -2em;
+        margin-bottom: 1em;
+    }

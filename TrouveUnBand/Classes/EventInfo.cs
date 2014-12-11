@@ -14,6 +14,7 @@ namespace TrouveUnBand.Classes
         public string Photo { get; set; }
         public string DayOfTheWeek { get; set; }
         public string DayAndMonth { get; set; }
+        public string UserNickname { get; set; }
 
         public virtual ICollection<Band> Bands { get; set; }
 
@@ -26,6 +27,7 @@ namespace TrouveUnBand.Classes
             this.DayOfTheWeek = DateHelper.GetDayOfWeek(eventIn.EventDate);
             this.DayAndMonth = DateHelper.GetDayAndMonth(eventIn.EventDate);
             this.Bands = eventIn.Bands;
+            this.UserNickname = eventIn.User.Nickname;
         }
     }
 }
