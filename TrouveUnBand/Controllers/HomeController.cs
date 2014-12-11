@@ -6,10 +6,8 @@ using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : baseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
         public ActionResult Index()
         {
             Newsfeed();

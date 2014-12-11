@@ -100,21 +100,19 @@ else
 
                         <div class="form-group col-md-6">
                             @Html.Label("Date de Création")
-                            @Html.TextBoxFor(model => model.CreationDate,
-                                new { @class = "form-control", @placeholder = "Date", @readonly = "readonly" })
+                            @Html.Label(Model.CreationDate.ToString(),
+                                  new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.CreationDate)
                         </div>
                         <div class="form-group col-md-6">
                             @Html.Label("Date d'expiration")
                             @Html.TextBoxFor(model => model.ExpirationDate,
                                 new { @class = "form-control", @placeholder = "Date d'expiration de l'annonce", @id = "datepickernotime2" })
-                            @Html.ValidationMessageFor(model => model.ExpirationDate)
                         </div>
                         <div class="form-group col-md-12">
                             @Html.Label("Description")
                             @Html.TextAreaFor(model => model.Description,
                                 new { @class = "form-control", @placeholder = "Description" })
-                            @Html.ValidationMessageFor(model => model.Description)
                         </div>
                         <div class="col-md-12">
                             <hr class="colorgraph" />

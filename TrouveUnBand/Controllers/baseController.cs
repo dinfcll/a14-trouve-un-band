@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
+using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
@@ -28,5 +29,40 @@ namespace TrouveUnBand.Controllers
             return authenticatedUser;
         }
 
+        public void Success(string message, bool dismissable = false)
+        {
+            AddAlert(Styles.Success, message, dismissable);
+        }
+
+        public void Information(string message, bool dismissable = false)
+        {
+            AddAlert(Styles.Information, message, dismissable);
+        }
+
+        public void Warning(string message, bool dismissable = false)
+        {
+            AddAlert(Styles.Warning, message, dismissable);
+        }
+
+        public void Danger(string message, bool dismissable = false)
+        {
+            AddAlert(Styles.Danger, message, dismissable);
+        }
+
+        private void AddAlert(string alertStyle, string message, bool dismissable)
+        {
+            var alerts = TempData.ContainsKey(Alert.TempDataKey)
+                ? (List<Alert>) TempData[Alert.TempDataKey]
+                : new List<Alert>();
+
+            alerts.Add(new Alert
+            {
+                AlertStyle = alertStyle,
+                Message = message,
+                Dismissable = dismissable
+            });
+
+            TempData[Alert.TempDataKey] = alerts;
+        }
     }
 }

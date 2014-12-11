@@ -17,8 +17,6 @@ namespace TrouveUnBand.Controllers
 {
     public class EventController : baseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
         public ActionResult Index()
         {
             return View(db.Events.ToList());
@@ -73,7 +71,7 @@ namespace TrouveUnBand.Controllers
 
                 return RedirectToAction("Index");
             }
-            string messageAlert = AlertMessages.NOT_MUSICIAN;
+            Danger(Messages.NOT_MUSICIAN,true);
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             ViewBag.BandsListDB = new List<Band>(db.Bands);
             return View();
@@ -176,14 +174,14 @@ namespace TrouveUnBand.Controllers
                     existingEvent.Photo = savedPhotoPath;
                     db.SaveChanges();
 
-                    TempData["success"] = AlertMessages.PICTURE_CHANGED;
+                    Success(Messages.PICTURE_CHANGED,true);
                 }
 
                 return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
             }
             catch
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Danger(Messages.INTERNAL_ERROR,true);
                 return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
             }
         }

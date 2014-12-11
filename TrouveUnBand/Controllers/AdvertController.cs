@@ -17,7 +17,6 @@ namespace TrouveUnBand.Controllers
 {
     public class AdvertController : baseController
     {
-
         public ActionResult Index()
         {
             ViewBag.UsersListDB = new List<User>(db.Users);
@@ -105,12 +104,12 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Edit(Advert newAdvertInfo, string[] GenreAdvertDB, string CreatorName)
         {
-
             var oldAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == newAdvertInfo.Advert_ID);
             newAdvertInfo.Photo = oldAdvert.Photo;
             newAdvertInfo.User = oldAdvert.User;
+            newAdvertInfo.CreationDate = oldAdvert.CreationDate;
 
-            if (ModelState.IsValid && newAdvertInfo.Genres.Count>0)
+            if (ModelState.IsValid)
             {
                 string GenresList = Request["GenreAdvertDB"];
                 string[] GenresArray = GenresList.Split(',');
@@ -213,14 +212,14 @@ namespace TrouveUnBand.Controllers
                     existingAdvert.Photo = savedPhotoPath;
                     db.SaveChanges();
 
-                    TempData["success"] = AlertMessages.PICTURE_CHANGED;
+                    Success(Messages.PICTURE_CHANGED, true);
                 }
 
                 return RedirectToAction("Edit", new { id = advertWithPhoto.Advert_ID });
             }
             catch
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Danger(Messages.INTERNAL_ERROR, true);
                 return RedirectToAction("Edit", new { id = advertWithPhoto.Advert_ID});
             }
         }

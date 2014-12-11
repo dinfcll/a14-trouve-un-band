@@ -3,37 +3,31 @@
     ViewBag.Title = "Mes Annonces";
 }
 <div class="panel panel-default" style="border: 0;">
-    <div class="panel-body">
-        <div class="row col-md-8">
-            <h3>
-                Mes Annonces</h3>
-        </div>
-        <div class="col-md-4">
-            @if (User.Identity.Name != "")
-            {
-                @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6 col-md-pull-1" })
-                @Html.ActionLink("Toutes les annonces", "Index", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
-            }
-        </div>
+    <div class="col-md-8">
+        <h3>
+            Mes Annonces</h3>
     </div>
-</div>
-<div class="row">
-    @foreach (var item in Model)
-    {
-        if (User.Identity.Name == item.User.Nickname)
+    <div class="col-md-4">
+        @if (User.Identity.Name != "")
         {
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <h3>@item.Type</h3>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <div class="col-md-12">
-                    <div class="row col-md-3 form-group">
-                    <img src="@item.Photo" alt="Image" width="250"/>
+            @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6 col-md-pull-1" })
+            @Html.ActionLink("Toutes les annonces", "Index", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
+        }
+    </div>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            if (User.Identity.Name == item.User.Nickname)
+            {
+            <div class="col-md-12 panel-body">
+                <div class="col-md-4 form-group">
+                    <img src="@item.Photo" width="250" class="photo" alt="Image">
+                </div>
+                <div class="col-md-8 col-md-pull-1" id="AdvertDesc">
+                    <div class="col-md-12 form-group">
+                        <h3>@Html.DisplayName(item.Type)</h3>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="col-md-12 form-group">
                             <span class="glyphicon glyphicon-calendar"></span>@Html.DisplayName(item.CreationDate.ToString("dd MMMM yyyy"))
                         </div>
@@ -56,8 +50,8 @@
                                   }
                                 }
                                 <a href="#" tabindex="0" role="button"
-                                data-toggle="popover" data-html="true" title="Genres de l'événement" data-content="@TextPopOver"><span
-                                    class="label label-default">...</span> </a></span>
+                                data-toggle="popover" data-html="true" title="Genres de l'événement" data-content="@TextPopOver">
+                                    <span class="label label-default">...</span> </a></span>
                         </div>
                         <div class="col-md-12 form-group">
                             <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(item.Location)
@@ -79,7 +73,7 @@
                             }
                         </div>
                     </div>
-                    <div id="AdvertDesc" class="row col-md-5 form-group">
+                    <div id="AdvertDesc" class="row col-md-6 form-group">
                         <hr class="colorgraph" />
                         <h4>
                             Description de l'annonce</h4>
@@ -91,30 +85,30 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-footer" style="height: 55px">
-                <div class="col-md-12">
-                    @if (item.User.Nickname == User.Identity.Name)
-                    {
-                        <div class="col-md-3">
-                            @Html.ActionLink("Modifier l'annonce", "Edit", new { id = item.Advert_ID }, new { @class = "btn btn-primary col-md-12" })
-                        </div>
-                        <div class="col-md-3 col-md-push-1">
-                            @if (item.Status != "Fermée")
-                            {
-                                @Html.ActionLink("Fermer l'annonce", "Close", new { id = item.Advert_ID }, new { @class = "btn btn-warning col-md-12" })
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Réouvrir l'annonce", "ReOpen", new { id = item.Advert_ID }, new { @class = "btn btn-warning col-md-12" })
-                            }
-                        </div>
-                        <div class="col-md-3 col-md-push-2">
-                            @Html.ActionLink("Supprimer l'annonce", "Delete", new { id = item.Advert_ID }, new { @class = "btn btn-danger col-md-12" })
-                        </div>
-                    }
-                </div>
+            <div class="col-md-12">
+                @if (item.User.Nickname == User.Identity.Name)
+                {
+                    <div class="col-md-3">
+                        @Html.ActionLink("Modifier l'annonce", "Edit", new { id = item.Advert_ID }, new { @class = "btn btn-primary col-md-12" })
+                    </div>
+                    <div class="col-md-3 col-md-push-1">
+                        @if (item.Status != "Fermée")
+                        {
+                            @Html.ActionLink("Fermer l'annonce", "Close", new { id = item.Advert_ID }, new { @class = "btn btn-warning col-md-12" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Réouvrir l'annonce", "ReOpen", new { id = item.Advert_ID }, new { @class = "btn btn-warning col-md-12" })
+                        }
+                    </div>
+                    <div class="col-md-3 col-md-push-2">
+                        @Html.ActionLink("Supprimer l'annonce", "Delete", new { id = item.Advert_ID }, new { @class = "btn btn-danger col-md-12" })
+                    </div>
+                    <hr class="colorgraph col-md-12" />
+                }
             </div>
-        </div>
+
+            }
         }
-    }
+    </div>
 </div>
