@@ -15,7 +15,7 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class AdvertController : Controller
+    public class AdvertController : baseController
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 

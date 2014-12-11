@@ -15,7 +15,7 @@ using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {
-    public class GroupController : Controller
+    public class GroupController : baseController
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 

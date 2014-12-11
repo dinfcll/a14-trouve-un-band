@@ -5,8 +5,8 @@ using System.Web;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.POCO
-{
-    public static class AlertMessages
+{     
+    public static class Messages
     {
         //SUCCESS
         public static string BAND_CREATION_SUCCESS (Band band)
@@ -38,5 +38,22 @@ namespace TrouveUnBand.POCO
         public static string POSTED_FILES_ERROR = "Une erreur s'est produite lors de l'ouverture du fichier. Veuillez réessayer.";
         public static string FILE_TYPE_INVALID = "Le type du fichier n'est pas valide. Assurez-vous que le fichier soit bien une image. ";
         public static string PICTURE_CHANGED = "La photo de profil a été modifiée avec succès.";
+    }
+
+    public class Alert
+    {
+        public const string TempDataKey = "TempDataAlerts";
+
+        public string AlertStyle { get; set; }
+        public string Message { get; set; }
+        public bool Dismissable { get; set; }
+    }
+
+    public static class Styles
+    {
+        public const string Success = "success";
+        public const string Information = "info";
+        public const string Warning = "warning";
+        public const string Danger = "danger";
     }
 }

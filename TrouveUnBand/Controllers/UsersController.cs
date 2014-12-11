@@ -10,7 +10,7 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : baseController
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
