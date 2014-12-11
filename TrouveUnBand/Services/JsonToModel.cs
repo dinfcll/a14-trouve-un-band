@@ -40,6 +40,7 @@ namespace TrouveUnBand.Services
 
             myBand.Users= UserDao.GetUsersById(intValues.ToArray());
 
+            myBand.Photo = jsBand["Photo"];
             return myBand;
         }
 

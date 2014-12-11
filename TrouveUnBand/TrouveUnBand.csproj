@@ -219,6 +219,7 @@
     <Compile Include="Models\MusicianProfileViewModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\Musician_Instrument.cs" />
+    <Compile Include="Models\Partial\_Band.cs" />
     <Compile Include="Models\Partial\_Event.cs" />
     <Compile Include="Models\Partial\_User.cs" />
     <Compile Include="Models\User.cs">

@@ -5,49 +5,60 @@
 }
 <div class="container col-md-6 col-md-offset-3 row-fluid">
     <div id="MainForm">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h2>Création</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>Création</h2>
+                </div>
             </div>
-        </div>
-        @using (Html.BeginForm("Create", "Group"))
-        {
-    
-            <input id="btnTerminer"type="button" value="Terminer" class="btn btn-primary btn-lg col-md-12"/>
-    
-            @Html.TextBox("BandName", "", new { @class = "form-control", @placeholder = "Nom du band" })
-            @Html.TextBox("BandLocation", "", new { @class = "form-control", @placeholder = "Ville" })
-            @Html.TextArea("BandDescription", new { @class = "form-control", @placeholder = "Description" })
-            <select id="MultiSelect" name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
-                    data-width="100%" data-live-search="true" data-selected-text-format="count>3" multiple>
-                @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
-                {
-                    <li class="dropdown-submenu">
-                        <optgroup label="@list.FirstOrDefault()">
-                            <ul class="dropdown-menu">
-                                @foreach (var genre in list)
-                                {
-                                    <option>@genre</option>
-                                }
-                            </ul>
-                        </optgroup>
-                    </li>
-                }
-            </select>
-        }
-        @using (Ajax.BeginForm("SearchMusician", new AjaxOptions{HttpMethod = "Get", UpdateTargetId = "user-results"}))
-        {
-            @Html.TextBox("searchString", "", new { @class = "col-md-8"})
-            <button type="submit" class="btn btn-default col-md-4">Rechercher un musician</button>
-        }
-        <div>
-            <table id="band-members">
-            </table>
-        </div>
+            @using (Html.BeginForm("Create", "Group"))
+            {
+                    <input id="btnTerminer"type="button" value="Terminer" class="btn btn-primary btn-lg col-md-12"/>
+                    <div class="form-group col-md-12">
+                        @Html.Label("Photo du band")
+                        <input id="ImageUploader" class="btn" type="file" name="FileUpload" value="Choisir Fichier" accept="image/*" />
+                    </div>
+                    @Html.TextBox("BandName", "", new { @class = "form-control", @placeholder = "Nom du band" })
+                    @Html.TextBox("BandLocation", "", new { @class = "form-control", @placeholder = "Ville" })
+                    @Html.TextArea("BandDescription", new { @class = "form-control", @placeholder = "Description" })
+                    <select id="MultiSelect" name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
+                            data-width="100%" data-live-search="true" data-selected-text-format="count>3" multiple>
+                        @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
+                        {
+                            <li class="dropdown-submenu">
+                                <optgroup label="@list.FirstOrDefault()">
+                                    <ul class="dropdown-menu">
+                                        @foreach (var genre in list)
+                                        {
+                                            <option>@genre</option>
+                                        }
+                                    </ul>
+                                </optgroup>
+                            </li>
+                        }
+                    </select>
+            }
+            @using (Ajax.BeginForm("SearchMusician", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "user-results" }))
+            {
+                @Html.TextBox("searchString", "", new { @class = "col-md-8" })
+                <button type="submit" class="btn btn-default col-md-4">Rechercher un musician</button>
+            }
+            <div>
+                <table id="band-members">
+                </table>
+            </div>
 
-        <div id="user-results" style="padding-top: 5em;"></div>
-        </div>
+            <div id="user-results" style="padding-top: 5em;"></div>
+    </div>
 
     <div id="ConfirmForm"></div>
 
+</div>
+
+<div class="modal fade" id="CropperDialog" data-send="false">
+    @RenderPage("../Photo/ImageCropperDialog.cshtml")
+    @Html.HiddenFor(model => model.PhotoCrop.PicX, new { id = "X" })
+    @Html.HiddenFor(model => model.PhotoCrop.PicY, new { id = "Y" })
+    @Html.HiddenFor(model => model.PhotoCrop.PicWidth, new { id = "Width" })
+    @Html.HiddenFor(model => model.PhotoCrop.PicHeight, new { id = "Height" })
+                
 </div>

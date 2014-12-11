@@ -55,6 +55,7 @@ function ArrayToComplexJson() {
     obj.Name = $('#BandName').val();
     obj.Location = $('#BandLocation').val();
     obj.Description = $('#BandDescription').val();
+    obj.Photo = $('#ImageUploader').val();
 
     return JSON.stringify(obj);
 };

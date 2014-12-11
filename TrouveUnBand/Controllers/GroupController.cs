@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web.Mvc;
@@ -69,11 +70,11 @@ namespace TrouveUnBand.Controllers
             return PartialView("_CreateConfirm", myBand);
         }
 
-        public ActionResult Confirm(string bandName, string bandDesc, string bandLocation, string sGenres, string sUsers)
+        public ActionResult Confirm(string bandName, string bandDesc, string bandLocation, string sGenres, string sUsers, string bandPhoto)
         {
             var myBand = new Band
             {
-                Name = bandName, Description = bandDesc, Location = bandLocation
+                Name = bandName, Description = bandDesc, Location = bandLocation, Photo = bandPhoto
             };
             myBand.Genres = GenreDao.GetGenresById(sGenres.Split(';').Select(n => Convert.ToInt32(n)).ToArray(), db);
             myBand.Users = UserDao.GetUsersById(sUsers.Split(';').Select(n => Convert.ToInt32(n)).ToArray(), db);
@@ -101,6 +102,11 @@ namespace TrouveUnBand.Controllers
                 db.Database.Connection.Open();
                 db.Bands.Add(myBand);
                 db.SaveChanges();
+
+                var savedPhotoPath = CropAndSavePhoto(myBand);
+                myBand.Photo = savedPhotoPath;
+                db.SaveChanges();
+
                 db.Database.Connection.Close();
 
                 TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(myBand);
@@ -248,6 +254,34 @@ namespace TrouveUnBand.Controllers
             ViewBag.ResultsCount = musicians.Count;
 
             return PartialView("_MusicianFinder");
+        }
+
+        private string CropAndSavePhoto(Band myBand)
+        {
+            var postedPhoto = Request.Files[0];
+
+            if (postedPhoto.ContentLength == 0)
+            {
+                return Photo.BAND_STOCK_PHOTO;
+            }
+
+            Image image = Image.FromStream(postedPhoto.InputStream, true, true);
+
+            if (image.Width < 250 || image.Height < 172 || image.Width > 800 || image.Height > 600)
+            {
+                image = PhotoResizer.ResizeImage(image, 250, 172, 800, 600);
+            }
+
+            var croppedPhoto = PhotoCropper.CropImage(image, myBand.PhotoCrop.CropRect);
+            string bandPhotoName = myBand.Band_ID.ToString();
+            var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, bandPhotoName, FileHelper.Category.BAND_PHOTO);
+
+            if (savedPhotoPath == "")
+            {
+                savedPhotoPath = Photo.BAND_STOCK_PHOTO;
+            }
+
+            return savedPhotoPath;
         }
     }
 }
