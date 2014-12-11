@@ -1,23 +1,27 @@
-﻿@using System
-@model TrouveUnBand.Models.Band
+﻿@model TrouveUnBand.ViewModels.BandCreationViewModel
+
 @{
     ViewBag.Title = "Création band";
 }
-<div class="container col-md-6 col-md-offset-3 row-fluid">
-    <div id="MainForm">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h2>Création</h2>
-            </div>
+<div class="container col-md-8 col-md-offset-2">
+    @using (Html.BeginForm("Create", "Group", FormMethod.Post, new { @id="FormBandCreation"}))
+    {
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => model.Band.Name, new { @class = "form-control", @placeholder = "Nom du band" })
         </div>
-        @using (Html.BeginForm("Create", "Group"))
-        {
-            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Nom du band" })
-            @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @placeholder = "Ville" })
-            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Description" })
+            
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => model.Band.Location, new { @class = "form-control", @placeholder = "Ville" })
+        </div>
+            
+        <div class="col-md-12">
+            @Html.TextAreaFor(model => model.Band.Description, new { @class = "form-control", @placeholder = "Description" })
+        </div>
+            
+        <div class="col-md-12">
             <select id="MultiSelect" name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
                     data-width="100%" data-live-search="true" data-selected-text-format="count>3" multiple>
-                @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
+                @foreach (var list in Model.GenresMultiselect)
                 {
                     <li class="dropdown-submenu">
                         <optgroup label="@list.FirstOrDefault()">
@@ -31,23 +35,14 @@
                     </li>
                 }
             </select>
-            <button id="btnTerminer" type="submit" class="btn btn-primary btn-lg col-md-12">Terminer</button>
-        }
-        @using (Ajax.BeginForm("SearchMusician", new AjaxOptions{HttpMethod = "Get", UpdateTargetId = "user-results"}))
-        {
-            @Html.TextBox("searchString", "", new { @class = "col-md-8"})
-            <button type="submit" class="btn btn-default col-md-4">Rechercher un musician</button>
-        }
-
-        <div class="panel panel-default">
-            <div class="panel-heading"></div>
-            <table id="band-members" class="table">
-            </table>
         </div>
+    }
+    
+    <div class="col-md-12">
+        @Html.Partial("_MusicianTable")
+    </div>
 
-        <div id="user-results" style="padding-top: 5em;"></div>
-        </div>
-
-    <div id="ConfirmForm"></div>
-
+    <div class="col-md-6 col-md-offset-6">
+        <button id="btnTerminer" type="submit" class="btn btn-primary btn-lg col-md-12" form="FormBandCreation">Terminer</button>
+    </div>
 </div>

@@ -1,9 +1,9 @@
-﻿@model TrouveUnBand.ViewModels.BandMembersViewModel
+﻿@model TrouveUnBand.Models.BandMemberModel
 
 <div class="panel panel-default">
-    <div class="panel-heading">@Model.PotentialMembers.Count résultats trouvés</div>
+    <div class="panel-heading">@Model.BandMembers.Count résultats trouvés</div>
     <table class="table">
-        @foreach (var musician in Model.PotentialMembers)
+        @foreach (var musician in Model.BandMembers)
         {
             <tr>
                 <td class="hidden">@musician.User_ID</td>

@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Web.UI;
-using DotNetOpenAuth.Messaging;
-using Microsoft.Ajax.Utilities;
 using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 using TrouveUnBand.Services;
-using TrouveUnBand.Classes;
 using TrouveUnBand.ViewModels;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 
 namespace TrouveUnBand.Controllers
 {
@@ -31,6 +28,7 @@ namespace TrouveUnBand.Controllers
                     myBands = currentUser.Bands.ToList();
                 }
             }
+
             return View(myBands);
         }
 
@@ -41,45 +39,167 @@ namespace TrouveUnBand.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(band);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            var subgenres = GenreDao.GetAllSubgenresByGenres();
-            var user = GetAuthenticatedUser();
-            var bandMember = GetAuthenticatedBandMember();
-
             InitialiseSessionForBandMembers();
 
-            ViewBag.AuthenticatedUser = new JavaScriptSerializer().Serialize(bandMember);
-            ViewBag.Subgenres = subgenres;
+            var bandModel = new BandCreationViewModel();      
+            var authUser = GetAuthenticatedUser();
 
-            var band = new Band();
-            band.Users.Add(user);
+            bandModel.Band.Users.Add(authUser);
 
-            return View(band);
+            AddBandMemberToSession(new BandMemberModel
+            {
+                FirstName = authUser.FirstName,
+                LastName = authUser.LastName,
+                Location = authUser.Location,
+                User_ID = authUser.User_ID
+            });
+
+            return View(bandModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Band band, string[] cbSelectedGenres)
+        public ActionResult Create(BandCreationViewModel bandViewModel, string[] cbSelectedGenres)
         {
+            var bandIsNotUnique = db.Bands.Any(x => x.Name == bandViewModel.Band.Name && x.Location == bandViewModel.Band.Location);
+
+            if (bandIsNotUnique)
+            {
+                return View();
+            }
+
             foreach (var genreName in cbSelectedGenres)
             {
                 var genre = db.Genres.FirstOrDefault(x => x.Name == genreName);
-                band.Genres.Add(genre);
+                bandViewModel.Band.Genres.Add(genre);
             }
 
             foreach (var musician in (List<BandMemberModel>)Session["BandMembers"])
             {
                 var user = db.Users.FirstOrDefault(x => x.User_ID == musician.User_ID);
-                band.Users.Add(user);
+                bandViewModel.Band.Users.Add(user);
             }
 
-            return PartialView("_CreateConfirm", band);
+            bandViewModel.Band.UpdateLocationWithAPI();
+
+            try
+            {
+                db.Database.Connection.Open();
+                db.Bands.Add(bandViewModel.Band);
+                db.SaveChanges();
+                db.Database.Connection.Close();
+
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(bandViewModel.Band);
+            }
+            catch (Exception ex)
+            {
+                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Console.WriteLine(ex.Message);
+            }
+
+            return Redirect("Index");
         }
 
+        public ActionResult Edit(int id = 0)
+        {
+            var band = db.Bands.Find(id);
+
+            if (band == null)
+            {
+                return HttpNotFound();
+            }
+
+            InitialiseSessionForBandMembers();
+
+            try
+            {
+                foreach (var user in band.Users)
+                {
+                    AddBandMemberToSession(user.User_ID);
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Console.WriteLine(ex.Message);
+            }
+
+            ViewBag.Subgenres = GenreDao.GetAllSubgenresByGenres();
+
+            return View(band);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Band band, string[] cbSelectedGenres)
+        {
+            try
+            {
+                db.Entry(band).State = EntityState.Modified;
+                db.SaveChanges();
+                ((IObjectContextAdapter)db).ObjectContext.Detach(band);
+
+                var bandToUpdate = db.Bands.Single(x => x.Band_ID == band.Band_ID);
+
+                db.Set(typeof(Band)).Attach(bandToUpdate);
+                bandToUpdate.Genres.Clear();
+                bandToUpdate.Users.Clear();
+
+                foreach (var genreName in cbSelectedGenres)
+                {
+                    var genre = db.Genres.FirstOrDefault(x => x.Name == genreName);
+                    bandToUpdate.Genres.Add(genre);
+                }
+
+                foreach (var musician in (List<BandMemberModel>)Session["BandMembers"])
+                {
+                    var user = db.Users.FirstOrDefault(x => x.User_ID == musician.User_ID);
+                    bandToUpdate.Users.Add(user);
+                }
+
+                bandToUpdate.UpdateLocationWithAPI();
+
+                db.Entry(bandToUpdate).State = EntityState.Modified;
+                db.SaveChanges();
+
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(band);
+            }
+            catch (NullReferenceException ex)
+            {
+                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Console.WriteLine(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Console.WriteLine(ex.Message);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+            }
+
+            return RedirectToAction("Index", "Group");
+        }
+
+        
         public ActionResult AddBandMember(int userId)
         {
             AddBandMemberToSession(userId);
@@ -90,6 +210,21 @@ namespace TrouveUnBand.Controllers
         {
             RemoveBandMemberFromSession(userId);
             return PartialView("_MusicianTable");
+        }
+
+        private bool AddBandMemberToSession(BandMemberModel bandMember)
+        {
+            var bandMembers = (List<BandMemberModel>)Session["BandMembers"];
+
+            if (bandMembers.Any(x => x.User_ID == bandMember.User_ID))
+            {
+                return false;
+            }
+
+            bandMembers.Add(bandMember);
+            Session["BandMembers"] = bandMembers;
+
+            return true;
         }
 
         private bool AddBandMemberToSession(int userId)
@@ -121,7 +256,7 @@ namespace TrouveUnBand.Controllers
         {
             var bandMembers = (List<BandMemberModel>)Session["BandMembers"];
 
-            if (!bandMembers.Any(x => x.User_ID == userId))
+            if (bandMembers.All(x => x.User_ID != userId))
             {
                 return false;
             }
@@ -136,89 +271,6 @@ namespace TrouveUnBand.Controllers
         private void InitialiseSessionForBandMembers()
         {
             Session["BandMembers"] = new List<BandMemberModel>();
-        }
-
-        public ActionResult Confirm(string bandName, string bandDesc, string bandLocation, string sGenres, string sUsers)
-        {
-            var myBand = new Band
-            {
-                Name = bandName, Description = bandDesc, Location = bandLocation
-            };
-            myBand.Genres = GenreDao.GetGenresById(sGenres.Split(';').Select(n => Convert.ToInt32(n)).ToArray(), db);
-            myBand.Users = UserDao.GetUsersById(sUsers.Split(';').Select(n => Convert.ToInt32(n)).ToArray(), db);
-
-            var coord = Geolocalisation.GetCoordinatesByLocation(myBand.Location);
-            myBand.Latitude = coord.latitude;
-            myBand.Longitude = coord.longitude;
-
-            var queryExistingBand = from Q in db.Bands
-                                    where myBand.Name != null && Q.Name == myBand.Name
-                                    select Q;
-            var currentuser = GetAuthenticatedUser();
-            if (queryExistingBand.Any())
-            {
-                var existingBand = queryExistingBand.ToList()[0];
-                if (existingBand != null)
-                {
-                    TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, myBand);
-                    db.Entry(existingBand).State = EntityState.Unchanged;
-                }
-            }
-
-            try
-            {
-                db.Database.Connection.Open();
-                db.Bands.Add(myBand);
-                db.SaveChanges();
-                db.Database.Connection.Close();
-
-                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(myBand);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
-                Console.WriteLine(ex.Message);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        public ActionResult UpdateModal(Band model)
-        {
-            if (IsValidBand(model))
-            {
-                TempData["TempDataError"] = AlertMessages.EMPTY_INPUT;
-                return View("Create");
-            }
-
-            return View("index");
-        }
-
-        public ActionResult Edit(int id = 0)
-        {
-            var band = db.Bands.Find(id);
-            ViewBag.Members = band.Users.Select(x => x.User_ID);
-            ViewBag.Subgenres = GenreDao.GetAllSubgenresByGenres();
-
-            if (band == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(band);
-        }
-
-        [HttpPost]
-        public ActionResult Edit(Band band)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(band).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(band);
         }
 
         public ActionResult Delete(int id = 0)
@@ -316,14 +368,14 @@ namespace TrouveUnBand.Controllers
         public ActionResult SearchMusician(string searchString)
         {
             var musicians = UserDao.SearchBandMembers(searchString);
-            BandMembersViewModel potentialMembers = new BandMembersViewModel();
+            BandMemberModel bandMembers = new BandMemberModel();
 
             foreach (var musician in musicians)
             {
-                potentialMembers.addPotentialMember(musician);
+                bandMembers.BandMembers.Add(musician);
             }
 
-            return PartialView("_MusicianFinder", potentialMembers);
+            return PartialView("_MusicianFinder", bandMembers);
         }
     }
 }
