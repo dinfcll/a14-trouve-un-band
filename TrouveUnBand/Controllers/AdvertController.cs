@@ -206,14 +206,14 @@ namespace TrouveUnBand.Controllers
                     existingAdvert.Photo = savedPhotoPath;
                     db.SaveChanges();
 
-                    TempData["msgSuccess"] = AlertMessages.PICTURE_CHANGED;
+                    Success(Messages.PICTURE_CHANGED, true);
                 }
 
                 return RedirectToAction("Edit", new { id = advertWithPhoto.Advert_ID });
             }
             catch
             {
-                TempData["msgError"] = AlertMessages.INTERNAL_ERROR;
+                Danger(Messages.INTERNAL_ERROR, true);
                 return RedirectToAction("Edit", new { id = advertWithPhoto.Advert_ID});
             }
         }
