@@ -10,13 +10,11 @@ using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : baseController
     {
         private const int LATEST = 1;
         private const int MOST_POPULAR = 2;
         private const int HIGHEST_RATING = 3;
-
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
         public ActionResult Index(string searchString)
         {

@@ -5,10 +5,7 @@
 <h2>
     Événements</h2>
 <p>
-    @if (User.Identity.Name != "")
-    {
         @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class = "btn btn-primary" })
-    }
 </p>
 <div class="row">
     @foreach (var item in Model)

@@ -62,14 +62,4 @@
     {
         <h2><small>Vous ne faites partie d'aucun band</small></h2>
     }
-    
-    <p>
-    @Html.ActionLink("Créer un Band", "Create", new { @class = "btn btn-primary btn-lg" })
-</p>
-}
-else
-{
-    <h2><small>Vous n'êtes pas connecté</small></h2>
-    Html.ActionLink("S'enregistrer", "Register", "User");
-    Html.ActionLink("S'identifier", "Login", "User");
 }

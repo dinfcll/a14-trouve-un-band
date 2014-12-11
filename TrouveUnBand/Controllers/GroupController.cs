@@ -15,10 +15,8 @@ using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Controllers
 {
-    public class GroupController : Controller
+    public class GroupController : baseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
         public ActionResult Index()
         {
             var myBands = new List<Band>();
@@ -46,6 +44,8 @@ namespace TrouveUnBand.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            if(!CurrentUserIsAuthenticated())
+                return View("../Shared/Authentication");
             var subgenres = GenreDao.GetAllSubgenresByGenres();
             var user = GetAuthenticatedUser();
             var bandMember = GetAuthenticatedBandMember();
@@ -55,8 +55,8 @@ namespace TrouveUnBand.Controllers
 
             var band = new Band();
             band.Users.Add(user);
-
             return View(band);
+
         }
 
         [HttpPost]
@@ -91,7 +91,7 @@ namespace TrouveUnBand.Controllers
                 var existingBand = queryExistingBand.ToList()[0];
                 if (existingBand != null)
                 {
-                    TempData["warning"] = AlertMessages.EXISTING_BAND(existingBand, myBand);
+                    Warning(Messages.EXISTING_BAND(existingBand, myBand),true);
                     db.Entry(existingBand).State = EntityState.Unchanged;
                 }
             }
@@ -103,12 +103,12 @@ namespace TrouveUnBand.Controllers
                 db.SaveChanges();
                 db.Database.Connection.Close();
 
-                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(myBand);
+                Success(Messages.BAND_CREATION_SUCCESS(myBand),true);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Danger(Messages.INTERNAL_ERROR,true);
                 Console.WriteLine(ex.Message);
             }
             return RedirectToAction("Index", "Home");
@@ -119,7 +119,7 @@ namespace TrouveUnBand.Controllers
         {
             if (IsValidBand(model))
             {
-                TempData["TempDataError"] = AlertMessages.EMPTY_INPUT;
+                Danger(Messages.EMPTY_INPUT,true);
                 return View("Create");
             }
 
@@ -177,23 +177,6 @@ namespace TrouveUnBand.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CurrentUserIsAuthenticated()
-        {
-            return System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
-        }
-
-        private User GetAuthenticatedUser()
-        {
-            if (!CurrentUserIsAuthenticated())
-            {
-                throw new Exception("User is not authenticated");
-            }
-            var userName = System.Web.HttpContext.Current.User.Identity.Name;
-            var authenticatedUser = db.Users.FirstOrDefault(x => x.Nickname == userName);
-
-            return authenticatedUser;      
-        }
-
         private BandMemberModel GetAuthenticatedBandMember()
         {
             if (!CurrentUserIsAuthenticated())
@@ -241,7 +224,6 @@ namespace TrouveUnBand.Controllers
             return true;
         }
 
-        [HttpGet]
         public ActionResult SearchMusician(string searchString)
         {
             var musicians = UserDao.SearchBandMembers(searchString);

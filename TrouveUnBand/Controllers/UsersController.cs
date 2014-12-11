@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services.Description;
 using TrouveUnBand.Models;
 using System.Drawing;
 using TrouveUnBand.Classes;
@@ -10,10 +11,8 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : baseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
         public ActionResult NewProfilePage()
         {
             return View();
@@ -45,18 +44,18 @@ namespace TrouveUnBand.Controllers
                     returnCode = Insertcontact(userModel);
                     if (returnCode == "")
                     {
-                        TempData["success"] = AlertMessages.REGISTRATION_CONFIRMED;
+                        Success(Messages.REGISTRATION_CONFIRMED,true);
                         FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    returnCode = "Le mot de passe et sa confirmation ne sont pas identiques.";
+                    returnCode = Messages.PASSWORD_NOT_MATCHING;
                 }
             }
 
-            TempData["TempDataError"] = returnCode;
+            Danger(returnCode,true);
             return View();
         }
 
@@ -93,11 +92,11 @@ namespace TrouveUnBand.Controllers
                     return "";
                 }
 
-                return "L'utilisateur existe déjà";
+                return Messages.EXISTING_USER(userbd);
             }
             catch(Exception ex)
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard."+ex;
+                return Messages.INTERNAL_ERROR;
             }
         }
 
@@ -121,10 +120,9 @@ namespace TrouveUnBand.Controllers
                     FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }
-                TempData["TempDataError"] = "Votre identifiant/courriel ou mot de passe est incorrect. S'il vous plait, veuillez réessayer.";
+                Danger(Messages.INVALID_LOGIN,true);
                 return View();
             }
-            TempData["TempDataError"] = "";
             return View();
         }
 
@@ -176,7 +174,7 @@ namespace TrouveUnBand.Controllers
             }
             catch
             {
-                return "Une erreur interne s'est produite. Veuillez réessayer plus tard";
+                return Messages.INVALID_LOGIN;
             }
         }
 
@@ -206,11 +204,11 @@ namespace TrouveUnBand.Controllers
 
             if (returnCode == "")
             {
-                TempData["success"] = "Le profil a été mis à jour.";
+                Success(Messages.PROFILE_UPDATED,true);
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["TempDataError"] = "Une erreur interne s'est produite";
+            Danger(Messages.INTERNAL_ERROR, true);
             return RedirectToAction("ProfileModification", "Users");
         }
 
@@ -248,15 +246,15 @@ namespace TrouveUnBand.Controllers
 
                 if (isUpdated)
                 {
-                    TempData["success"] = "Le profil musicien a été mis à jour.";
+                    Success(Messages.MUSICIAN_PROFILE_UPDATED,true);
                     return RedirectToAction("Index", "Home");
                 }
 
-                TempData["TempDataError"] = "Une erreur interne s'est produite";
+                Danger(Messages.INTERNAL_ERROR);
                 return RedirectToAction("ProfileModification", "Users");
             }
 
-            TempData["TempDataError"] = "Vous ne pouvez pas entrer deux fois le même instrument";
+            Warning(Messages.INSTRUMENT_ALREADY_SELECTED,true);
             return RedirectToAction("ProfileModification", "Users");
         }
 
@@ -295,7 +293,7 @@ namespace TrouveUnBand.Controllers
 
             if (postedPhoto.ContentLength == 0)
             {
-                TempData["TempDataError"] = AlertMessages.POSTED_FILES_ERROR;
+                Danger(Messages.POSTED_FILES_ERROR,true);
                 return RedirectToAction("ProfileModification");
             }
 
@@ -305,7 +303,7 @@ namespace TrouveUnBand.Controllers
 
                 if(!Photo.IsPhoto(postedPhoto))
                 {
-                    TempData["TempDataError"] = AlertMessages.FILE_TYPE_INVALID;
+                    Danger(Messages.FILE_TYPE_INVALID,true);
                     return RedirectToAction("ProfileModification");
                 }
 
@@ -321,12 +319,12 @@ namespace TrouveUnBand.Controllers
                 loggedOnUser.Photo = savedPhotoPath;
                 db.SaveChanges();
 
-                TempData["success"] = AlertMessages.PICTURE_CHANGED;
+                Success(Messages.PICTURE_CHANGED,true);
                 return RedirectToAction("ProfileModification", "Users");
             }
             catch
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Danger(Messages.INTERNAL_ERROR,true);
                 return RedirectToAction("ProfileModification");
             }
         }
