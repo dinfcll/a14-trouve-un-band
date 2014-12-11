@@ -29,8 +29,9 @@ namespace TrouveUnBand.Controllers
                 {
                     myBands = currentUser.Bands.ToList();
                 }
+                return View(myBands);
             }
-            return View(myBands);
+            return View("../Shared/Authentication");
         }
 
         public ActionResult Details(int id = 0)
@@ -55,11 +56,8 @@ namespace TrouveUnBand.Controllers
 
             var band = new Band();
             band.Users.Add(user);
-            if (CurrentUserIsAuthenticated())
-            {
-                return View(band);
-            }
-            return View("../Shared/Authentication");
+            return View(band);
+
         }
 
         [HttpPost]

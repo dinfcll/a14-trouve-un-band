@@ -311,6 +311,11 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Images\Jcrop.gif" />
+    <Content Include="Photos\_StockPhotos\14422158866_3e59dc2447_o.jpg" />
+    <Content Include="Photos\_StockPhotos\Home1.jpg" />
+    <Content Include="Photos\_StockPhotos\Home2.jpg" />
+    <Content Include="Photos\_StockPhotos\Home3.jpg" />
+    <Content Include="Photos\_StockPhotos\Record.jpg" />
     <Content Include="Scripts\back-to-top.js" />
     <Content Include="Scripts\Alert.js" />
     <Content Include="Scripts\bootstrap-validation.js" />
@@ -386,7 +391,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
-    <Folder Include="Photos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -477,6 +481,7 @@
     <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
     <Content Include="Views\Group\Confirm.cshtml" />
+    <Content Include="Views\Shared\Authentication.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

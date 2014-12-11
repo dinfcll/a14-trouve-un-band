@@ -3,13 +3,18 @@
     ViewBag.Title = "_Authentication";
 }
 
-<h2>_Authentication</h2>
-
+<div>
+    <h2 class="Center-Text">Vous devez vous enregistrer pour accéder a cette section</h2>
+    <div class="Auth-Container container-fluid">
         <div class="row">
-            <div class="col-lg-6">
-                <h2>@Html.ActionLink("S'identifier", "Login", "Users", routeValues: null, htmlAttributes: new { id = "LoginLink" })</h2>
-            </div>
-            <div class="col-lg-6">
-                <h2>@Html.ActionLink("S'enregistrer", "Register", "Users", routeValues: null, htmlAttributes: new { id = "RegisterLink" })</h2>
+            <div class="col-md-6 col-md-offset-3 row-fluid inner-Auth">
+                <div class="row">
+                    <h1 class="Big-h1 Center-Text">@Html.ActionLink("S'identifier", "Login", "Users")</h1>
+                </div>
+                <div class="row">
+                    <h1 class="Big-h1 Center-Text">@Html.ActionLink("S'enregistrer", "Register", "Users")</h1>
+                </div>
             </div>
         </div>
+    </div>
+</div>
