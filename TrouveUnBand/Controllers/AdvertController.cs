@@ -98,12 +98,12 @@ namespace TrouveUnBand.Controllers
         [HttpPost]
         public ActionResult Edit(Advert newAdvertInfo, string[] GenreAdvertDB, string CreatorName)
         {
-
             var oldAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == newAdvertInfo.Advert_ID);
             newAdvertInfo.Photo = oldAdvert.Photo;
             newAdvertInfo.User = oldAdvert.User;
+            newAdvertInfo.CreationDate = oldAdvert.CreationDate;
 
-            if (ModelState.IsValid && newAdvertInfo.Genres.Count>0)
+            if (ModelState.IsValid)
             {
                 string GenresList = Request["GenreAdvertDB"];
                 string[] GenresArray = GenresList.Split(',');
