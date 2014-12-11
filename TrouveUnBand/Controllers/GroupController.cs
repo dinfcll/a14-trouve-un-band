@@ -55,8 +55,11 @@ namespace TrouveUnBand.Controllers
 
             var band = new Band();
             band.Users.Add(user);
-
-            return View(band);
+            if (CurrentUserIsAuthenticated())
+            {
+                return View(band);
+            }
+            return View("../Shared/Authentication");
         }
 
         [HttpPost]

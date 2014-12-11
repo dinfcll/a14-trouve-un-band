@@ -1,0 +1,15 @@
+﻿@using TrouveUnBand.Controllers
+@{
+    ViewBag.Title = "_Authentication";
+}
+
+<h2>_Authentication</h2>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>@Html.ActionLink("S'identifier", "Login", "Users", routeValues: null, htmlAttributes: new { id = "LoginLink" })</h2>
+            </div>
+            <div class="col-lg-6">
+                <h2>@Html.ActionLink("S'enregistrer", "Register", "Users", routeValues: null, htmlAttributes: new { id = "RegisterLink" })</h2>
+            </div>
+        </div>
