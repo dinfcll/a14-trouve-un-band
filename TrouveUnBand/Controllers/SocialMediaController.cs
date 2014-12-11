@@ -7,7 +7,7 @@ using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Controllers
 {
-    public class SocialMediaController : Controller
+    public class SocialMediaController : baseController
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 

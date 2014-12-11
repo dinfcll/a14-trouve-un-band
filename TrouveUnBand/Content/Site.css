@@ -292,3 +292,7 @@ display: inline;
 .popover{
     width:200px;
 }
+
+#page-alerts {
+    padding-top: 1em;
+}

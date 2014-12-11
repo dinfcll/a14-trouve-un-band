@@ -15,7 +15,7 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class AdvertController : Controller
+    public class AdvertController : baseController
     {
         private TrouveUnBandEntities db = new TrouveUnBandEntities();
 
@@ -206,14 +206,14 @@ namespace TrouveUnBand.Controllers
                     existingAdvert.Photo = savedPhotoPath;
                     db.SaveChanges();
 
-                    TempData["success"] = AlertMessages.PICTURE_CHANGED;
+                    Success(Messages.PICTURE_CHANGED, true);
                 }
 
                 return RedirectToAction("Edit", new { id = advertWithPhoto.Advert_ID });
             }
             catch
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Danger(Messages.INTERNAL_ERROR, true);
                 return RedirectToAction("Edit", new { id = advertWithPhoto.Advert_ID});
             }
         }
