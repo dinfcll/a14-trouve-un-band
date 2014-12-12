@@ -12,7 +12,7 @@ namespace TrouveUnBand.Classes
         public static class Category
         {
             public static string USER_PROFILE_PHOTO = "/Photos/UserProfilePhoto/";
-            public static string BAND_PHOTO = "BAND_PHOTO";
+            public static string BAND_PHOTO = "/Photos/BandPhotos/";
             public static string EVENT_PHOTO = "/Photos/EventPhotos/";
             public static string ADVERT_PHOTO = "/Photos/AdvertPhotos/";
         }

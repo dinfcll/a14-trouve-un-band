@@ -69,7 +69,7 @@ $("#ImageUploader").change(function () {
     }
     readURL(this);
     $(".photo-upload-filename").val(this.value);
-    $(".photo-upload-clear").show()
+    $(".photo-upload-clear").show();
 
     setModalButton();
     isClosedByButton = false;

@@ -70,11 +70,11 @@ namespace TrouveUnBand.Controllers
             return PartialView("_CreateConfirm", myBand);
         }
 
-        public ActionResult Confirm(string bandName, string bandDesc, string bandLocation, string sGenres, string sUsers, string bandPhoto)
+        public ActionResult Confirm(string bandName, string bandDesc, string bandLocation, string sGenres, string sUsers)
         {
             var myBand = new Band
             {
-                Name = bandName, Description = bandDesc, Location = bandLocation, Photo = bandPhoto
+                Name = bandName, Description = bandDesc, Location = bandLocation
             };
             myBand.Genres = GenreDao.GetGenresById(sGenres.Split(';').Select(n => Convert.ToInt32(n)).ToArray(), db);
             myBand.Users = UserDao.GetUsersById(sUsers.Split(';').Select(n => Convert.ToInt32(n)).ToArray(), db);
