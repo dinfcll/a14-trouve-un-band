@@ -3,19 +3,20 @@
 @{
     ViewBag.Title = "Création band";
 }
+
 <div class="container col-md-8 col-md-offset-2">
-    @using (Html.BeginForm("Create", "Group", FormMethod.Post, new { @id="FormBandCreation"}))
+    @using (Html.BeginForm("Confirmation", "Group", FormMethod.Get, new { @id = "FormBandCreation" }))
     {
         <div class="col-md-6">
-            @Html.TextBoxFor(model => model.Band.Name, new { @class = "form-control", @placeholder = "Nom du band" })
+            @Html.TextBox("Name", Model.Band.Name, new { @class = "form-control", @placeholder = "Nom du band" })
         </div>
             
         <div class="col-md-6">
-            @Html.TextBoxFor(model => model.Band.Location, new { @class = "form-control", @placeholder = "Ville" })
+            @Html.TextBox("Location", Model.Band.Location, new { @class = "form-control", @placeholder = "Ville" })
         </div>
             
         <div class="col-md-12">
-            @Html.TextAreaFor(model => model.Band.Description, new { @class = "form-control", @placeholder = "Description" })
+            @Html.TextArea("Description", Model.Band.Description, new { @class = "form-control", @placeholder = "Description" })
         </div>
             
         <div class="col-md-12">
@@ -37,12 +38,34 @@
             </select>
         </div>
     }
+
+    <div id="sessionBandMembers" class="hidden">@Json.Encode(Session["BandMembers"])</div>
     
     <div class="col-md-12">
         @Html.Partial("_MusicianTable")
     </div>
 
     <div class="col-md-6 col-md-offset-6">
-        <button id="btnTerminer" type="submit" class="btn btn-primary btn-lg col-md-12" form="FormBandCreation">Terminer</button>
+        <button id="btnTerminer" class="btn btn-primary btn-lg col-md-12">Terminer</button>
+    </div>
+</div>
+
+<a href="#" id="openModal" class="hidden"
+   data-toggle="modal"
+   data-target="#basicModal"></a>
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+            </div>
+            <div id="confirmation-body" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button id="btnConfirmationBack" type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <button id="btnConfirmation" type="button" class="btn btn-primary">Créer le groupe</button>
+            </div>
+        </div>
     </div>
 </div>

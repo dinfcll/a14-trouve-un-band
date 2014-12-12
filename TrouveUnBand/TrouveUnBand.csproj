@@ -319,6 +319,7 @@
     <Content Include="Scripts\bootstrap-validation.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\create-group.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\ImageUpload.js" />
@@ -478,6 +479,7 @@
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
     <None Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\Group\_MusicianTable.cshtml" />
+    <Content Include="Views\Group\Confirmation.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

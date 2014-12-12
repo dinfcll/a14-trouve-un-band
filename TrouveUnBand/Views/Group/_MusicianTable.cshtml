@@ -15,8 +15,8 @@
                 {
                     <tr>
                         <td class="hidden">@member.User_ID</td>
-                        <td>@member.FirstName @member.LastName</td>
-                        <td>@member.Location</td>
+                        <td class="name-cell">@member.FirstName @member.LastName</td>
+                        <td class="location-cell">@member.Location</td>
                         <td>@Ajax.ActionLink("Retirer", "RemoveBandMember", new { userId = member.User_ID }, new AjaxOptions { UpdateTargetId = "band-members" })</td>
                     </tr>
                 }

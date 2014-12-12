@@ -28,6 +28,7 @@ namespace TrouveUnBand
                 "~/Scripts/homepage.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
                 "~/Scripts/alert.js",
+                "~/Scripts/create-group.js",
                 "~/Scripts/star-rating.js",
                 "~/Scripts/ModifProfil.js",
                 "~/Scripts/jquery.Jcrop.js",

@@ -48,10 +48,10 @@ namespace TrouveUnBand.Controllers
         {
             InitialiseSessionForBandMembers();
 
-            var bandModel = new BandCreationViewModel();      
+            var viewModel = new BandCreationViewModel();      
             var authUser = GetAuthenticatedUser();
 
-            bandModel.Band.Users.Add(authUser);
+            viewModel.Band.Users.Add(authUser);
 
             AddBandMemberToSession(new BandMemberModel
             {
@@ -61,41 +61,29 @@ namespace TrouveUnBand.Controllers
                 User_ID = authUser.User_ID
             });
 
-            return View(bandModel);
+            return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(BandCreationViewModel bandViewModel, string[] cbSelectedGenres)
+        public ActionResult Create(string json)
         {
-            var bandIsNotUnique = db.Bands.Any(x => x.Name == bandViewModel.Band.Name && x.Location == bandViewModel.Band.Location);
+            var band = JsonToModel.ToBand(json, db);
 
-            if (bandIsNotUnique)
+            var alreadyExists = CheckIfBandAlreadyExists(band);
+            if (alreadyExists)
             {
+                // throw exception
                 return View();
             }
 
-            foreach (var genreName in cbSelectedGenres)
-            {
-                var genre = db.Genres.FirstOrDefault(x => x.Name == genreName);
-                bandViewModel.Band.Genres.Add(genre);
-            }
-
-            foreach (var musician in (List<BandMemberModel>)Session["BandMembers"])
-            {
-                var user = db.Users.FirstOrDefault(x => x.User_ID == musician.User_ID);
-                bandViewModel.Band.Users.Add(user);
-            }
-
-            bandViewModel.Band.UpdateLocationWithAPI();
+            band.UpdateLocationWithAPI();
 
             try
             {
-                db.Database.Connection.Open();
-                db.Bands.Add(bandViewModel.Band);
+                db.Bands.Add(band);
                 db.SaveChanges();
-                db.Database.Connection.Close();
 
-                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(bandViewModel.Band);
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(band);
             }
             catch (Exception ex)
             {
@@ -104,6 +92,35 @@ namespace TrouveUnBand.Controllers
             }
 
             return Redirect("Index");
+        }
+
+        public ActionResult Confirmation(BandCreationViewModel viewModel, string[] cbSelectedGenres)
+        {
+            var alreadyExists = CheckIfBandAlreadyExists(viewModel.Band);
+            if (alreadyExists)
+            {
+                // throw exception
+            }
+
+            foreach (var genreName in cbSelectedGenres)
+            {
+                var genre = db.Genres.FirstOrDefault(x => x.Name == genreName);
+                viewModel.Band.Genres.Add(genre);
+            }
+
+            foreach (var musician in (List<BandMemberModel>)Session["BandMembers"])
+            {
+                var user = db.Users.FirstOrDefault(x => x.User_ID == musician.User_ID);
+                viewModel.Band.Users.Add(user);
+            }
+
+            return View(viewModel);
+        }
+
+        private bool CheckIfBandAlreadyExists(Band band)
+        {
+            var bandAlreadyExists = db.Bands.Any(x => x.Name == band.Name && x.Location == band.Location);
+            return bandAlreadyExists;
         }
 
         public ActionResult Edit(int id = 0)
