@@ -7,7 +7,7 @@
 	Gender NVARCHAR(100) NOT NULL,
 	Email NVARCHAR(100) NOT NULL,
 	Password NVARCHAR(100) NOT NULL,
-	Photo varbinary(max),
+	Photo NVARCHAR(200),
 	Location NVARCHAR(100) NOT NULL,
 	Latitude FLOAT(40) NOT NULL,
 	Longitude FLOAT(40) NOT NULL,
@@ -22,7 +22,7 @@ create table Bands(
 	Location NVARCHAR(100) NOT NULL,
 	Latitude FLOAT(40) NOT NULL,
 	Longitude FLOAT(40) NOT NULL,
-	Photo varbinary(max),
+	Photo NVARCHAR(200),
 	CreationDate datetime2 NOT NULL DEFAULT (GETDATE())
 );
 
@@ -49,7 +49,7 @@ create table Events(
 	MaxAudience int NOT NULL,
 	Salary float(10) NOT NULL,
 	StageSize CHAR NOT NULL,
-	Photo varbinary(max),
+	Photo NVARCHAR(200),
 	Creator_ID int constraint fk_event_creator_id references Users(User_ID),
 	Description text NOT NULL,
 	CreationDate datetime2 NOT NULL DEFAULT (GETDATE())
@@ -109,7 +109,7 @@ create table Adverts(
 	Location NVARCHAR(100),
 	Latitude FLOAT(40) NOT NULL,
 	Longitude FLOAT(40) NOT NULL,
-	Photo varbinary(max)
+	Photo NVARCHAR(200)
 );
 
 create table Adverts_Genres(

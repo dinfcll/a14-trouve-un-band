@@ -11,75 +11,64 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="titre">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="titre">
             <!--NAVBAR-->
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("TrouveUnBand.com", "Index", "Home", new { @class = "navbar-brand" })
+                    @Html.ActionLink("TrouverUnBand.com", "Index", "Home", null, new { @class = "navbar-brand" })
 
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li id="index">@Html.ActionLink("Accueil", "Index", "Home")</li>
-                        <li id="about">@Html.ActionLink("À propos de", "About", "Home")</li>
-                        <li id="contact">@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li id="groupe">@Html.ActionLink("Groupes", "Index", "Group")</li>
-                        <li id="event">@Html.ActionLink("Événements", "Index", "Event")</li>
-                        <li id="Advert">@Html.ActionLink("Annonces", "Index", "Advert")</li>
+                        <li data-path="/">@Html.ActionLink("Accueil", "Index", "Home")</li>
+                        @*<li id="about">@Html.ActionLink("À propos de", "About", "Home")</li>
+                        <li id="contact">@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li data-path="/Group">@Html.ActionLink("Groupes", "Index", "Group")</li>
+                        <li data-path="/Event">@Html.ActionLink("Événements", "Index", "Event")</li>
+                        <li data-path="/Advert">@Html.ActionLink("Annonces", "Index", "Advert")</li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right" >
+                    <ul class="nav navbar-nav navbar-right">
                         <li>@Html.Partial("_LoginPartial")</li>
                     </ul>
-                    
-                    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class="navbar-form navbar-right", @role="search" }))
+
+                    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "navbar-form navbar-right", @role = "search", @id="header-search-form" }))
                     {
-                        @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
-                        @Html.ValidationMessage("SearchString")
-                        <button type="submit" class="hidden" value="search"></button>
+                        <div class="input-group">
+                            @Html.TextBox("SearchString", "", new { @class = "form-control", @placeholder = "Recherche rapide" })
+                            @Html.ValidationMessage("SearchString")
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit" value="search">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
                     }
                 </div><!--/.nav-collapse -->
             </div>
         </div><!--END NAVBAR-->
         <!--MAIN CONTENT-->
-        <div class="page-alerts">
-            @if (TempData["TempDataError"] != null && TempData["TempDataError"] != "")
-            {
-                <div class="alert alert-danger page-alert">
-                    <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <span class="glyphicon glyphicon-ban-circle"></span><strong> Oops! </strong><span>@TempData["TempDataError"]</span>
-                </div>
-            }
-            @if (TempData["success"] != null && TempData["success"] != "")
-            {
-                <div class="alert alert-success page-alert" id="alert-1">
-                    <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <span class="glyphicon glyphicon-ok"></span><strong> Bravo! </strong><span>@TempData["success"]</span>
-                </div>
-            }
-            @if (TempData["warning"] != null && TempData["warning"] != "")
-            {
-                <div class="alert alert-warning page-alert" id="alert-2">
-                    <button type="button" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <span class="glyphicon glyphicon-asterisk"></span><strong> Attention </strong><span>@TempData["warning"]</span>
-                </div>
-            }
+        
+                
+        <div id="page-alerts">
+            @{ Html.RenderPartial("_Alerts"); }
         </div>
-        <div class="container" style="padding-top:100px">
+
+        <div class="main-container container">
             @RenderSection("featured", required: false)
             @RenderSection("scripts", required: false)
+
             @RenderBody()
         </div>
 
+        @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/jqueryval")
-		
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
         @Scripts.Render("~/bundles/bootstrapjs")

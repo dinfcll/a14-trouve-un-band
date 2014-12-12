@@ -11,8 +11,9 @@ namespace TrouveUnBand
             bundles.IgnoreList.Clear();
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-1.8.1.min.js",
-                "~/Scripts/jquery.Jcrop.js"));
+                "~/Scripts/jquery-1.11.1.min.js",
+                "~/Scripts/jquery-1.11.2-ui.min.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                 "~/Scripts/bootstrap.min.js",
@@ -24,20 +25,22 @@ namespace TrouveUnBand
                 "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
-                "~/Scripts/CreateGroup.js",
+                "~/Scripts/homepage.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
                 "~/Scripts/alert.js",
+                "~/Scripts/create-group.js",
                 "~/Scripts/star-rating.js",
-                "~/Scripts/tooltips.js",
                 "~/Scripts/ModifProfil.js",
-                "~/Scripts/disable-search-ddl.js",
-                "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/jquery.Jcrop.js",
                 "~/Scripts/ImageUpload.js",
                 "~/Scripts/ProfilePage.js",
                 "~/Scripts/PictureDialog.js",
                 "~/Scripts/TopSecret.js",
-                "~/Scripts/bootstrap-select.js"
+                "~/Scripts/bootstrap-select.js",
+                "~/Scripts/back-to-top.js",
+                "~/Scripts/tooltips.js",
+                "~/Scripts/dropdown-fix.js",
+                "~/Scripts/over-bootstrap.js"
                 ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes
@@ -46,9 +49,13 @@ namespace TrouveUnBand
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/site.css",
                 "~/Content/Site.css",
-                 "~/Content/bootstrap-select.css"
+                 "~/Content/bootstrap-select.css",
+                 "~/Content/profile-page.css",
+                 "~/Content/over-bootstrap.css",
+                 "~/Content/jquery.Jcrop.css",
+                 "~/Content/timepicker.css",
+                 "~/Content/homepage.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
@@ -67,7 +74,6 @@ namespace TrouveUnBand
 
             bundles.Add(new StyleBundle("~/Content/bootstrapcss").Include(
                 "~/Content/bootstrap.css",
-                "~/Content/bootstrap.min.css",
                 "~/Content/bootstrap-responsive.min.css"));
 
             /*  Normalement ils sont chargé sur le cloud, mais en les chargeant 
