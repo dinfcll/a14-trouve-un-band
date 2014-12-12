@@ -233,8 +233,6 @@ namespace TrouveUnBand.Controllers
             return PartialView("_MusicianTable");
         }
 
-        // TODO: Add a Session wrapper class to manipulate session stored variables.
-
         private bool AddBandMemberToSession(BandMemberModel bandMember)
         {
             var bandMembers = (List<BandMemberModel>)Session["BandMembers"];

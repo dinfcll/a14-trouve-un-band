@@ -42,7 +42,5 @@ namespace TrouveUnBand.Services
 
             return myBand;
         }
-
-
     }
 }
