@@ -90,19 +90,14 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Event events, string[] EventGenreDB, string Creator, string[] BandsListDB)
+        public ActionResult Edit(Event events, string[] EventGenreDB, string[] BandsListDB)
         {
-            events.Creator_ID = Convert.ToInt32(Creator);
             events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
 
             if (ModelState.IsValid && EventGenreDB != null)
             {
-                db.Entry(events).State = EntityState.Modified;
-                db.SaveChanges();
-                ((IObjectContextAdapter)db).ObjectContext.Detach(events);
-                
                 var eventBD = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
-                db.Set(typeof(Event)).Attach(eventBD);
+                events.Photo = eventBD.Photo;
                 eventBD.Genres.Clear();
                 eventBD.Bands.Clear();
 
@@ -118,8 +113,7 @@ namespace TrouveUnBand.Controllers
                         eventBD.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == BandName));
                     }
                 }
-
-                db.Entry(eventBD).State = EntityState.Modified;
+                db.Entry(eventBD).CurrentValues.SetValues(events);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");

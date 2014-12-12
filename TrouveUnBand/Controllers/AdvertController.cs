@@ -102,33 +102,21 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Advert newAdvertInfo, string[] GenreAdvertDB, string CreatorName)
+        public ActionResult Edit(Advert newAdvertInfo, string[] GenreAdvertDB)
         {
             var oldAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == newAdvertInfo.Advert_ID);
             newAdvertInfo.Photo = oldAdvert.Photo;
             newAdvertInfo.User = oldAdvert.User;
             newAdvertInfo.CreationDate = oldAdvert.CreationDate;
-
+            oldAdvert.Genres.Clear();
             if (ModelState.IsValid)
             {
-                string GenresList = Request["GenreAdvertDB"];
-                string[] GenresArray = GenresList.Split(',');
-
-                oldAdvert.Genres.Clear();
-                for (int i = 0; i < GenresArray.Length; i++)
+                foreach (var GenreName in GenreAdvertDB)
                 {
-                    string GenreName = GenreAdvertDB[i];
-                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                    oldAdvert.Genres.Add(UnGenre);
+                    oldAdvert.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == GenreName));
                 }
-
-                db.Entry(oldAdvert).State = EntityState.Modified;
+                db.Entry(oldAdvert).CurrentValues.SetValues(newAdvertInfo);
                 db.SaveChanges();
-
-                ((IObjectContextAdapter)db).ObjectContext.Detach(oldAdvert);
-                db.Entry(newAdvertInfo).State = EntityState.Modified;
-                db.SaveChanges();
-
                 return RedirectToAction("MyAdverts", "Advert", "MyAdverts");
             }
             ViewBag.Creator = new SelectList(db.Users, "UserId", "FirstName", newAdvertInfo.Creator_ID);
