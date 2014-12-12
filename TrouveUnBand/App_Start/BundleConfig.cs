@@ -26,12 +26,11 @@ namespace TrouveUnBand
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
                 "~/Scripts/homepage.js",
-                "~/Scripts/CreateGroup.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
                 "~/Scripts/alert.js",
+                "~/Scripts/create-group.js",
                 "~/Scripts/star-rating.js",
                 "~/Scripts/ModifProfil.js",
-                "~/Scripts/disable-search-ddl.js",
                 "~/Scripts/jquery.Jcrop.js",
                 "~/Scripts/ImageUpload.js",
                 "~/Scripts/ProfilePage.js",

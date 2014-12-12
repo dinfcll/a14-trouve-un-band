@@ -7,10 +7,8 @@ using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
         public ActionResult Index()
         {
             HomePage();

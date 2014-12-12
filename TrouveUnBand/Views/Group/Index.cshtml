@@ -26,7 +26,7 @@
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
-            
+                    <p>Action</p>
                 </th>
             </tr>
 
@@ -43,13 +43,13 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Edit", "Group", new { id = item.Band_ID })'">
+                        <button type="button" class="btn btn-default btn-sm" title="Modifier" onclick="location.href='@Url.Action("Edit", "Group", new { id = item.Band_ID })'">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Details", "Group", new { id = item.Band_ID })'">
+                        <button type="button" class="btn btn-default btn-sm" title="Consulter" onclick="location.href='@Url.Action("Details", "Group", new { id = item.Band_ID })'">
                             <span class="glyphicon glyphicon-list-alt"></span>
                         </button>
-                        <button type="button" class="btn btn-default btn-sm" title="Edit" onclick="location.href='@Url.Action("Delete", "Group", new { id = item.Band_ID })'">
+                        <button type="button" class="btn btn-default btn-sm" title="Supprimer" onclick="location.href='@Url.Action("Delete", "Group", new { id = item.Band_ID })'">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </td>
@@ -62,14 +62,4 @@
     {
         <h2><small>Vous ne faites partie d'aucun band</small></h2>
     }
-    
-    <p>
-    @Html.ActionLink("Créer un Band", "Create", new { @class = "btn btn-primary btn-lg" })
-</p>
-}
-else
-{
-    <h2><small>Vous n'êtes pas connecté</small></h2>
-    Html.ActionLink("S'enregistrer", "Register", "User");
-    Html.ActionLink("S'identifier", "Login", "User");
 }

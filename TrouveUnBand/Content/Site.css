@@ -294,6 +294,25 @@ tr.instTable > td {
     width: 200px;
 }
 
+
 .profile-modif-tab-container .thumbnail{
     cursor:pointer;
+}
+
+.Auth-Container 
+{
+    padding-top: 15em;
+}
+
+.Big-h1 {
+    font-size:5em;
+}
+
+.Center-Text {
+    text-align: center;
+}
+
+#page-alerts {
+    top:60px;
+    position:relative;
 }
