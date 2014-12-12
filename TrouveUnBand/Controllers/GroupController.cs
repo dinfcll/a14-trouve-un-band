@@ -91,7 +91,7 @@ namespace TrouveUnBand.Controllers
                 Console.WriteLine(ex.Message);
             }
 
-            return Redirect("Index");
+            return RedirectToAction("Index");
         }
 
         public ActionResult Confirmation(BandCreationViewModel viewModel, string[] cbSelectedGenres)

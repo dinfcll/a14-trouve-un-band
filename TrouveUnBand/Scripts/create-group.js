@@ -24,6 +24,9 @@
             data: { json: json },
             error: function () {
                 alert("Error while sending data to server");
+            },
+            success: function () {
+                window.location.pathname = "/group";
             }
         });
     })
