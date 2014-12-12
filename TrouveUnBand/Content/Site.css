@@ -41,7 +41,6 @@
     }
 
 .field-validation-error {
-    /*returned text when an error occured*/
     font-size: 75%;
     font-weight: bold;
     color: #a94442;
