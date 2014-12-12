@@ -1,15 +1,15 @@
-﻿<div class="panel panel-default">
-    <div class="panel-heading">@ViewBag.ResultsCount musiciens trouvés</div>
+﻿@model TrouveUnBand.Models.BandMemberModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">@Model.BandMembers.Count résultats trouvés</div>
     <table class="table">
-        @foreach (var musician in (List<TrouveUnBand.Models.BandMemberModel>)ViewBag.Results)
+        @foreach (var musician in Model.BandMembers)
         {
             <tr>
-                <td>@musician.User_ID</td>
-                <td>@musician.FirstName</td>
-                <td>@musician.LastName</td>
+                <td class="hidden">@musician.User_ID</td>
+                <td>@musician.FirstName @musician.LastName</td>
                 <td>@musician.Location</td>
-
-                <td><input id="btnAddMember" type="button" class="btn btn-default"value="Ajouter au groupe" onclick="AddBandMember(@Json.Encode(musician));" /></td>
+                <td>@Ajax.ActionLink("Ajouter", "AddBandMember", new { userId = musician.User_ID }, new AjaxOptions { UpdateTargetId="band-members"})</td>
             </tr>
         }
     </table>
