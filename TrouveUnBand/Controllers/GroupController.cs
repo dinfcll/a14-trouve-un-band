@@ -10,6 +10,7 @@ using TrouveUnBand.Services;
 using TrouveUnBand.ViewModels;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using WebGrease.Css.Extensions;
 
 namespace TrouveUnBand.Controllers
 {
@@ -250,43 +251,46 @@ namespace TrouveUnBand.Controllers
             Session["BandMembers"] = new List<BandMemberModel>();
         }
 
+        [HttpGet]
         public ActionResult Delete(int id = 0)
         {
+            var bandCreationModel = new BandCreationViewModel();
             var band = db.Bands.Find(id);
+
             if (band == null)
             {
                 return HttpNotFound();
             }
-            return View(band);
+
+            bandCreationModel.Band = band;
+            InitialiseSessionForBandMembers();
+
+            try
+            {
+                foreach (var user in band.Users)
+                {
+                    AddBandMemberToSession(user.User_ID);
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                Danger(Messages.INTERNAL_ERROR, true);
+                Console.WriteLine(ex.Message);
+            }
+
+            return View(bandCreationModel);
         }
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Delete(BandCreationViewModel bandCreationModel)
         {
-            var band = db.Bands.Find(id);
+            var band = db.Bands.Find(bandCreationModel.Band.Band_ID);
             band.Genres.Clear();
             band.Users.Clear();
             db.SaveChanges();
             db.Bands.Remove(band);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        private bool CurrentUserIsAuthenticated()
-        {
-            return System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
-        }
-
-        private User GetAuthenticatedUser()
-        {
-            if (!CurrentUserIsAuthenticated())
-            {
-                Danger(Messages.NOT_CONNECTED, true);
-            }
-            var userName = System.Web.HttpContext.Current.User.Identity.Name;
-            var authenticatedUser = db.Users.FirstOrDefault(x => x.Nickname == userName);
-
-            return authenticatedUser;
         }
 
         private BandMemberModel GetAuthenticatedUserToBandMemberModel()
