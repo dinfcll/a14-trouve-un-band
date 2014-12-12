@@ -8,11 +8,11 @@
         <div>
             @Html.Label("Photo de profil: ")
         </div>
-        <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#PicModal">
+        <a class="thumbnail col-md-10" data-toggle="modal" data-target="#PicModal">
             <img id="ProfilePic" alt="" src="@Model.Photo" class="photo" width="350" />
         </a>
 
-        <h4>Changer votre photo de profil ...</h4>
+        <h4 class="col-md-12">Changer votre photo de profil ...</h4>
         <div class="col-md-11 file-uploader row">
             <div class="btn btn-default photo-upload-browser col-md-12">
                 <span class="glyphicon glyphicon-folder-open"></span>

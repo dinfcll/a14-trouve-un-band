@@ -293,3 +293,7 @@ tr.instTable > td {
 .popover {
     width: 200px;
 }
+
+.profile-modif-tab-container .thumbnail{
+    cursor:pointer;
+}

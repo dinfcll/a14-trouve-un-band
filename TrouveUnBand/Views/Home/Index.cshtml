@@ -35,7 +35,8 @@
             <div class="container">
                 <div class="home-section-header col-md-12">
                     <h1>
-                        Derniers Musiciens Inscrits</h1>
+                        Derniers Musiciens Inscrits
+                    </h1>
                 </div>
                 <div class="home-section-content">
                     @foreach (var item in Model.UserList)
@@ -49,7 +50,8 @@
                             </div>
                             <div class="home-thumbnail-middle">
                                 <p>
-                                    <strong>@item.Name</strong></p>
+                                    <strong>@item.Name</strong>
+                                </p>
                                 <p>@item.Location</p>
                             </div>
                         </div>
@@ -61,7 +63,8 @@
             <div class="container">
                 <div class="home-section-header col-md-12">
                     <h1>
-                        Derniers Groups Inscrits</h1>
+                        Derniers Groups Inscrits
+                    </h1>
                 </div>
                 <div class="home-section-content">
                     @foreach (var item in Model.UserList)
@@ -70,7 +73,8 @@
                             <img src="@item.Photo" alt="" />
                             <div class="home-thumbnail-middle">
                                 <p>
-                                    <strong>@item.Name</strong></p>
+                                    <strong>@item.Name</strong>
+                                </p>
                                 <p>@item.Location</p>
                             </div>
                         </div>
@@ -82,9 +86,11 @@
             <div class="container">
                 <div class="home-section-header col-md-6 col-md-offset-3">
                     <h1 class="">
-                        Prochains Événements</h1>
+                        Prochains Événements
+                    </h1>
                     <h4>
-                        Pour ne rien rater</h4>
+                        Pour ne rien rater
+                    </h4>
                 </div>
                 <div class="home-section-content">
                     @foreach (var item in Model.EventList)
@@ -111,19 +117,22 @@
         <div class="home-section-invert col-md-12">
             <div class="container">
                 <div class="home-section-header col-md-6 col-md-offset-3">
-                    <h1 class="">
-                        Dernières Annonces</h1>
+                    <h1>
+                        Dernières Annonces
+                    </h1>
                     <h4>
-                        Ne manquez pas votre chance</h4>
+                        Ne manquez pas votre chance
+                    </h4>
                 </div>
                 <div class="home-section-content">
                     @foreach (var item in Model.AdvertList)
                     {
-                        <div class="event-panel col-md-12">
+                        <div class="event-panel home-panel-invert col-md-12">
                             <img src="@item.Photo" alt="Image" class="col-md-3">
                             <div class="event-panel-date col-md-2">
                                 <h3 class="col-md-3">
-                                    Expiration/</h3>
+                                    Expiration/
+                                </h3>
                                 <h1 class="col-md-12">@item.ExpirationDate</h1>
                             </div>
                             <div class="event-panel-info col-md-5">

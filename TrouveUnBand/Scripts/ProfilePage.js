@@ -12,6 +12,8 @@ $("#profile-menu ul > li").click(function (event) {
     tabContent.slideDown("fast", function () {
     })
 
+    $("#" + scrollSpy).find("i").switchClass("glyphicon-plus", "glyphicon-minus");
+
     $(this).siblings(".active").removeClass("active");
     $(this).addClass("active");
 
@@ -46,13 +48,13 @@ $(".profile-tab-header").click(function () {
     var tabContent = $(this).siblings(".profile-tab-content");
     var chevron = $(this).children("i");
 
-    if (chevron.hasClass("glyphicon-chevron-left")) {
-        chevron.removeClass("glyphicon-chevron-left");
-        chevron.addClass("glyphicon-chevron-down");
+    if (chevron.hasClass("glyphicon-plus")) {
+        chevron.removeClass("glyphicon-plus");
+        chevron.addClass("glyphicon-minus");
     }
     else {
-        chevron.removeClass("glyphicon-chevron-down");
-        chevron.addClass("glyphicon-chevron-left");
+        chevron.removeClass("glyphicon-minus");
+        chevron.addClass("glyphicon-plus");
     }
 
     tabContent.slideToggle("fast", function () {
