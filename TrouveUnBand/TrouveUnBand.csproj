@@ -188,6 +188,8 @@
     <Compile Include="Models\Band.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\Exceptions.cs" />
+    <Compile Include="ViewModels\BandCreationViewModel.cs" />
     <Compile Include="Models\BandMemberModel.cs" />
     <Compile Include="Models\BandProfileViewModel.cs" />
     <Compile Include="Models\Event.cs">
@@ -219,6 +221,7 @@
     <Compile Include="Models\MusicianProfileViewModel.cs" />
     <Compile Include="Models\NewsfeedModel.cs" />
     <Compile Include="Models\Musician_Instrument.cs" />
+    <Compile Include="Models\Partial\_Band.cs" />
     <Compile Include="Models\Partial\_Event.cs" />
     <Compile Include="Models\Partial\_User.cs" />
     <Compile Include="Models\User.cs">
@@ -314,10 +317,9 @@
     <Content Include="Scripts\back-to-top.js" />
     <Content Include="Scripts\Alert.js" />
     <Content Include="Scripts\bootstrap-validation.js" />
-    <Content Include="Scripts\CreateGroup.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\disable-search-ddl.js" />
+    <Content Include="Scripts\create-group.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\ImageUpload.js" />
@@ -469,15 +471,15 @@
     </Content>
     <Content Include="Views\Photo\_PhotoAlbum.cshtml" />
     <Content Include="Views\Group\_MusicianFinder.cshtml" />
-    <Content Include="Views\Group\_CreateConfirm.cshtml" />
     <Content Include="Views\SocialMedia\test.cshtml" />
     <Content Include="Views\SocialMedia\_Metadata-Annonce.cshtml" />
     <Content Include="Views\SocialMedia\_Metadata-Band.cshtml" />
     <Content Include="Views\SocialMedia\_Metadata-Event.cshtml" />
     <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
-    <Content Include="Views\Group\Confirm.cshtml" />
     <None Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Views\Group\_MusicianTable.cshtml" />
+    <Content Include="Views\Group\Confirmation.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
