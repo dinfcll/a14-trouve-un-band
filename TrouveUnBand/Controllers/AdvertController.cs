@@ -15,10 +15,8 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class AdvertController : Controller
+    public class AdvertController : BaseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
         public ActionResult Index()
         {
             ViewBag.UsersListDB = new List<User>(db.Users);
@@ -28,6 +26,10 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult MyAdverts()
         {
+            if (!CurrentUserIsAuthenticated())
+            {
+                return View("../Shared/Authentication");
+            }
             ViewBag.UsersListDB = new List<User>(db.Users);
             var adverts = db.Adverts.Include(a => a.User).Include(a => a.Genres);
             return View(adverts.ToList());
@@ -35,6 +37,10 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
+            if (!CurrentUserIsAuthenticated())
+            {
+                return View("../Shared/Authentication");
+            }
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             return View();
         }
@@ -194,14 +200,14 @@ namespace TrouveUnBand.Controllers
                     existingAdvert.Photo = savedPhotoPath;
                     db.SaveChanges();
 
-                    TempData["success"] = AlertMessages.PICTURE_CHANGED;
+                    Success(Messages.PICTURE_CHANGED, true);
                 }
 
                 return RedirectToAction("Edit", new { id = advertWithPhoto.Advert_ID });
             }
             catch
             {
-                TempData["TempDataError"] = AlertMessages.INTERNAL_ERROR;
+                Danger(Messages.INTERNAL_ERROR, true);
                 return RedirectToAction("Edit", new { id = advertWithPhoto.Advert_ID});
             }
         }

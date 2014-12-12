@@ -3,16 +3,15 @@
     ViewBag.Title = "Annonces";
 }
 <div class="panel panel-default" style="border: 0;">
-    <div class="col-md-8">
-        <h3>
-            Annonces</h3>
-    </div>
-    <div class="col-md-4">
-        @if (User.Identity.Name != "")
-        {
-            @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6 col-md-pull-1" })
-            @Html.ActionLink("Mes Annonces", "MyAdverts", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
-        }
+    <div class="panel-body">
+        <div class="col-md-8">
+            <h3>
+                Annonces</h3>
+        </div>
+        <div class="col-md-4">
+                @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6 col-md-pull-1" })
+                @Html.ActionLink("Mes Annonces", "MyAdverts", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
+        </div>
     </div>
     <div class="row">
         @foreach (var item in Model)
