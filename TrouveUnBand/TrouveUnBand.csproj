@@ -167,11 +167,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\AdvertInfo.cs" />
+    <Compile Include="Classes\BandInfo.cs" />
     <Compile Include="Classes\CreateProfile.cs" />
+    <Compile Include="Classes\DateHelper.cs" />
     <Compile Include="Classes\FileHelper.cs" />
     <Compile Include="Classes\Geolocalisation.cs" />
     <Compile Include="Classes\PhotoCropper.cs" />
     <Compile Include="Classes\PhotoResizer.cs" />
+    <Compile Include="Classes\UserInfo.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EventController.cs" />
@@ -192,13 +196,15 @@
     <Compile Include="Services\Exceptions.cs" />
     <Compile Include="ViewModels\BandCreationViewModel.cs" />
     <Compile Include="Models\BandMemberModel.cs" />
-    <Compile Include="Models\BandProfileViewModel.cs" />
+    <Compile Include="ViewModels\BandProfileViewModel.cs" />
     <Compile Include="Models\Event.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\EventPageViewModel.cs" />
     <Compile Include="Models\Genre.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -219,8 +225,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\MusicianProfileViewModel.cs" />
-    <Compile Include="Models\NewsfeedModel.cs" />
+    <Compile Include="ViewModels\MusicianProfileViewModel.cs" />
     <Compile Include="Models\Musician_Instrument.cs" />
     <Compile Include="Models\Partial\_Band.cs" />
     <Compile Include="Models\Partial\_Event.cs" />
@@ -231,6 +236,7 @@
     <Compile Include="Models\Users_Instruments.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Classes\EventInfo.cs" />
     <Compile Include="POCO\Alert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdvertDao.cs" />
@@ -244,6 +250,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\event.css" />
     <Content Include="Content\homepage.css" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\over-bootstrap.css" />

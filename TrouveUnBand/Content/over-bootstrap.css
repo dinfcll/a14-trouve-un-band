@@ -1,77 +1,92 @@
-﻿/*Over bootstrap*/
-body{
-    background-color:#F3F3F3 !important;
+﻿body
+{
+    background-color: #F3F3F3 !important;
 }
 
-.navbar-default {
-    background-color:#333333 !important;
+.navbar-default
+{
+    background-color: #333333 !important;
 }
 
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: white !important;
-  background-color: #0099DA !important;
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus
+{
+    color: white !important;
+    background-color: #0099DA !important;
 }
 
-#header-search-form input{
-    border-top-left-radius:0;
-    border-bottom-left-radius:0;
-    border:1px solid #555555;
-    background-color:#555555;
-    color:white;
-    font-size:17px;
+#header-search-form input
+{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 1px solid #555555;
+    background-color: #555555;
+    color: white;
+    font-size: 17px;
 }
 
-#header-search-form .btn{
-    border-top-right-radius:0;
-    border-bottom-right-radius:0;
-    border:1px solid #0099DA;
-    background-color:#0099DA;
-    color:White;
+#header-search-form .btn
+{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid #0099DA;
+    background-color: #0099DA;
+    color: White;
 }
 
-#header-search-form .btn:hover{
+#header-search-form .btn:hover
+{
     border-left-color: #555555;
 }
 
-.navbar-brand:hover{
-    color:#0099DA !important;
+.navbar-brand:hover
+{
+    color: #0099DA !important;
 }
 
-#header-search-form input:focus,
-#header-search-form input:active{
+#header-search-form input:focus, #header-search-form input:active
+{
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
-   
-hr {
-  border-top: 1px solid #DCE4EC !important;
+
+hr
+{
+    border-top: 1px solid #DCE4EC !important;
 }
 
-.navbar-fixed-top{
-    border-width:0px 0px 0px !important;
+.navbar-fixed-top
+{
+    border-width: 0px 0px 0px !important;
 }
 
-.navbar-default .navbar-nav > .active > a {
-  color: white !important;
-  background-color: #555555 !important;
+.navbar-default .navbar-nav > .active > a
+{
+    color: white !important;
+    background-color: #555555 !important;
 }
 
-.tooltip{
-    font-size:15px !important;
+.tooltip
+{
+    font-size: 15px !important;
 }
 
-.panel-title{
+.panel-title
+{
     font-size: 18px !important;
 }
 
-.table-striped>tbody>tr:nth-child(odd)>td, 
-.table-striped>tbody>tr:nth-child(odd)>th {
-   background-color: white;
- }
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th
+{
+    background-color: white;
+}
 
-.table-striped>tbody>tr:nth-child(even)>td, 
-.table-striped>tbody>tr:nth-child(even)>th {
-   background-color: #F9F9F9;
- }
+.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th
+{
+    background-color: #F9F9F9;
+}
+
+.alert
+{
+    margin-bottom: 0 !important;
+}

@@ -11,11 +11,11 @@ namespace TrouveUnBand.Classes
 {
     public class Photo
     {
-       public static string USER_STOCK_PHOTO_MALE = "/Photos/UserProfilePhoto/_stock_user_male.jpg";
-       public static string USER_STOCK_PHOTO_FEMALE = "/Photos/UserProfilePhoto/_stock_user_female.jpg";
-       public static string BAND_STOCK_PHOTO = "BAND_PHOTO";
-       public static string EVENT_STOCK_PHOTO = "/Photos/EventPhotos/_stock_event.jpg";
-       public static string ADVERT_STOCK_PHOTO = "/Photos/AdvertPhotos/_stock_advert.jpg";
+        public static string USER_STOCK_PHOTO_MALE = "/Photos/UserProfilePhoto/_stock_user_male.jpg";
+        public static string USER_STOCK_PHOTO_FEMALE = "/Photos/UserProfilePhoto/_stock_user_female.jpg";
+        public static string BAND_STOCK_PHOTO = "BAND_PHOTO";
+        public static string EVENT_STOCK_PHOTO = "/Photos/EventPhotos/_stock_event.jpg";
+        public static string ADVERT_STOCK_PHOTO = "/Photos/AdvertPhotos/_stock_advert.jpg";
 
         byte[] m_PhotoArray;
 
@@ -54,18 +54,24 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        //private static byte[] imageToByteArray(Image imageIn)
-        //{
-        //    MemoryStream ms = new MemoryStream();
-        //    imageIn.Save(ms, ImageFormat.Jpeg);
-
-        //    return ms.ToArray();
-        //}
-
-        public static bool IsPhoto(HttpPostedFileBase PostedPhoto)
+        public static bool IsPhoto(HttpPostedFileBase postedPhoto)
         {
-            string extension = Path.GetExtension(PostedPhoto.FileName).ToLower();
+            string extension = Path.GetExtension(postedPhoto.FileName).ToLower();
+            bool isPhoto = VerifyExtension(extension);
 
+            return isPhoto;
+        }
+
+        public static bool IsPhoto(string postedPhotoSrc)
+        {
+            string extension = Path.GetExtension(postedPhotoSrc).ToLower();
+            bool isPhoto = VerifyExtension(extension);
+
+            return isPhoto;
+        }
+
+        private static bool VerifyExtension(string extension)
+        {
             if (extension != ".jpe" && extension != ".jpg" && extension != ".jpeg" && extension != ".gif" && extension != ".png" &&
                 extension != ".pns" && extension != ".bmp" && extension != ".ico" && extension != ".psd" && extension != ".pdd")
             {

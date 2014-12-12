@@ -1,24 +1,37 @@
 @model TrouveUnBand.Models.User
 <div class="profile-modif-tab-container">
 
-    @using (Html.BeginForm("CropImage", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("SendImageForCrop", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        <div class="col-md-5">
-            <div>
-                @Html.Label("Photo de profil: ")
-            </div>
-            <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#PicModal">
-                <img id="ProfilePic" alt="" src="@Model.Photo" class="photo" width="350" />
-            </a>
+    <div class="col-md-5">
+        <div>
+            @Html.Label("Photo de profil: ")
+        </div>
+        <a class="thumbnail col-md-10" data-toggle="modal" data-target="#PicModal">
+            <img id="ProfilePic" alt="" src="@Model.Photo" class="photo" width="350" />
+        </a>
 
-            <div class="col-md-11 file-uploader row">
-                <div class="btn btn-default photo-upload-browser col-md-12">
-                    <span class="glyphicon glyphicon-folder-open"></span>
-                    <span class="image-upload-input-title">Changer votre photo de profil</span>
-                    <input id="ImageUploader" type="file" accept="image/*" name="photo-upload-browser" />
-                </div>
+        <h4 class="col-md-12">Changer votre photo de profil ...</h4>
+        <div class="col-md-11 file-uploader row">
+            <div class="btn btn-default photo-upload-browser col-md-12">
+                <span class="glyphicon glyphicon-folder-open"></span>
+                <span class="image-upload-input-title">Choisir une photo dans vos dossiers</span>
+                <input id="ImageUploader" type="file" accept="image/*" name="photo-upload-browser" />
             </div>
+        </div>
+
+        <div class="col-md-11 row">
+            <div class="input-group">
+                <input id="PhotoSrcInput" type="text" class="form-control"
+                       placeholder="Ou coller l'URL d'une photo" />
+                <span class="input-group-btn">
+                    <button id="photo-URL-btn" class="btn btn-primary" type="button">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
 
 
             <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
@@ -32,6 +45,7 @@
             @Html.HiddenFor(model => model.ProfilePicture.PicY, new { id = "Y" })
             @Html.HiddenFor(model => model.ProfilePicture.PicWidth, new { id = "Width" })
             @Html.HiddenFor(model => model.ProfilePicture.PicHeight, new { id = "Height" })
+            @Html.HiddenFor(model => model.ProfilePicture.PhotoSrc, new { id = "PhotoSrc" })
         </div>
     }
 

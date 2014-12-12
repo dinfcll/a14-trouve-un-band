@@ -8,6 +8,7 @@ using TrouveUnBand.Models;
 using System.Drawing;
 using TrouveUnBand.Classes;
 using TrouveUnBand.POCO;
+using System.Net;
 
 namespace TrouveUnBand.Controllers
 {
@@ -44,7 +45,7 @@ namespace TrouveUnBand.Controllers
                     returnCode = Insertcontact(userModel);
                     if (returnCode == "")
                     {
-                        Success(Messages.REGISTRATION_CONFIRMED,true);
+                        Success(Messages.REGISTRATION_CONFIRMED, true);
                         FormsAuthentication.SetAuthCookie(userModel.Nickname, false);
                         return RedirectToAction("Index", "Home");
                     }
@@ -55,7 +56,7 @@ namespace TrouveUnBand.Controllers
                 }
             }
 
-            Danger(returnCode,true);
+            Danger(returnCode, true);
             return View();
         }
 
@@ -76,7 +77,7 @@ namespace TrouveUnBand.Controllers
                 if (validUserQuery == null)
                 {
                     userbd.Photo = Photo.USER_STOCK_PHOTO_MALE;
-                    if(userbd.Gender == "Femme")
+                    if (userbd.Gender == "Femme")
                     {
                         userbd.Photo = Photo.USER_STOCK_PHOTO_FEMALE;
                     }
@@ -94,7 +95,7 @@ namespace TrouveUnBand.Controllers
 
                 return Messages.EXISTING_USER(userbd);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Messages.INTERNAL_ERROR;
             }
@@ -120,7 +121,7 @@ namespace TrouveUnBand.Controllers
                     FormsAuthentication.SetAuthCookie(model.Nickname, model.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }
-                Danger(Messages.INVALID_LOGIN,true);
+                Danger(Messages.INVALID_LOGIN, true);
                 return View();
             }
             return View();
@@ -204,7 +205,7 @@ namespace TrouveUnBand.Controllers
 
             if (returnCode == "")
             {
-                Success(Messages.PROFILE_UPDATED,true);
+                Success(Messages.PROFILE_UPDATED, true);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -246,7 +247,7 @@ namespace TrouveUnBand.Controllers
 
                 if (isUpdated)
                 {
-                    Success(Messages.MUSICIAN_PROFILE_UPDATED,true);
+                    Success(Messages.MUSICIAN_PROFILE_UPDATED, true);
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -254,7 +255,7 @@ namespace TrouveUnBand.Controllers
                 return RedirectToAction("ProfileModification", "Users");
             }
 
-            Warning(Messages.INSTRUMENT_ALREADY_SELECTED,true);
+            Warning(Messages.INSTRUMENT_ALREADY_SELECTED, true);
             return RedirectToAction("ProfileModification", "Users");
         }
 
@@ -287,46 +288,62 @@ namespace TrouveUnBand.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult CropImage(User userWithPhoto)
+        public virtual ActionResult SendImageForCrop(User userWithPhoto)
         {
-            var postedPhoto = Request.Files[0];
-
-            if (postedPhoto.ContentLength == 0)
-            {
-                Danger(Messages.POSTED_FILES_ERROR,true);
-                return RedirectToAction("ProfileModification");
-            }
+            Image image;
+            string photoSrc = userWithPhoto.ProfilePicture.PhotoSrc;
 
             try
             {
-                User loggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
-
-                if(!Photo.IsPhoto(postedPhoto))
+                if (!string.IsNullOrEmpty(photoSrc))
                 {
-                    Danger(Messages.FILE_TYPE_INVALID,true);
-                    return RedirectToAction("ProfileModification");
+                    if (!Photo.IsPhoto(photoSrc))
+                    {
+                        Danger(Messages.FILE_TYPE_INVALID, true);
+                        return RedirectToAction("ProfileModification");
+                    }
+
+                    var webClient = new WebClient();
+                    image = Image.FromStream(webClient.OpenRead(userWithPhoto.ProfilePicture.PhotoSrc));
+                }
+                else
+                {
+                    var postedPhoto = Request.Files[0];
+
+                    if (postedPhoto.ContentLength == 0 || !Photo.IsPhoto(postedPhoto))
+                    {
+                        Danger(Messages.POSTED_FILES_ERROR, true);
+                        return RedirectToAction("ProfileModification");
+                    } 
+
+                    image = Image.FromStream(postedPhoto.InputStream, true, true);
                 }
 
-                Image image = Image.FromStream(postedPhoto.InputStream, true, true);
+                CropPhoto(image, userWithPhoto.ProfilePicture.CropRect);
 
-                if (image.Width < 250 || image.Height < 172 || image.Width > 800 || image.Height > 600)
-                {
-                    image = PhotoResizer.ResizeImage(image, 250, 172, 800, 600);
-                }
-
-                var croppedPhoto = PhotoCropper.CropImage(image, userWithPhoto.ProfilePicture.CropRect);
-                var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, loggedOnUser.Nickname, FileHelper.Category.USER_PROFILE_PHOTO);
-                loggedOnUser.Photo = savedPhotoPath;
-                db.SaveChanges();
-
-                Success(Messages.PICTURE_CHANGED,true);
+                Success(Messages.PICTURE_CHANGED, true);
                 return RedirectToAction("ProfileModification", "Users");
             }
             catch
             {
-                Danger(Messages.INTERNAL_ERROR,true);
+                Danger(Messages.INTERNAL_ERROR, true);
                 return RedirectToAction("ProfileModification");
             }
+        }
+
+        private void CropPhoto(Image photoToCrop, Rectangle cropRectangle)
+        {
+            User loggedOnUser = db.Users.FirstOrDefault(x => x.Nickname == User.Identity.Name);
+
+            if (photoToCrop.Width < 250 || photoToCrop.Height < 172 || photoToCrop.Width > 800 || photoToCrop.Height > 600)
+            {
+                photoToCrop = PhotoResizer.ResizeImage(photoToCrop, 250, 172, 800, 600);
+            }
+
+            var croppedPhoto = PhotoCropper.CropImage(photoToCrop, cropRectangle);
+            var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, loggedOnUser.Nickname, FileHelper.Category.USER_PROFILE_PHOTO);
+            loggedOnUser.Photo = savedPhotoPath;
+            db.SaveChanges();
         }
 
         private void SetUserInfo(User currentUser, User newUser)
@@ -346,7 +363,7 @@ namespace TrouveUnBand.Controllers
                 currentUser.Photo.Contains("_stock_user_"))
             {
                 currentUser.Photo = Photo.USER_STOCK_PHOTO_MALE;
-                if(newUser.Gender == "Femme")
+                if (newUser.Gender == "Femme")
                 {
                     currentUser.Photo = Photo.USER_STOCK_PHOTO_FEMALE;
                 }

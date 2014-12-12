@@ -385,7 +385,6 @@ C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\Microso
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.WebData.resources.dll
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
-C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
@@ -454,6 +453,8 @@ C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\System.W
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.Data.resources.dll
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\Microsoft.Web.WebPages.OAuth.resources.dll
 C:\Users\Usager\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.WebData.resources.dll
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll.config
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.pdb
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\Antlr3.Runtime.dll
