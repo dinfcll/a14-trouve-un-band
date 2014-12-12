@@ -13,20 +13,18 @@ namespace TrouveUnBand.POCO
         {
             return String.Format("{0} a été créé avec succès.", band.Name);
         }
+        public static string BAND_EDIT_SUCCESS(Band band)
+        {
+            return String.Format("{0} a été modifié avec succès.", band.Name);
+        }
         public static string PROFILE_UPDATED = "Le profil a été mis à jour.";
         public static string MUSICIAN_PROFILE_UPDATED = "Le profil musicien a été mis à jour.";
         //INFO
 
         //WARNING
-        public static string MUSICIAN_ALREADY_SELECTED (User user)
-        {
-            return String.Format("Le musicien {0} {1} est déjà sélectionné.", user.FirstName, user.LastName);
-        }
-        public static string GENRE_ALREADY_SELECTED (Genre genre)
-        {
-            return String.Format("Le genre {0} est déjà sélectionné.", genre.Name);
-        }
-        public static string EXISTING_BAND (Band OldBand)
+        public static string MUSICIAN_ALREADY_SELECTED = "Ce musicien est déjà sélectionné.";
+        public static string GENRE_ALREADY_SELECTED = "Ce genre est déjà sélectionné.";
+        public static string EXISTING_BAND (Band NewBand)
         {
             return String.Format("le nom de band {0} existe déjà. Il sera différencié par sa location: {0} ({1}).", NewBand.Name, NewBand.Location);
         }

@@ -305,3 +305,7 @@ display: inline;
 .Center-Text {
     text-align: center;
 }
+
+#page-alerts {
+    padding-top: 2em;
+}

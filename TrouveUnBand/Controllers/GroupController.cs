@@ -87,31 +87,8 @@ namespace TrouveUnBand.Controllers
                 Danger(Messages.INTERNAL_ERROR,true);
                 Console.WriteLine(ex.Message);
             }
-
+            Success(Messages.BAND_CREATION_SUCCESS(band), true);
             return RedirectToAction("Index");
-        }
-
-        public ActionResult Confirmation(BandCreationViewModel viewModel, string[] cbSelectedGenres)
-        {
-            var alreadyExists = CheckIfBandAlreadyExists(viewModel.Band);
-            if (alreadyExists)
-            {
-                Warning(Messages.EXISTING_BAND(viewModel.Band));
-            }
-
-            foreach (var genreName in cbSelectedGenres)
-            {
-                var genre = db.Genres.FirstOrDefault(x => x.Name == genreName);
-                viewModel.Band.Genres.Add(genre);
-            }
-
-            foreach (var musician in (List<BandMemberModel>)Session["BandMembers"])
-            {
-                var user = db.Users.FirstOrDefault(x => x.User_ID == musician.User_ID);
-                viewModel.Band.Users.Add(user);
-            }
-
-            return View(viewModel);
         }
 
         private bool CheckIfBandAlreadyExists(Band band)
@@ -181,7 +158,7 @@ namespace TrouveUnBand.Controllers
                 db.Entry(bandToUpdate).State = EntityState.Modified;
                 db.SaveChanges();
 
-                Success(Messages.BAND_CREATION_SUCCESS(bandCreationModel.Band),true);
+                Success(Messages.BAND_EDIT_SUCCESS(bandCreationModel.Band),true);
             }
             catch (NullReferenceException ex)
             {
@@ -223,7 +200,11 @@ namespace TrouveUnBand.Controllers
         {
             var bandMembers = (List<BandMemberModel>)Session["BandMembers"];
 
-            if (bandMembers.Any(x => x.User_ID == bandMember.User_ID)) { return false; }
+            if (bandMembers.Any(x => x.User_ID == bandMember.User_ID))
+            {
+                Warning(Messages.GENRE_ALREADY_SELECTED,true);
+                return false;
+            }
 
             bandMembers.Add(bandMember);
             Session["BandMembers"] = bandMembers;
@@ -235,7 +216,11 @@ namespace TrouveUnBand.Controllers
         {
             var bandMembers = (List<BandMemberModel>)Session["BandMembers"];
 
-            if (bandMembers.Any(x => x.User_ID == userId)) { return false; }
+            if (bandMembers.Any(x => x.User_ID == userId))
+            {
+                Warning(Messages.MUSICIAN_ALREADY_SELECTED,true);
+                return false;
+            }
 
             var member = (from users in db.Users
                           where users.User_ID == userId
