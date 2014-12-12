@@ -108,6 +108,7 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            var bandCreationModel = new BandCreationViewModel();
             var band = db.Bands.Find(id);
 
             if (band == null)
@@ -115,6 +116,7 @@ namespace TrouveUnBand.Controllers
                 return HttpNotFound();
             }
 
+            bandCreationModel.Band = band;
             InitialiseSessionForBandMembers();
 
             try
@@ -130,23 +132,21 @@ namespace TrouveUnBand.Controllers
                 Console.WriteLine(ex.Message);
             }
 
-            ViewBag.Subgenres = GenreDao.GetAllSubgenresByGenres();
-
-            return View(band);
+            return View(bandCreationModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(Band band, string[] cbSelectedGenres)
+        public ActionResult Edit(BandCreationViewModel bandCreationModel, string[] cbSelectedGenres)
         {
             try
             {
-                db.Entry(band).State = EntityState.Modified;
+                db.Entry(bandCreationModel.Band).State = EntityState.Modified;
                 db.SaveChanges();
-                ((IObjectContextAdapter)db).ObjectContext.Detach(band);
 
-                var bandToUpdate = db.Bands.Single(x => x.Band_ID == band.Band_ID);
+                ((IObjectContextAdapter) db).ObjectContext.Detach(bandCreationModel.Band);
 
-                db.Set(typeof(Band)).Attach(bandToUpdate);
+                var bandToUpdate = db.Bands.Single(x => x.Band_ID == bandCreationModel.Band.Band_ID);
+                db.Set(typeof (Band)).Attach(bandToUpdate);
                 bandToUpdate.Genres.Clear();
                 bandToUpdate.Users.Clear();
 
@@ -156,7 +156,7 @@ namespace TrouveUnBand.Controllers
                     bandToUpdate.Genres.Add(genre);
                 }
 
-                foreach (var musician in (List<BandMemberModel>)Session["BandMembers"])
+                foreach (var musician in (List<BandMemberModel>) Session["BandMembers"])
                 {
                     var user = db.Users.FirstOrDefault(x => x.User_ID == musician.User_ID);
                     bandToUpdate.Users.Add(user);
@@ -167,7 +167,7 @@ namespace TrouveUnBand.Controllers
                 db.Entry(bandToUpdate).State = EntityState.Modified;
                 db.SaveChanges();
 
-                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(band);
+                TempData["Success"] = AlertMessages.BAND_CREATION_SUCCESS(bandCreationModel.Band);
             }
             catch (NullReferenceException ex)
             {
@@ -183,8 +183,8 @@ namespace TrouveUnBand.Controllers
             {
                 // Retrieve the error messages as a list of strings.
                 var errorMessages = ex.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
+                    .SelectMany(x => x.ValidationErrors)
+                    .Select(x => x.ErrorMessage);
 
                 // Join the list to a single string.
                 var fullErrorMessage = string.Join("; ", errorMessages);
@@ -195,11 +195,15 @@ namespace TrouveUnBand.Controllers
                 // Throw a new DbEntityValidationException with the improved exception message.
                 throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Work around for known bug
+                DbUpdateConcurrencyExceptionExtensions.ClientWins(ex);
+            }
 
             return RedirectToAction("Index", "Group");
         }
-
-        
+  
         public ActionResult AddBandMember(int userId)
         {
             AddBandMemberToSession(userId);
@@ -212,14 +216,13 @@ namespace TrouveUnBand.Controllers
             return PartialView("_MusicianTable");
         }
 
+        // TODO: Add a Session wrapper class to manipulate session stored variables.
+
         private bool AddBandMemberToSession(BandMemberModel bandMember)
         {
             var bandMembers = (List<BandMemberModel>)Session["BandMembers"];
 
-            if (bandMembers.Any(x => x.User_ID == bandMember.User_ID))
-            {
-                return false;
-            }
+            if (bandMembers.Any(x => x.User_ID == bandMember.User_ID)) { return false; }
 
             bandMembers.Add(bandMember);
             Session["BandMembers"] = bandMembers;
@@ -231,10 +234,7 @@ namespace TrouveUnBand.Controllers
         {
             var bandMembers = (List<BandMemberModel>)Session["BandMembers"];
 
-            if (bandMembers.Any(x => x.User_ID == userId))
-            {
-                return false;
-            }
+            if (bandMembers.Any(x => x.User_ID == userId)) { return false; }
 
             var member = (from users in db.Users
                           where users.User_ID == userId
@@ -294,13 +294,7 @@ namespace TrouveUnBand.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        /*
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-        */
+
         private bool CurrentUserIsAuthenticated()
         {
             return System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
@@ -318,7 +312,7 @@ namespace TrouveUnBand.Controllers
             return authenticatedUser;      
         }
 
-        private BandMemberModel GetAuthenticatedBandMember()
+        private BandMemberModel GetAuthenticatedUserToBandMemberModel()
         {
             if (!CurrentUserIsAuthenticated())
             {
@@ -336,33 +330,7 @@ namespace TrouveUnBand.Controllers
                             Location = bandMember.Location
                         };
 
-            return Query.ToList()[0];
-        }
-
-        public bool IsValidBand(Band myBand)
-        {
-            if (
-                String.IsNullOrEmpty(myBand.Name)
-                || String.IsNullOrEmpty(myBand.Location)
-                || String.IsNullOrEmpty(myBand.Description)
-                || !myBand.Genres.Any() 
-                || myBand.Genres == null
-                || !myBand.Users.Any() 
-                || myBand.Users == null
-            )
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool ContainsMusician(List<User> myMusicians, int musicianId)
-        {
-            if (myMusicians.Any(x => x.User_ID == musicianId))
-            {
-                return false;
-            }
-            return true;
+            return Query.FirstOrDefault();
         }
 
         public ActionResult SearchMusician(string searchString)

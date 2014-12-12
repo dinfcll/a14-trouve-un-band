@@ -188,6 +188,7 @@
     <Compile Include="Models\Band.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\Exceptions.cs" />
     <Compile Include="ViewModels\BandCreationViewModel.cs" />
     <Compile Include="Models\BandMemberModel.cs" />
     <Compile Include="Models\BandProfileViewModel.cs" />
