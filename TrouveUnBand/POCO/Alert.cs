@@ -26,9 +26,9 @@ namespace TrouveUnBand.POCO
         {
             return String.Format("Le genre {0} est déjà sélectionné.", genre.Name);
         }
-        public static string EXISTING_BAND (Band OldBand, Band NewBand)
+        public static string EXISTING_BAND (Band OldBand)
         {
-            return String.Format("le nom de band {0} ({1}) existe déjà. Il sera différencié par sa location: {2} ({3}).", OldBand.Name, OldBand.Location, NewBand.Name, NewBand.Location);
+            return String.Format("le nom de band {0} existe déjà. Il sera différencié par sa location: {0} ({1}).", NewBand.Name, NewBand.Location);
         }
         public static string INSTRUMENT_ALREADY_SELECTED = "Vous ne pouvez pas sélectionner deux fois le même instrument";
         //DANGER

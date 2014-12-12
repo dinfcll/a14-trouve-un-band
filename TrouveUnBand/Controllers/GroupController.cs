@@ -72,11 +72,6 @@ namespace TrouveUnBand.Controllers
             var band = JsonToModel.ToBand(json, db);
 
             var alreadyExists = CheckIfBandAlreadyExists(band);
-            if (alreadyExists)
-            {
-                // throw exception
-                return View();
-            }
 
             band.UpdateLocationWithAPI();
 
@@ -101,7 +96,7 @@ namespace TrouveUnBand.Controllers
             var alreadyExists = CheckIfBandAlreadyExists(viewModel.Band);
             if (alreadyExists)
             {
-                // throw exception
+                Warning(Messages.EXISTING_BAND(viewModel.Band));
             }
 
             foreach (var genreName in cbSelectedGenres)
