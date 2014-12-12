@@ -25,7 +25,7 @@
             error: function () {
                 alert("Error while sending data to server");
             },
-            success: function () {
+            success: function (data) {
                 window.location.pathname = "/group";
             }
         });

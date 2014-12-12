@@ -79,8 +79,6 @@ namespace TrouveUnBand.Controllers
             {
                 db.Bands.Add(band);
                 db.SaveChanges();
-
-                Success(Messages.BAND_CREATION_SUCCESS(band),true);
             }
             catch (Exception ex)
             {
@@ -131,13 +129,7 @@ namespace TrouveUnBand.Controllers
         {
             try
             {
-                db.Entry(bandCreationModel.Band).State = EntityState.Modified;
-                db.SaveChanges();
-
-                ((IObjectContextAdapter)db).ObjectContext.Detach(bandCreationModel.Band);
-
                 var bandToUpdate = db.Bands.Single(x => x.Band_ID == bandCreationModel.Band.Band_ID);
-                db.Set(typeof(Band)).Attach(bandToUpdate);
                 bandToUpdate.Genres.Clear();
                 bandToUpdate.Users.Clear();
 
@@ -154,8 +146,7 @@ namespace TrouveUnBand.Controllers
                 }
 
                 bandToUpdate.UpdateLocationWithAPI();
-
-                db.Entry(bandToUpdate).State = EntityState.Modified;
+                db.Entry(bandToUpdate).CurrentValues.SetValues(bandCreationModel.Band);
                 db.SaveChanges();
 
                 Success(Messages.BAND_EDIT_SUCCESS(bandCreationModel.Band),true);
