@@ -40,7 +40,7 @@ namespace TrouveUnBand.Controllers
                 return HttpNotFound();
             }
 
-            return View(band);
+            return View("BandProfile", band);
         }
 
         [HttpGet]
