@@ -51,13 +51,16 @@
     }
 
     function fillInfos(band) {
-        html = "";
-        html += "<label class='col-md-6'>Nom du groupe</label>";
-        html += "<span class='col-md-6'>" + band.name + "</span>";
-        html += "<label class='col-md-6'>Ville</label>";
-        html += "<span class='col-md-6'>" + band.location + "</span>";
-        html += "<label class='col-md-12'>Description</label>";
-        html += "<span class='col-md-12'>" + band.description + "</span>";
+        html = "<div class='col-md-12'>"
+            + "<label class='col-md-6'>Nom du groupe</label>"
+            + "<label class='col-md-6'>Ville</label>"
+            + "</div><div class='col-md-12'>"
+            + "<span class='col-md-6'>" + band.name + "</span>"
+            + "<span class='col-md-6'>" + band.location + "</span>"
+            + "</div><div class='col-md-12'>"
+            + "<label class='col-md-12'>Description</label>"
+            + "<span class='col-md-12'>" + band.description + "</span>"
+            + "</div>";
         $('#confirmation-body').append(html);
     }
 

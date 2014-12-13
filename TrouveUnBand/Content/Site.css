@@ -322,3 +322,8 @@ border:solid 2px #e0e0e0;
 -webkit-border-radius: 0px;
 border-radius: 0px;
 }
+
+.pusher {
+    margin-bottom: 3em;
+    height: 3em;
+}
