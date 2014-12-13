@@ -1,5 +1,8 @@
+var $lightbox;
 
-﻿var $lightbox = $('#PicModal');
+if ($("#PicModal")[0]) {
+    $lightbox = $("#PicModal");
+}
 
 $('[data-target="#PicModal"]').on('click', function (event) {
     var $img = $(this).find('img'),

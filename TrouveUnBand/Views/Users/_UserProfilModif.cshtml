@@ -1,47 +1,81 @@
 @model TrouveUnBand.Models.User
-<div class="row pad-top-30">
-    @using (Html.BeginForm("CropImage", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+<div class="profile-modif-tab-container">
+
+    @using (Html.BeginForm("SendImageForCrop", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        var photo = "data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo);
         @Html.AntiForgeryToken()
-        <div class="col-md-4">
-            <div class="row col-md-offset-2">
-                @Html.Label("Photo de Profil")
+    <div class="col-md-5">
+        <div>
+            @Html.Label("Photo de profil: ")
+        </div>
+        <a class="thumbnail col-md-10" data-toggle="modal" data-target="#PicModal">
+            <img id="ProfilePic" alt="" src="@Model.Photo" class="photo" width="350" />
+        </a>
+
+        <h4 class="col-md-12">Changer votre photo de profil ...</h4>
+        <div class="col-md-11 file-uploader row">
+            <div class="btn btn-default photo-upload-browser col-md-12">
+                <span class="glyphicon glyphicon-folder-open"></span>
+                <span class="image-upload-input-title">Choisir une photo dans vos dossiers</span>
+                <input id="ImageUploader" type="file" accept="image/*" name="photo-upload-browser" />
             </div>
-            <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#PicModal">
-                <img id="ProfilePic" alt="" src="@photo" width="350" class="photo" />
-            </a>
-            <input id="ImageUploader" class="btn" type="file" name="FileUpload" accept="image/*" />
+        </div>
+
+        <div class="col-md-11 row">
+            <div class="input-group">
+                <input id="PhotoSrcInput" type="text" class="form-control"
+                       placeholder="Ou coller l'URL d'une photo" />
+                <span class="input-group-btn">
+                    <button id="photo-URL-btn" class="btn btn-primary" type="button">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+
+
             <div class="modal fade" id="PicModal" tabindex="-1" role="dialog" aria-labelledby="PicModalLabel"
-                aria-hidden="true">
+                 aria-hidden="true">
                 @Html.Partial("../Photo/ViewPictureDialog")
             </div>
         </div>
         <div class="modal fade" id="CropperDialog">
-            @RenderPage("../Photo/ImageCropperDialog.cshtml")
+            @Html.Partial("../Photo/ImageCropperDialog", Model.ProfilePicture)
+            @Html.HiddenFor(model => model.ProfilePicture.PicX, new { id = "X" })
+            @Html.HiddenFor(model => model.ProfilePicture.PicY, new { id = "Y" })
+            @Html.HiddenFor(model => model.ProfilePicture.PicWidth, new { id = "Width" })
+            @Html.HiddenFor(model => model.ProfilePicture.PicHeight, new { id = "Height" })
+            @Html.HiddenFor(model => model.ProfilePicture.PhotoSrc, new { id = "PhotoSrc" })
         </div>
     }
+
     @using (Html.BeginForm("UserProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form" }))
     {
-        <div class="pad-top-10">
+        <div class="col-md-7 row">
             @Html.HiddenFor(model => model.User_ID, new { @class = "form-control", @Value = Model.User_ID })
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-6">
                 @Html.Label("Prénom:")
                 @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @Value = Model.FirstName })
                 @Html.ValidationMessage("FirstName")
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-6">
                 @Html.Label("Nom de famille:")
                 @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @Value = Model.LastName })
                 @Html.ValidationMessage("LastName")
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-6">
                 @Html.Label("Date de naissance:")
                 @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @Value = Model.BirthDate.ToString("yyyy/MM/dd"),@id = "datepickernotime", @type = "date"  })
                 @Html.ValidationMessage("BirthDate")
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-6">
                 @Html.Label("Sexe:")
+                <div class="btn-group bootstrap-select form-control selectpicker-over">
+                    <button title="Sexe" data-id="Gender" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                        <span class="filter-option pull-left">@Model.Gender</span>&nbsp;<span class="caret"></span>
+                    </button>
+                </div>
+                
                 @Html.DropDownListFor(model => model.Gender,
                                       new SelectList(
                                           new List<Object>{
@@ -49,23 +83,25 @@
                                               new { value = "Femme" , text = "Femme" },
                                             },
                                       "value",
-                                      "text", Model.Gender), new { @class = "form-control" })
+                                      "text", Model.Gender), new { @class = "form-control selectpicker hidden" })
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-6">
                 @Html.Label("Ville:")
                 @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @Value = Model.Location })
                 @Html.ValidationMessage("Location")
             </div>
-            <div class="form-group col-md-3 col-md-push-1">
+            <div class="form-group col-md-6">
                 @Html.Label("Courriel:")
                 @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @Value = Model.Email })
                 @Html.ValidationMessage("Email")
             </div>
-            <div class="pad-top-30 form-group col-md-3 margin-left-0 col-md-push-1">
-                <input type="button" class="btn btn-default" value="Annuler" onclick="annuler()" />
-            </div>
-            <div class="pad-top-30 form-group col-md-3 margin-left-0 col-md-pull-1">
-                <input type="submit" class="btn btn-primary" value="Enregistrer les Modifications" />
+            <div class="col-md-12 row pull-right profile-modif-btn-group">
+                <div class="form-group col-md-5 pull-right">
+                    <input type="submit" class="btn btn-primary col-md-12" value="Enregistrer les modifications" />
+                </div>
+                <div class="form-group col-md-2 pull-right">
+                    <input type="button" class="btn btn-default" value="Annuler" onclick="annuler()" />
+                </div>
             </div>
         </div>
     }
