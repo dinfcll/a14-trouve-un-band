@@ -513,3 +513,4 @@ D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.WebData.resources.dll
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll.config
