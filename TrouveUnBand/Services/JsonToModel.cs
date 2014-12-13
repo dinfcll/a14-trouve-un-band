@@ -12,37 +12,35 @@ namespace TrouveUnBand.Services
 {
     public static class JsonToModel
     {
-        public static Band ToBand(string stringJson)
+        public static Band ToBand(string stringJson, TrouveUnBandEntities db)
         {
             var js = new JavaScriptSerializer();
             dynamic jsBand = js.Deserialize<dynamic>(stringJson);
 
             var myBand = new Band();
 
-            myBand.Name = jsBand["Name"];
-            myBand.Location = jsBand["Location"];
-            myBand.Description = jsBand["Description"];
+            myBand.Name = jsBand["name"];
+            myBand.Location = jsBand["location"];
+            myBand.Description = jsBand["description"];
 
             var stringValues = new List<string>();
 
-            foreach (var item in jsBand["Genres"])
+            foreach (var item in jsBand["genres"])
             {
                 stringValues.Add(item);
             }
 
-            myBand.Genres = GenreDao.GetGenresByNames(stringValues.ToArray());
+            myBand.Genres.AddRange(GenreDao.GetGenresByNames(stringValues.ToArray(), db));
 
             var intValues = new List<int>();
-            foreach (var item in jsBand["BandMembers"])
+            foreach (var item in jsBand["members"])
             {
-                intValues.Add(item["User_ID"]);
+                intValues.Add(Convert.ToInt32(item["id"]));
             }
 
-            myBand.Users= UserDao.GetUsersById(intValues.ToArray());
+            myBand.Users.AddRange(UserDao.GetUsersById(intValues.ToArray(), db));
 
             return myBand;
         }
-
-
     }
 }

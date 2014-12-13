@@ -27,7 +27,7 @@ namespace TrouveUnBand.Models
         public System.DateTime CreationDate { get; set; }
         public System.DateTime ExpirationDate { get; set; }
         public string Location { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
     

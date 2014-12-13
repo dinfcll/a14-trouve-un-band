@@ -191,6 +191,8 @@
       this.$menu.data('this', this);
       this.$newElement.data('this', this);
       if (this.options.mobile) this.mobile();
+      $(".selectpicker-over").hide();
+      this.$newElement.removeClass("hidden");
     },
 
     createDropdown: function () {

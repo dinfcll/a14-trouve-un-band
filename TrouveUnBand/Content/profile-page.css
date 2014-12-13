@@ -1,0 +1,242 @@
+﻿.profile-header {
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+    color: White;
+}
+
+.profile-header-menu {
+    background-color: #888888;
+}
+
+.profile-header-sidebar {
+    background-color: #888888;
+}
+
+.profile-header-info {
+    background-color: #333333;
+}
+
+.profile-main-content,
+.profile-content {
+    padding: 15px;
+    background-color: white;
+    color: #3498db;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+}
+
+    .profile-content > ul > li {
+        position: relative;
+    }
+
+        .profile-user-quickinfo > ul > li,
+        .profile-content > ul > li > a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: block;
+            color: #3498db;
+        }
+
+        .profile-content > ul > li:hover {
+            background-color: #EEEEEE;
+        }
+
+        .profile-content > ul > li > a {
+            text-decoration: none;
+        }
+
+#profile-menu ul > li.active > a {
+    color: white;
+    background-color: #0099DA;
+    text-decoration: none;
+    outline: 0;
+}
+
+.profile-user-quickinfo {
+    background-color: #F5F5F5;
+    border: 1px solid #e3e3e3;
+}
+
+    .profile-user-quickinfo > ul {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+.profile-tab-header {
+    padding: 10px 15px;
+    background-color: #444444;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+    cursor: pointer;
+}
+
+.profile-main-content {
+    padding: 0 !important;
+}
+
+    .profile-main-content .profile-section:first-child {
+        padding-top: 0;
+    }
+
+.profile-section {
+    padding-left:0 !important;
+    padding-right:0 !important;
+    padding-top: 15px;
+}
+
+.profile-tab-content {
+    padding: 10px 15px;
+}
+
+.profile-tab-header .chevron {
+    background-color: #0099DA;
+    color: white;
+    margin: -10px -15px;
+    display: table-cell;
+    padding: 13px 13px;
+    vertical-align: middle;
+    max-height: 100%;
+    top: 0;
+}
+
+.profile-main-content .panel {
+    border-radius: 0;
+    border: 1px solid #0099da;
+}
+
+.profile-main-content .panel-heading {
+    border-bottom: 2px solid #e5e5e5 !important;
+    border-radius: 0;
+}
+
+.profile-main-content thead > tr {
+    background-color: #0099da;
+    color: white;
+}
+
+.profile-main-content .table tr:not(:last-child) {
+    border-bottom: 1px solid #E3E3E3;
+}
+
+#profile-main-tab {
+    padding-top: 15px;
+}
+
+#profile-main-pic {
+    width: 100%;
+}
+
+.profile-tab-header > span {
+    margin-right: 5px;
+}
+
+#profile-menu span.glyphicon {
+    margin-right: 5px;
+    padding-left: 5px;
+}
+
+.panel > table > thead > tr > th{
+    font-weight:500;
+    font-size: 18px !important;
+}
+
+.panel > table > tbody td{
+    border-top:0 !important;
+}
+
+/*section photo*/
+
+#profile-photo-carousel{
+    border: 0.5em solid black;
+}
+
+#profile-photo-carousel .carousel-control {
+    height: 40px;
+    width: 40px;
+    background: none repeat scroll 0 0 #222222;
+    border: 4px solid #FFFFFF;
+    border-radius: 23px 23px 23px 23px;
+    vertical-align: middle;
+    top: 45%;
+}
+
+#profile-photo-carousel .carousel-control {
+    visibility: hidden;
+}
+
+#profile-photo-carousel:hover .carousel-control {
+    visibility: visible;
+}
+
+#profile-photo-carousel .item img {
+    width: 100%;
+}
+
+#profile-photo-indicator{
+    padding:20px 1px;
+    background-color:black;
+}
+
+#profile-photo-indicator img{
+    height:4.9em;
+    cursor:pointer;
+    opacity:0.7;
+    border:1px solid transparent;
+    margin-left:0.1em;
+}
+
+#profile-photo-indicator img:hover{
+    outline:2px solid #0099DA;
+}
+
+#profile-photo-indicator img.active{
+    opacity:1;
+    outline:1px solid white;
+}
+
+#profile-photo-indicator .indicator-list{
+    display:inline-block;
+    margin-left:5px;
+}
+
+#profile-photo-indicator ol{
+    margin:0;
+}
+
+#profile-photo-indicator ol > li{
+    display:inline-block;
+}
+
+#profile-photo-indicator ol > li:not(.active){
+    display:none;
+}
+
+.profile-photo-leftarrow,
+.profile-photo-rightarrow{
+    display: inline-block;
+    height:4.9em;
+    vertical-align:middle;
+    border:2px solid #CCCCCC;
+    color:#CCCCCC;
+    cursor:pointer;
+}
+
+.profile-photo-leftarrow:hover,
+.profile-photo-rightarrow:hover{
+    border:2px solid #0099DA;
+    color:#0099DA;
+}
+
+.profile-photo-leftarrow span,
+.profile-photo-rightarrow span{
+    top:1.9em;
+    padding-left:0.3em;
+    padding-right:0.3em;
+}
+
+#profile-photo-carousel .carousel-inner img{
+    cursor: pointer;
+}

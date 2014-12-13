@@ -14,9 +14,10 @@ namespace TrouveUnBand.ViewModels
         public string City { get; set; }
         public string Type { get; set; }
         public List<string> Genres { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public DateTime CreationDate { get; set; }
         public int ID { get; set; }
+        public DateTime EventDate { get; set; }
 
         public ResultViewModels(Band band)
         {
@@ -59,6 +60,7 @@ namespace TrouveUnBand.ViewModels
             Photo = evenement.Photo;
             CreationDate = evenement.CreationDate;
             ID = evenement.Event_ID;
+            EventDate = evenement.EventDate;
         }
 
         public ResultViewModels(Advert advert)

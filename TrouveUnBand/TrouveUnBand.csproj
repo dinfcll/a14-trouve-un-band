@@ -167,11 +167,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\AdvertInfo.cs" />
+    <Compile Include="Classes\BandInfo.cs" />
     <Compile Include="Classes\CreateProfile.cs" />
+    <Compile Include="Classes\DateHelper.cs" />
+    <Compile Include="Classes\FileHelper.cs" />
     <Compile Include="Classes\Geolocalisation.cs" />
     <Compile Include="Classes\PhotoCropper.cs" />
     <Compile Include="Classes\PhotoResizer.cs" />
+    <Compile Include="Classes\UserInfo.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -187,37 +193,41 @@
     <Compile Include="Models\Band.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\Exceptions.cs" />
+    <Compile Include="ViewModels\BandCreationViewModel.cs" />
     <Compile Include="Models\BandMemberModel.cs" />
-    <Compile Include="Models\BandProfileViewModel.cs" />
+    <Compile Include="ViewModels\BandProfileViewModel.cs" />
     <Compile Include="Models\Event.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\EventPageViewModel.cs" />
     <Compile Include="Models\Genre.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LocationModel.cs" />
+    <Compile Include="Models\Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Partial\_Advert.cs" />
     <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\MusicianProfileViewModel.cs" />
-    <Compile Include="Models\NewsfeedModel.cs" />
+    <Compile Include="ViewModels\MusicianProfileViewModel.cs" />
     <Compile Include="Models\Musician_Instrument.cs" />
+    <Compile Include="Models\Partial\_Band.cs" />
     <Compile Include="Models\Partial\_Event.cs" />
     <Compile Include="Models\Partial\_User.cs" />
     <Compile Include="Models\User.cs">
@@ -226,7 +236,8 @@
     <Compile Include="Models\Users_Instruments.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="POCO\AlertMessages.cs" />
+    <Compile Include="Classes\EventInfo.cs" />
+    <Compile Include="POCO\Alert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdvertDao.cs" />
     <Compile Include="Services\BandDao.cs" />
@@ -238,6 +249,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\event.css" />
+    <Content Include="Content\homepage.css" />
+    <Content Include="Content\jquery.Jcrop.css" />
+    <Content Include="Content\over-bootstrap.css" />
+    <Content Include="Content\profile-page.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -299,26 +316,34 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\timepicker.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Images\Jcrop.gif" />
+    <Content Include="Photos\_StockPhotos\14422158866_3e59dc2447_o.jpg" />
+    <Content Include="Photos\_StockPhotos\Home1.jpg" />
+    <Content Include="Photos\_StockPhotos\Home2.jpg" />
+    <Content Include="Photos\_StockPhotos\Home3.jpg" />
+    <Content Include="Photos\_StockPhotos\Record.jpg" />
+    <Content Include="Scripts\back-to-top.js" />
     <Content Include="Scripts\Alert.js" />
     <Content Include="Scripts\bootstrap-validation.js" />
-    <Content Include="Scripts\CreateGroup.js" />
     <Content Include="Scripts\bootstrap-select.js" />
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\disable-search-ddl.js" />
+    <Content Include="Scripts\create-group.js" />
     <Content Include="Scripts\holder.js" />
+    <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\ImageUpload.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
-    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-1.11.2-ui.min.js" />
+    <Content Include="Scripts\jquery-1.8.3-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.8.3.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery.Jcrop.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -332,6 +357,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
+    <Content Include="Scripts\over-bootstrap.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
     <Content Include="Scripts\SDKs\Facebook.js" />
@@ -425,7 +451,6 @@
     <Content Include="Views\Photo\ViewPictureDialog.cshtml" />
     <Content Include="Views\Users\MusicianProfile.cshtml" />
     <Content Include="Views\Users\_MusicianProfileInfo.cshtml" />
-    <Content Include="Views\Users\_MusicianProfilePhoto.cshtml" />
     <Content Include="Views\Group\BandProfile.cshtml" />
     <Content Include="Views\Group\_BandProfileInfo.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
@@ -455,12 +480,12 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
     </None>
-    <None Include="Models\Model.tt">
+    <Content Include="Models\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.cs</LastGenOutput>
-    </None>
+    </Content>
+    <Content Include="Views\Photo\_PhotoAlbum.cshtml" />
     <Content Include="Views\Group\_MusicianFinder.cshtml" />
-    <Content Include="Views\Group\_CreateConfirm.cshtml" />
     <Content Include="Views\SocialMedia\test.cshtml" />
     <Content Include="Views\SocialMedia\_Metadata-Annonce.cshtml" />
     <Content Include="Views\SocialMedia\_Metadata-Band.cshtml" />
@@ -468,6 +493,11 @@
     <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
     <Content Include="Views\Group\Confirm.cshtml" />
+    <Content Include="Views\Shared\Authentication.cshtml" />
+    <Content Include="Views\Shared\_Alerts.cshtml" />
+    <None Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Views\Group\_MusicianTable.cshtml" />
+    <Content Include="Views\Group\Confirmation.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
