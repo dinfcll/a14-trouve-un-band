@@ -21,21 +21,21 @@ namespace TrouveUnBand.Models
         public sealed class UserMetadata
         {
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
+            [RegularExpression(@"^([-':a-zäáàâëéèêíìöóòôúùñçA-ZÂÄÀÊËÈÉÌÔÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum et n'être composé que de lettres")]
             public string FirstName { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^([a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, et être composé que de lettres")]
+            [RegularExpression(@"^([-':a-zäáàâëéèêíìöóòôúùñçA-ZÂÄÀÊËÈÉÌÔÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum et n'être composé que de lettres")]
             public string LastName { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             public DateTime BirthDate { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^([0-9a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ]){3,}$", ErrorMessage = "Doit avoir 3 caractères minimum")]
+            [RegularExpression(@"^([0-9a-zäáàâëéèêíìöóòôúùñçA-ZÂÄÀÊËÈÉÌÔÔÒÙÇ]){3,}$", ErrorMessage = "Doit avoir 3 caractères minimum et n'être composé que de lettres")]
             public string Nickname { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "Le courriel doit être valide")]
             public string Email { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
-            [RegularExpression(@"^[a-zäáàëéèíìöóòúùñçA-ZÄÀËÈÉÌÔÒÙÇ \-]{2,}$", ErrorMessage = "Doit avoir 2 caractères minimum, lettres seulement")]
+            [RegularExpression(@"^([-':a-zäáàâëéèêíìöóòôúùñçA-ZÂÄÀÊËÈÉÌÔÔÒÙÇ]){2,}$", ErrorMessage = "Doit avoir 2 caractères minimum et n'être composé que de lettres")]
             public string Location { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^[\S]{4,138}$", ErrorMessage = "Doit avoir 4 caractères minimum")]
