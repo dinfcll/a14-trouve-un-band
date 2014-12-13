@@ -46,10 +46,10 @@
                         <button type="button" class="btn btn-default btn-sm" title="Modifier" onclick="location.href='@Url.Action("Edit", "Group", new { id = item.Band_ID })'">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button type="button" class="btn btn-default btn-sm" title="Consulter" onclick="location.href='@Url.Action("Details", "Group", new { id = item.Band_ID })'">
+                        <button type="button" class="btn btn-default btn-sm" title="Consulter" onclick="location.href='@Url.Action("ViewProfile", "Search", new {type = "BAND", id = item.Band_ID })'">
                             <span class="glyphicon glyphicon-list-alt"></span>
                         </button>
-                        <button type="button" class="btn btn-default btn-sm" title="Supprimer" onclick="location.href='@Url.Action("Delete", "Group", new { id = item.Band_ID })'">
+                        <button type="button" class="btn btn-default btn-sm" title="Supprimer" onclick="location.href='@Url.Action("Delete", "Group", new { Id = item.Band_ID })'">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </td>

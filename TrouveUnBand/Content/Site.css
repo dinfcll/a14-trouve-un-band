@@ -315,3 +315,12 @@ tr.instTable > td {
     top:60px;
     position:relative;
 }
+
+.box {
+border:solid 2px #e0e0e0;
+-moz-border-radius: 0px;
+-webkit-border-radius: 0px;
+border-radius: 0px;
+}
+
+.pusher{ clear:both; height:100px;}
