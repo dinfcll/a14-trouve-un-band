@@ -288,10 +288,13 @@ namespace TrouveUnBand.Controllers
             band.Genres.Clear();
             band.Users.Clear();
             db.SaveChanges();
-            var obj = band.Events;
-            foreach (var item in obj)
+            if (band.Events != null)
             {
-                item.Bands.Remove(band);
+                var obj = band.Events;
+                foreach (var item in obj)
+                {
+                    item.Bands.Remove(band);
+                }
             }
             db.SaveChanges();
             return RedirectToAction("Index");
