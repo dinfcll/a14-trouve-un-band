@@ -41,7 +41,8 @@
                 <div class="home-section-content">
                     @foreach (var item in Model.UserList)
                     {
-                        <div class="home-thumbnail img-container-banner col-md-3" onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "MUSICIEN", Id = item.User_ID })'">
+                        <div class="home-thumbnail img-container-banner col-md-3" 
+                            onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "MUSICIEN", Id = item.User_ID })'">
                             <div class="img-container-banner">
                                 <img src="@item.Photo" alt="" />
                                 <p class="banner">
@@ -69,7 +70,8 @@
                 <div class="home-section-content">
                     @foreach (var item in Model.BandList)
                     {
-                        <div class="home-thumbnail-invert col-md-3" onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "BAND", Id = item.Band_ID })'">
+                        <div class="home-thumbnail-invert col-md-3" 
+                            onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "BAND", Id = item.Band_ID })'">
                             <img src="@item." alt="" />
                             <div class="home-thumbnail-middle">
                                 <p>
@@ -95,7 +97,8 @@
                 <div class="home-section-content">
                     @foreach (var item in Model.EventList)
                     {
-                        <div class="home-panel event-panel col-md-12"onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "EVENT", Id = item.Event_ID })'">
+                        <div class="home-panel event-panel col-md-12"
+                            onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "EVENT", Id = item.Event_ID })'">
                             <img src="@item.Photo" alt="Image" class="col-md-3">
                             <div class="event-panel-date col-md-2">
                                 <h3 class="col-md-3">@item.DayOfTheWeek</h3>
@@ -104,10 +107,16 @@
                             <div class="event-panel-info col-md-5">
                                 <span class="col-md-12">@item.Location</span>
                                 <h2 class="col-md-12">@item.Name</h2>
-                                <span class="col-md-12">Deicide</span>
                             </div>
-                            <div class="event-panel-button col-md-2">
-                                @Html.ActionLink("Détails","ViewProfile", "Search", routeValues:  new { type = "EVENT", Id = item.Event_ID }, htmlAttributes:  new { @class = "btn btn-primary col-md-12 pull-right" })
+                            <div class="event-panel-info col-md-2">
+                                <ul>
+                                @foreach (var banditem in item.Bands)
+                                {
+                                    <li>
+                                        <span class="col-md-12">@banditem.Name</span>
+                                    </li>
+                                }
+                                </ul>
                             </div>
                         </div>
                     }
@@ -127,7 +136,8 @@
                 <div class="home-section-content">
                     @foreach (var item in Model.AdvertList)
                     {
-                        <div class="event-panel home-panel-invert col-md-12" onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "ADVERT", Id = item.Advert_ID })'">
+                        <div class="event-panel home-panel-invert col-md-12" 
+                            onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "ADVERT", Id = item.Advert_ID })'">
                             <img src="@item.Photo" alt="Image" class="col-md-3">
                             <div class="event-panel-date col-md-2">
                                 <h3 class="col-md-3">
