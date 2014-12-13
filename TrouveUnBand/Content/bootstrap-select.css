@@ -267,3 +267,9 @@
     padding-top: 4px;
     padding-right: 16px;
 }
+
+
+.selectpicker-over > span.caret{
+    float:right;
+    margin-top:10px;
+}

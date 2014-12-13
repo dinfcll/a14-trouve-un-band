@@ -1,6 +1,4 @@
-﻿@model TrouveUnBand.Models.User
-
-@{
+﻿@{
     ViewBag.Title = "ImageCropperDialog";
 }
 
@@ -15,12 +13,7 @@
         </div>
         <div class="modal-footer">
             <input id="HiddenUploader" type="file" style="display:none" />
-            <button type="submit" class="btn btn-primary">Valider la nouvelle photo</button>
+            <button id="sendButton" type="submit" class="btn btn-primary">Valider la nouvelle photo</button>
         </div>
     </div>
 </div>
-
-    @Html.HiddenFor(model => model.ProfilePicture.PicX, new { id = "X" })
-    @Html.HiddenFor(model => model.ProfilePicture.PicY, new { id = "Y" })
-    @Html.HiddenFor(model => model.ProfilePicture.PicWidth, new { id = "Width" })
-    @Html.HiddenFor(model => model.ProfilePicture.PicHeight, new { id = "Height" })

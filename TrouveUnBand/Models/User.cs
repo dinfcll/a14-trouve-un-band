@@ -32,7 +32,7 @@ namespace TrouveUnBand.Models
         public string Gender { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public string Location { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }

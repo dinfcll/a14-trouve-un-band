@@ -1,0 +1,115 @@
+﻿@model System.String
+
+<div id="profile-photo-carousel" class="carousel slide" data-ride="carousel">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active" data-slide="0" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="@Model" />
+        </div>
+        <div class="item" data-slide="1" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=1" />
+        </div>
+        <div class="item" data-slide="2" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=2" />
+        </div>
+        <div class="item" data-slide="3" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=3" />
+        </div>
+        <div class="item" data-slide="4" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=4" />
+        </div>
+        <div class="item" data-slide="5" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=5" />
+        </div>
+        <div class="item" data-slide="6" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=6" />
+        </div>
+        <div class="item" data-slide="7" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=7" />
+        </div>
+        <div class="item" data-slide="8" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=8" />
+        </div>
+        <div class="item" data-slide="9" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=9" />
+        </div>
+        <div class="item" data-slide="10" data-toggle="modal" data-target="#PicModal">
+            <img alt="" title="" src="http://placehold.it/250x172&text=10" />
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a data-slide="prev" href="#profile-photo-carousel" class="left carousel-control">‹</a>
+    <a data-slide="next" href="#profile-photo-carousel" class="right carousel-control">›</a>
+</div>
+
+<div id="profile-photo-indicator">
+    <div class="profile-photo-leftarrow">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </div>
+
+    <div class="indicator-list">
+        <ol class="list-unstyled">
+            <li class="active">
+                <img alt="" title="" data-slide-to="0" 
+                     data-target="#profile-photo-carousel"
+                     src="@Model" class="active"/>
+            </li>
+            <li class="active">
+                <img alt="" title="" data-slide-to="1" 
+                     data-target="#profile-photo-carousel"
+                     src="http://placehold.it/250x172&text=1" />
+            </li>
+            <li class="active">
+                <img alt="" title="" data-slide-to="2" 
+                     data-target="#profile-photo-carousel"
+                      src="http://placehold.it/250x172&text=2" />
+            </li>
+            <li class="active">
+                <img alt="" title="" data-slide-to="3" 
+                     data-target="#profile-photo-carousel"
+                      src="http://placehold.it/250x172&text=3" />
+            </li>
+            <li class="active">
+                <img alt="" title="" data-slide-to="4" 
+                     data-target="#profile-photo-carousel"
+                      src="http://placehold.it/250x172&text=4" />
+            </li>
+            <li>
+                <img alt="" title="" data-slide-to="5" 
+                     data-target="#profile-photo-carousel"
+                      src="http://placehold.it/250x172&text=5" />
+            </li>
+            <li>
+                <img alt="" title="" data-slide-to="6" 
+                     data-target="#profile-photo-carousel"
+                     src="http://placehold.it/250x172&text=6" />
+            </li>
+            <li>
+                <img alt="" title="" data-slide-to="7" 
+                     data-target="#profile-photo-carousel"
+                      src="http://placehold.it/250x172&text=7" />
+            </li>
+            <li>
+                <img alt="" title="" data-slide-to="8" 
+                     data-target="#profile-photo-carousel"
+                      src="http://placehold.it/250x172&text=8" />
+            </li>
+            <li>
+                <img alt="" title="" data-slide-to="9" 
+                     data-target="#profile-photo-carousel"
+                      src="http://placehold.it/250x172&text=9" />
+            </li>
+            <li>
+                <img alt="" title="" data-slide-to="10" 
+                     data-target="#profile-photo-carousel"
+                     src="http://placehold.it/250x172&text=10" />
+            </li>
+        </ol>
+    </div>
+
+    <div class="profile-photo-rightarrow pull-right">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </div>
+</div>

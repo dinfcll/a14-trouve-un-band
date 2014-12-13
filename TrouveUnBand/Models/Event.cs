@@ -30,7 +30,7 @@ namespace TrouveUnBand.Models
         public int MaxAudience { get; set; }
         public float Salary { get; set; }
         public string StageSize { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public Nullable<int> Creator_ID { get; set; }
         public string Description { get; set; }
         public System.DateTime CreationDate { get; set; }
