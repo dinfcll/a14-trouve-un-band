@@ -7,13 +7,38 @@
     {
         var dismissableClass = alert.Dismissable ? "alert-dismissable"
             : null;
+        var alertGlypicon = "";
+        var messageBegin = "";
+        switch (alert.AlertStyle)
+        {
+            case "success":
+                alertGlypicon = "glyphicon-ok";
+                messageBegin = "Réussite! ";
+                break;
+            case "danger":
+                alertGlypicon = "glyphicon-exclamation-sign";
+                messageBegin = "Erreur! ";
+                break;
+            case "warning":
+                alertGlypicon = "glyphicon-warning-sign";
+                messageBegin = "Attention! ";
+                break;
+            case "info":
+                alertGlypicon = "glyphicon-info-sign";
+                messageBegin = "Information: ";
+                break;
+        }
+
         <div class="alert alert-@alert.AlertStyle @dismissableClass">
             @if (alert.Dismissable)
             {
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;</button>
+                    &times;
+                </button>
             }
-            <p>@alert.Message</p>
+            <span class="glyphicon @alertGlypicon"></span>
+            <b class="alert-begin-message">@messageBegin</b>
+            <span>@alert.Message</span>
         </div>
     }
 }
