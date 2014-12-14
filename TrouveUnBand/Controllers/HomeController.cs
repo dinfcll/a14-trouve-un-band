@@ -13,21 +13,6 @@ namespace TrouveUnBand.Controllers
         {
             HomePage();
             ViewBag.Message = "Modifiez ce modèle pour dynamiser votre application ASP.NET MVC.";
-            RedirectToAction("Newsfeed");
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Votre page de description d’application.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Votre page de contact.";
-
             return View();
         }
 

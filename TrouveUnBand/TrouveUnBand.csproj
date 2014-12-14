@@ -499,6 +499,7 @@
     <None Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\Group\_MusicianTable.cshtml" />
     <Content Include="Views\Group\Confirmation.cshtml" />
+    <Content Include="Views\Advert\AdvertProfile.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
