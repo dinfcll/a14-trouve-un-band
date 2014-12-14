@@ -38,7 +38,7 @@ namespace TrouveUnBand.Classes
                 Name = band.Name,
                 Description = band.Description,
                 Location = band.Location,
-                Photo = band.Photo,
+                Photo = "/Photos/_StockPhotos/_stock_band.jpg",
                 id = band.Band_ID,
                 Sc_Name = band.SC_Name
             };
