@@ -56,7 +56,8 @@ namespace TrouveUnBand
                  "~/Content/jquery.Jcrop.css",
                  "~/Content/timepicker.css",
                  "~/Content/homepage.css",
-                 "~/Content/event.css"
+                 "~/Content/event.css",
+                 "~/Content/alerts.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
