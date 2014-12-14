@@ -11,14 +11,6 @@ namespace TrouveUnBand.Controllers
     {
         public ActionResult Index()
         {
-            HomePage();
-            ViewBag.Message = "Modifiez ce modèle pour dynamiser votre application ASP.NET MVC.";
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult HomePage()
-        {
             var viewModel = new HomePageViewModel();
             int i;
 
