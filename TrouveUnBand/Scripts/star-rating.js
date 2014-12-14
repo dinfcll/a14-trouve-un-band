@@ -1,6 +1,6 @@
 ﻿var NbStars = 0;
 var Rating = 0;
-var SkillsList = ["Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire"];
+var SkillsList = ["Débutant", "Initié", "Intermédiaire", "Avancé", "Professionnel"];
 var Elements = document.querySelectorAll(".star-rating");
 
 for (var i = 0; i < Elements.length; i++) {

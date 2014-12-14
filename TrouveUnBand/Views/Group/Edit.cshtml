@@ -25,7 +25,13 @@
         </div>
 
         <div class="col-md-12">
-            <select id="MultiSelect" name="cbSelectedGenres" class="selectpicker form-control" title="Genres musicaux"
+            <div class="btn-group bootstrap-select form-control selectpicker-over">
+                <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                    <span class="filter-option pull-left">Genres musicaux</span>&nbsp;<span class="caret"></span>
+                </button>
+            </div>
+
+            <select id="MultiSelect" name="cbSelectedGenres" class="selectpicker form-control hidden" title="Genres musicaux"
                     data-width="100%" data-live-search="true" data-selected-text-format="count>3" multiple>
                 @foreach (var list in Model.GenresMultiselect)
                 {

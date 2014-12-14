@@ -50,7 +50,7 @@ namespace TrouveUnBand.Classes
         {
             List<Musician_Instrument> InstrumentInfoList = new List<Musician_Instrument>();
             ICollection<Users_Instruments> ListOfInstruments;
-            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
+            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Professionnel" };
 
             foreach (var musician in musicians)
             {
