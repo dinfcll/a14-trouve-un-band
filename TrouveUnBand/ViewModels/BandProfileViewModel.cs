@@ -17,6 +17,7 @@ namespace TrouveUnBand.Models
         public string Description { get; set; }
         public string Photo { get; set; }
         public string Influences { get; set; }
+        public string Sc_Name { get; set; }
         public List<Musician_Instrument> InstrumentInfoList { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }
         public virtual ICollection<Event> Events { get; set; }
