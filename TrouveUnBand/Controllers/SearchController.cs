@@ -51,8 +51,8 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult Filter(int selectedCategory, string[] cbSelectedGenres, string searchstring, string location, int radius,
-                                   bool cbBandsChecked, bool cbMusiciansChecked, bool cbAdvertsChecked, bool cbEventsChecked)
+        public ActionResult Filter(int selectedCategory, string[] cbSelectedGenres, string searchstring, string location,
+                                   bool cbBandsChecked, bool cbMusiciansChecked, bool cbAdvertsChecked, bool cbEventsChecked, int radius = 20)
         {
             var results = new List<ResultViewModels>();
 
