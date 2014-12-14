@@ -12,7 +12,7 @@ namespace TrouveUnBand.Services
         {
             var db = new TrouveUnBandEntities();
             var eventList = new List<User>();
-            var user = db.Users;
+            var user = db.Users.Where(x => x.Users_Instruments.Count > 0);
             eventList.AddRange(user);
 
             return eventList;
