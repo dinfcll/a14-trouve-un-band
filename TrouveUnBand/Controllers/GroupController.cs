@@ -71,7 +71,10 @@ namespace TrouveUnBand.Controllers
         public ActionResult Create(string json)
         {
             var band = JsonToModel.ToBand(json, db);
-
+            if (string.IsNullOrEmpty(band.SC_Name))
+            {
+                band.SC_Name = band.Name;
+            }
             var alreadyExists = CheckIfBandAlreadyExists(band);
 
             band.UpdateLocationWithAPI();
