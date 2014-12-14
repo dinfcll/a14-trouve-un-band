@@ -15,7 +15,7 @@ namespace TrouveUnBand.Classes
         public static string USER_STOCK_PHOTO_FEMALE = "/Photos/UserProfilePhoto/_stock_user_female.jpg";
         public static string BAND_STOCK_PHOTO = "BAND_PHOTO";
         public static string EVENT_STOCK_PHOTO = "/Photos/EventPhotos/_stock_event.jpg";
-        public static string ADVERT_STOCK_PHOTO = "/Photos/AdvertPhotos/_stock_advert.jpg";
+        public static string ADVERT_STOCK_PHOTO = "/Photos/AdvertPhotos/_stock_advert_.jpg";
 
         byte[] m_PhotoArray;
 

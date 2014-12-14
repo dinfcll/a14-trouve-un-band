@@ -323,6 +323,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Images\Mojo-Priest.jpg" />
     <Content Include="Images\Jcrop.gif" />
+    <Content Include="Photos\AdvertPhotos\_stock_advert.jpg" />
+    <Content Include="Photos\EventPhotos\_stock_event.jpg" />
+    <Content Include="Photos\UserProfilePhoto\_stock_user_female.jpg" />
+    <Content Include="Photos\UserProfilePhoto\_stock_user_male.jpg" />
     <Content Include="Photos\_StockPhotos\14422158866_3e59dc2447_o.jpg" />
     <Content Include="Photos\_StockPhotos\Home1.jpg" />
     <Content Include="Photos\_StockPhotos\Home2.jpg" />
