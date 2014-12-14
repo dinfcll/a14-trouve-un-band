@@ -27,8 +27,6 @@ namespace TrouveUnBand.Controllers
                 new { value=HIGHEST_RATING, text="Les mieux notés" }
             }, "value", "text");
 
-
-            
             var bandsList = BandDao.GetBands(searchString);
             var musiciansList = UserDao.GetMusicians(searchString);
             var eventsList = EventDao.GetEvents(searchString);
