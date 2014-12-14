@@ -2,38 +2,39 @@
 
     var band = new Object();
 
-    $('#btnTerminer').click(function () {
+    $('#btnTerminer').click(function() {
         band.name = $('#Name').val();
         band.location = $('#Location').val();
         band.description = $('#Description').val();
         band.members = getMembers();
         band.genres = $('#MultiSelect').val();
+        band.sc_name = $('#SC_Name').val();
 
         fillInfos(band);
         fillGenres(band);
         fillMembers(band);
         $('#openModal').click();
-    })
+    });
 
-    $('#btnConfirmation').click(function () {
+    $('#btnConfirmation').click(function() {
         var json = JSON.stringify(band);
 
         $.ajax({
             url: "Create",
             type: "POST",
             data: { json: json },
-            error: function () {
+            error: function() {
                 alert("Error while sending data to server");
             },
-            success: function (data) {
+            success: function(data) {
                 window.location.pathname = "/group";
             }
         });
-    })
+    });
 
-    $('#btnConfirmationBack').click(function () {
+    $('#btnConfirmationBack').click(function() {
         $('#confirmation-body').html("");
-    })
+    });
 
     function getMembers() {
         var membersList = new Array();
@@ -53,11 +54,17 @@
     function fillInfos(band) {
         html = "<div class='col-md-12'>"
             + "<label class='col-md-6'>Nom du groupe</label>"
-            + "<label class='col-md-6'>Ville</label>"
-            + "</div><div class='col-md-12'>"
+            + "<label class='col-md-6'>Nom du groupe</label>"
+            + "</div>"
+            + "<div class='col-md-12'>"
             + "<span class='col-md-6'>" + band.name + "</span>"
-            + "<span class='col-md-6'>" + band.location + "</span>"
-            + "</div><div class='col-md-12'>"
+            + "<span class='col-md-6'>" + band.sc_name + "</span>"
+            + "</div>"
+            + "<div class='col-md-12'>"
+            + "<label class='col-md-12'>Ville</label>"
+            + "<span class='col-md-12'>" + band.location + "</span>"
+            + "</div>"
+            + "<div class='col-md-12'>"
             + "<label class='col-md-12'>Description</label>"
             + "<span class='col-md-12'>" + band.description + "</span>"
             + "</div>";

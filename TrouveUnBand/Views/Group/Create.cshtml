@@ -12,6 +12,10 @@
             </div>
             
             <div class="col-md-6">
+                @Html.TextBox("SC_Name", Model.Band.SC_Name, new { @class = "form-control", @placeholder = "Nom sur soundcloud" })
+            </div>
+            
+            <div class="col-md-12">
                 @Html.TextBox("Location", Model.Band.Location, new { @class = "form-control", @placeholder = "Ville" })
             </div>
             
