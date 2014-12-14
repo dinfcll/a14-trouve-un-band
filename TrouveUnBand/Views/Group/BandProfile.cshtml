@@ -23,10 +23,13 @@
                         <span>Localisation:</span>
                         <span class="col-md-12 row">@Model.Location</span>
                     </li>
-                    <li>
-                        <span>Style:</span>
-                        <span class="col-md-12 row">Style</span>
-                    </li>
+                    @if (Model.Genres != null)
+                    {
+                        <li>
+                            <span>Style:</span>
+                            <span class="col-md-12 row">@Model.Genres.ElementAt(0).Name</span>
+                        </li>
+                    }
                     <li>
                         <span>Annonce:</span>
                         <span class="col-md-12 row">Recherche</span>

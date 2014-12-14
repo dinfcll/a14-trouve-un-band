@@ -40,7 +40,9 @@ namespace TrouveUnBand.Classes
                 Location = band.Location,
                 Photo = "/Photos/_StockPhotos/_stock_band.jpg",
                 id = band.Band_ID,
-                Sc_Name = band.SC_Name
+                Sc_Name = band.SC_Name,
+                Genres = band.Genres,
+                Events = band.Events
             };
 
             return bandView;
