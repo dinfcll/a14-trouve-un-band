@@ -22,6 +22,7 @@ namespace TrouveUnBand.Services
             myBand.Name = jsBand["name"];
             myBand.Location = jsBand["location"];
             myBand.Description = jsBand["description"];
+            myBand.SC_Name = jsBand["sc_name"];
 
             var stringValues = new List<string>();
 

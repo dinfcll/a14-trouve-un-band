@@ -39,7 +39,8 @@ namespace TrouveUnBand.Classes
                 Description = band.Description,
                 Location = band.Location,
                 Photo = band.Photo,
-                id = band.Band_ID
+                id = band.Band_ID,
+                Sc_Name = band.SC_Name
             };
 
             return bandView;

@@ -33,6 +33,7 @@
                 </div>
 
                 <div class="profile-tab-content">
+                    @Html.Hidden("SC_NAME", Model.Sc_Name)
                     @Html.Partial("../Group/_BandProfileInfo", Model)
                 </div>
             </div>
