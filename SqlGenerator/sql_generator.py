@@ -21,6 +21,9 @@ class SqlGenerator():
     """
     def generate_genres_script(self, source_path, destination_path=None):
 
+        if destination_path is None and self.main_script is None:
+            raise Exception("You did not specify any destination path.")
+
         if destination_path is None:
             destination_path = self.main_script
             sql_file = open(destination_path, 'a')
@@ -53,3 +56,4 @@ class SqlGenerator():
 if __name__ == '__main__':
     generator = SqlGenerator()
     generator.generate_genres_script('musical_genres.txt', 'insertions_genres.sql')
+    print("done")
