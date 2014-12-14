@@ -14,21 +14,22 @@
                     <img src=@item.Photo alt="Image">
                 }
                 <div class="caption"> 
-                    <h3>@Html.Raw(item.Name)</h3>   
-                    <b class="label label-primary">@Html.Raw(item.Type)</b>              
-                    <p class="search-manage-overflow">@Html.Raw(item.Description)</p>
+                    <h3>@item.Name</h3>   
+                    <b class="label label-primary">@item.Type</b>              
+                    <p class="search-manage-overflow">@item.Description</p>
                     <p class="search-manage-overflow location">
                         <span class="glyphicon glyphicon-map-marker"></span>
-                        @Html.Raw(item.Location)
+                        @item.Location
                     </p>               
                     <p>
                         <div class="form-group">
                             <span class="glyphicon glyphicon-music"></span><span>
-                                @{var i = 0;
+                                @{  
+                                    var i = 0;
                                     var TextPopOver = "";
                                     foreach (var genre in item.Genres)
                                     {
-                                        TextPopOver += "<p>" + Html.Raw(genre) + "</p>";
+                                        TextPopOver += "<p>" + genre + "</p>";
                                         if (i < 1)
                                         {
                                             @Html.Raw(genre + ", ");

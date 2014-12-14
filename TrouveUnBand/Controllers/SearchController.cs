@@ -27,8 +27,12 @@ namespace TrouveUnBand.Controllers
                 new { value=HIGHEST_RATING, text="Les mieux notés" }
             }, "value", "text");
 
+
+            
             var bandsList = BandDao.GetBands(searchString);
             var musiciansList = UserDao.GetMusicians(searchString);
+            var eventsList = EventDao.GetEvents(searchString);
+            var advertsList = AdvertDao.GetAdverts(searchString);
 
             foreach (Band band in bandsList)
             {
@@ -38,6 +42,16 @@ namespace TrouveUnBand.Controllers
             foreach (User musician in musiciansList)
             {
                 results.Add(new ResultViewModels(musician));
+            }
+
+            foreach (Event events in eventsList)
+            {
+                results.Add(new ResultViewModels(events));
+            }
+
+            foreach (Advert adverts in advertsList)
+            {
+                results.Add(new ResultViewModels(adverts));
             }
 
             ViewBag.Genres = genres;
