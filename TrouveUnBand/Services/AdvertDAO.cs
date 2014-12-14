@@ -11,7 +11,7 @@ namespace TrouveUnBand.Services
         public static List<Advert> GetAllAdverts()
         {
             var db = new TrouveUnBandEntities();
-            var adverts = db.Adverts.ToList();
+            var adverts = db.Adverts.ToList().Where(x => x.Status == "En cours").ToList();
 
             return adverts;
         }
