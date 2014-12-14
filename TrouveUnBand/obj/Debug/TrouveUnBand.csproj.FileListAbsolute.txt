@@ -12,11 +12,8 @@ D:\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.Web.Infrastructure.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.Web.WebPages.OAuth.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\Newtonsoft.Json.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.dll
-D:\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.Formatting.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.WebRequest.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Helpers.dll
-D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Http.dll
-D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Http.WebHost.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Mvc.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Optimization.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Razor.dll
@@ -29,11 +26,8 @@ D:\a14-trouve-un-band\TrouveUnBand\bin\WebMatrix.WebData.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\EntityFramework.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\Newtonsoft.Json.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.xml
-D:\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.Formatting.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Net.Http.WebRequest.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Helpers.xml
-D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Http.xml
-D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Http.WebHost.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Mvc.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.Razor.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\System.Web.WebPages.xml
@@ -50,11 +44,8 @@ D:\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OpenId.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 D:\a14-trouve-un-band\TrouveUnBand\bin\fr\EntityFramework.resources.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Net.Http.resources.dll
-D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Net.Http.Formatting.resources.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Net.Http.WebRequest.resources.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Helpers.resources.dll
-D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Http.resources.dll
-D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Http.WebHost.resources.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Mvc.resources.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Optimization.resources.dll
 D:\a14-trouve-un-band\TrouveUnBand\bin\fr\System.Web.Razor.resources.dll
@@ -513,3 +504,4 @@ D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\bin\fr\WebMatrix.WebData.resources.dll
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 D:\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll.config
