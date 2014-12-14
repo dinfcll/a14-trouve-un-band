@@ -115,15 +115,16 @@ namespace TrouveUnBand.Services
 
             if (!String.IsNullOrEmpty(userName))
             {
+                var userlist = new List<User>();
                 foreach (var user in users)
                 {
-                    if (!user.isMusician())
+                    if (user.isMusician())
                     {
-                        users.Remove(user);
+                        userlist.Add(user);
                     }
                 }
 
-                users = users.Where(user => user.FirstName.Contains(userName) ||
+                users = userlist.Where(user => user.FirstName.Contains(userName) ||
                                    user.LastName.Contains(userName) ||
                                    user.Nickname.Contains(userName)).ToList();
             }

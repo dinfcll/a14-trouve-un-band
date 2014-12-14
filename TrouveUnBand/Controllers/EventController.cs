@@ -15,13 +15,12 @@ using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
 {
-    public class EventController : Controller
+    public class EventController : BaseController
     {
-        private TrouveUnBandEntities db = new TrouveUnBandEntities();
-
         public ActionResult Index()
         {
-            return View(db.Events.ToList());
+            var ListOfEvent = new EventPageViewModel(db.Events.ToList());
+            return View(ListOfEvent.EventList);
         }
 
         public ActionResult EventProfile(int id = 0)
@@ -36,39 +35,44 @@ namespace TrouveUnBand.Controllers
 
         public ActionResult Create()
         {
+            if (!CurrentUserIsAuthenticated())
+            {
+                return View("../Shared/Authentication");
+            }
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             ViewBag.BandsListDB = new List<Band>(db.Bands);
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Event events, string[] EventGenreDB, string Creator, string[] BandsListDB)
+        public ActionResult Create(Event eventToCreate, string[] EventGenreDB, string Creator, string[] BandsListDB)
         {
             if (ModelState.IsValid && EventGenreDB != null)
             {
                 foreach(var GenreName in EventGenreDB)
                 {
-                    events.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == GenreName));
+                    eventToCreate.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == GenreName));
                 }
 
                 if (BandsListDB != null)
                 {
                     foreach (var BandName in BandsListDB)
                     {
-                        events.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == BandName));
+                        eventToCreate.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == BandName));
                     }
                 }
 
-                events.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == Creator).User_ID;
-                if (Request.Files[0].ContentLength != 0)
-                {
-                    events.Photo = GetPostedEventPhoto();
-                }
-                db.Events.Add(events);
+                eventToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == Creator).User_ID;
+                db.Events.Add(eventToCreate);
                 db.SaveChanges();
+
+                var savedPhotoPath = CropAndSavePhoto(eventToCreate);
+                eventToCreate.Photo = savedPhotoPath;
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            string messageAlert = AlertMessages.NOT_MUSICIAN;
+            Danger(Messages.NOT_MUSICIAN,true);
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             ViewBag.BandsListDB = new List<Band>(db.Bands);
             return View();
@@ -87,31 +91,14 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Event events, string[] EventGenreDB, string Creator, string[] BandsListDB)
+        public ActionResult Edit(Event events, string[] EventGenreDB, string[] BandsListDB)
         {
-            events.Creator_ID = Convert.ToInt32(Creator);
             events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
-            
-            if (Request.Files[0].ContentLength != 0)
-            {
-                events.Photo = GetPostedEventPhoto();
-            }
-            else
-            {
-                if (GetEventPhotoByte(events.Event_ID) != null)
-                {
-                    events.Photo = GetEventPhotoByte(events.Event_ID);
-                }
-            }
 
             if (ModelState.IsValid && EventGenreDB != null)
             {
-                db.Entry(events).State = EntityState.Modified;
-                db.SaveChanges();
-                ((IObjectContextAdapter)db).ObjectContext.Detach(events);
-                
                 var eventBD = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
-                db.Set(typeof(Event)).Attach(eventBD);
+                events.Photo = eventBD.Photo;
                 eventBD.Genres.Clear();
                 eventBD.Bands.Clear();
 
@@ -127,9 +114,9 @@ namespace TrouveUnBand.Controllers
                         eventBD.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == BandName));
                     }
                 }
-
-                db.Entry(eventBD).State = EntityState.Modified;
+                db.Entry(eventBD).CurrentValues.SetValues(events);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
@@ -151,10 +138,13 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Event events = db.Events.Find(id);
+
             events.Genres.Clear();
             db.SaveChanges();
             db.Events.Remove(events);
             db.SaveChanges();
+            FileHelper.DeletePhoto(id.ToString(), FileHelper.Category.EVENT_PHOTO);
+
             return RedirectToAction("Index");
         }
 
@@ -165,24 +155,59 @@ namespace TrouveUnBand.Controllers
             return ms.ToArray();
         }
 
-        public byte[] GetEventPhotoByte(int eventID)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult CropImageDialog(Event eventWithPhoto)
         {
-            var PicQuery = (from Events in db.Events
-                            where
-                            Events.Event_ID.Equals(eventID)
-                            select new Photo
-                            {
-                                PhotoArray = Events.Photo
-                            }).FirstOrDefault();
-            return PicQuery.PhotoArray;
+            try
+            {
+                Event existingEvent = db.Events.FirstOrDefault(x => x.Event_ID == eventWithPhoto.Event_ID);
+                string savedPhotoPath = CropAndSavePhoto(eventWithPhoto);
+
+                if (savedPhotoPath != "")
+                {
+                    existingEvent.Photo = savedPhotoPath;
+                    db.SaveChanges();
+
+                    Success(Messages.PICTURE_CHANGED,true);
+                }
+
+                return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
+            }
+            catch
+            {
+                Danger(Messages.INTERNAL_ERROR,true);
+                return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
+            }
         }
 
-        private byte[] GetPostedEventPhoto()
+
+        private string CropAndSavePhoto(Event eventWithPhoto)
         {
-            HttpPostedFileBase PostedPhoto = Request.Files[0];
-            Image img = Image.FromStream(PostedPhoto.InputStream, true, true);
-            byte[] bytephoto = imageToByteArray(img);
-            return bytephoto;
+            var postedPhoto = Request.Files[0];
+
+            if (postedPhoto.ContentLength == 0)
+            {
+                return Photo.EVENT_STOCK_PHOTO;
+            }
+
+            Image image = Image.FromStream(postedPhoto.InputStream, true, true);
+
+            if (image.Width < 250 || image.Height < 172 || image.Width > 800 || image.Height > 600)
+            {
+                image = PhotoResizer.ResizeImage(image, 250, 172, 800, 600);
+            }
+
+            var croppedPhoto = PhotoCropper.CropImage(image, eventWithPhoto.PhotoCrop.CropRect);
+            string eventPhotoName = eventWithPhoto.Event_ID.ToString();
+            var savedPhotoPath = FileHelper.SavePhoto(croppedPhoto, eventPhotoName, FileHelper.Category.EVENT_PHOTO);
+
+            if (savedPhotoPath == "")
+            {
+                savedPhotoPath = Photo.EVENT_STOCK_PHOTO;
+            }
+
+            return savedPhotoPath;
         }
     }
 }

@@ -7,63 +7,44 @@ namespace TrouveUnBand.Classes
 {
     public static class PhotoResizer
     {
-        public static Image ResizeImage(Image ImageToResize, int MinHeight, int MinWidth, int MaxHeight, int MaxWidth)
+        public static Image ResizeImage(Image ImageToResize, int minWidth, int minHeight, int maxWidth ,int maxHeight)
         {
             Bitmap NewImage;
 
-            int OriginalHeight = ImageToResize.Height;
-            int OriginalWidth = ImageToResize.Width;
-            int NewHeight;
-            int NewWidth;
+            double height = ImageToResize.Height;
+            double width = ImageToResize.Width;
 
-            if (OriginalHeight < MinHeight || OriginalWidth < MinWidth)
+            if (width < minWidth)
             {
-                if (OriginalHeight < MinHeight)
-                {
-                    NewHeight = MinHeight;
-                }
-                else
-                {
-                    NewHeight = ImageToResize.Height;
-                }
-
-                if (OriginalWidth < MinWidth)
-                {
-                    NewWidth = MinWidth;
-                }
-                else
-                {
-                    NewWidth = ImageToResize.Width;
-                }
-            }
-            else
-            {
-                if (OriginalHeight > MaxHeight)
-                {
-                    NewHeight = MaxHeight;
-                }
-                else
-                {
-                    NewHeight = ImageToResize.Height;
-                }
-
-                if (OriginalWidth > MaxWidth)
-                {
-                    NewWidth = MaxWidth;
-                }
-                else
-                {
-                    NewWidth = ImageToResize.Width;
-                }
+                height *= minWidth / width;
+                width = minWidth;
             }
 
-            NewImage = new Bitmap(NewWidth, NewHeight);
+            if (height < minHeight)
+            {
+                width *= minHeight / height;
+                height = minHeight;
+            }
+
+            if (width > maxWidth)
+            {
+                height *= maxWidth / width;
+                width = maxWidth;
+            }
+
+            if (height > maxHeight)
+            {
+                width *= maxHeight / height;
+                height = maxHeight;
+            }
+
+            NewImage = new Bitmap((int)width, (int)height);
             using (Graphics gr = Graphics.FromImage(NewImage))
             {
                 gr.SmoothingMode = SmoothingMode.HighQuality;
                 gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                gr.DrawImage(ImageToResize, new Rectangle(0, 0, NewWidth, NewHeight));
+                gr.DrawImage(ImageToResize, new Rectangle(0, 0, (int)width, (int)height));
             }
 
             return (Image)NewImage;

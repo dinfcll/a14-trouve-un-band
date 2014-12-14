@@ -1,117 +1,178 @@
-﻿@{
+﻿@model TrouveUnBand.ViewModels.HomePageViewModel
+@{
     ViewBag.Title = "Page d'accueil";
 }
-
-<div id="NewsfeedUser" class="row">
-@foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedUser"])
-{  
-    <div class="col-sm-6 col-md-1 container-fluid NewsfeedItems">
-        <div class="thumbnail card btn btn-default"  data-toggle="tooltip" data-placement="bottom" title="@Html.DisplayFor(modelItem => item.Name)">
-            @if (item.Photo == null)
-            {
-                <img src="http://placehold.it/100x100" alt="Image">
-            }
-            else
-            {
-                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                <img src="@photo" width="100" height="100" class="photo" alt="Image">
-            }
-        </div>
-        @Html.DisplayFor(modelItem => item.Name)
-    </div>
-}
-</div>
-
-<div id="NewsfeedBand" class="row">
-@foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedBand"])
-{
-    <div class="col-md-3 NewsfeedItems thumbnail">
-        <img src="http://placehold.it/200x200">
-        <div class="caption container-fluid">
-            <div class="row">
-            @Html.Label("Nom")
-            @Html.DisplayFor(modelItem => item.Name)
-            </div>
-            <div class="row">
-            @Html.Label("Location")
-            @Html.DisplayFor(modelItem => item.Location)
-            </div>
-            <div class="row">
-            @Html.Label("Description")
-            @Html.DisplayFor(modelItem => item.Description)
-            </div>
-            @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "BAND", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
-        </div>
-     </div>      
-}
-</div>
-
-<div id="NewsfeedEvent" class="row">
-    @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedEvent"])
-    {
-        <div class="col-md-4 thumbnail">
-            <div class="thumbnail card">
-                @if (item.Photo == null)
-                {
-                    <img src="http://placehold.it/250x172" alt="Image">
-                }
-                else
-                {
-                    var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                    <img src="@photo" width="250" height="172" class="photo" alt="Image">
-                }
-            </div>
-            <div class="caption container-fluid">
-                <div class="row">
-                    @Html.Label("Nom")
-                    @Html.DisplayFor(modelItem => item.Name)
+<div class="home-container">
+    <div id="home-jumbotron" class="jumbotron">
+        <div id="home-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img id="homeImage" src="" alt="" />
+                    <div class="carousel-caption">
+                        <h1 class="col-md-12">
+                            À la recherche d'un band?
+                        </h1>
+                        <h3>
+                            Recherchez un band, un musicien ou un événement.
+                        </h3>
+                        <h3>
+                            Créez vos propres événements et annonces.
+                        </h3>
+                        <h3>
+                            Faites la promotion de votre band, votre événement ou votre bar.
+                        </h3>
+                        <h3>
+                            Tout ça GRATUITEMENT!
+                        </h3>
+                        <p>@Html.ActionLink("Inscrivez-vous", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary btn-lg col-md-6 col-md-offset-3" })</p>
+                    </div>
                 </div>
-                <div class="row">
-                    @Html.Label("Location")
-                    @Html.DisplayFor(modelItem => item.Location)
-                </div>
-                <div class="row">
-                    @Html.Label("Genre")
-                    <span>@item.Genres</span>
-                </div>
-                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "EVENT", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
-            </div>
-        </div>
-    }
-</div>
-
-<div id="NewsfeedAdvert" class="row">
-@foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["NewsfeedAdvert"])
-{
-    <div class="col-md-4 thumbnail">
-        <div class="thumbnail card">
-            @if (item.Photo == null)
-            {
-                <img src="http://placehold.it/250x172" alt="Image">
-            }
-            else
-            {
-                var photo = "data:image/jpeg;base64," + Convert.ToBase64String(item.Photo);
-                <img src="@photo" width="250" height="172" class="photo" alt="Image">
-            }
-        </div>
-        <div class="caption container-fluid">
-            <div class="row">
-                @Html.Label("Type")
-                @Html.DisplayFor(modelItem => item.Type)
-            </div>
-            <div class="row">
-            @Html.Label("Genre")
-            @Html.DisplayFor(modelItem => item.Genres)
-            </div>
-            <div class="row">
-                @Html.Label("Description")
-                @Html.DisplayFor(modelItem => item.Description)
-            </div>
-            <div>
-                @Html.ActionLink("Afficher", "ViewProfile", "Search", new { type = "ADVERT", Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
             </div>
         </div>
     </div>
-}
+    <div class="home-content-container">
+        <div class="home-section col-md-12">
+            <div class="container">
+                <div class="home-section-header col-md-12">
+                    <h1>
+                        Derniers Musiciens Inscrits
+                    </h1>
+                </div>
+                <div class="home-section-content">
+                    @foreach (var item in Model.UserList)
+                    {
+                        <div class="home-thumbnail img-container-banner col-md-3"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "MUSICIEN", Id = item.User_ID })'">
+                            <div class="img-container-banner">
+                                <img src="@item.Photo" alt="" />
+                                <p class="banner">
+                                    Nouveau!
+                                </p>
+                            </div>
+                            <div class="home-thumbnail-middle">
+                                <p>
+                                    <strong>@item.Name</strong>
+                                </p>
+                                <p>@item.Location</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <a class="col-md-6 col-md-offset-3 btn btn-default"
+                   href='@Url.Action("Index", "Search")'>
+                    Voir plus de musiciens
+                </a>
+            </div>
+        </div>
+        <div class="home-section-invert home-band-section col-md-12">
+            <div class="container">
+                <div class="home-section-header col-md-12">
+                    <h1>
+                        Derniers Groups Inscrits
+                    </h1>
+                </div>
+                <div class="home-section-content">
+                    @foreach (var item in Model.BandList)
+                    {
+                        <div class="home-thumbnail-invert col-md-3"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "BAND", Id = item.Band_ID })'">
+                            <img src="@item." alt="" />
+                            <div class="home-thumbnail-middle">
+                                <p>
+                                    <strong>@item.Name</strong>
+                                </p>
+                                <p>@item.Location</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <a class="col-md-6 col-md-offset-3 btn btn-default"
+                   href='@Url.Action("Index", "Search")'>
+                    Voir plus de bands
+                </a>
+            </div>
+        </div>
+        <div class="home-section col-md-12">
+            <div class="container">
+                <div class="home-section-header col-md-6 col-md-offset-3">
+                    <h1 class="">
+                        Prochains Événements
+                    </h1>
+                    <h4>
+                        Pour ne rien rater
+                    </h4>
+                </div>
+                <div class="home-section-content">
+                    @foreach (var item in Model.EventList)
+                    {
+                        <div class="home-panel event-panel col-md-12"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "EVENT", Id = item.Event_ID })'">
+                            <img src="@item.Photo" alt="Image" class="col-md-3">
+                            <div class="event-panel-date col-md-2">
+                                <h3 class="col-md-3">@item.DayOfTheWeek</h3>
+                                <h1 class="col-md-12">@item.DayAndMonth</h1>
+                            </div>
+                            <div class="event-panel-info col-md-5">
+                                <span class="col-md-12">@item.Location</span>
+                                <h2 class="col-md-12">@item.Name</h2>
+                            </div>
+                            <div class="event-panel-info col-md-2">
+                                <ul>
+                                    @foreach (var banditem in item.Bands)
+                                    {
+                                        <li>
+                                            <span class="col-md-12">@banditem.Name</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <a class="col-md-6 col-md-offset-3 btn btn-default"
+                   href='@Url.Action("Index", "Event")'>
+                    Voir plus d'événements
+                </a>
+            </div>
+        </div>
+        <div class="home-section-invert col-md-12">
+            <div class="container">
+                <div class="home-section-header col-md-6 col-md-offset-3">
+                    <h1>
+                        Dernières Annonces
+                    </h1>
+                    <h4>
+                        Ne manquez pas votre chance
+                    </h4>
+                </div>
+                <div class="home-section-content">
+                    @foreach (var item in Model.AdvertList)
+                    {
+                        <div class="event-panel home-panel-invert col-md-12"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "ADVERT", Id = item.Advert_ID })'">
+                            <img src="@item.Photo" alt="Image" class="col-md-3">
+                            <div class="event-panel-date col-md-2">
+                                <h3 class="col-md-3">
+                                    Expiration/
+                                </h3>
+                                <h1 class="col-md-12">@item.ExpirationDate</h1>
+                            </div>
+                            <div class="event-panel-info col-md-5">
+                                <span class="col-md-12">@item.Location</span>
+                                <h2 class="col-md-12">@item.Name</h2>
+                                <span class="col-md-12">@item.Status</span>
+                            </div>
+                            <div class="event-panel-button">
+                                <p>@item.Description</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <a class="col-md-6 col-md-offset-3 btn btn-default"
+                   href='@Url.Action("Index", "Advert")'>
+                    Voir plus d'annonces
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

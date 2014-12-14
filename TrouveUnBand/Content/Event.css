@@ -1,0 +1,52 @@
+﻿.event-panel {
+    background-color: #333;
+    padding: 0 !important;
+    margin-bottom: 20px;
+    color: white;
+}
+
+    .event-panel img {
+        padding: 0;
+        width: 200px;
+    }
+
+.event-panel-date {
+    margin-top: 2em;
+}
+
+    .event-panel-date h1 {
+        margin: 0;
+    }
+
+    .event-panel-date h3 {
+        color: #0099DA;
+        margin-top: 0;
+    }
+
+.event-panel-info {
+    margin-top: 2em;
+}
+
+    .event-panel-info h2 {
+        margin: 0;
+        padding-bottom: 5px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .event-panel-info span {
+        color: #999;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+.event-panel-button {
+    margin-top: 3em;
+}
+
+    .event-panel-button .btn-sm {
+        margin-top: -2em;
+        margin-bottom: 1em;
+    }

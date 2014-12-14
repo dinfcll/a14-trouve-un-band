@@ -44,7 +44,7 @@ window.onload = function() {
     SC.initialize({
         client_id: '96fcd16e1df481197be64f94a6d0f35a'
     });
-    var artist = document.getElementById('BandName').innerHTML;
+    var artist = $('#SC_NAME').val();
     console.log(artist);
     GetArtist(artist);
 

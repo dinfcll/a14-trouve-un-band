@@ -11,6 +11,12 @@ namespace TrouveUnBand.Classes
 {
     public class Photo
     {
+        public static string USER_STOCK_PHOTO_MALE = "/Photos/UserProfilePhoto/_stock_user_male.jpg";
+        public static string USER_STOCK_PHOTO_FEMALE = "/Photos/UserProfilePhoto/_stock_user_female.jpg";
+        public static string BAND_STOCK_PHOTO = "BAND_PHOTO";
+        public static string EVENT_STOCK_PHOTO = "/Photos/EventPhotos/_stock_event.jpg";
+        public static string ADVERT_STOCK_PHOTO = "/Photos/AdvertPhotos/_stock_advert.jpg";
+
         byte[] m_PhotoArray;
 
         public string PhotoSrc { get; set; }
@@ -48,34 +54,24 @@ namespace TrouveUnBand.Classes
             }
         }
 
-        public static byte[] StockPhoto
+        public static bool IsPhoto(HttpPostedFileBase postedPhoto)
         {
-            get
-            {
-                return getStockPhoto();
-            }
+            string extension = Path.GetExtension(postedPhoto.FileName).ToLower();
+            bool isPhoto = VerifyExtension(extension);
+
+            return isPhoto;
         }
 
-        private static byte[] getStockPhoto()
+        public static bool IsPhoto(string postedPhotoSrc)
         {
-            string path = HttpContext.Current.Server.MapPath("~/Images/stock_user.jpg");
-            var stock = Image.FromFile(path);
+            string extension = Path.GetExtension(postedPhotoSrc).ToLower();
+            bool isPhoto = VerifyExtension(extension);
 
-            return imageToByteArray(stock);
+            return isPhoto;
         }
 
-        private static byte[] imageToByteArray(Image imageIn)
+        private static bool VerifyExtension(string extension)
         {
-            MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, ImageFormat.Jpeg);
-
-            return ms.ToArray();
-        }
-
-        public static bool IsPhoto(HttpPostedFileBase PostedPhoto)
-        {
-            string extension = Path.GetExtension(PostedPhoto.FileName).ToLower();
-
             if (extension != ".jpe" && extension != ".jpg" && extension != ".jpeg" && extension != ".gif" && extension != ".png" &&
                 extension != ".pns" && extension != ".bmp" && extension != ".ico" && extension != ".psd" && extension != ".pdd")
             {
