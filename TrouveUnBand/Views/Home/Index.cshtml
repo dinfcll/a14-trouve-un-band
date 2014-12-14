@@ -41,8 +41,8 @@
                 <div class="home-section-content">
                     @foreach (var item in Model.UserList)
                     {
-                        <div class="home-thumbnail img-container-banner col-md-3" 
-                            onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "MUSICIEN", Id = item.User_ID })'">
+                        <div class="home-thumbnail img-container-banner col-md-3"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "MUSICIEN", Id = item.User_ID })'">
                             <div class="img-container-banner">
                                 <img src="@item.Photo" alt="" />
                                 <p class="banner">
@@ -58,6 +58,10 @@
                         </div>
                     }
                 </div>
+                <a class="col-md-6 col-md-offset-3 btn btn-default"
+                   href='@Url.Action("Index", "Search")'>
+                    Voir plus de musiciens
+                </a>
             </div>
         </div>
         <div class="home-section-invert home-band-section col-md-12">
@@ -70,8 +74,8 @@
                 <div class="home-section-content">
                     @foreach (var item in Model.BandList)
                     {
-                        <div class="home-thumbnail-invert col-md-3" 
-                            onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "BAND", Id = item.Band_ID })'">
+                        <div class="home-thumbnail-invert col-md-3"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "BAND", Id = item.Band_ID })'">
                             <img src="@item." alt="" />
                             <div class="home-thumbnail-middle">
                                 <p>
@@ -82,6 +86,10 @@
                         </div>
                     }
                 </div>
+                <a class="col-md-6 col-md-offset-3 btn btn-default"
+                   href='@Url.Action("Index", "Search")'>
+                    Voir plus de bands
+                </a>
             </div>
         </div>
         <div class="home-section col-md-12">
@@ -98,7 +106,7 @@
                     @foreach (var item in Model.EventList)
                     {
                         <div class="home-panel event-panel col-md-12"
-                            onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "EVENT", Id = item.Event_ID })'">
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "EVENT", Id = item.Event_ID })'">
                             <img src="@item.Photo" alt="Image" class="col-md-3">
                             <div class="event-panel-date col-md-2">
                                 <h3 class="col-md-3">@item.DayOfTheWeek</h3>
@@ -110,17 +118,21 @@
                             </div>
                             <div class="event-panel-info col-md-2">
                                 <ul>
-                                @foreach (var banditem in item.Bands)
-                                {
-                                    <li>
-                                        <span class="col-md-12">@banditem.Name</span>
-                                    </li>
-                                }
+                                    @foreach (var banditem in item.Bands)
+                                    {
+                                        <li>
+                                            <span class="col-md-12">@banditem.Name</span>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </div>
                     }
                 </div>
+                <a class="col-md-6 col-md-offset-3 btn btn-default"
+                   href='@Url.Action("Index", "Event")'>
+                    Voir plus d'événements
+                </a>
             </div>
         </div>
         <div class="home-section-invert col-md-12">
@@ -136,8 +148,8 @@
                 <div class="home-section-content">
                     @foreach (var item in Model.AdvertList)
                     {
-                        <div class="event-panel home-panel-invert col-md-12" 
-                            onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "ADVERT", Id = item.Advert_ID })'">
+                        <div class="event-panel home-panel-invert col-md-12"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "ADVERT", Id = item.Advert_ID })'">
                             <img src="@item.Photo" alt="Image" class="col-md-3">
                             <div class="event-panel-date col-md-2">
                                 <h3 class="col-md-3">
@@ -156,10 +168,11 @@
                         </div>
                     }
                 </div>
+                <a class="col-md-6 col-md-offset-3 btn btn-default"
+                   href='@Url.Action("Index", "Advert")'>
+                    Voir plus d'annonces
+                </a>
             </div>
-        </div>
-        <div class="home-section-invert col-md-12" style="background-image: url(https://31.media.tumblr.com/04eade104c0ea8bb29069a1d16594faf/tumblr_inline_ncriy1MOOX1s7wopc.gif);
-            height: 256px;">
         </div>
     </div>
 </div>
