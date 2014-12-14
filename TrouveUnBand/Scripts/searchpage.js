@@ -1,4 +1,9 @@
 ﻿$(document).ready(function () {
+    $('#divProcessing').hide();
+    manageOverflow();
+});
+
+function manageOverflow() {
     $(".search-manage-overflow").dotdotdot({
         ellipsis: '... ',
         wrap: 'word',
@@ -12,4 +17,4 @@
             noEllipsis: []
         }
     });
-});
+}
