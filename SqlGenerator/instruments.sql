@@ -1,14 +1,4 @@
-﻿
-insert into Bands(Name, Description, Location)
-values('The wild Mofos', 'We are the Wild Mofos and we fear nothing, even your mom', 'Las Vegas');
-insert into Bands(Name, Description, Location)
-values('Loss Sanchez', 'Lost in the desert cooking pancakes!', 'Unknown');
-insert into Genres(Name) values ('Metal');
-insert into Genres(Name) values ('Rock');
-insert into Genres(Name) values ('Classique');
-insert into Genres(Name) values ('Jazz');
-insert into Genres(Name) values ('Chuck Norris Style');
-insert into Instruments(Name) Values('Aucun');
+﻿insert into Instruments(Name) Values('Aucun');
 insert into Instruments (Name) values('Aboès');
 insert into Instruments (Name) values('Accordéon');
 insert into Instruments (Name) values('Accordina');
