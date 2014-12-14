@@ -4,25 +4,54 @@
     @foreach (var item in (List<TrouveUnBand.ViewModels.ResultViewModels>)ViewData["Results"])
     {
         <div class="col-md-3">
-            <div class="thumbnail card">
-                <img src="http://placehold.it/250x172" alt="Image">
-                <div class="caption">
-                    <h3>@Html.DisplayName(item.Name)</h3>
-                    <b>@Html.DisplayName(item.Type)</b>
-                    <p>@Html.DisplayName(item.Description)</p>
-                    <p>
+            <div class="thumbnail">
+                @if (item.Photo == null)
+                {
+                    <img src="http://placehold.it/250x172" alt="image">
+                }
+                else
+                {
+                    <img src=@item.Photo alt="Image">
+                }
+                <div class="caption"> 
+                    <h3>@item.Name</h3>   
+                    <b class="label label-primary">@item.Type</b>              
+                    <p class="search-manage-overflow">@item.Description</p>
+                    <p class="search-manage-overflow location">
                         <span class="glyphicon glyphicon-map-marker"></span>
-                        @Html.DisplayName(item.Location)
+                        @item.Location
                     </p>               
                     <p>
-                        @foreach (var genre in item.Genres)
-                        {
-                            <span class="label label-default">@genre</span>
-                        }
+                        <div class="form-group">
+                            <span class="glyphicon glyphicon-music"></span><span>
+                                @{  
+                                    var i = 0;
+                                    var TextPopOver = "";
+                                    foreach (var genre in item.Genres)
+                                    {
+                                        TextPopOver += "<p>" + genre + "</p>";
+                                        if (i < 1)
+                                        {
+                                            @Html.Raw(genre + ", ");
+                                        }
+                                        if (i == 1)
+                                        {
+                                            @Html.Raw(genre + "");
+                                        }
+                                        i++;
+                                    }
+                                }
+                                <a href="#" tabindex="0" role="button"
+                                   data-toggle="popover" data-html="true" title="Genres musicaux" data-content="@TextPopOver">
+                                    <span class="label label-default">...</span>
+                                </a>
+                            </span>
+                        </div>
                     </p>
                     <p>
-                        @Html.ActionLink("Voir profil", "ViewProfile", "Search", new { type = item.Type, Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
-                        <a href="#" class="btn btn-default" role="button">Button</a>
+                        <div class="col-md-offset-6">
+                            @Html.ActionLink("Voir profil", "ViewProfile", "Search", new { type = item.Type, Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
+                        </div>
                     </p>
                 </div>
             </div>

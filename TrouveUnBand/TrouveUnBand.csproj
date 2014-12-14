@@ -364,6 +364,7 @@
     <Content Include="Scripts\SDKs\Facebook.js" />
     <Content Include="Scripts\SDKs\GooglePlus.js" />
     <Content Include="Scripts\SDKs\Twitter.js" />
+    <Content Include="Scripts\searchpage.js" />
     <Content Include="Scripts\SoundCloud.js" />
     <Content Include="Scripts\star-rating.js" />
     <Content Include="Scripts\Tooltips.js" />

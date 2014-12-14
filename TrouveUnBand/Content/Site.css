@@ -88,10 +88,6 @@ tr.instTable > td {
     font-weight: bold;
 }
 
-﻿.card {
-    height: 400px;
-}
-
 .searchbar {
     width: 550px;
     margin: 0 auto;
@@ -102,12 +98,13 @@ tr.instTable > td {
     text-align: center;
 }
 
-#btnSearch {
-    height: 50px;
+p.search-manage-overflow {
+    height: 3.5em;
+    margin-top: 1em;
 }
 
-#advanced-search-link {
-    text-align: center;
+p.search-manage-overflow.location {
+    height: 1.5em;
 }
 
 .main-content {
