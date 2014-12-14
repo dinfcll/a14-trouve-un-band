@@ -77,7 +77,6 @@ namespace TrouveUnBand.Controllers
                     return View("../Users/MusicianProfile", musicianProfile);
 
                 case "BAND":
-                    //ViewBag.EventBD = new List<Event>(db.Events);
                     var band = db.Bands.FirstOrDefault(x => x.Band_ID == Id);
                     var bandProfile = CreateProfile.CreateBandProfileView(band);
                     return View("../Group/BandProfile", bandProfile);

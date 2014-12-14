@@ -23,10 +23,10 @@
                 @if (Model.Users_Instruments.FirstOrDefault() == null)
                 {
                     <tr name="1" id="tablerow" class="form-group col-md-12 row">
-                        <td id="tablecell" class="col-md-4">
+                        <td id="tablecell" class="col-md-5">
                             @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "Instrument_ID", "Name", 0), new { @class = "form-control" })
                         </td>
-                        <td id="tablecell" class="col-md-4">
+                        <td id="tablecell" class="col-md-5">
                             @Html.DropDownList("SkillsList", new SelectList(
                                                                 new List<Object>{
                                                                 new { value = "0" , text = "Aucun"  },
@@ -34,7 +34,7 @@
                                                                 new { value = "2" , text = "Initié" },
                                                                 new { value = "3" , text = "Intermédiaire"  },
                                                                 new { value = "4" , text = "Avancé" },
-                                                                new { value = "5" , text = "Légendaire"  },
+                                                                new { value = "5" , text = "Professionnel"  },
                                                                 },
                                                                 "value", "text", 0),
                                                                 new { @class = "form-control" })
@@ -49,11 +49,11 @@
                     {
                         i++;
                         <tr name="@i" id="tablerow" class="form-group col-md-12 row">
-                            <td id="tablecell" class="col-md-4">
+                            <td id="tablecell" class="col-md-5">
                                 @Html.DropDownList("InstrumentList", new SelectList(ViewBag.InstrumentListDD, "Instrument_ID", "Name",
                                                                 Convert.ToInt32(InstrumentsUser.Instrument_ID)), new { @class = "form-control" })
                             </td>
-                            <td id="tablecell" class="col-md-4">
+                            <td id="tablecell" class="col-md-5">
                                 @Html.DropDownList("SkillsList", new SelectList(
                                                                 new List<Object>{
                                                                 new { value = "0" , text = "Aucun"  },
@@ -61,7 +61,7 @@
                                                                 new { value = "2" , text = "Initié" },
                                                                 new { value = "3" , text = "Intermédiaire"  },
                                                                 new { value = "4" , text = "Avancé" },
-                                                                new { value = "5" , text = "Légendaire"  },
+                                                                new { value = "5" , text = "Professionnel"  },
                                                                 },
                                                                 "value", "text", @InstrumentsUser.Skills),
                                                                 new { @class = "form-control" })

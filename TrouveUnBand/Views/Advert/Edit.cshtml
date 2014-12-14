@@ -74,8 +74,8 @@ else
                             </div>
                             @Html.DropDownListFor(model => model.Status, new SelectList(
                                           new List<Object>{
-                                               new { value = "En attente" , text = "En attente"  },
-                                               new { value = "En cours" , text = "En cours" }
+                                               new { value = "En cours" , text = "En cours" },
+                                               new { value = "En attente" , text = "En attente"  }
                                             },
                                             "value", "text", Model.Status),
                                             new { @class = "form-control selectpicker hidden" })

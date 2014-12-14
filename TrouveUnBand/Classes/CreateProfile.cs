@@ -38,9 +38,11 @@ namespace TrouveUnBand.Classes
                 Name = band.Name,
                 Description = band.Description,
                 Location = band.Location,
-                Photo = band.Photo,
+                Photo = "/Photos/_StockPhotos/_stock_band.jpg",
                 id = band.Band_ID,
-                Sc_Name = band.SC_Name
+                Sc_Name = band.SC_Name,
+                Genres = band.Genres,
+                Events = band.Events
             };
 
             return bandView;
@@ -50,7 +52,7 @@ namespace TrouveUnBand.Classes
         {
             List<Musician_Instrument> InstrumentInfoList = new List<Musician_Instrument>();
             ICollection<Users_Instruments> ListOfInstruments;
-            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Légendaire" };
+            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Professionnel" };
 
             foreach (var musician in musicians)
             {

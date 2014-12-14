@@ -46,6 +46,15 @@
             text-decoration: none;
         }
 
+.profile-user-quickinfo > ul > li {
+    margin-bottom: 1em;
+}
+
+    .profile-user-quickinfo > ul > li span:first-child {
+        color: #888888;
+        font-size: 18px;
+    }
+
 #profile-menu ul > li.active > a {
     color: white;
     background-color: #0099DA;
@@ -82,8 +91,8 @@
     }
 
 .profile-section {
-    padding-left:0 !important;
-    padding-right:0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     padding-top: 15px;
 }
 
@@ -138,105 +147,105 @@
     padding-left: 5px;
 }
 
-.panel > table > thead > tr > th{
-    font-weight:500;
+.panel > table > thead > tr > th {
+    font-weight: 500;
     font-size: 18px !important;
 }
 
-.panel > table > tbody td{
-    border-top:0 !important;
+.panel > table > tbody td {
+    border-top: 0 !important;
 }
 
 /*section photo*/
 
-#profile-photo-carousel{
+#profile-photo-carousel {
     border: 0.5em solid black;
 }
 
-#profile-photo-carousel .carousel-control {
-    height: 40px;
-    width: 40px;
-    background: none repeat scroll 0 0 #222222;
-    border: 4px solid #FFFFFF;
-    border-radius: 23px 23px 23px 23px;
-    vertical-align: middle;
-    top: 45%;
+    #profile-photo-carousel .carousel-control {
+        height: 40px;
+        width: 40px;
+        background: none repeat scroll 0 0 #222222;
+        border: 4px solid #FFFFFF;
+        border-radius: 23px 23px 23px 23px;
+        vertical-align: middle;
+        top: 45%;
+    }
+
+    #profile-photo-carousel .carousel-control {
+        visibility: hidden;
+    }
+
+    #profile-photo-carousel:hover .carousel-control {
+        visibility: visible;
+    }
+
+    #profile-photo-carousel .item img {
+        width: 100%;
+    }
+
+#profile-photo-indicator {
+    padding: 20px 1px;
+    background-color: black;
 }
 
-#profile-photo-carousel .carousel-control {
-    visibility: hidden;
-}
+    #profile-photo-indicator img {
+        height: 4.9em;
+        cursor: pointer;
+        opacity: 0.7;
+        border: 1px solid transparent;
+        margin-left: 0.1em;
+    }
 
-#profile-photo-carousel:hover .carousel-control {
-    visibility: visible;
-}
+        #profile-photo-indicator img:hover {
+            outline: 2px solid #0099DA;
+        }
 
-#profile-photo-carousel .item img {
-    width: 100%;
-}
+        #profile-photo-indicator img.active {
+            opacity: 1;
+            outline: 1px solid white;
+        }
 
-#profile-photo-indicator{
-    padding:20px 1px;
-    background-color:black;
-}
+    #profile-photo-indicator .indicator-list {
+        display: inline-block;
+        margin-left: 5px;
+    }
 
-#profile-photo-indicator img{
-    height:4.9em;
-    cursor:pointer;
-    opacity:0.7;
-    border:1px solid transparent;
-    margin-left:0.1em;
-}
+    #profile-photo-indicator ol {
+        margin: 0;
+    }
 
-#profile-photo-indicator img:hover{
-    outline:2px solid #0099DA;
-}
+        #profile-photo-indicator ol > li {
+            display: inline-block;
+        }
 
-#profile-photo-indicator img.active{
-    opacity:1;
-    outline:1px solid white;
-}
-
-#profile-photo-indicator .indicator-list{
-    display:inline-block;
-    margin-left:5px;
-}
-
-#profile-photo-indicator ol{
-    margin:0;
-}
-
-#profile-photo-indicator ol > li{
-    display:inline-block;
-}
-
-#profile-photo-indicator ol > li:not(.active){
-    display:none;
-}
+            #profile-photo-indicator ol > li:not(.active) {
+                display: none;
+            }
 
 .profile-photo-leftarrow,
-.profile-photo-rightarrow{
+.profile-photo-rightarrow {
     display: inline-block;
-    height:4.9em;
-    vertical-align:middle;
-    border:2px solid #CCCCCC;
-    color:#CCCCCC;
-    cursor:pointer;
+    height: 4.9em;
+    vertical-align: middle;
+    border: 2px solid #CCCCCC;
+    color: #CCCCCC;
+    cursor: pointer;
 }
 
-.profile-photo-leftarrow:hover,
-.profile-photo-rightarrow:hover{
-    border:2px solid #0099DA;
-    color:#0099DA;
-}
+    .profile-photo-leftarrow:hover,
+    .profile-photo-rightarrow:hover {
+        border: 2px solid #0099DA;
+        color: #0099DA;
+    }
 
-.profile-photo-leftarrow span,
-.profile-photo-rightarrow span{
-    top:1.9em;
-    padding-left:0.3em;
-    padding-right:0.3em;
-}
+    .profile-photo-leftarrow span,
+    .profile-photo-rightarrow span {
+        top: 1.9em;
+        padding-left: 0.3em;
+        padding-right: 0.3em;
+    }
 
-#profile-photo-carousel .carousel-inner img{
+#profile-photo-carousel .carousel-inner img {
     cursor: pointer;
 }

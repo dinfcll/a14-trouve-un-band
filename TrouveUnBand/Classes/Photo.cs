@@ -13,7 +13,7 @@ namespace TrouveUnBand.Classes
     {
         public static string USER_STOCK_PHOTO_MALE = "/Photos/UserProfilePhoto/_stock_user_male.jpg";
         public static string USER_STOCK_PHOTO_FEMALE = "/Photos/UserProfilePhoto/_stock_user_female.jpg";
-        public static string BAND_STOCK_PHOTO = "BAND_PHOTO";
+        public static string BAND_STOCK_PHOTO = "/Photos/_StockPhotos/_stock_band.jpg";
         public static string EVENT_STOCK_PHOTO = "/Photos/EventPhotos/_stock_event.jpg";
         public static string ADVERT_STOCK_PHOTO = "/Photos/AdvertPhotos/_stock_advert.jpg";
 

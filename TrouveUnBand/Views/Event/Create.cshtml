@@ -88,7 +88,7 @@ else
                     </div>
                     <div class="form-group col-md-6">
                         <div class="btn-group bootstrap-select form-control selectpicker-over">
-                            <button title="Sexe" data-id="Gender" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
                                 <span class="filter-option pull-left">Genres musicaux de l'événement</span>&nbsp;<span class="caret"></span>
                             </button>
                         </div>
@@ -102,7 +102,13 @@ else
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <select name="BandsListDB" class="selectpicker form-control" title="Groupe(s) à l'événement"
+                        <div class="btn-group bootstrap-select form-control selectpicker-over">
+                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                                <span class="filter-option pull-left">Groupe(s) à l'événement</span>&nbsp;<span class="caret"></span>
+                            </button>
+                        </div>
+
+                        <select name="BandsListDB" class="selectpicker form-control hidden" title="Groupe(s) à l'événement"
                                 data-width="100%" data-live-search="true"
                                 data-selected-text-format="count>3" multiple>
                             @foreach (var band in ViewBag.BandsListDB)

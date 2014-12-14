@@ -20,10 +20,22 @@
     
         <div class="row">
             <div class="col-md-4">
-                @Html.DropDownList("selectedCategory", (SelectList)ViewBag.Categories, new { @class = "form-control" })
+                <div class="btn-group bootstrap-select form-control selectpicker-over">
+                    <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                        <span class="filter-option pull-left">Les nouveautés</span>&nbsp;<span class="caret"></span>
+                    </button>
+                </div>
+
+                @Html.DropDownList("selectedCategory", (SelectList)ViewBag.Categories, new { @class = "form-control selectpicker hidden" })
             </div>
             <div class="col-md-4">
-                <select name="cbSelectedGenres" class="selectpicker form-control" title="tous les genres"
+                <div class="btn-group bootstrap-select form-control selectpicker-over">
+                    <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                        <span class="filter-option pull-left">tous les genres</span>&nbsp;<span class="caret"></span>
+                    </button>
+                </div>
+
+                <select name="cbSelectedGenres" class="selectpicker form-control hidden" title="tous les genres"
                     data-width="100%" data-live-search="true" data-selected-text-format="count>3"
                     multiple>
                     @foreach (var list in (List<List<String>>)ViewBag.Subgenres)
