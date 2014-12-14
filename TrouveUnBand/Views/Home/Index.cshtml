@@ -127,26 +127,23 @@
                 <div class="home-section-content">
                     @foreach (var item in Model.AdvertList)
                     {
-                        if (item.Status == "En cours")
-                        {
-                            <div class="event-panel home-panel-invert col-md-12">
-                                <img src="@item.Photo" alt="Image" class="col-md-3">
-                                <div class="event-panel-date col-md-2">
-                                    <h3 class="col-md-3">
-                                        Expiration/
-                                    </h3>
-                                    <h1 class="col-md-12">@item.ExpirationDate</h1>
-                                </div>
-                                <div class="event-panel-info col-md-5">
-                                    <span class="col-md-12">@item.Location</span>
-                                    <h2 class="col-md-12">@item.Name</h2>
-                                    <span class="col-md-12">@item.Status</span>
-                                </div>
-                                <div class="event-panel-button">
-                                    <p>@item.Description</p>
-                                </div>
+                        <div class="event-panel home-panel-invert col-md-12">
+                            <img src="@item.Photo" alt="Image" class="col-md-3">
+                            <div class="event-panel-date col-md-2">
+                                <h3 class="col-md-3">
+                                    Expiration/
+                                </h3>
+                                <h1 class="col-md-12">@item.ExpirationDate</h1>
                             </div>
-                        }
+                            <div class="event-panel-info col-md-5">
+                                <span class="col-md-12">@item.Location</span>
+                                <h2 class="col-md-12">@item.Name</h2>
+                                <span class="col-md-12">@item.Status</span>
+                            </div>
+                            <div class="event-panel-button">
+                                <p>@item.Description</p>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
