@@ -62,7 +62,7 @@ namespace TrouveUnBand.Services
             var db = new TrouveUnBandEntities();
             var events = db.Events.ToList();
 
-            if (genre_ID != null)
+            if (genre_ID > 0)
             {
                 events = events.Where(x => x.Genres.Any(genre => genre.Genre_ID == genre_ID)).ToList();
             }
@@ -91,6 +91,11 @@ namespace TrouveUnBand.Services
             }
 
             return events;
+        }
+
+        public static List<Event> GetEvents(string searchString)
+        {
+            return GetEvents(0 , searchString, "", 0);
         }
     }
 }

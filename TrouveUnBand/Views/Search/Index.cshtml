@@ -2,13 +2,12 @@
     ViewBag.Title = "Search";
 }
 <div class="form-group">
-    @using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults" }))
+    @using (Ajax.BeginForm("Filter", "Search", FormMethod.Get, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "SearchResults", LoadingElementId = "divProcessing", LoadingElementDuration=500, OnComplete="manageOverflow()" }))
     {
         <div class="input-group input-group-lg searchbar">
             @Html.TextBox("searchstring", "", new { @class = "form-control", @placeholder = "Recherche" })
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary">
-                    Go!</button>
+                <button id="btnSearch" type="submit" class="btn btn-primary">Go!</button>
             </span>
         </div>
         
@@ -43,19 +42,25 @@
                 </select>
             </div>
             <div class="col-md-2">
-                @Html.TextBox("location", "", new { @class = "form-control", @placeholder = "i.e. Québec" })
+                @Html.TextBox("location", "", new { @class = "form-control", @placeholder = "Ville" })
             </div>
             <div class="col-md-2">
                 <div class="input-group">
-                    @Html.TextBox("radius", "20", new { @class = "form-control", @placeholder = "Rayon" })
+                    @Html.TextBox("radius", "", new { @class = "form-control", @placeholder = "Rayon de 20" })
                     <span class="input-group-addon">
-                        <label>
-                            KM</label></span>
+                        <label>KM</label>
+                    </span>
                 </div>
             </div>
         </div>
     }
 </div>
+
+<div id="divProcessing" class="col-md-12 Center-Text">
+    <p><b>Veuillez patienter . . . </b></p>
+    <img src="../../Content/ajax-loader.gif">
+</div>
+
 <div id="SearchResults">
     @Html.Partial("_SearchResults")
 </div>

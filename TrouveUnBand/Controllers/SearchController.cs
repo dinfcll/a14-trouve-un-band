@@ -29,6 +29,8 @@ namespace TrouveUnBand.Controllers
 
             var bandsList = BandDao.GetBands(searchString);
             var musiciansList = UserDao.GetMusicians(searchString);
+            var eventsList = EventDao.GetEvents(searchString);
+            var advertsList = AdvertDao.GetAdverts(searchString);
 
             foreach (Band band in bandsList)
             {
@@ -38,6 +40,16 @@ namespace TrouveUnBand.Controllers
             foreach (User musician in musiciansList)
             {
                 results.Add(new ResultViewModels(musician));
+            }
+
+            foreach (Event events in eventsList)
+            {
+                results.Add(new ResultViewModels(events));
+            }
+
+            foreach (Advert adverts in advertsList)
+            {
+                results.Add(new ResultViewModels(adverts));
             }
 
             ViewBag.Genres = genres;
@@ -51,8 +63,8 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpGet]
-        public ActionResult Filter(int selectedCategory, string[] cbSelectedGenres, string searchstring, string location, int radius,
-                                   bool cbBandsChecked, bool cbMusiciansChecked, bool cbAdvertsChecked, bool cbEventsChecked)
+        public ActionResult Filter(int selectedCategory, string[] cbSelectedGenres, string searchstring, string location,
+                                   bool cbBandsChecked, bool cbMusiciansChecked, bool cbAdvertsChecked, bool cbEventsChecked, int radius = 20)
         {
             var results = new List<ResultViewModels>();
 

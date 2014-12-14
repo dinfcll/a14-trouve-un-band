@@ -26,6 +26,7 @@ namespace TrouveUnBand
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
                 "~/Scripts/homepage.js",
+                "~/Scripts/searchpage.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
                 "~/Scripts/alert.js",
                 "~/Scripts/create-group.js",
@@ -40,7 +41,8 @@ namespace TrouveUnBand
                 "~/Scripts/back-to-top.js",
                 "~/Scripts/tooltips.js",
                 "~/Scripts/dropdown-fix.js",
-                "~/Scripts/over-bootstrap.js"
+                "~/Scripts/over-bootstrap.js",
+                "~/Scripts/jquery.dotdotdot.min.js"
                 ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes
