@@ -1,0 +1,110 @@
+
+::Blues
+Blues rock
+Country blues
+Jazz blues
+Piano blues
+Soul blues
+
+::Easy Listening
+Background music
+Beautiful music
+Lounge music
+New-age music
+
+::Electronic
+Ambient
+Asian Underground
+Breakbeat
+Chiptune
+Disco
+Downtempo
+Drum and bass
+Electro
+Electroacoustic
+Electronica
+Electronic rock
+Hardcore/Hard dance
+House
+Industrial
+Progressive
+Techno
+Trance
+
+::Folk
+Contemporary folk
+Celtic music
+Indie folk
+Neofolk
+Progressive folk
+Industrial folk
+Techno-folk
+Psychedelic folk
+Sung poetry
+Cowboy/Western music
+
+::Hip hop
+Crunkcore
+Freestyle music
+Freestyle rap
+G-Funk
+Gangsta rap
+Grime
+Hip pop
+Industrial hip hop
+Instrumental hip hop
+Jazz rap
+Ragga
+Reggaeton
+Rap rock
+Trap
+Trip hop
+Turntablism
+Underground hip hop
+
+::Jazz
+Acid jazz
+Avant-garde jazz
+Free improvisation
+Gypsy jazz
+Hard bop
+Jazz fusion
+Latin jazz
+Modal jazz
+Neo-bop jazz
+Neo-swing
+Novelty ragtime
+Nu jazz
+Orchestral jazz
+Smooth jazz
+Swing
+Vocal jazz
+
+::Rock
+Alternative rock
+Grunge
+Indie rock
+Nu metal
+Hard rock
+Heavy metal
+Alternative metal
+Black metal
+Death metal
+Doom metal
+Metalcore
+Deathcore
+Progressive metal
+Djent
+Rap metal
+Speed metal
+Stoner rock
+Symphonic metal
+Thrash metal
+Jazz rock
+Pop rock
+Progressive rock
+Psychedelic rock
+Deathrock
+Grindcore
+Emo
+Punk
