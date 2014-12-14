@@ -108,7 +108,13 @@
                     </div>
                     <div class="form-group col-md-6">
                         @Html.Label("Groupes présents à l'événement")
-                        <select name="BandsListDB" class="selectpicker form-control" title="Groupe(s) à l'événement"
+                        <div class="btn-group bootstrap-select form-control selectpicker-over">
+                            <button title="Groupe(s) à l'événement" data-id="Band" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                                <span class="filter-option pull-left">Groupe(s) à l'événement</span>&nbsp;<span class="caret"></span>
+                            </button>
+                        </div>
+
+                        <select name="BandsListDB" class="selectpicker form-control hidden" title="Groupe(s) à l'événement"
                                 data-width="100%" data-live-search="true" data-selected-text-format="count>3"
                                 multiple>
                             @foreach (var band in ViewBag.BandsListDB)
@@ -126,7 +132,13 @@
                     </div>
                     <div class="form-group col-md-6">
                         @Html.Label("Genres Musicaux de l'événement")
-                        <select name="EventGenreDB" class="selectpicker" title="Genres musicaux de l'événement"
+                        <div class="btn-group bootstrap-select form-control selectpicker-over">
+                            <button title="Genres musicaux de l'événement" data-id="Band" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown">
+                                <span class="filter-option pull-left">Genres musicaux de l'événement</span>&nbsp;<span class="caret"></span>
+                            </button>
+                        </div>
+
+                        <select name="EventGenreDB" class="selectpicker hidden" title="Genres musicaux de l'événement"
                                 data-width="100%" data-live-search="true" data-selected-text-format="count>3"
                                 multiple>
                             @foreach (var genre in ViewBag.GenreListDB)
