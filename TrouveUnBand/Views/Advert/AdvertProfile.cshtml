@@ -3,4 +3,87 @@
     ViewBag.Title = "AdvertProfile";
 }
 
-<h2>AdvertProfile</h2>
+<div class="panel panel-default" style="border: 0;">
+    <div class="panel-body">
+        <div class="col-md-8">
+            <h3>
+                Annonces</h3>
+        </div>
+        <div class="col-md-4">
+                @Html.ActionLink("Nouvelle Annonce", "Create", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6 col-md-pull-1" })
+                @Html.ActionLink("Mes Annonces", "MyAdverts", new { controller = "Advert" }, new { @class = "btn btn-primary col-md-6" })
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-12 panel-body">
+                <div class="col-md-4 form-group">
+                    <img src="@Model.Photo" width="250" class="photo" alt="Image">
+                </div>
+                <div class="col-md-8 col-md-pull-1" id="AdvertDesc">
+                    <div class="col-md-12 form-group">
+                        <h3>@Html.DisplayName(Model.Type)</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12 form-group">
+                            <span class="glyphicon glyphicon-calendar"></span>@Html.DisplayName(Model.CreationDate.ToString("dd MMMM yyyy"))
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <span class="glyphicon glyphicon-music"></span><span>
+                                @{var i = 0;
+                                  var TextPopOver = "";
+                                  foreach (var genre in Model.Genres)
+                                  {
+                                      TextPopOver += "<p>" + Html.DisplayName(genre.Name) + "</p>";
+                                      if (i < 1)
+                                      {
+                                    @Html.DisplayName(genre.Name + ", ");
+                                      }
+                                      if (i == 1)
+                                      {
+                                    @Html.DisplayName(genre.Name + "");
+                                      }
+                                      i++;
+                                  }  
+                                }
+                                <a href="#" tabindex="0" role="button"
+                                        data-toggle="popover" data-html="true" title="Genres de l'événement" data-content="@TextPopOver">
+                                    <span class="label label-default">...</span> </a></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <span class="glyphicon glyphicon-map-marker"></span>@Html.DisplayName(Model.Location)
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <span class="glyphicon glyphicon-ok"></span>@Html.DisplayName(Model.Status)
+                        </div>
+                    </div>
+                    <div id="AdvertDesc" class="row col-md-6 form-group">
+                        <hr class="colorgraph" />
+                        <h4>
+                            Description de l'annonce</h4>
+                        <p>
+                            @{var DescText = Model.Description.Replace(System.Environment.NewLine, "<br />");}
+                            @Html.Raw(DescText)
+                        </p>
+                        <hr class="colorgraph" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                @if (Model.User.Nickname == User.Identity.Name)
+                {
+                    <div class="col-md-3">
+                        @Html.ActionLink("Modifier l'annonce", "Edit", new { id = Model.Advert_ID }, new { @class = "btn btn-primary col-md-12" })
+                    </div>
+                    <div class="col-md-3 col-md-push-1">
+                        @Html.ActionLink("Fermer l'annonce", "Close", new { id = Model.Advert_ID }, new { @class = "btn btn-warning col-md-12" })
+                    </div>
+                    <div class="col-md-3 col-md-push-2">
+                        @Html.ActionLink("Supprimer l'annonce", "Delete", new { id = Model.Advert_ID }, new { @class = "btn btn-danger col-md-12" })
+                    </div>
+                    <hr class="colorgraph col-md-12" />
+                }
+            </div>
+    </div>
+</div>
+
