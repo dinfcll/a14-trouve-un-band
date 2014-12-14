@@ -323,4 +323,6 @@ border:solid 2px #e0e0e0;
 border-radius: 0px;
 }
 
-.pusher{ clear:both; height:100px;}
+.main-container{
+    margin-bottom: 30px;
+}
