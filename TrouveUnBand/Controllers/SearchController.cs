@@ -112,34 +112,5 @@ namespace TrouveUnBand.Controllers
 
             return PartialView("_SearchResults");
         }
-
-        public ActionResult ViewProfile(string type, int Id)
-        {
-            switch (type.ToUpper())
-            {
-                case "MUSICIEN":
-                    User musician = db.Users.FirstOrDefault(x => x.User_ID == Id);
-                    MusicianProfileViewModel MusicianProfile = CreateProfile.CreateMusicianProfileView(musician);
-                    return View("../Users/MusicianProfile", MusicianProfile);
-
-                case "BAND":
-                    ViewBag.EventBD = new List<Event>(db.Events);
-                    Band band = db.Bands.FirstOrDefault(x => x.Band_ID == Id);
-                    BandProfileViewModel BandProfile = CreateProfile.CreateBandProfileView(band);
-                    return View("../Group/BandProfile", BandProfile);
-
-                case "EVENT":
-                    RedirectToAction("EventProfile", "Event", Id);
-                    break;
-
-                case "ADVERT":
-                    RedirectToAction("AdvertProfile", "Advert", Id);
-                    break;
-
-                case "PROMOTER":
-                    break;
-            }
-            return RedirectToAction("Index", "Home");
-        }
     }
 }
