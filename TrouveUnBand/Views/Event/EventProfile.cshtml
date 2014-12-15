@@ -58,9 +58,33 @@
             <div id="listen" class="profile-section col-md-12">
                 <div class="profile-tab-header">
                     <span class="glyphicon glyphicon-headphones"></span><strong>Écouter</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
+                                                                                                 </i>
+                </div>
+                <div class="profile-tab-content">
+                </div>
+            </div>
+            <div id="band" class="profile-section col-md-12">
+                <div class="profile-tab-header">
+                    <span class="glyphicon icon-micro"></span><strong>Band</strong> <i class="chevron glyphicon glyphicon-chevron-down text-muted pull-right">
                     </i>
                 </div>
                 <div class="profile-tab-content">
+                    @foreach (var item in Model.Bands)
+                    {
+                        <div class="home-thumbnail-invert col-md-4 row-fluid"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new {type = "BAND", Id = item.Band_ID })'">
+                            <div>
+                                <img src="/Photos/_StockPhotos/_stock_band.jpg" alt="">
+                            </div>
+                            
+                            <div class="home-thumbnail-middle col-md-9">
+                                <p>
+                                    <strong>@item.Name</strong>
+                                </p>
+                                <p>@item.Location</p>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
             <div id="photo" class="profile-section col-md-12">
@@ -97,6 +121,12 @@
                         <a href="#">
                             <span class="glyphicon glyphicon-headphones">
                             </span><span>Écouter</span>
+                        </a>
+                    </li>
+                    <li data-scroll-spy="band">
+                        <a href="#">
+                            <span class="glyphicon icon-micro">
+                            </span><span>Band</span>
                         </a>
                     </li>
                     <li data-scroll-spy="photo">

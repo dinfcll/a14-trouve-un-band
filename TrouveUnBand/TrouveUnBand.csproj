@@ -251,6 +251,7 @@
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\event.css" />
+    <Content Include="Content\fonts\font-awesome.svg" />
     <Content Include="Content\homepage.css" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\over-bootstrap.css" />
@@ -482,6 +483,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\fonts\font-awesome.eot" />
+    <None Include="Content\fonts\font-awesome.ttf" />
+    <None Include="Content\fonts\font-awesome.woff" />
     <None Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
