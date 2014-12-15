@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
-    [MetadataType(typeof(Advert.AdvertMetadata))]
+    [MetadataType(typeof(AdvertMetadata))]
     public partial class Advert
     {
         [NotMapped]

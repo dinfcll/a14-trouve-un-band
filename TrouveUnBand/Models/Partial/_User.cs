@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Web.Script.Serialization;
+using System.Linq;
 using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
     [Serializable]
-    [MetadataType(typeof(User.UserMetadata))]
+    [MetadataType(typeof(UserMetadata))]
     public partial class User
     {
         [NotMapped]
@@ -48,7 +45,7 @@ namespace TrouveUnBand.Models
 
         public bool isMusician()
         {
-            if (this.Users_Instruments.Any())
+            if (Users_Instruments.Any())
             {
                 return true;
             }
@@ -58,7 +55,7 @@ namespace TrouveUnBand.Models
 
         public bool IsBandMember()
         {
-            if (this.Bands.Any())
+            if (Bands.Any())
             {
                 return true;
             }
