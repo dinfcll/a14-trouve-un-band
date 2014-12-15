@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.ViewModels
@@ -21,8 +18,4 @@ namespace TrouveUnBand.ViewModels
             AdvertList = new List<AdvertInfo>();
         }
     }
-
-
-
-
 }

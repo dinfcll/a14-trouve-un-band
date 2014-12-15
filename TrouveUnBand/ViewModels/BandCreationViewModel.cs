@@ -13,8 +13,8 @@ namespace TrouveUnBand.ViewModels
 
         public BandCreationViewModel()
         {
-            this.Band = new Band();
-            this.BandMembers = new List<User>();
+            Band = new Band();
+            BandMembers = new List<User>();
         }
     }
 }
