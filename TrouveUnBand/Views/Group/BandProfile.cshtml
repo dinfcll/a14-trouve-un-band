@@ -67,8 +67,24 @@
                     <span class="glyphicon glyphicon-calendar"></span><strong>Événements</strong>
                     <i class="chevron glyphicon glyphicon-minus text-muted pull-right"></i>
                 </div>
-
                 <div class="profile-tab-content">
+                                        @foreach (var item in Model.Events)
+                    {
+                        <div class="home-panel event-panel col-md-12 row-fluid"
+                             onclick="location.href='@Url.Action("ViewProfile", "Base", new { type = "EVENT", Id = item.Event_ID })'">
+                            <img src="@item.Photo" alt="Image" class="col-md-3">
+                            <div class="col-md-8">
+                                <div class="event-panel-date col-md-12 row-fluid">
+                                    <h3 class="col-md-2">@item.EventDate.Day</h3>
+                                    <h3 class="col-md-8">@item.EventDate.ToString("MMMM")</h3>
+                                </div>
+                                <div class="small-event-panel-invert col-md-12 row-fluid">
+                                    <h3 class="col-md-6">@item.Name</h3>
+                                    <h3 class="col-md-5"> - @item.Location</h3>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
 

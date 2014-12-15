@@ -38,8 +38,6 @@ function GetArtist(artist) {
         }, document.getElementById('Widget'));
     }
 
-
-
 window.onload = function() {
     SC.initialize({
         client_id: '96fcd16e1df481197be64f94a6d0f35a'
