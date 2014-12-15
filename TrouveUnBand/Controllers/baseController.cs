@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Classes;
 using TrouveUnBand.Models;
@@ -67,26 +66,26 @@ namespace TrouveUnBand.Controllers
         }
 
 
-        public ActionResult ViewProfile(string type, int Id)
+        public ActionResult ViewProfile(string type, int id)
         {
             switch (type.ToUpper())
             {
                 case "MUSICIEN":
-                    var musician = db.Users.FirstOrDefault(x => x.User_ID == Id);
+                    var musician = db.Users.FirstOrDefault(x => x.User_ID == id);
                     var musicianProfile = CreateProfile.CreateMusicianProfileView(musician);
                     return View("../Users/MusicianProfile", musicianProfile);
 
                 case "BAND":
-                    var band = db.Bands.FirstOrDefault(x => x.Band_ID == Id);
+                    var band = db.Bands.FirstOrDefault(x => x.Band_ID == id);
                     var bandProfile = CreateProfile.CreateBandProfileView(band);
                     return View("../Group/BandProfile", bandProfile);
 
                 case "EVENT":
-                    var events = db.Events.FirstOrDefault(x => x.Event_ID == Id);
+                    var events = db.Events.FirstOrDefault(x => x.Event_ID == id);
                     return View("../Event/EventProfile", events);
 
                 case "ADVERT":
-                    var advert = db.Adverts.FirstOrDefault(x => x.Advert_ID == Id);
+                    var advert = db.Adverts.FirstOrDefault(x => x.Advert_ID == id);
                     return View("../Advert/AdvertProfile", advert);
 
                 case "PROMOTER":
