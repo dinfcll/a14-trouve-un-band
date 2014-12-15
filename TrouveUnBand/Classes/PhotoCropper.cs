@@ -1,45 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Web;
-using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Classes
 {
     public static class PhotoCropper
     {
-        public static Image CropImage(Image image, Rectangle CropRect)
+        public static Image CropImage(Image image, Rectangle cropRect)
         {
-            var OriginalImage = new Bitmap(image);
+            var originalImage = new Bitmap(image);
 
-            if (CropRect.Height != 0 && CropRect.Width != 0)
+            if (cropRect.Height != 0 && cropRect.Width != 0)
             {
-                var NewImage = new Bitmap(CropRect.Width, CropRect.Height);
+                var NewImage = new Bitmap(cropRect.Width, cropRect.Height);
 
-                var newImage = DrawNewImage(OriginalImage, NewImage, CropRect);
+                DrawNewImage(originalImage, NewImage, cropRect);
 
                 return NewImage;
             }
 
-            return (Image)OriginalImage;
+            return (Image)originalImage;
         }
 
-        private static Image DrawNewImage(Bitmap OriginalImage, Bitmap NewImage, Rectangle CropRect)
+        private static Image DrawNewImage(Bitmap originalImage, Bitmap newImage, Rectangle cropRect)
         {
-            using (Graphics g = Graphics.FromImage(NewImage))
+            using (Graphics g = Graphics.FromImage(newImage))
             {
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 g.CompositingQuality = CompositingQuality.HighQuality;
 
-                g.DrawImage(OriginalImage, new Rectangle(0, 0, NewImage.Width, NewImage.Height), CropRect, GraphicsUnit.Pixel);
+                g.DrawImage(originalImage, new Rectangle(0, 0, newImage.Width, newImage.Height), cropRect, GraphicsUnit.Pixel);
             }
 
-            return (Image)NewImage;
+            return (Image)newImage;
         }
     }
 }

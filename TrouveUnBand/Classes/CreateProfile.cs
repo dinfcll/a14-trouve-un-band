@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using TrouveUnBand.Models;
+﻿using System.Collections.Generic;
 using System.Linq;
+using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Classes
 {
@@ -12,13 +11,11 @@ namespace TrouveUnBand.Classes
         public static MusicianProfileViewModel CreateMusicianProfileView(User user)
         {
             
-            List<User> MusicianList = new List<User>();
-            MusicianList.Add(user);
-            List<Musician_Instrument> instrumentInfos = SetMusician_Instrument(MusicianList);
+            var musicianList = new List<User>();
+            musicianList.Add(user);
+            var instrumentInfos = SetMusician_Instrument(musicianList);
             var musicianView = new MusicianProfileViewModel
             {
-
-
                 InstrumentInfo = instrumentInfos[0],
                 Description = user.Description,
                 Name = user.FirstName + " " + user.LastName,
@@ -50,31 +47,31 @@ namespace TrouveUnBand.Classes
 
         private static List<Musician_Instrument> SetMusician_Instrument(List<User> musicians)
         {
-            List<Musician_Instrument> InstrumentInfoList = new List<Musician_Instrument>();
-            ICollection<Users_Instruments> ListOfInstruments;
-            List<string> SkillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Professionnel" };
+            var instrumentInfoList = new List<Musician_Instrument>();
+            ICollection<Users_Instruments> listOfInstruments;
+            var skillList = new List<string> { "Aucun", "Débutant", "Initié", "Intermédiaire", "Avancé", "Professionnel" };
 
             foreach (var musician in musicians)
             {
-                ListOfInstruments = musician
+                listOfInstruments = musician
                                     .Users_Instruments
                                     .OrderByDescending(x => (x.Skills))
                                     .ToList();
 
-                var InstrumentInfo = new Musician_Instrument();
+                var instrumentInfo = new Musician_Instrument();
 
-                foreach (var instrument in ListOfInstruments)
+                foreach (var instrument in listOfInstruments)
                 {
-                    InstrumentInfo.InstrumentNames
+                    instrumentInfo.InstrumentNames
                        .Add(instrument.Instrument.Name);
 
-                    InstrumentInfo.Skills
-                        .Add(SkillList[instrument.Skills]);
+                    instrumentInfo.Skills
+                        .Add(skillList[instrument.Skills]);
                 }
-                InstrumentInfoList.Add(InstrumentInfo);
+                instrumentInfoList.Add(instrumentInfo);
             }
 
-            return InstrumentInfoList;
+            return instrumentInfoList;
         }
     }
 }

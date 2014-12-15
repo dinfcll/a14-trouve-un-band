@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Classes
@@ -20,14 +17,14 @@ namespace TrouveUnBand.Classes
 
         public EventInfo(Event eventIn)
         {
-            this.Event_ID = eventIn.Event_ID;
-            this.Name = eventIn.Name;
-            this.Location = eventIn.Location;
-            this.Photo = eventIn.Photo;
-            this.DayOfTheWeek = DateHelper.GetDayOfWeek(eventIn.EventDate);
-            this.DayAndMonth = DateHelper.GetDayAndMonth(eventIn.EventDate);
-            this.Bands = eventIn.Bands;
-            this.UserNickname = eventIn.User.Nickname;
+            Event_ID = eventIn.Event_ID;
+            Name = eventIn.Name;
+            Location = eventIn.Location;
+            Photo = eventIn.Photo;
+            DayOfTheWeek = DateHelper.GetDayOfWeek(eventIn.EventDate);
+            DayAndMonth = DateHelper.GetDayAndMonth(eventIn.EventDate);
+            Bands = eventIn.Bands;
+            UserNickname = eventIn.User.Nickname;
         }
     }
 }

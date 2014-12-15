@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TrouveUnBand.Models;
+﻿using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Classes
 {
@@ -15,10 +11,10 @@ namespace TrouveUnBand.Classes
 
         public BandInfo(Band band)
         {
-            this.Band_ID = band.Band_ID;
-            this.Name = band.Name;
-            this.Location = band.Location;
-            this.Description = band.Description;
+            Band_ID = band.Band_ID;
+            Name = band.Name;
+            Location = band.Location;
+            Description = band.Description;
         }
     }
 }
