@@ -1,5 +1,5 @@
-﻿var X = "X"
-var O = "O"
+﻿var X = "X";
+var O = "O";
 var X_Win = 0;
 var O_Win = 0;
 var PlayedTurn = 0;
@@ -10,7 +10,7 @@ $(".btn-tic-tac-toe").click(function () {
 }, function () {
     $(this).removeClass("btn-default");
     $(this).prop('disabled', true);
-    if (PlayedTurn % 2 == 0) {
+    if (PlayedTurn % 2 === 0) {
         $(this).addClass("btn-primary");
         $(this).addClass("X");
         $(this).val("X");
@@ -61,7 +61,7 @@ function CheckWin() {
         $("#three").hasClass('O') &&
         $("#five").hasClass('O') &&
         $("#seven").hasClass('O')) {
-        alert('Victoire O!')
+        alert('Victoire O!');
         $("#TicTacToe .btn-tic-tac-toe").prop('disabled', true);
         PlayedTurn = 0;
         O_Win++;
@@ -93,13 +93,13 @@ function CheckWin() {
         $("#three").hasClass('X') &&
         $("#five").hasClass('X') &&
         $("#seven").hasClass('X')) {
-        alert('Victoire X!')
+        alert('Victoire X!');
         $("#TicTacToe .btn-tic-tac-toe").prop('disabled', true);
         PlayedTurn = 0;
         X_Win++;
         $("#XWin").val(X_Win);
     }
-    else if (PlayedTurn == 9) {
+    else if (PlayedTurn === 9) {
         alert('Égalité!');
         PlayedTurn = 0;
     }

@@ -5,19 +5,19 @@ if ($("#profile-menu")[0]) {
     menuTopPosition = $("#profile-menu").offset().top;
 }
 
-$("#profile-menu ul > li").click(function (event) {
+$("#profile-menu ul > li").click(function () {
     var scrollSpy = $(this).attr("data-scroll-spy");
 
     var tabContent = $("#" + scrollSpy).children(".profile-tab-content");
-    tabContent.slideDown("fast", function () {
-    })
+    tabContent.slideDown("fast", function() {
+    });
 
     $("#" + scrollSpy).find("i").switchClass("glyphicon-plus", "glyphicon-minus");
 
     $(this).siblings(".active").removeClass("active");
     $(this).addClass("active");
 
-    if (scrollSpy == "information") {
+    if (scrollSpy === "information") {
         scrollSpy = "profile-main-tab";
     }
 
@@ -57,8 +57,8 @@ $(".profile-tab-header").click(function () {
         chevron.addClass("glyphicon-plus");
     }
 
-    tabContent.slideToggle("fast", function () {
-    })
+    tabContent.slideToggle("fast", function() {
+    });
 });
 
 //Photo section

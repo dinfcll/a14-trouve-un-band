@@ -1,5 +1,4 @@
-﻿
-var randomImage = Math.floor((Math.random() * 3) + 1);
+﻿var randomImage = Math.floor((Math.random() * 3) + 1);
 
 $("#homeImage").attr("src", "/Photos/_StockPhotos/Home" + randomImage + ".jpg");
 
