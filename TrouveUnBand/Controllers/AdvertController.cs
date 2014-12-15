@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using TrouveUnBand.Models;
-using System.IO;
 using System.Drawing;
+using System.Linq;
+using System.Web.Mvc;
 using TrouveUnBand.Classes;
-using System.Data.SqlClient;
-using System.Data.Entity.Infrastructure;
+using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
@@ -46,31 +41,31 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Advert advertToCreate, string[] GenreAdvertDB, string CreatorName)
+        public ActionResult Create(Advert advertToCreate, string[] genreAdvertDb, string creatorName)
         {
-            for (int i = 0; i < GenreAdvertDB.Length; i++)
+            for (int i = 0; i < genreAdvertDb.Length; i++)
             {
-                string GenreName = GenreAdvertDB[i];
-                var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                advertToCreate.Genres.Add(UnGenre);
+                string genreName = genreAdvertDb[i];
+                var unGenre = db.Genres.FirstOrDefault(x => x.Name == genreName);
+                advertToCreate.Genres.Add(unGenre);
             }
 
-            advertToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == CreatorName).User_ID;
+            advertToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creatorName).User_ID;
             advertToCreate.CreationDate = (DateTime)DateTime.Now;
 
             if (ModelState.IsValid)
             {
-                string GenresList = Request["GenreAdvertDB"];
-                string[] GenresArray = GenresList.Split(',');
+                string genresList = Request["GenreAdvertDB"];
+                string[] genresArray = genresList.Split(',');
 
-                for (int i = 0; i < GenresArray.Length; i++)
+                for (int i = 0; i < genresArray.Length; i++)
                 {
-                    string GenreName = GenresArray[i];
-                    var UnGenre = db.Genres.FirstOrDefault(x => x.Name == GenreName);
-                    advertToCreate.Genres.Add(UnGenre);
+                    string genreName = genresArray[i];
+                    var unGenre = db.Genres.FirstOrDefault(x => x.Name == genreName);
+                    advertToCreate.Genres.Add(unGenre);
                 }
 
-                advertToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == CreatorName).User_ID;
+                advertToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creatorName).User_ID;
                 advertToCreate.CreationDate = (DateTime)DateTime.Now;
 
                 db.Adverts.Add(advertToCreate);
@@ -102,7 +97,7 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Advert newAdvertInfo, string[] GenreAdvertDB)
+        public ActionResult Edit(Advert newAdvertInfo, string[] genreAdvertDb)
         {
             var oldAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == newAdvertInfo.Advert_ID);
             newAdvertInfo.Photo = oldAdvert.Photo;
@@ -111,9 +106,9 @@ namespace TrouveUnBand.Controllers
             oldAdvert.Genres.Clear();
             if (ModelState.IsValid)
             {
-                foreach (var GenreName in GenreAdvertDB)
+                foreach (var genreName in genreAdvertDb)
                 {
-                    oldAdvert.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == GenreName));
+                    oldAdvert.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == genreName));
                 }
                 db.Entry(oldAdvert).CurrentValues.SetValues(newAdvertInfo);
                 db.SaveChanges();
@@ -217,9 +212,9 @@ namespace TrouveUnBand.Controllers
             return View("AdvertProfil", myAdvert);
         }
 
-        public ActionResult ViewAdvertProfil(int AdvertId)
+        public ActionResult ViewAdvertProfil(int advertId)
         {
-            var myAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == AdvertId);
+            var myAdvert = db.Adverts.FirstOrDefault(x => x.Advert_ID == advertId);
             return View("AdvertProfil", myAdvert);
         }
 
