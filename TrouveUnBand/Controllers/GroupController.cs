@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 using TrouveUnBand.Services;
 using TrouveUnBand.ViewModels;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
-using WebGrease.Css.Extensions;
 
 namespace TrouveUnBand.Controllers
 {
@@ -31,17 +28,6 @@ namespace TrouveUnBand.Controllers
             }
 
             return View(myBands);
-        }
-
-        public ActionResult Details(int id = 0)
-        {
-            var band = db.Bands.Find(id);
-            if (band == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View("BandProfile", band);
         }
 
         [HttpGet]
@@ -307,7 +293,7 @@ namespace TrouveUnBand.Controllers
                 Danger(Messages.NOT_CONNECTED, true);
             }
             var userName = System.Web.HttpContext.Current.User.Identity.Name;
-            var Query = from bandMember in db.Users
+            var query = from bandMember in db.Users
                         where bandMember.Nickname == userName
                         select new BandMemberModel()
                         {
@@ -318,7 +304,7 @@ namespace TrouveUnBand.Controllers
                             Location = bandMember.Location
                         };
 
-            return Query.FirstOrDefault();
+            return query.FirstOrDefault();
         }
 
         public ActionResult SearchMusician(string searchString)
