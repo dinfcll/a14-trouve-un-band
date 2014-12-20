@@ -14,7 +14,7 @@
                     <img src=@item.Photo alt="Image">
                 }
                 <div class="caption">
-                    <h3>@item.Name</h3>
+                    <h3 class="search-manage-overflow title">@item.Name</h3>
                     <b class="label label-primary">@item.Type</b>
                     <p class="search-manage-overflow">@item.Description</p>
                     <p class="search-manage-overflow location">
@@ -25,21 +25,21 @@
                         <div class="form-group">
                             <span class="glyphicon glyphicon-music"></span><span>
                                 @{
-                var i = 0;
-                var TextPopOver = "";
-                foreach (var genre in item.Genres)
-                {
-                    TextPopOver += "<p>" + genre + "</p>";
-                    if (i < 1)
-                    {
-                        @Html.Raw(genre + ", ");
-                    }
-                    if (i == 1)
-                    {
-                        @Html.Raw(genre + "");
-                    }
-                    i++;
-                }
+                                    var i = 0;
+                                    var TextPopOver = "";
+                                    foreach (var genre in item.Genres)
+                                    {
+                                        TextPopOver += "<p>" + genre + "</p>";
+                                        if (i < 1)
+                                        {
+                                            @Html.Raw(genre + ", ");
+                                        }
+                                        if (i == 1)
+                                        {
+                                            @Html.Raw(genre + "");
+                                        }
+                                        i++;
+                                    }
                                 }
                                 <a href="#" tabindex="0" role="button"
                                    data-toggle="popover" data-html="true" title="Genres musicaux" data-content="@TextPopOver">
@@ -48,11 +48,7 @@
                             </span>
                         </div>
                     </p>
-                    <p>
-                        <div class="col-md-offset-6">
-                            @Html.ActionLink("Voir profil", "ViewProfile", "Search", new { type = item.Type, Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
-                        </div>
-                    </p>
+                        @Html.ActionLink("Voir profil", "ViewProfile", "Search", new { type = item.Type, Id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
                 </div>
             </div>
         </div>
