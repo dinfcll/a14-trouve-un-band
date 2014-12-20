@@ -252,6 +252,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\event.css" />
     <Content Include="Content\fonts\font-awesome.svg" />
+    <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\homepage.css" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\over-bootstrap.css" />
@@ -339,6 +340,8 @@
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\create-group.js" />
+    <Content Include="Scripts\event-page.js" />
+    <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\ImageUpload.js" />
@@ -361,8 +364,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\Lang\fr-ca.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\ModifProfil.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\over-bootstrap.js" />
     <Content Include="Scripts\PictureDialog.js" />
     <Content Include="Scripts\ProfilePage.js" />
@@ -509,6 +514,7 @@
     <Content Include="Views\Group\_MusicianTable.cshtml" />
     <Content Include="Views\Group\Confirmation.cshtml" />
     <Content Include="Views\Advert\AdvertProfile.cshtml" />
+    <Content Include="Views\Event\test.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

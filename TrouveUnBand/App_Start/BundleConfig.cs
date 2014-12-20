@@ -25,6 +25,7 @@ namespace TrouveUnBand
                 "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
+                "~/Scripts/moment.js",
                 "~/Scripts/homepage.js",
                 "~/Scripts/searchpage.js",
                 "~/Scripts/jquery-ui-timepicker-addon.js",
@@ -42,7 +43,10 @@ namespace TrouveUnBand
                 "~/Scripts/tooltips.js",
                 "~/Scripts/dropdown-fix.js",
                 "~/Scripts/over-bootstrap.js",
-                "~/Scripts/jquery.dotdotdot.min.js"
+                "~/Scripts/jquery.dotdotdot.min.js",
+                "~/Scripts/fullcalendar.js",
+                "~/Scripts/Lang/fr-ca.js",
+                "~/Scripts/event-page.js"
                 ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes
@@ -59,7 +63,8 @@ namespace TrouveUnBand
                  "~/Content/timepicker.css",
                  "~/Content/homepage.css",
                  "~/Content/event.css",
-                 "~/Content/alerts.css"
+                 "~/Content/alerts.css",
+                 "~/Content/fullcalendar.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
@@ -87,6 +92,10 @@ namespace TrouveUnBand
                 "~/Scripts/SDKs/Twitter.js",
                 "~/Scripts/SDKs/Facebook.js",
                 "~/Scripts/SDKs/GooglePlus.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/language").Include(
+                "~/Scripts/Lang/fr-ca.js"
+                ));
         }
     }
 }

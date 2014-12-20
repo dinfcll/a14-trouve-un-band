@@ -16,6 +16,11 @@ namespace TrouveUnBand.Controllers
             return View(listOfEvent.EventList);
         }
 
+        public ActionResult test()
+        {
+            return View();
+        }
+
         public ActionResult EventProfile(int id = 0)
         {
             Event events = db.Events.Find(id);
