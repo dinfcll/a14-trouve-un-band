@@ -7,7 +7,8 @@
     $("#" + divId).addClass("active");
 
     if (divId.contains("calendar")) {
-        $("#calendar").fullCalendar({
+        $("#calendar").buildCalendar({
+            
         });
     }
 });

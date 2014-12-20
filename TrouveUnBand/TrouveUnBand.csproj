@@ -253,7 +253,6 @@
     <Content Include="Content\event-page.css" />
     <Content Include="Content\event.css" />
     <Content Include="Content\fonts\font-awesome.svg" />
-    <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\homepage.css" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\over-bootstrap.css" />
@@ -340,9 +339,9 @@
     <Content Include="Scripts\bootstrap-validation.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\create-group.js" />
     <Content Include="Scripts\event-page.js" />
-    <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\ImageUpload.js" />
@@ -515,7 +514,6 @@
     <Content Include="Views\Group\_MusicianTable.cshtml" />
     <Content Include="Views\Group\Confirmation.cshtml" />
     <Content Include="Views\Advert\AdvertProfile.cshtml" />
-    <Content Include="Views\Event\test.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

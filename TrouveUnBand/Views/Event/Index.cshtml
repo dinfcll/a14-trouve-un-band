@@ -8,7 +8,7 @@
     <div class="col-md-12">
         @if (User.Identity.Name != "")
         {
-            @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Créer un événement", "Create", new {controller = "Event"}, new {@class = "btn btn-primary"})
         }
         <div id="grid-selector" class="btn-group pull-right" role="group">
             <button type="button" class="btn btn-default active" data-div-id="page-display-list">
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div id="page-display-list" class="col-md-12 page-display-div active">
+    <div id="page-display-list" class="col-md-12 page-display-div">
         @foreach (var item in Model)
         {
             <div class="event-panel col-md-12">
@@ -46,9 +46,9 @@
                 <div class="event-panel-button col-md-2">
                     @if (item.UserNickname == User.Identity.Name)
                     {
-                        @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-sm btn-default col-md-12" })
+                        @Html.ActionLink("Modifier", "Edit", new {id = item.Event_ID}, new {@class = "btn btn-sm btn-default col-md-12"})
                     }
-                    @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary col-md-12 pull-right" })
+                    @Html.ActionLink("Détails", "EventProfile", new {id = item.Event_ID}, new {@class = "btn btn-primary col-md-12 pull-right"})
                 </div>
             </div>
         }
@@ -58,8 +58,13 @@
         <span>salut</span>
     </div>
 
-    <div id="page-display-calendar" class="col-md-12 page-display-div">
-        <div id="calendar"></div>
+    <div id="page-display-calendar" class="col-md-12 page-display-div active">
+        <div>
+            <div id="calendar" class="col-md-9"></div>
+        </div>
+        <div id="calendar-menu" class="col-md-3">
+            <span>gg</span>
+        </div>
     </div>
 
 </div>
