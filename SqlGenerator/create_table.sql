@@ -102,7 +102,7 @@ create table Bands_Users(
 create table Adverts(
 	Advert_ID int IDENTITY(1,1) Primary key,
 	Creator_ID int FOREIGN KEY REFERENCES Users(User_ID) NOT NULL,
-	Type NVARCHAR(100) NOT NULL,	
+	Name NVARCHAR(100) NOT NULL,	
 	Description NVARCHAR(max) NOT NULL,
 	Status nvarchar(100) NOT NULL,
 	CreationDate datetime2 NOT NULL DEFAULT (GETDATE()),
