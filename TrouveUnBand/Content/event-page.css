@@ -1,0 +1,9 @@
+﻿#event-page-container .page-display-div
+{
+    margin-top: 1em;
+}
+
+#event-page-container .page-display-div:not(.active)
+{
+    display: none;
+}
