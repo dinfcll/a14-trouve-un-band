@@ -55,9 +55,9 @@ else
                         <h4 class="col-md-12">Informations de l'annonce</h4>
                         <div class="form-group col-md-12">
                             @Html.Label("Nom de l'annonce")
-                            @Html.TextBoxFor(model => model.Type,
+                            @Html.TextBoxFor(model => model.Name,
                                 new { @class = "form-control", @placeholder = "Type d'Annonce" })
-                            @Html.ValidationMessageFor(model => model.Type)
+                            @Html.ValidationMessageFor(model => model.Name)
                         </div>
                         <div class="form-group col-md-6">
                             @Html.Label("Emplacement")

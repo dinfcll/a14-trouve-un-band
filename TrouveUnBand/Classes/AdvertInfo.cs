@@ -19,7 +19,7 @@ namespace TrouveUnBand.Classes
         {
             Advert_ID = advert.Advert_ID;
             Photo = advert.Photo;
-            Name = advert.Type; //Pourquoi le nom égale le type?
+            Name = advert.Name;
             Description = advert.Description;
             Location = advert.Location;
             Status = advert.Status;

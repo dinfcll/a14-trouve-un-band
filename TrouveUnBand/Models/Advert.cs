@@ -20,7 +20,6 @@ namespace TrouveUnBand.Models
         }
     
         public int Advert_ID { get; set; }
-        public string Type { get; set; }
         public int Creator_ID { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
@@ -30,6 +29,7 @@ namespace TrouveUnBand.Models
         public string Photo { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public string Name { get; set; }
     
         public virtual User User { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }

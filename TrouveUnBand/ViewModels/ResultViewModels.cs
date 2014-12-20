@@ -65,7 +65,7 @@ namespace TrouveUnBand.ViewModels
 
         public ResultViewModels(Advert advert)
         {
-            Name = advert.Type;
+            Name = advert.Name;
             Description = advert.Description;
             Genres = advert.Genres.Select(x => x.Name).ToList();
             Location = advert.Location;
