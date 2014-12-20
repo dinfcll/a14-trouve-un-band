@@ -80,11 +80,8 @@ namespace TrouveUnBand.Controllers
 
                     userbd.Password = Encrypt(userbd.Password);
                     userbd = Geolocalisation.SetUserLocation(userbd);
-
-                    db.Database.Connection.Open();
                     db.Users.Add(userbd);
                     db.SaveChanges();
-                    db.Database.Connection.Close();
 
                     return "";
                 }

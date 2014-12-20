@@ -134,8 +134,8 @@ namespace TrouveUnBand.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Advert advert = db.Adverts.Find(id);
+
             advert.Genres.Clear();
-            db.SaveChanges();
             db.Adverts.Remove(advert);
             db.SaveChanges();
             FileHelper.DeletePhoto(id.ToString(), FileHelper.Category.ADVERT_PHOTO);

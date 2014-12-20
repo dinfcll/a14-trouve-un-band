@@ -130,11 +130,15 @@ namespace TrouveUnBand.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Event events = db.Events.Find(id);
+            Event eventToDelete = db.Events.Find(id);
 
-            events.Genres.Clear();
-            db.SaveChanges();
-            db.Events.Remove(events);
+            foreach (var band in eventToDelete.Bands)
+            {
+                band.Events.Remove(eventToDelete);
+            }
+
+            eventToDelete.Genres.Clear();
+            db.Events.Remove(eventToDelete);
             db.SaveChanges();
             FileHelper.DeletePhoto(id.ToString(), FileHelper.Category.EVENT_PHOTO);
 
