@@ -26,8 +26,7 @@ namespace TrouveUnBand.Classes
         {
             get
             {
-                Rectangle cropRect = new Rectangle(PicX, PicY, PicWidth, PicHeight);
-                return cropRect;
+                return new Rectangle(PicX, PicY, PicWidth, PicHeight);
             }
         }
 
