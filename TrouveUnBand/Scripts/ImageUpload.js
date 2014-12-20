@@ -26,9 +26,9 @@ if ($("#X")[0]) {
     element.value = 0;
 }
 
-modal.on("hidden.bs.modal", function (e) {
+modal.on("hidden.bs.modal", function () {
     if (!isClosedByButton) {
-        $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
+        $("#ImageUploader").wrap("<form>").closest("form").get(0).reset();
         $("#ImageUploader").unwrap();
     }
     api.destroy();
@@ -57,7 +57,8 @@ function readURL(input) {
 }
 
 $("#ImageUploader").change(function () {
-    if (FileSize = this.files[0].size > 3145728) {
+    var fileSize = this.files[0].size;
+    if (fileSize > 3145728) {
         alert("La taille de l'image ne doit pas dépasser 3 mo.");
         $("#ImageUploader").wrap('<form>').closest('form').get(0).reset();
         $("#ImageUploader").unwrap();
@@ -65,7 +66,7 @@ $("#ImageUploader").change(function () {
     }
     readURL(this);
     $(".photo-upload-filename").val(this.value);
-    $(".photo-upload-clear").show()
+    $(".photo-upload-clear").show();
 
     setModalButton();
     isClosedByButton = false;
@@ -73,17 +74,17 @@ $("#ImageUploader").change(function () {
 });
 
 function initCrop() {
-    $('#PicToCrop').Jcrop({
+    $("#PicToCrop").Jcrop({
         onChange: setCoordsAndImgSize,
         aspectRatio: 250 / 172,
         bgOpacity: 0.5,
-        bgColor: 'white',
+        bgColor: "white",
         keySupport: false
     }, function () {
         api = this;
         api.setSelect([50, 50, 100, 250]);
         api.setOptions({ bgFade: true });
-        api.ui.selection.addClass('jcrop-selection');
+        api.ui.selection.addClass("jcrop-selection");
     });
 }
 
@@ -138,13 +139,13 @@ function resizeImage(image) {
 }
 
 function setModalWidth(modalWidth) {
-    modal.find('.modal-dialog').css({ 'width': modalWidth + 100 });
+    modal.find(".modal-dialog").css({ 'width': modalWidth + 100 });
 }
 
 function setModalButton() {
     var isToSend = modal.attr("data-send");
 
-    if (isToSend == "false") {
+    if (isToSend === "false") {
         $("#sendButton").prop("type", "button");
         return;
     }

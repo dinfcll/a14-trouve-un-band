@@ -32,6 +32,7 @@
         padding-bottom: 5px;
         overflow: hidden;
         white-space: nowrap;
+        -moz-text-overflow: ellipsis;
         text-overflow: ellipsis;
     }
 
@@ -39,6 +40,7 @@
         color: #999;
         overflow: hidden;
         white-space: nowrap;
+        -moz-text-overflow: ellipsis;
         text-overflow: ellipsis;
     }
 

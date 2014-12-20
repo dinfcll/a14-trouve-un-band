@@ -1,7 +1,7 @@
 ﻿#home-jumbotron {
     padding: 0 !important;
     margin-top: -40px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
     #home-jumbotron img {
@@ -60,11 +60,12 @@
     .home-thumbnail p {
         overflow: hidden;
         white-space: nowrap;
+        -moz-text-overflow: ellipsis;
         text-overflow: ellipsis;
         margin-bottom: 0;
     }
 
-    .home-thumbnail p {
+.home-thumbnail p {
         color: #bbb;
     }
 
@@ -110,8 +111,8 @@
 .home-thumbnail:hover,
 .home-thumbnail-invert:hover,
 .home-panel:hover,
-.home-panel-invert:hover
- {
+.home-panel-invert:hover {
+    -ms-opacity: 0.5;
     opacity: 0.5;
     cursor: pointer;
 }

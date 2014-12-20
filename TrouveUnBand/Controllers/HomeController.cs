@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using TrouveUnBand.Classes;
-using TrouveUnBand.Models;
 using TrouveUnBand.Services;
 using TrouveUnBand.ViewModels;
 
@@ -12,10 +10,9 @@ namespace TrouveUnBand.Controllers
         public ActionResult Index()
         {
             var viewModel = new HomePageViewModel();
-            int i;
-
             var users = UserDao.GetAllUsers();
-            i = 0;
+            var i = 0;
+
             while (i < 8 && i < users.Count)
             {
                 var userInfo = new UserInfo(users[i]);

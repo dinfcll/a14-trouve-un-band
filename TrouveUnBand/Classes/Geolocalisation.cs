@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using TrouveUnBand.Models;
 using System.Net.Http;
 using System.Web.Script.Serialization;
+using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Classes
 {
@@ -37,7 +36,7 @@ namespace TrouveUnBand.Classes
         {
             var coordA = GetCoordinatesByLocation(locationA);
             var coordB = GetCoordinatesByLocation(locationB);
-            var distance = GetDistance(coordA.latitude, coordA.longitude, coordB.latitude, coordB.longitude);
+            var distance = GetDistance(coordA.Latitude, coordA.Longitude, coordB.Latitude, coordB.Longitude);
 
             if (distance > radius)
             {
@@ -61,9 +60,9 @@ namespace TrouveUnBand.Classes
                 var responseBody = response.Content.ReadAsStringAsync().Result;
                 var returnedCoordinates = new JavaScriptSerializer().Deserialize<LocationModels>(responseBody);
 
-                coordinates.latitude = returnedCoordinates.results[returnedCoordinates.results.Count - 1].geometry.location.lat;
-                coordinates.longitude = returnedCoordinates.results[returnedCoordinates.results.Count - 1].geometry.location.lng;
-                coordinates.formattedAddress = returnedCoordinates.results[returnedCoordinates.results.Count - 1].formatted_address;
+                coordinates.Latitude = returnedCoordinates.results[returnedCoordinates.results.Count - 1].geometry.location.lat;
+                coordinates.Longitude = returnedCoordinates.results[returnedCoordinates.results.Count - 1].geometry.location.lng;
+                coordinates.FormattedAddress = returnedCoordinates.results[returnedCoordinates.results.Count - 1].formatted_address;
             }
 
             return coordinates;
@@ -91,15 +90,15 @@ namespace TrouveUnBand.Classes
 
     public class Coordinates
     {
-        public double latitude { get; set; }
-        public double longitude { get; set; }
-        public string formattedAddress { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string FormattedAddress { get; set; }
 
         public Coordinates()
         {
-            latitude = 0.0;
-            longitude = 0.0;
-            formattedAddress = String.Empty;
+            Latitude = 0.0;
+            Longitude = 0.0;
+            FormattedAddress = String.Empty;
         }
     }
 }

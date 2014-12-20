@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Classes
@@ -20,14 +17,14 @@ namespace TrouveUnBand.Classes
 
         public AdvertInfo(Advert advert)
         {
-            this.Advert_ID = advert.Advert_ID;
-            this.Photo = advert.Photo;
-            this.Name = advert.Type; //Pourquoi le nom égale le type?
-            this.Description = advert.Description;
-            this.Location = advert.Location;
-            this.Status = advert.Status;
-            this.Genres = advert.Genres;
-            this.ExpirationDate = DateHelper.GetDayAndMonth(advert.ExpirationDate);
+            Advert_ID = advert.Advert_ID;
+            Photo = advert.Photo;
+            Name = advert.Name;
+            Description = advert.Description;
+            Location = advert.Location;
+            Status = advert.Status;
+            Genres = advert.Genres;
+            ExpirationDate = DateHelper.GetDayAndMonth(advert.ExpirationDate);
         }
     }
 }

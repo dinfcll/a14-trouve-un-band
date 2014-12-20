@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+﻿using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Web;
 
 namespace TrouveUnBand.Classes
@@ -16,8 +11,6 @@ namespace TrouveUnBand.Classes
         public static string BAND_STOCK_PHOTO = "/Photos/_StockPhotos/_stock_band.jpg";
         public static string EVENT_STOCK_PHOTO = "/Photos/EventPhotos/_stock_event.jpg";
         public static string ADVERT_STOCK_PHOTO = "/Photos/AdvertPhotos/_stock_advert_.jpg";
-
-        byte[] m_PhotoArray;
 
         public string PhotoSrc { get; set; }
 
@@ -33,24 +26,7 @@ namespace TrouveUnBand.Classes
         {
             get
             {
-                Rectangle CropRect = new Rectangle(PicX, PicY, PicWidth, PicHeight);
-                return CropRect;
-            }
-        }
-
-        public byte[] PhotoArray
-        {
-            get
-            {
-                return m_PhotoArray;
-            }
-            set
-            {
-                m_PhotoArray = value;
-                if (value != null)
-                {
-                    PhotoSrc = "data:image/jpeg;base64," + Convert.ToBase64String(value);
-                }
+                return new Rectangle(PicX, PicY, PicWidth, PicHeight);
             }
         }
 

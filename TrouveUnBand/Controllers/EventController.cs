@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using TrouveUnBand.Models;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
+using System.Linq;
+using System.Web.Mvc;
 using TrouveUnBand.Classes;
-using System.Data.Entity.Infrastructure;
-using System.Data.Objects.DataClasses;
+using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 
 namespace TrouveUnBand.Controllers
@@ -19,8 +12,8 @@ namespace TrouveUnBand.Controllers
     {
         public ActionResult Index()
         {
-            var ListOfEvent = new EventPageViewModel(db.Events.ToList());
-            return View(ListOfEvent.EventList);
+            var listOfEvent = new EventPageViewModel(db.Events.ToList());
+            return View(listOfEvent.EventList);
         }
 
         public ActionResult EventProfile(int id = 0)
@@ -45,24 +38,24 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Event eventToCreate, string[] EventGenreDB, string Creator, string[] BandsListDB)
+        public ActionResult Create(Event eventToCreate, string[] eventGenreDb, string creator, string[] bandsListDb)
         {
-            if (ModelState.IsValid && EventGenreDB != null)
+            if (ModelState.IsValid && eventGenreDb != null)
             {
-                foreach(var GenreName in EventGenreDB)
+                foreach(var genreName in eventGenreDb)
                 {
-                    eventToCreate.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == GenreName));
+                    eventToCreate.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == genreName));
                 }
 
-                if (BandsListDB != null)
+                if (bandsListDb != null)
                 {
-                    foreach (var BandName in BandsListDB)
+                    foreach (var bandName in bandsListDb)
                     {
-                        eventToCreate.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == BandName));
+                        eventToCreate.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == bandName));
                     }
                 }
 
-                eventToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == Creator).User_ID;
+                eventToCreate.Creator_ID = db.Users.FirstOrDefault(x => x.Nickname == creator).User_ID;
                 db.Events.Add(eventToCreate);
                 db.SaveChanges();
 
@@ -91,30 +84,30 @@ namespace TrouveUnBand.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Event events, string[] EventGenreDB, string[] BandsListDB)
+        public ActionResult Edit(Event events, string[] eventGenreDb, string[] bandsListDb)
         {
             events.User = db.Users.FirstOrDefault(x => x.User_ID == events.Creator_ID);
 
-            if (ModelState.IsValid && EventGenreDB != null)
+            if (ModelState.IsValid && eventGenreDb != null)
             {
-                var eventBD = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
-                events.Photo = eventBD.Photo;
-                eventBD.Genres.Clear();
-                eventBD.Bands.Clear();
+                var eventBd = db.Events.FirstOrDefault(x => x.Event_ID == events.Event_ID);
+                events.Photo = eventBd.Photo;
+                eventBd.Genres.Clear();
+                eventBd.Bands.Clear();
 
-                foreach (var GenreName in EventGenreDB)
+                foreach (var genreName in eventGenreDb)
                 {
-                    eventBD.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == GenreName));
+                    eventBd.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == genreName));
                 }
 
-                if (BandsListDB != null)
+                if (bandsListDb != null)
                 {
-                    foreach (var BandName in BandsListDB)
+                    foreach (var bandName in bandsListDb)
                     {
-                        eventBD.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == BandName));
+                        eventBd.Bands.Add(db.Bands.FirstOrDefault(x => x.Name == bandName));
                     }
                 }
-                db.Entry(eventBD).CurrentValues.SetValues(events);
+                db.Entry(eventBd).CurrentValues.SetValues(events);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -137,22 +130,19 @@ namespace TrouveUnBand.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Event events = db.Events.Find(id);
+            Event eventToDelete = db.Events.Find(id);
 
-            events.Genres.Clear();
-            db.SaveChanges();
-            db.Events.Remove(events);
+            foreach (var band in eventToDelete.Bands)
+            {
+                band.Events.Remove(eventToDelete);
+            }
+
+            eventToDelete.Genres.Clear();
+            db.Events.Remove(eventToDelete);
             db.SaveChanges();
             FileHelper.DeletePhoto(id.ToString(), FileHelper.Category.EVENT_PHOTO);
 
             return RedirectToAction("Index");
-        }
-
-        public byte[] imageToByteArray(System.Drawing.Image imageIn)
-        {
-            MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-            return ms.ToArray();
         }
 
         [HttpPost]

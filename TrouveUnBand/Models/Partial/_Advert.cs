@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
-    [MetadataType(typeof(Advert.AdvertMetadata))]
+    [MetadataType(typeof(AdvertMetadata))]
     public partial class Advert
     {
         [NotMapped]
@@ -18,7 +15,7 @@ namespace TrouveUnBand.Models
         {
             public int Advert_ID { get; set; }
             [Required(ErrorMessage = "Le type d'annonce est requis")]
-            public string Type { get; set; }
+            public string Name { get; set; }
             [Required(ErrorMessage = "Vous devez être connecter pour créer des annonces")]
             public int Creator_ID { get; set; }
             [Required(ErrorMessage = "Le genre est requis")]

@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace TrouveUnBand.Classes
 {
     public static class PhotoResizer
     {
-        public static Image ResizeImage(Image ImageToResize, int minWidth, int minHeight, int maxWidth ,int maxHeight)
+        public static Image ResizeImage(Image imageToResize, int minWidth, int minHeight, int maxWidth ,int maxHeight)
         {
-            Bitmap NewImage;
+            Bitmap newImage;
 
-            double height = ImageToResize.Height;
-            double width = ImageToResize.Width;
+            double height = imageToResize.Height;
+            double width = imageToResize.Width;
 
             if (width < minWidth)
             {
@@ -38,16 +36,16 @@ namespace TrouveUnBand.Classes
                 height = maxHeight;
             }
 
-            NewImage = new Bitmap((int)width, (int)height);
-            using (Graphics gr = Graphics.FromImage(NewImage))
+            newImage = new Bitmap((int)width, (int)height);
+            using (Graphics gr = Graphics.FromImage(newImage))
             {
                 gr.SmoothingMode = SmoothingMode.HighQuality;
                 gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                gr.DrawImage(ImageToResize, new Rectangle(0, 0, (int)width, (int)height));
+                gr.DrawImage(imageToResize, new Rectangle(0, 0, (int)width, (int)height));
             }
 
-            return (Image)NewImage;
+            return (Image)newImage;
 
         }
     }

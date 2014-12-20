@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using TrouveUnBand.Models;
 
 namespace TrouveUnBand.Classes
@@ -19,13 +16,13 @@ namespace TrouveUnBand.Classes
 
         public UserInfo(User user)
         {
-            this.User_ID = user.User_ID;
-            this.Photo = user.Photo;
-            this.Name = user.FirstName + " " + user.LastName;
-            this.Description = user.Description;
-            this.Location = user.Location;
-            this.Type = "Musicien";
-            this.Genres = user.Genres;
+            User_ID = user.User_ID;
+            Photo = user.Photo;
+            Name = user.FirstName + " " + user.LastName;
+            Description = user.Description;
+            Location = user.Location;
+            Type = "Musicien";
+            Genres = user.Genres;
         }
     }
 }

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TrouveUnBand.Classes;
 
 namespace TrouveUnBand.Models
 {
-    [MetadataType(typeof(Event.EventMetadata))]
+    [MetadataType(typeof(EventMetadata))]
     public partial class Event
     {
         [NotMapped]
@@ -28,7 +26,7 @@ namespace TrouveUnBand.Models
             public string City { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             [DataType(DataType.Time)]
-            public System.DateTime EventDate { get; set; }
+            public DateTime EventDate { get; set; }
             [Required(ErrorMessage = "Ce champ est requis")]
             [RegularExpression(@"^[0-9]{1,}$", ErrorMessage = "Doit être composé de chiffres seulement")]
             public string MaxAudience { get; set; }

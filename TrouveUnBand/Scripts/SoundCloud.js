@@ -45,18 +45,4 @@ window.onload = function() {
     var artist = $('#SC_NAME').val();
     console.log(artist);
     GetArtist(artist);
-
-
-/*
-    var menuLinks = document.getElementsByClassName('genre');
-
-    for (var i = 0; i < menuLinks.length; i++) {
-        console.log(menuLinks[i]);
-        var menuLink = menuLinks[i];
-        menuLinks[i].onclick = function(e) {
-            e.preventDefault();
-            PlaySomeSound(menuLink.innerHTML);
-            console.log(menuLink.innerHTML);
-        };
-    }*/
 };
