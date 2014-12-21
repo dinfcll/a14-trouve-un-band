@@ -21,12 +21,18 @@ function createCalendarBody() {
     var tBody = '<tbody>' +
                 '<tr><th>DIM</th><th>LUN</th><th>MAR</th><th>MER</th><th>JEU</th><th>VEN</th><th>SAM</th></tr>';
 
-
+    var firstDayOfMonth = moment().date(1).day();
+    var debuteDate = moment().date(1).subtract(firstDayOfMonth, 'days');
 
     for (i = 0; i < 6; i++)
     {
-       tBody += '<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>';
+        tBody += '<tr>';
+        for (j = 0; j < 7; j++) {
+            tBody += '<td>' + debuteDate.date() + '</td>';
+            debuteDate.add(1, 'days');
+        }
+        tBody += '</tr>';
     }
-
+    tBody += '</tbody></table>';
     return tBody;
 }
