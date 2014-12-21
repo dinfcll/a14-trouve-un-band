@@ -63,7 +63,8 @@ namespace TrouveUnBand
                  "~/Content/homepage.css",
                  "~/Content/event.css",
                  "~/Content/alerts.css",
-                 "~/Content/event-page.css"
+                 "~/Content/event-page.css",
+                 "~/Content/calendar.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

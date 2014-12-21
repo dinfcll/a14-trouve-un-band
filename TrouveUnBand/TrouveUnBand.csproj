@@ -250,6 +250,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\calendar.css" />
     <Content Include="Content\event-page.css" />
     <Content Include="Content\event.css" />
     <Content Include="Content\fonts\font-awesome.svg" />

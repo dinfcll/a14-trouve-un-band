@@ -3,23 +3,21 @@
 
 $.fn.buildCalendar = function (options) {
     var calendar = '<table class="col-md-12">';
-
     calendar += createCalendarHead();
     calendar += createCalendarBody();
-
     this.html(calendar);
 }
 
 function createCalendarHead() {
     var currentMonth = monthNames[moment().month()];
-    var tHead = '<thead id="calender-head">' + currentMonth + '</thead>';
+    var tHead = '<div id="calender-head">' + currentMonth + ', ' +moment().year() + '</div>';
 
     return tHead;
 }
 
 function createCalendarBody() {
     var tBody = '<tbody>' +
-                '<tr><th>DIM</th><th>LUN</th><th>MAR</th><th>MER</th><th>JEU</th><th>VEN</th><th>SAM</th></tr>';
+                '<tr id="first-row"><td>DIM</td><td>LUN</td><td>MAR</td><td>MER</td><td>JEU</td><td>VEN</td><td>SAM</td></td>';
 
     var firstDayOfMonth = moment().date(1).day();
     var debuteDate = moment().date(1).subtract(firstDayOfMonth, 'days');
@@ -33,6 +31,8 @@ function createCalendarBody() {
         }
         tBody += '</tr>';
     }
+
     tBody += '</tbody></table>';
+
     return tBody;
 }

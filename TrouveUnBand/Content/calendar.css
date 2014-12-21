@@ -1,0 +1,28 @@
+﻿#calendar {
+    background-color: #fcfcfc;
+    color: #333;
+}
+
+    #calendar table {
+        text-align: center;
+        margin-bottom: 1em;
+    }
+
+        #calendar table #first-row td {
+            font-size: 1.5em;
+            font-weight: 500;
+            padding-bottom: 1.5em !important;
+        }
+
+        #calendar table td {
+            font-size: 1.3em;
+            height: 2.3em;
+        }
+
+#calender-head {
+    font-size: 2em;
+    margin-bottom: 2em;
+    margin-top: 1em;
+    color: #777;
+    text-align: center;
+}

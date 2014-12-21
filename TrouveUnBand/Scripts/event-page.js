@@ -6,7 +6,7 @@
     $(".page-display-div").removeClass("active");
     $("#" + divId).addClass("active");
 
-    if (divId.contains("calendar")) {
+    if (divId === "page-display-calendar") {
         $("#calendar").buildCalendar({
             
         });
