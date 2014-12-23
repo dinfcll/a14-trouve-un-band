@@ -1,14 +1,15 @@
-﻿#event-page-container .page-display-div
-{
+﻿#event-page-container .page-display-div {
     margin-top: 1em;
 }
 
-#event-page-container .page-display-div:not(.active)
-{
-    display: none;
-}
+    #event-page-container .page-display-div:not(.active) {
+        display: none;
+    }
 
 #calendar-menu {
+    color: #FDFDFD;
+    background-color: #333333;
     height: 100%;
-    background-color: black;
+    position: absolute;
+    display: inline-block;
 }
