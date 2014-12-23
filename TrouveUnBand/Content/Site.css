@@ -49,13 +49,13 @@
 .navbar-login {
     width: 315px;
     padding: 10px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 .navbar-footer {
     padding: 10px;
-    padding-bottom: 0px;
-    padding-top: 0px;
+    padding-bottom: 0;
+    padding-top: 0;
 }
 
 .icon-size {
@@ -71,7 +71,7 @@
 }
 
 .centrer {
-    right: 0px;
+    right: 0;
 }
 
 .centrer-image {
@@ -178,7 +178,6 @@ h3.search-manage-overflow.title{
     width: 35px;
     padding: 5px;
     border: 0;
-    box-shadow: 0;
     display: inline;
 }
 
@@ -256,7 +255,7 @@ h3.search-manage-overflow.title{
 .photo-upload-browser {
     position: relative;
     overflow: hidden;
-    margin: 0px;
+    margin: 0;
     color: #333;
     background-color: #fff;
     border-color: #ccc;
@@ -319,9 +318,9 @@ h3.search-manage-overflow.title{
 
 .box {
 border:solid 2px #e0e0e0;
--moz-border-radius: 0px;
--webkit-border-radius: 0px;
-border-radius: 0px;
+-moz-border-radius: 0;
+-webkit-border-radius: 0;
+border-radius: 0;
 }
 
 .main-container{

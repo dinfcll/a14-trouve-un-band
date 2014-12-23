@@ -41,28 +41,28 @@ function makeid() {
 }
 
 function annuler() {
-    window.location.replace("/Home")
+    window.location.replace("/Home");
 }
 
 function hovertooltip() {
-    $('#skillquestion').tooltip('show');
+    $("#skillquestion").tooltip("show");
 }
 
 function outtooltip() {
-    $('#skillquestion').tooltip('destroy');
+    $("#skillquestion").tooltip("destroy");
 }
 
 $(function () {
-    $('#datepicker').datetimepicker({
+    $("#datepicker").datetimepicker({
         dateFormat: "yy-mm-dd"
     });
 });
 
 $(function () {
-    $('#datepickernotime').datepicker({
+    $("#datepickernotime").datepicker({
         dateFormat: "yy-mm-dd",
         changeYear: true,
-        yearRange: '-90:+0'
+        yearRange: "-90:+0"
     });
 });
 

@@ -1,24 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using System.Web.Services.Description;
-using TrouveUnBand.Models;
-using System.Drawing;
 using TrouveUnBand.Classes;
+using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
-using System.Net;
 
 namespace TrouveUnBand.Controllers
 {
     public class UsersController : BaseController
     {
-        public ActionResult NewProfilePage()
-        {
-            return View();
-        }
-
         public ActionResult Index()
         {
             return View();
@@ -84,18 +80,15 @@ namespace TrouveUnBand.Controllers
 
                     userbd.Password = Encrypt(userbd.Password);
                     userbd = Geolocalisation.SetUserLocation(userbd);
-
-                    db.Database.Connection.Open();
                     db.Users.Add(userbd);
                     db.SaveChanges();
-                    db.Database.Connection.Close();
 
                     return "";
                 }
 
                 return Messages.EXISTING_USER(userbd);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Messages.INTERNAL_ERROR;
             }
@@ -103,8 +96,8 @@ namespace TrouveUnBand.Controllers
 
         private string Encrypt(string password)
         {
-            var hash = System.Security.Cryptography.SHA1.Create();
-            var encoder = new System.Text.ASCIIEncoding();
+            var hash = SHA1.Create();
+            var encoder = new ASCIIEncoding();
             var combined = encoder.GetBytes(password ?? "");
             return BitConverter.ToString(hash.ComputeHash(combined)).ToLower().Replace("-", "");
         }

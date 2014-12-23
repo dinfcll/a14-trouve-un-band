@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 using TrouveUnBand.Services;
 using TrouveUnBand.ViewModels;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
-using WebGrease.Css.Extensions;
 
 namespace TrouveUnBand.Controllers
 {
@@ -31,17 +28,6 @@ namespace TrouveUnBand.Controllers
             }
 
             return View(myBands);
-        }
-
-        public ActionResult Details(int id = 0)
-        {
-            var band = db.Bands.Find(id);
-            if (band == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View("BandProfile", band);
         }
 
         [HttpGet]
@@ -83,7 +69,7 @@ namespace TrouveUnBand.Controllers
             }
             catch (Exception ex)
             {
-                Danger(Messages.INTERNAL_ERROR,true);
+                Danger(Messages.INTERNAL_ERROR, true);
                 Console.WriteLine(ex.Message);
             }
             Success(Messages.BAND_CREATION_SUCCESS(band), true);
@@ -118,7 +104,7 @@ namespace TrouveUnBand.Controllers
             }
             catch (NullReferenceException ex)
             {
-                Danger(Messages.INTERNAL_ERROR,true);
+                Danger(Messages.INTERNAL_ERROR, true);
                 Console.WriteLine(ex.Message);
             }
 
@@ -150,21 +136,21 @@ namespace TrouveUnBand.Controllers
                 db.Entry(bandToUpdate).CurrentValues.SetValues(bandCreationModel.Band);
                 db.SaveChanges();
 
-                Success(Messages.BAND_EDIT_SUCCESS(bandCreationModel.Band),true);
+                Success(Messages.BAND_EDIT_SUCCESS(bandCreationModel.Band), true);
             }
             catch (NullReferenceException ex)
             {
-                Danger(Messages.INTERNAL_ERROR,true);
+                Danger(Messages.INTERNAL_ERROR, true);
                 Console.WriteLine(ex.Message);
             }
             catch (InvalidOperationException ex)
             {
-                Danger(Messages.INTERNAL_ERROR,true);
+                Danger(Messages.INTERNAL_ERROR, true);
                 Console.WriteLine(ex.Message);
             }
             catch (DbEntityValidationException ex)
             {
-                Danger(Messages.INTERNAL_ERROR,true);
+                Danger(Messages.INTERNAL_ERROR, true);
                 Console.WriteLine(ex.Message);
             }
             catch (DbUpdateConcurrencyException ex)
@@ -194,7 +180,7 @@ namespace TrouveUnBand.Controllers
 
             if (bandMembers.Any(x => x.User_ID == bandMember.User_ID))
             {
-                Warning(Messages.GENRE_ALREADY_SELECTED,true);
+                Warning(Messages.GENRE_ALREADY_SELECTED, true);
                 return false;
             }
 
@@ -210,7 +196,7 @@ namespace TrouveUnBand.Controllers
 
             if (bandMembers.Any(x => x.User_ID == userId))
             {
-                Warning(Messages.MUSICIAN_ALREADY_SELECTED,true);
+                Warning(Messages.MUSICIAN_ALREADY_SELECTED, true);
                 return false;
             }
 
@@ -285,9 +271,7 @@ namespace TrouveUnBand.Controllers
         public ActionResult Delete(BandCreationViewModel bandCreationModel)
         {
             var band = db.Bands.Find(bandCreationModel.Band.Band_ID);
-            band.Genres.Clear();
-            band.Users.Clear();
-            db.SaveChanges();
+
             if (band.Events != null)
             {
                 var obj = band.Events;
@@ -296,7 +280,11 @@ namespace TrouveUnBand.Controllers
                     item.Bands.Remove(band);
                 }
             }
+
+            band.Genres.Clear();
+            band.Users.Clear();
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -307,7 +295,7 @@ namespace TrouveUnBand.Controllers
                 Danger(Messages.NOT_CONNECTED, true);
             }
             var userName = System.Web.HttpContext.Current.User.Identity.Name;
-            var Query = from bandMember in db.Users
+            var query = from bandMember in db.Users
                         where bandMember.Nickname == userName
                         select new BandMemberModel()
                         {
@@ -318,7 +306,7 @@ namespace TrouveUnBand.Controllers
                             Location = bandMember.Location
                         };
 
-            return Query.FirstOrDefault();
+            return query.FirstOrDefault();
         }
 
         public ActionResult SearchMusician(string searchString)

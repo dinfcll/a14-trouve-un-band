@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -16,15 +16,14 @@ namespace TrouveUnBand.Classes
             public static string EVENT_PHOTO = "/Photos/EventPhotos/";
             public static string ADVERT_PHOTO = "/Photos/AdvertPhotos/";
         }
-        
+
         public static string SavePhoto(Image image, string name, string category)
         {
-            bool isSaved = false;
             string path = category + name + ".jpg";
 
-             isSaved = Save(image, path);
+            var isSaved = Save(image, path);
 
-            if(!isSaved)
+            if (!isSaved)
             {
                 path = "";
             }
@@ -35,7 +34,7 @@ namespace TrouveUnBand.Classes
         public static string SavePhoto(Image image, string category)
         {
             string name = GenerateRandomName();
-            
+
             return SavePhoto(image, name, category);
         }
 
@@ -45,7 +44,7 @@ namespace TrouveUnBand.Classes
             string possibleChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             Random random = new Random();
 
-            for(int i=0;i<16;i++)
+            for (int i = 0; i < 16; i++)
             {
                 name += possibleChar.ElementAt(random.Next(possibleChar.Length));
             }
@@ -53,12 +52,12 @@ namespace TrouveUnBand.Classes
             return name;
         }
 
-        private static bool Save(Image image,string path)
+        private static bool Save(Image image, string path)
         {
             try
             {
                 string serverPath = HttpContext.Current.Server.MapPath(path);
-                image.Save(serverPath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                image.Save(serverPath, ImageFormat.Jpeg);
                 return true;
             }
             catch
@@ -82,15 +81,5 @@ namespace TrouveUnBand.Classes
                 return false;
             }
         }
-
-        //public static void SaveAlbum(List<Image> Photos, )
-        //{
-
-        //}
-
-        //private static void CreateDirectory(string name, )
-        //{
-        //    Directory.CreateDirectory();
-        //}
     }
 }

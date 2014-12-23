@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TrouveUnBand.Models;
-using TrouveUnBand.Classes;
 using TrouveUnBand.Services;
 using TrouveUnBand.ViewModels;
 
