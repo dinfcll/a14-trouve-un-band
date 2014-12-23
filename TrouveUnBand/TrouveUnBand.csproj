@@ -497,9 +497,6 @@
     <Content Include="Views\Photo\_PhotoAlbum.cshtml" />
     <Content Include="Views\Group\_MusicianFinder.cshtml" />
     <Content Include="Views\SocialMedia\test.cshtml" />
-    <Content Include="Views\SocialMedia\_Metadata-Annonce.cshtml" />
-    <Content Include="Views\SocialMedia\_Metadata-Band.cshtml" />
-    <Content Include="Views\SocialMedia\_Metadata-Event.cshtml" />
     <Content Include="Views\SocialMedia\_ShareButtons.cshtml" />
     <Content Include="Views\SocialMedia\_SoundCloudProfile.cshtml" />
     <Content Include="Views\Group\Confirm.cshtml" />
