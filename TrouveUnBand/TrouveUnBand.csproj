@@ -339,6 +339,7 @@
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\create-group.js" />
+    <Content Include="Scripts\google-analytics.js" />
     <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\ImageUpload.js" />

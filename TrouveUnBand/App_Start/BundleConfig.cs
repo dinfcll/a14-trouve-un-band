@@ -42,7 +42,8 @@ namespace TrouveUnBand
                 "~/Scripts/tooltips.js",
                 "~/Scripts/dropdown-fix.js",
                 "~/Scripts/over-bootstrap.js",
-                "~/Scripts/jquery.dotdotdot.min.js"
+                "~/Scripts/jquery.dotdotdot.min.js",
+                "~/Scripts/google-analytics.js"
                 ));
 
             // Utilisez la version de développement de Modernizr pour développer et apprendre. Puis, lorsque vous êtes
