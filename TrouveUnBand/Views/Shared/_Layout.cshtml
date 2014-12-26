@@ -30,6 +30,7 @@
                         <li data-path="/Group">@Html.ActionLink("Bands", "Index", "Group")</li>
                         <li data-path="/Event">@Html.ActionLink("Événements", "Index", "Event")</li>
                         <li data-path="/Advert">@Html.ActionLink("Annonces", "Index", "Advert")</li>
+                        <li data-path="/Notification">@Html.ActionLink("Notifications", "Notification", "Notification")</li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>@Html.Partial("_LoginPartial")</li>
@@ -73,5 +74,15 @@
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/SocialMedia")
         @Scripts.Render("~/bundles/customjs") 
+        
+        @section scripts{ 
+             @Scripts.Render("~/Scripts/jquery.signalR-2.1.2.min.js") 
+             @Scripts.Render("/signalr/hubs") 
+             <script type="text/javascript">
+                 $(function () {
+                     var chat = $.connection.yourHub;
+                    }); 
+                </script> 
+            } 
     </body>
 </html>

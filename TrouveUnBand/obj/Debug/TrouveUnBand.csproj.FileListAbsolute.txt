@@ -564,4 +564,12 @@ C:\Users\Fred\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveU
 C:\Users\Fred\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.dll
 C:\Users\Fred\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.pdb
 C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\obj\Debug\TrouveUnBand.csprojResolveAssemblyReference.cache
-C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\TrouveUnBand.dll.config
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.AspNet.SignalR.Owin.dll
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Owin.dll
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.AspNet.SignalR.Owin.xml
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Vincent\Documents\GitHub\a14-trouve-un-band\TrouveUnBand\bin\Microsoft.Owin.Host.SystemWeb.xml
