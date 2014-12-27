@@ -6,13 +6,14 @@ $.fn.buildCalendar = function (options) {
     calendar += createCalendarHead();
     calendar += createCalendarBody();
     this.html(calendar);
+    SetTodayClass();
 }
 
 function createCalendarHead() {
     var currentMonth = monthNames[moment().month()];
-    var tHead = '<div id="calender-head">'
+    var tHead = '<div id="calendar-head">'
                 + '<span class="glyphicon glyphicon-chevron-left"></span>'
-                + '<span>' + currentMonth + ', ' + moment().year() + '</span>'
+                + '<span id="calendar-title">' + currentMonth + ', ' + moment().year() + '</span>'
                 + '<span class="glyphicon glyphicon-chevron-right"></span>'
                 + '</div>';
 
@@ -46,3 +47,26 @@ function createCalendarBody() {
 
     return tBody;
 }
+
+function SetTodayClass() {
+    $("tr td:contains('" + moment().date() + "')").addClass("today");
+}
+
+function ChangeMonth() {
+    alert("fdhfkjdfhk");
+}
+
+$("#calendar").on("click", "tr:not(#first-row) td", function () {
+    $("#calendar td").removeClass("active");
+    $(this).addClass("active");
+});
+
+$("#calendar").on("click", "#calendar-head .glyphicon", function () {
+    if ($(this).hasClass("glyphicon-chevron-left")) {
+        ChangeMonth();
+    }
+});
+
+
+//faire en sorte que le calendrier se load avec [data-type=calendar] ou quelque chose dans le genre
+//je suis rendu a recevoir le mois en paramètre 

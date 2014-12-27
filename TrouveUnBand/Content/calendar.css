@@ -21,11 +21,19 @@
 
         #calendar table tr:not(#first-row) td:hover {
             cursor: pointer;
-            color: #FDFDFD;
-            background-color: #333;
+            background-color: #EEEEEE;
         }
 
-#calender-head {
+        #calendar table tr:not(#first-row) td.active {
+            background-color: #0099DA;
+            color: white;
+        }
+
+        #calendar table tr td.today {
+            border: 2px solid #0099DA;
+        }
+
+#calendar-head {
     font-size: 2em;
     margin-bottom: 2em;
     margin-top: 1em;
@@ -33,20 +41,20 @@
     text-align: center;
 }
 
-#calender-head .glyphicon {
+#calendar-head .glyphicon {
     font-size: 0.6em;
     top: -0.1em;
 }
 
-#calender-head .glyphicon:hover {
+#calendar-head .glyphicon:hover {
     color: #0099DA;
     cursor: pointer;
 }
 
-#calender-head .glyphicon-chevron-left {
+#calendar-head .glyphicon-chevron-left {
     margin-right: 5px;
 }
 
-#calender-head .glyphicon-chevron-right {
+#calendar-head .glyphicon-chevron-right {
     margin-left: 5px;
 }
