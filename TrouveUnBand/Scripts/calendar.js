@@ -2,11 +2,22 @@
     "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"];
 
 $.fn.buildCalendar = function (options) {
+    var args = Array.prototype.slice.call(arguments);
+    setArguments(args);
     var calendar = '<table class="col-md-12">';
     calendar += createCalendarHead();
     calendar += createCalendarBody();
     this.html(calendar);
     SetTodayClass();
+}
+
+function setArguments(args) {
+    //var args2 = Array.prototype.slice.call(args, 1);
+    //alert(args2);
+    //for (var i = 0; i < args2.length; i++) {
+    //    alert("lol");
+    //}
+    alert(args.length);
 }
 
 function createCalendarHead() {
@@ -52,8 +63,19 @@ function SetTodayClass() {
     $("tr td:contains('" + moment().date() + "')").addClass("today");
 }
 
-function ChangeMonth() {
-    alert("fdhfkjdfhk");
+function ChangeMonth(nextMonthPosition) {
+    var calendarTitle = $("#calendar-title").text().split(",");
+
+    var currentCalendarMonth = $.trim(calendarTitle[0]);
+    currentCalendarMonth = monthNames.indexOf(currentCalendarMonth);
+
+    var currentCalendarYear = $.trim(calendarTitle[1]);
+
+    $("#calendar").buildCalendar({
+        month: currentCalendarMonth,
+        year: currentCalendarYear,
+        changeMonthBy: nextMonthPosition
+    });
 }
 
 $("#calendar").on("click", "tr:not(#first-row) td", function () {
@@ -63,7 +85,9 @@ $("#calendar").on("click", "tr:not(#first-row) td", function () {
 
 $("#calendar").on("click", "#calendar-head .glyphicon", function () {
     if ($(this).hasClass("glyphicon-chevron-left")) {
-        ChangeMonth();
+        ChangeMonth(-1);
+    } else {
+        ChangeMonth(1);
     }
 });
 

@@ -7,8 +7,7 @@
     $("#" + divId).addClass("active");
 
     if (divId === "page-display-calendar") {
-        $("#calendar").buildCalendar({
-            
-        });
+        $("#calendar").buildCalendar();
     }
 });
+
