@@ -23,30 +23,32 @@
                     '<td>MAR</td><td>MER</td>' +
                     '<td>JEU</td><td>VEN</td><td>SAM</td></td>';
 
-        var debuteDate = moment(calendarMonth).date(1);
-        var isSameMonth = moment(calendarMonth).isSame(debuteDate, 'month');
+        var daysBeforeFirstDay = moment(calendarMonth).date(1).day();
+        var dayIndex = moment(calendarMonth).date(1).subtract(daysBeforeFirstDay, 'days');;
+        var isSameMonth;
         var i = 0;
-        var tdBeforeFirstDay = moment(calendarMonth).date(1).day();
+        var j = 0;
 
-        while (isSameMonth === true) {
+        while (i < 6) {
 
             tBody += '<tr>';
 
-            while (i < 7 && isSameMonth === true) {
-                if (tdBeforeFirstDay <= 0) {
-                    tBody += '<td>' + debuteDate.date() + '</td>';
-                    debuteDate.add(1, 'days');
-                    isSameMonth = moment(calendarMonth).isSame(debuteDate, 'month');
+            while (j < 7) {
+                isSameMonth = moment(calendarMonth).isSame(dayIndex, 'month');
+
+                if (isSameMonth === true) {
+                    tBody += '<td>' + dayIndex.date() + '</td>';
+                } else {
+                    tBody += '<td class="outside-month">' + dayIndex.date() + '</td>';
                 }
-                else {
-                    tBody += '<td class="empty-date"></td>';
-                    tdBeforeFirstDay--;
-                }
-                i++;
+
+                dayIndex.add(1, 'days');
+                j++;
             }
 
             tBody += '</tr>';
-            i = 0;
+            i++;
+            j = 0;
         }
 
         tBody += '</tbody></table>';
@@ -75,7 +77,7 @@
         });
     }
 
-    $("#calendar").on("click", "tr:not(#first-row) td:not(.empty-date)", function () {
+    $("#calendar").on("click", "tr:not(#first-row) td:not(.outside-month)", function () {
         $("#calendar td").removeClass("active");
         $(this).addClass("active");
     });

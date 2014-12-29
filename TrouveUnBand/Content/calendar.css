@@ -19,13 +19,17 @@
             height: 2.3em;
         }
 
-        #calendar table tr:not(#first-row) td:not(.empty-date):hover {
+        #calendar table tr:not(#first-row) td:not(.outside-month):hover {
             cursor: pointer;
             background-color: #EEEEEE;
         }
 
+        #calendar table tr:not(#first-row) td.outside-month {
+            color: #aaaaaa;
+        }
+
         #calendar table tr:not(#first-row) td.active,
-         #calendar table tr:not(#first-row) td.active:hover{
+        #calendar table tr:not(#first-row) td.active:hover {
             background-color: #0099DA;
             color: white;
         }
@@ -42,20 +46,20 @@
     text-align: center;
 }
 
-#calendar-head .glyphicon {
-    font-size: 0.6em;
-    top: -0.1em;
-}
+    #calendar-head .glyphicon {
+        font-size: 0.6em;
+        top: -0.1em;
+    }
 
-#calendar-head .glyphicon:hover {
-    color: #0099DA;
-    cursor: pointer;
-}
+        #calendar-head .glyphicon:hover {
+            color: #0099DA;
+            cursor: pointer;
+        }
 
-#calendar-head .glyphicon-chevron-left {
-    margin-right: 5px;
-}
+    #calendar-head .glyphicon-chevron-left {
+        margin-right: 5px;
+    }
 
-#calendar-head .glyphicon-chevron-right {
-    margin-left: 5px;
-}
+    #calendar-head .glyphicon-chevron-right {
+        margin-left: 5px;
+    }

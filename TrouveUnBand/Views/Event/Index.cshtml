@@ -4,23 +4,30 @@
 }
 
 <div id="event-page-container">
-    <h2 class="col-md-12">Événements</h2>
+    <div class="col-md-12">
+        <h2 class="col-md-6">Événements</h2>
+
+        <div id="grid-selector" class="col-md-2 pull-right">
+            <div class="btn-group pull-right" role="group">
+                <button type="button" class="btn btn-default active" data-div-id="page-display-list">
+                    <span class="glyphicon glyphicon-th-list"></span>
+                </button>
+                <button type="button" class="btn btn-default" data-div-id="page-display-grid">
+                    <span class="glyphicon glyphicon-th"></span>
+                </button>
+                <button type="button" class="btn btn-default" data-div-id="page-display-calendar">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
     <div class="col-md-12">
         @if (User.Identity.Name != "")
         {
-            @Html.ActionLink("Créer un événement", "Create", new {controller = "Event"}, new {@class = "btn btn-primary"})
+            @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class = "btn btn-primary" })
         }
-        <div id="grid-selector" class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-default active" data-div-id="page-display-list">
-                <span class="glyphicon glyphicon-th-list"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-div-id="page-display-grid">
-                <span class="glyphicon glyphicon-th"></span>
-            </button>
-            <button type="button" class="btn btn-default" data-div-id="page-display-calendar">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </button>
-        </div>
     </div>
 
     <div id="page-display-list" class="col-md-12 page-display-div active">
@@ -46,9 +53,9 @@
                 <div class="event-panel-button col-md-2">
                     @if (item.UserNickname == User.Identity.Name)
                     {
-                        @Html.ActionLink("Modifier", "Edit", new {id = item.Event_ID}, new {@class = "btn btn-sm btn-default col-md-12"})
+                        @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-sm btn-default col-md-12" })
                     }
-                    @Html.ActionLink("Détails", "EventProfile", new {id = item.Event_ID}, new {@class = "btn btn-primary col-md-12 pull-right"})
+                    @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary col-md-12 pull-right" })
                 </div>
             </div>
         }
@@ -62,7 +69,7 @@
             <div id="calendar" class="col-md-9"></div>
         </div>
         <div id="calendar-menu" class="col-md-3">
-            <span>gg</span>
+            <span id="menu-title">gg</span>
         </div>
     </div>
 
