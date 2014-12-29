@@ -19,12 +19,13 @@
             height: 2.3em;
         }
 
-        #calendar table tr:not(#first-row) td:hover {
+        #calendar table tr:not(#first-row) td:not(.empty-date):hover {
             cursor: pointer;
             background-color: #EEEEEE;
         }
 
-        #calendar table tr:not(#first-row) td.active {
+        #calendar table tr:not(#first-row) td.active,
+         #calendar table tr:not(#first-row) td.active:hover{
             background-color: #0099DA;
             color: white;
         }

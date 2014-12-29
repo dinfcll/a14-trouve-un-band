@@ -8,8 +8,8 @@
         var year = moment(calendarMonth).year();
 
         var tHead = '<div id="calendar-head" class="col-md-12">'
-                    + '<span class="glyphicon glyphicon-chevron-left col-md-1"></span>'
-                    + '<span id="calendar-title" class="col-md-5">' + month + ', ' + year + '</span>'
+                    + '<span class="glyphicon glyphicon-chevron-left col-md-1 col-md-offset-2"></span>'
+                    + '<span id="calendar-title" class="col-md-6">' + month + ', ' + year + '</span>'
                     + '<span class="glyphicon glyphicon-chevron-right col-md-1"></span>'
                     + '</div>';
 
@@ -18,20 +18,30 @@
 
     function createCalendarBody(calendarMonth) {
         var tBody = '<tbody>' +
-                    '<tr id="first-row"><td>DIM</td><td>LUN</td><td>MAR</td><td>MER</td><td>JEU</td><td>VEN</td><td>SAM</td></td>';
+                    '<tr id="first-row">' +
+                    '<td>DIM</td><td>LUN</td>' +
+                    '<td>MAR</td><td>MER</td>' +
+                    '<td>JEU</td><td>VEN</td><td>SAM</td></td>';
 
         var debuteDate = moment(calendarMonth).date(1);
         var isSameMonth = moment(calendarMonth).isSame(debuteDate, 'month');
         var i = 0;
+        var tdBeforeFirstDay = moment(calendarMonth).date(1).day();
 
         while (isSameMonth === true) {
 
             tBody += '<tr>';
 
             while (i < 7 && isSameMonth === true) {
-                tBody += '<td>' + debuteDate.date() + '</td>';
-                debuteDate.add(1, 'days');
-                isSameMonth = moment(calendarMonth).isSame(debuteDate, 'month');
+                if (tdBeforeFirstDay <= 0) {
+                    tBody += '<td>' + debuteDate.date() + '</td>';
+                    debuteDate.add(1, 'days');
+                    isSameMonth = moment(calendarMonth).isSame(debuteDate, 'month');
+                }
+                else {
+                    tBody += '<td class="empty-date"></td>';
+                    tdBeforeFirstDay--;
+                }
                 i++;
             }
 
@@ -65,7 +75,7 @@
         });
     }
 
-    $("#calendar").on("click", "tr:not(#first-row) td", function () {
+    $("#calendar").on("click", "tr:not(#first-row) td:not(.empty-date)", function () {
         $("#calendar td").removeClass("active");
         $(this).addClass("active");
     });
