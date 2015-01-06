@@ -6,8 +6,8 @@
 
     var defaults =
     {
-        currentObject: "",
-        calendar: "",
+        currentObject: null,
+        calendar: null,
         calendarMonth: moment(),
         changeMonthBy: 0
     }
@@ -148,3 +148,6 @@
     };
 
 })(jQuery);
+
+//TODO
+// Faire en sorte d'éviter les conflits sur un changement d'onglet par exemple
