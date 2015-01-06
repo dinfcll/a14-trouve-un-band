@@ -9,7 +9,8 @@
         currentObject: null,
         calendar: null,
         calendarMonth: moment(),
-        changeMonthBy: 0
+        changeMonthBy: 0,
+        eventsDate: null
     }
 
     var parameters;
@@ -90,6 +91,10 @@
         printCalendar: function () {
             parameters.currentObject.html(parameters.calendar);
             methods.setTodayClass(parameters.calendarMonth);
+
+            if (parameters.eventsDate != null) {
+                alert(parameters.eventsDate);
+            }
         },
 
         setTodayClass: function (calendarMonth) {
@@ -105,6 +110,11 @@
 
         dayClick: function () {
             var $this = $(this);
+
+            if ($this.hasClass("active")) {
+                $this.removeClass("active");
+                return;
+            }
 
             $("#calendar td").removeClass("active");
             $this.addClass("active");
@@ -123,6 +133,10 @@
         },
 
         keyDown: function (event) {
+            if ($(event.target).is('input')) {
+                return;
+            }
+
             var keyCode = event.keyCode;
 
             if (keyCode === 37 || keyCode === 39) {
@@ -151,3 +165,4 @@
 
 //TODO
 // Faire en sorte d'éviter les conflits sur un changement d'onglet par exemple
+//Garder dernier mois vue vs le  mois courant

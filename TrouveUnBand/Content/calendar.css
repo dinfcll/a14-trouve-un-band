@@ -6,6 +6,8 @@
     #calendar table {
         text-align: center;
         margin-bottom: 1em;
+        display: table;
+        table-layout: fixed;
     }
 
         #calendar table #first-row td {
@@ -17,12 +19,17 @@
         #calendar table td {
             font-size: 1.3em;
             height: 2.3em;
+            display: table-cell;
+            width: 2%;
         }
 
-        #calendar table tr:not(#first-row) td:not(.outside-month):hover {
+        #calendar table tr:not(#first-row) td:not(.outside-month) {
             cursor: pointer;
-            background-color: #EEEEEE;
         }
+
+            #calendar table tr:not(#first-row) td:not(.outside-month):hover {
+                background-color: #EEEEEE;
+            }
 
         #calendar table tr:not(#first-row) td.outside-month {
             color: #aaaaaa;
@@ -52,12 +59,13 @@
     }
 
         #calendar-head .glyphicon:hover,
-        #calendar-head .glyphicon:active{
+        #calendar-head .glyphicon:active {
             color: #0099DA;
         }
-        #calendar-head .glyphicon {
-            cursor: pointer;
-        }
+
+    #calendar-head .glyphicon {
+        cursor: pointer;
+    }
 
     #calendar-head .glyphicon-chevron-left {
         margin-right: 5px;
