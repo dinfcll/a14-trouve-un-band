@@ -1,116 +1,150 @@
 ﻿(function ($) {
+    "use strict";
+
     var monthNames = ["JANVIER", "FÉVRIER", "MARS", "AVRIL", "MAI", "JUIN",
-            "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"];
+                      "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"];
 
-    function createCalendarHead(calendarMonth) {
-
-        var month = monthNames[moment(calendarMonth).month()];
-        var year = moment(calendarMonth).year();
-
-        var tHead = '<div id="calendar-head" class="col-md-12">'
-                    + '<span class="glyphicon glyphicon-chevron-left col-md-1 col-md-offset-2"></span>'
-                    + '<span id="calendar-title" class="col-md-6">' + month + ', ' + year + '</span>'
-                    + '<span class="glyphicon glyphicon-chevron-right col-md-1"></span>'
-                    + '</div>';
-
-        return tHead;
+    var defaults =
+    {
+        currentObject: "",
+        calendar: "",
+        calendarMonth: moment(),
+        changeMonthBy: 0
     }
 
-    function createCalendarBody(calendarMonth) {
-        var tBody = '<tbody>' +
-                    '<tr id="first-row">' +
-                    '<td>DIM</td><td>LUN</td>' +
-                    '<td>MAR</td><td>MER</td>' +
-                    '<td>JEU</td><td>VEN</td><td>SAM</td></td>';
+    var parameters;
 
-        var daysBeforeFirstDay = moment(calendarMonth).date(1).day();
-        var dayIndex = moment(calendarMonth).date(1).subtract(daysBeforeFirstDay, 'days');;
-        var isSameMonth;
-        var i = 0;
-        var j = 0;
+    var methods = {
 
-        while (i < 6) {
+        createNewCalendar: function () {
+            methods.setCalendarMonth();
 
-            tBody += '<tr>';
+            var calendar = methods.createCalendarHead(parameters.calendarMonth);
+            calendar += methods.createCalendarBody(parameters.calendarMonth);
 
-            while (j < 7) {
-                isSameMonth = moment(calendarMonth).isSame(dayIndex, 'month');
+            parameters.calendar = calendar;
+        },
 
-                if (isSameMonth === true) {
-                    tBody += '<td>' + dayIndex.date() + '</td>';
-                } else {
-                    tBody += '<td class="outside-month">' + dayIndex.date() + '</td>';
+        createCalendarHead: function (calendarMonth) {
+
+            var month = monthNames[moment(calendarMonth).month()];
+            var year = moment(calendarMonth).year();
+
+            var tHead = '<table class="col-md-12">'
+                        + '<div id="calendar-head" class="col-md-12">'
+                        + '<span class="glyphicon glyphicon-chevron-left col-md-1 col-md-offset-2"></span>'
+                        + '<span id="calendar-title" class="col-md-6">' + month + ', ' + year + '</span>'
+                        + '<span class="glyphicon glyphicon-chevron-right col-md-1"></span>'
+                        + '</div>';
+
+            return tHead;
+        },
+
+        createCalendarBody: function (calendarMonth) {
+            var tBody = '<tbody>' +
+                        '<tr id="first-row">' +
+                        '<td>DIM</td><td>LUN</td>' +
+                        '<td>MAR</td><td>MER</td>' +
+                        '<td>JEU</td><td>VEN</td><td>SAM</td></td>';
+
+            var daysBeforeFirstDay = moment(calendarMonth).date(1).day();
+            var dayIndex = moment(calendarMonth).date(1).subtract(daysBeforeFirstDay, 'days');;
+            var isSameMonth;
+            var i = 0;
+            var j = 0;
+
+            while (i < 6) {
+
+                tBody += '<tr>';
+
+                while (j < 7) {
+                    isSameMonth = moment(calendarMonth).isSame(dayIndex, 'month');
+
+                    if (isSameMonth === true) {
+                        tBody += '<td>' + dayIndex.date() + '</td>';
+                    } else {
+                        tBody += '<td class="outside-month">' + dayIndex.date() + '</td>';
+                    }
+
+                    dayIndex.add(1, 'days');
+                    j++;
                 }
 
-                dayIndex.add(1, 'days');
-                j++;
+                tBody += '</tr>';
+                i++;
+                j = 0;
             }
 
-            tBody += '</tr>';
-            i++;
-            j = 0;
+            tBody += '</tbody></table>';
+
+            return tBody;
+        },
+
+        setCalendarMonth: function () {
+            var newMonth = moment(parameters.calendarMonth)
+                .add(parameters.changeMonthBy, 'months');
+
+            parameters.calendarMonth = newMonth;
+        },
+
+        printCalendar: function () {
+            parameters.currentObject.html(parameters.calendar);
+            methods.setTodayClass(parameters.calendarMonth);
+        },
+
+        setTodayClass: function (calendarMonth) {
+            if (moment().isSame(calendarMonth, 'month')) {
+                $("tr td:not(.outside-month)").filter(function () {
+                    return $(this).text() == moment().date();
+                }).addClass("today");
+            }
         }
+    };
 
-        tBody += '</tbody></table>';
+    var eventHandlers = {
 
-        return tBody;
-    }
+        dayClick: function () {
+            var $this = $(this);
 
-    function setTodayClass(calendarMonth) {
-        if (moment().isSame(calendarMonth, 'month')) {
-            $("tr td:contains('" + moment().date() + "')").addClass("today");
+            $("#calendar td").removeClass("active");
+            $this.addClass("active");
+        },
+
+        changeMonthClick: function () {
+            var changeMonthBy = 1;
+
+            if ($(this).hasClass("glyphicon-chevron-left")) {
+                changeMonthBy = -1;
+            }
+
+            parameters.changeMonthBy = changeMonthBy;
+            methods.createNewCalendar();
+            methods.printCalendar();
+        },
+
+        keyDown: function (event) {
+            var keyCode = event.keyCode;
+
+            if (keyCode === 37 || keyCode === 39) {
+                parameters.changeMonthBy = keyCode - 38;
+                methods.createNewCalendar();
+                methods.printCalendar();
+            }
         }
-    }
-
-    function changeMonth(nextMonthPosition) {
-        var calendarTitle = $("#calendar-title").text().split(",");
-
-        var currentCalendarMonth = $.trim(calendarTitle[0]);
-        currentCalendarMonth = monthNames.indexOf(currentCalendarMonth);
-
-        var currentCalendarYear = $.trim(calendarTitle[1]);
-
-        $("#calendar").buildCalendar({
-            month: currentCalendarMonth,
-            year: currentCalendarYear,
-            changeMonthBy: nextMonthPosition
-        });
-    }
-
-    $("#calendar").on("click", "tr:not(#first-row) td:not(.outside-month)", function () {
-        $("#calendar td").removeClass("active");
-        $(this).addClass("active");
-    });
-
-    $("#calendar").on("click", "#calendar-head .glyphicon", function () {
-        if ($(this).hasClass("glyphicon-chevron-left")) {
-            changeMonth(-1);
-        } else {
-            changeMonth(1);
-        }
-    });
+    };
 
     $.fn.buildCalendar = function (options) {
+        parameters = $.extend(defaults, options);
+        parameters.currentObject = this;
 
-        var defaults =
-        {
-            month: moment().month(),
-            year: moment().year(),
-            changeMonthBy: 0
-        }
+        methods.createNewCalendar();
+        methods.printCalendar();
 
-        var parameters = $.extend(defaults, options);
+        $("#calendar")
+            .on("click", "tr:not(#first-row) td:not(.outside-month)", eventHandlers.dayClick)
+            .on("click", "#calendar-head .glyphicon", eventHandlers.changeMonthClick);
 
-        var calendarMonth = moment()
-            .set('month', parameters.month)
-            .set('year', parameters.year)
-            .add(parameters.changeMonthBy, 'months');
-
-        var calendar = '<table class="col-md-12">';
-        calendar += createCalendarHead(calendarMonth);
-        calendar += createCalendarBody(calendarMonth);
-        this.html(calendar);
-        setTodayClass(calendarMonth);
+        $(document).keydown(eventHandlers.keyDown);
     };
 
 })(jQuery);

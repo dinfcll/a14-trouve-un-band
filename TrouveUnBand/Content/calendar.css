@@ -51,8 +51,11 @@
         top: -0.1em;
     }
 
-        #calendar-head .glyphicon:hover {
+        #calendar-head .glyphicon:hover,
+        #calendar-head .glyphicon:active{
             color: #0099DA;
+        }
+        #calendar-head .glyphicon {
             cursor: pointer;
         }
 
