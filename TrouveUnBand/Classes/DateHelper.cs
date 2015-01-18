@@ -27,5 +27,10 @@ namespace TrouveUnBand.Classes
 
             return dayOfWeek;
         }
+
+        public static string GetDay(DateTime date)
+        {
+            return date.Day.ToString();
+        }
     }
 }

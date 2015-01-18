@@ -21,8 +21,10 @@
 }
 
 #calendar-menu #menu-title {
-    margin-top: 30px;
-    font-size: 1.5em;
+    font-size: 2em;
+    margin-bottom: 2em;
+    margin-top: 1em;
+    text-align: center;
 }
 
 #page-display-calendar {

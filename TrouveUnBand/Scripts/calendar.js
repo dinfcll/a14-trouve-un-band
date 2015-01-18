@@ -10,7 +10,7 @@
         calendar: null,
         calendarMonth: moment(),
         changeMonthBy: 0,
-        eventsDate: null
+        daysWithEvent: null
     }
 
     var parameters;
@@ -91,10 +91,7 @@
         printCalendar: function () {
             parameters.currentObject.html(parameters.calendar);
             methods.setTodayClass(parameters.calendarMonth);
-
-            if (parameters.eventsDate != null) {
-                alert(parameters.eventsDate);
-            }
+            methods.setDaysWithEventClass();
         },
 
         setTodayClass: function (calendarMonth) {
@@ -103,7 +100,23 @@
                     return $(this).text() == moment().date();
                 }).addClass("today");
             }
+        },
+
+        setDaysWithEventClass: function () {
+            if (parameters.daysWithEvent != null) {
+                var daysWithEventArray = parameters.daysWithEvent.split("-");
+                var i;
+
+                for (i = 0; i < daysWithEventArray.length; ++i) {
+                    var day = daysWithEventArray[i];
+
+                    $("tr td:not(.outside-month)").filter(function () {
+                        return $(this).text() === day;
+                    }).addClass("dayWithEvent");
+                }
+            }
         }
+
     };
 
     var eventHandlers = {

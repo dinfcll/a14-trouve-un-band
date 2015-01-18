@@ -7,7 +7,9 @@
     $("#" + divId).addClass("active");
 
     if (divId === "page-display-calendar") {
-        $("#calendar").buildCalendar();
+        $("#calendar").buildCalendar({
+            daysWithEvent: $("#DayWithEvent").val()
+    });
         $("#page-display-list").addClass("active");
     }
 });

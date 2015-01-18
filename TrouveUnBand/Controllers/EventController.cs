@@ -12,8 +12,8 @@ namespace TrouveUnBand.Controllers
     {
         public ActionResult Index()
         {
-            var listOfEvent = new EventPageViewModel(db.Events.ToList());
-            return View(listOfEvent.EventList);
+            var eventView = new EventPageViewModel(db.Events.ToList());
+            return View(eventView);
         }
 
         public ActionResult EventProfile(int id = 0)

@@ -45,6 +45,11 @@
             border: 2px solid #0099DA;
         }
 
+        #calendar table tr td.dayWithEvent {
+            color: #0099DA;
+            font-weight: 800;
+        }
+
 #calendar-head {
     font-size: 2em;
     margin-bottom: 2em;
