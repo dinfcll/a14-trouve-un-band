@@ -6,7 +6,7 @@
         display: none;
     }
 
-#calendar-menu {
+#event-page-container #filter-menu {
     color: #FDFDFD;
     background-color: #333333;
     height: 100%;
@@ -14,19 +14,24 @@
     display: inline-block;
 }
 
-#grid-selector {
+#event-page-container #grid-selector {
     padding-right: 0;
     margin-top: 20px;
     margin-bottom: 5px;
 }
 
-#calendar-menu #menu-title {
+#event-page-container #filter-menu #menu-title {
     font-size: 2em;
     margin-bottom: 2em;
     margin-top: 1em;
     text-align: center;
 }
 
-#page-display-calendar {
+#event-page-container #filter-menu #menu-content .form-control
+{
+    margin-bottom: 1em;
+}
+
+#event-page-container #page-display-calendar {
     margin-bottom: 2em;
 }

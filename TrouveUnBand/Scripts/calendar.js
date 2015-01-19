@@ -174,6 +174,14 @@
         $(document).keydown(eventHandlers.keyDown);
     };
 
+    $(window).on("load.bs.select.data-api", function () {
+        $("#calendar").each(function() {
+            $(this).buildCalendar({
+                daysWithEvent: $("#DayWithEvent").val()
+            });
+        });
+    });
+
 })(jQuery);
 
 //TODO

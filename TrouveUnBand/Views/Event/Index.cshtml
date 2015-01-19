@@ -5,22 +5,7 @@
 
 <div id="event-page-container">
     <div class="col-md-12">
-        <h2 class="col-md-6">Événements</h2>
-
-        <div id="grid-selector" class="col-md-2 pull-right">
-            <div class="btn-group pull-right" role="group">
-                <button type="button" class="btn btn-default active" data-div-id="page-display-list">
-                    <span class="glyphicon glyphicon-th-list"></span>
-                </button>
-                <button type="button" class="btn btn-default" data-div-id="page-display-grid">
-                    <span class="glyphicon glyphicon-th"></span>
-                </button>
-                <button type="button" class="btn btn-default" data-div-id="page-display-calendar">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </button>
-            </div>
-        </div>
-
+        <h2 class="col-md-12 row">Événements</h2>
     </div>
 
     <div class="col-md-12">
@@ -28,29 +13,33 @@
         {
             @Html.ActionLink("Créer un événement", "Create", new { controller = "Event" }, new { @class = "btn btn-primary" })
         }
+        <button id="show-filter-btn" class="btn btn-default pull-right" type="button">Afficher/Masquer filtres</button>
     </div>
 
-    <div id="page-display-calendar" class="col-md-12 page-display-div">
-        <div>
-            <div id="calendar" class="col-md-9"></div>
-        </div>
-        <div id="calendar-menu" class="col-md-3">
+    <div id="page-section-calendar" class="col-md-12 page-display-div">
+        <div id="calendar" class="col-md-9"></div>
+        <input type="hidden" id="DayWithEvent" value=@Model.DayWithEvent />
+        <div id="filter-menu" class="col-md-3">
             <div id="menu-title" class="col-md-12">
                 <span>Filtres</span>
             </div>
             <div id="menu-content" class="col-md-12">
-                <input type="text" placeholder="Mots-clés" class="form-control" />
+                <input id="input-keyword" type="text" placeholder="Mots-clés" class="form-control"/>
                 <select class="form-control selectpicker">
-                    <option value="liste">Liste</option>
-                    <option value="grille">Grille</option>
+                    <option value="25">25 résultats par page</option>
+                    <option value="50">50 résultats par page</option>
+                    <option value="75">75 résultats par page</option>
+                    <option value="100">100 résultats par page</option>
                 </select>
-                <button class="btn btn-primary btn-block col-md-12">Filtrer</button>
-                <input type="hidden" id="DayWithEvent" value=@Model.DayWithEvent/>
+                <select id="select-view" class="form-control selectpicker">
+                    <option value="list">Affichage en: Liste</option>
+                    <option value="grid">Affichage en: Grille</option>
+                </select>
             </div>
         </div>
     </div>
 
-    <div id="page-display-list" class="col-md-12 page-display-div active">
+    <div id="page-section-list" class="col-md-12 page-display-div active">
         @foreach (var item in Model.EventList)
         {
             <div class="event-panel col-md-12">
@@ -58,7 +47,7 @@
 
                 <div class="event-panel-date col-md-2">
                     <h3 class="col-md-3">@item.DayOfTheWeek</h3>
-                    <h1 class="col-md-12">@item.DayAndMonth</h1>
+                    <h1 class="col-md-12 day-and-month">@item.DayAndMonth</h1>
                 </div>
 
                 <div class="event-panel-info col-md-5">
@@ -81,21 +70,28 @@
         }
     </div>
 
-    <div id="page-display-grid" class="col-md-12 page-display-div">
+    <div id="page-section-grid" class="col-md-12 page-display-div">
         @foreach (var item in Model.EventList)
         {
-            <div class="col-md-3">
+            <div class="col-md-3 event-thumbnail">
                 <div class="thumbnail">
                     <img src=@item.Photo alt="Image">
                     <div class="caption">
                         <h3 class="search-manage-overflow title">@item.Name</h3>
-                        <b class="label label-primary">Événement</b>
+                        <p class="search-manage-overflow">
+                            <span>@item.DayOfTheWeek</span> 
+                            <span class="day-and-month">@item.DayAndMonth</span>
+                        </p>
                         <p class="search-manage-overflow">Description</p>
                         <p class="search-manage-overflow location">
                             <span class="glyphicon glyphicon-map-marker"></span>
                             @item.Location
                         </p>
                         @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary", @role = "button" })
+                        @if (item.UserNickname == User.Identity.Name)
+                        {
+                            @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-default pull-right", @role = "button" })
+                        }
                     </div>
                 </div>
             </div>
