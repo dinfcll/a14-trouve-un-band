@@ -24,7 +24,7 @@
                 <span>Filtres</span>
             </div>
             <div id="menu-content" class="col-md-12">
-                <input id="input-keyword" type="text" placeholder="Mots-clés" class="form-control"/>
+                <input id="input-keyword" type="text" placeholder="Mots-clés" class="form-control" />
                 <select class="form-control selectpicker">
                     <option value="25">25 résultats par page</option>
                     <option value="50">50 résultats par page</option>
@@ -42,7 +42,7 @@
     <div id="page-section-list" class="col-md-12 page-display-div active">
         @foreach (var item in Model.EventList)
         {
-            <div class="event-panel col-md-12">
+            <div class="event-panel col-md-12" data-filter=true>
                 <img src="@item.Photo" alt="Image" class="col-md-3">
 
                 <div class="event-panel-date col-md-2">
@@ -73,13 +73,13 @@
     <div id="page-section-grid" class="col-md-12 page-display-div">
         @foreach (var item in Model.EventList)
         {
-            <div class="col-md-3 event-thumbnail">
+            <div class="col-md-3" data-filter=true>
                 <div class="thumbnail">
                     <img src=@item.Photo alt="Image">
                     <div class="caption">
                         <h3 class="search-manage-overflow title">@item.Name</h3>
                         <p class="search-manage-overflow">
-                            <span>@item.DayOfTheWeek</span> 
+                            <span>@item.DayOfTheWeek</span>
                             <span class="day-and-month">@item.DayAndMonth</span>
                         </p>
                         <p class="search-manage-overflow">Description</p>
@@ -98,4 +98,3 @@
         }
     </div>
 </div>
-

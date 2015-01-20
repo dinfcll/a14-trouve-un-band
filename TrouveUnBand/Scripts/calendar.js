@@ -3,6 +3,7 @@
 
     var monthNames = ["JANVIER", "FÉVRIER", "MARS", "AVRIL", "MAI", "JUIN",
                       "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"];
+    var parameters;
 
     var defaults =
     {
@@ -13,7 +14,11 @@
         daysWithEvent: null
     }
 
-    var parameters;
+    var filters =
+    {
+        date: "",
+        keyword: ""
+    }
 
     var methods = {
 
@@ -115,8 +120,40 @@
                     }).addClass("dayWithEvent");
                 }
             }
-        }
+        },
 
+        filterElementByKeyword: function (element) {
+            var keywordString = filters.keyword.toUpperCase();
+            var elementText = element.text().toUpperCase();
+
+            if (elementText.indexOf(keywordString) > -1) {
+                return true;
+            }
+
+            return false;
+        },
+
+        filterElementByDate: function (element) {
+            var elementText = element.find(".day-and-month").text();
+            elementText = elementText.slice(0, 2).trim();
+
+            if (elementText === filters.date || filters.date === "") {
+                return true;
+            }
+
+            return false;
+        },
+
+        filterEvents: function () {
+            $("[data-filter=true]").each(function (index, element) {
+                if (methods.filterElementByKeyword($(element)) &&
+                    methods.filterElementByDate($(element))) {
+                    $(element).show();
+                } else {
+                    $(element).hide();
+                }
+            });
+        }
     };
 
     var eventHandlers = {
@@ -126,11 +163,15 @@
 
             if ($this.hasClass("active")) {
                 $this.removeClass("active");
-                return;
+                filters.date = "";
+
+            } else {
+                $("#calendar td").removeClass("active");
+                $this.addClass("active");
+                filters.date = $this.text();
             }
 
-            $("#calendar td").removeClass("active");
-            $this.addClass("active");
+            methods.filterEvents();
         },
 
         changeMonthClick: function () {
@@ -157,6 +198,18 @@
                 methods.createNewCalendar();
                 methods.printCalendar();
             }
+        },
+
+        keyUpForKeyword: function () {
+            filters.keyword = $(this).val();
+            methods.filterEvents();
+        },
+
+        changeViewOption: function() {
+            var selectedOption = $(this).find(":selected").val();
+
+            $(".page-display-div").removeClass("active");
+            $("#page-section-" + selectedOption).addClass("active");
         }
     };
 
@@ -171,11 +224,14 @@
             .on("click", "tr:not(#first-row) td:not(.outside-month)", eventHandlers.dayClick)
             .on("click", "#calendar-head .glyphicon", eventHandlers.changeMonthClick);
 
+        $("#filter-menu #input-keyword").keyup(eventHandlers.keyUpForKeyword);
+        $("#filter-menu #select-view").change(eventHandlers.changeViewOption);
+
         $(document).keydown(eventHandlers.keyDown);
     };
 
     $(window).on("load.bs.select.data-api", function () {
-        $("#calendar").each(function() {
+        $("#calendar").each(function () {
             $(this).buildCalendar({
                 daysWithEvent: $("#DayWithEvent").val()
             });
@@ -183,7 +239,3 @@
     });
 
 })(jQuery);
-
-//TODO
-// Faire en sorte d'éviter les conflits sur un changement d'onglet par exemple
-//Garder dernier mois vue vs le  mois courant
