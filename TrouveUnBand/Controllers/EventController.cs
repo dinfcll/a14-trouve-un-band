@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web.Mvc;
@@ -12,7 +13,10 @@ namespace TrouveUnBand.Controllers
     {
         public ActionResult Index()
         {
-            var eventView = new EventPageViewModel(db.Events.ToList());
+            var listOfEvents = CreateListOfEvents(DateTime.UtcNow.Month, 
+                                                  DateTime.UtcNow.Year);
+            var eventView = new EventPageViewModel(listOfEvents);
+
             return View(eventView);
         }
 
@@ -42,7 +46,7 @@ namespace TrouveUnBand.Controllers
         {
             if (ModelState.IsValid && eventGenreDb != null)
             {
-                foreach(var genreName in eventGenreDb)
+                foreach (var genreName in eventGenreDb)
                 {
                     eventToCreate.Genres.Add(db.Genres.FirstOrDefault(x => x.Name == genreName));
                 }
@@ -65,7 +69,7 @@ namespace TrouveUnBand.Controllers
 
                 return RedirectToAction("Index");
             }
-            Danger(Messages.NOT_MUSICIAN,true);
+            Danger(Messages.NOT_MUSICIAN, true);
             ViewBag.GenreListDB = new List<Genre>(db.Genres);
             ViewBag.BandsListDB = new List<Band>(db.Bands);
             return View();
@@ -159,14 +163,14 @@ namespace TrouveUnBand.Controllers
                     existingEvent.Photo = savedPhotoPath;
                     db.SaveChanges();
 
-                    Success(Messages.PICTURE_CHANGED,true);
+                    Success(Messages.PICTURE_CHANGED, true);
                 }
 
                 return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
             }
             catch
             {
-                Danger(Messages.INTERNAL_ERROR,true);
+                Danger(Messages.INTERNAL_ERROR, true);
                 return RedirectToAction("Edit", new { id = eventWithPhoto.Event_ID });
             }
         }
@@ -198,6 +202,13 @@ namespace TrouveUnBand.Controllers
             }
 
             return savedPhotoPath;
+        }
+
+        private IEnumerable<Event> CreateListOfEvents(int month, int year)
+        {
+            return db.Events.ToList().Where(
+                anEvent => anEvent.EventDate.Month == month &&
+                           anEvent.EventDate.Year == year);
         }
     }
 }
