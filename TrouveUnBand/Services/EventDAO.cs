@@ -97,5 +97,14 @@ namespace TrouveUnBand.Services
         {
             return GetEvents(0 , searchString, "", 0);
         }
+
+        public static IEnumerable<Event> CreateMonthEventsList(int month, int year)
+        {
+            var db = new TrouveUnBandEntities();
+
+            return db.Events.ToList().Where(
+                anEvent => anEvent.EventDate.Month == month &&
+                           anEvent.EventDate.Year == year);
+        }
     }
 }

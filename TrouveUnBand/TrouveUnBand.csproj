@@ -515,6 +515,7 @@
     <Content Include="Views\Group\_MusicianTable.cshtml" />
     <Content Include="Views\Group\Confirmation.cshtml" />
     <Content Include="Views\Advert\AdvertProfile.cshtml" />
+    <Content Include="Views\Event\_IndexEventDisplay.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

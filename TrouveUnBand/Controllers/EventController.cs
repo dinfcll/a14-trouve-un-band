@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TrouveUnBand.Classes;
 using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
+using TrouveUnBand.Services;
 
 namespace TrouveUnBand.Controllers
 {
@@ -13,7 +14,7 @@ namespace TrouveUnBand.Controllers
     {
         public ActionResult Index()
         {
-            var listOfEvents = CreateListOfEvents(DateTime.UtcNow.Month, 
+            var listOfEvents = EventDao.CreateMonthEventsList(DateTime.UtcNow.Month, 
                                                   DateTime.UtcNow.Year);
             var eventView = new EventPageViewModel(listOfEvents);
 
@@ -175,6 +176,14 @@ namespace TrouveUnBand.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ChangeMonthOnCalendar(int month, int year)
+        {
+            var listOfEvents = EventDao.CreateMonthEventsList(month, year);
+            var formattedEventList = new EventPageViewModel(listOfEvents).EventList;
+
+            return PartialView("_IndexEventDisplay", formattedEventList);
+        }
 
         private string CropAndSavePhoto(Event eventWithPhoto)
         {
@@ -202,13 +211,6 @@ namespace TrouveUnBand.Controllers
             }
 
             return savedPhotoPath;
-        }
-
-        private IEnumerable<Event> CreateListOfEvents(int month, int year)
-        {
-            return db.Events.ToList().Where(
-                anEvent => anEvent.EventDate.Month == month &&
-                           anEvent.EventDate.Year == year);
         }
     }
 }

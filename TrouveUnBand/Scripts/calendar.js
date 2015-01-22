@@ -153,6 +153,23 @@
                     $(element).hide();
                 }
             });
+        },
+
+        displayEventsOnChangingMonth: function () {
+            $.ajax({
+                url: "/Event/ChangeMonthOnCalendar",
+                type: "GET",
+                data: {
+                    month: moment(parameters.calendarMonth).month() + 1,
+                    year: moment(parameters.calendarMonth).year()
+                },
+                error: function () {
+                    alert("Une erreur s'est produite.");
+                }
+            })
+            .done(function (partialViewResult) {
+                $("#event-display").html(partialViewResult);
+            });
         }
     };
 
@@ -184,6 +201,7 @@
             parameters.changeMonthBy = changeMonthBy;
             methods.createNewCalendar();
             methods.printCalendar();
+            methods.displayEventsOnChangingMonth();
         },
 
         keyDown: function (event) {
@@ -197,6 +215,7 @@
                 parameters.changeMonthBy = keyCode - 38;
                 methods.createNewCalendar();
                 methods.printCalendar();
+                methods.displayEventsOnChangingMonth();
             }
         },
 
@@ -205,7 +224,7 @@
             methods.filterEvents();
         },
 
-        changeViewOption: function() {
+        changeViewOption: function () {
             var selectedOption = $(this).find(":selected").val();
 
             $(".page-display-div").removeClass("active");

@@ -39,62 +39,8 @@
         </div>
     </div>
 
-    <div id="page-section-list" class="col-md-12 page-display-div active">
-        @foreach (var item in Model.EventList)
-        {
-            <div class="event-panel col-md-12" data-filter=true>
-                <img src="@item.Photo" alt="Image" class="col-md-3">
-
-                <div class="event-panel-date col-md-2">
-                    <h3 class="col-md-3">@item.DayOfTheWeek</h3>
-                    <h1 class="col-md-12 day-and-month">@item.DayAndMonth</h1>
-                </div>
-
-                <div class="event-panel-info col-md-5">
-                    <span class="col-md-12">@item.Location</span>
-                    <h2 class="col-md-12">@item.Name</h2>
-                    @if (@item.Bands.FirstOrDefault() != null)
-                    {
-                        <span class="col-md-12">@item.Bands.FirstOrDefault().Name</span>
-                    }
-                </div>
-
-                <div class="event-panel-button col-md-2">
-                    @if (item.UserNickname == User.Identity.Name)
-                    {
-                        @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-sm btn-default col-md-12" })
-                    }
-                    @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary col-md-12 pull-right" })
-                </div>
-            </div>
-        }
+    <div id="event-display">
+        @Html.Partial("_IndexEventDisplay", Model.EventList)
     </div>
 
-    <div id="page-section-grid" class="col-md-12 page-display-div">
-        @foreach (var item in Model.EventList)
-        {
-            <div class="col-md-3" data-filter=true>
-                <div class="thumbnail">
-                    <img src=@item.Photo alt="Image">
-                    <div class="caption">
-                        <h3 class="search-manage-overflow title">@item.Name</h3>
-                        <p class="search-manage-overflow">
-                            <span>@item.DayOfTheWeek</span>
-                            <span class="day-and-month">@item.DayAndMonth</span>
-                        </p>
-                        <p class="search-manage-overflow">Description</p>
-                        <p class="search-manage-overflow location">
-                            <span class="glyphicon glyphicon-map-marker"></span>
-                            @item.Location
-                        </p>
-                        @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary", @role = "button" })
-                        @if (item.UserNickname == User.Identity.Name)
-                        {
-                            @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-default pull-right", @role = "button" })
-                        }
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
 </div>
