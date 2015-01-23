@@ -108,6 +108,8 @@
         },
 
         setDaysWithEventClass: function () {
+            parameters.daysWithEvent = $("#DayWithEvent").val();
+
             if (parameters.daysWithEvent != null) {
                 var daysWithEventArray = parameters.daysWithEvent.split("-");
                 var i;
@@ -144,6 +146,13 @@
             return false;
         },
 
+        filterEventView: function() {
+            var selectedOption = $("#select-view").find(":selected").val();
+
+            $(".page-display-div").removeClass("active");
+            $("#page-section-" + selectedOption).addClass("active");
+        },
+
         filterEvents: function () {
             $("[data-filter=true]").each(function (index, element) {
                 if (methods.filterElementByKeyword($(element)) &&
@@ -153,9 +162,11 @@
                     $(element).hide();
                 }
             });
+
+            methods.filterEventView();
         },
 
-        displayEventsOnChangingMonth: function () {
+        displayEventsOnChangingMonth: function (callback) {
             $.ajax({
                 url: "/Event/ChangeMonthOnCalendar",
                 type: "GET",
@@ -169,6 +180,16 @@
             })
             .done(function (partialViewResult) {
                 $("#event-display").html(partialViewResult);
+                filters.date = "";
+                callback();
+            });
+        },
+
+        refreshCalendar: function () {
+            methods.createNewCalendar();
+            methods.displayEventsOnChangingMonth(function() {
+                methods.printCalendar();
+                methods.filterEvents();
             });
         }
     };
@@ -192,20 +213,18 @@
         },
 
         changeMonthClick: function () {
-            var changeMonthBy = 1;
+            parameters.changeMonthBy = 1;
 
             if ($(this).hasClass("glyphicon-chevron-left")) {
-                changeMonthBy = -1;
+                parameters.changeMonthBy = -1;
             }
 
-            parameters.changeMonthBy = changeMonthBy;
-            methods.createNewCalendar();
-            methods.printCalendar();
-            methods.displayEventsOnChangingMonth();
+            methods.refreshCalendar();
         },
 
         keyDown: function (event) {
-            if ($(event.target).is('input')) {
+            if($(event.target).is('input') || 
+                $("#page-section-calendar").css('display') === 'none') {
                 return;
             }
 
@@ -213,9 +232,7 @@
 
             if (keyCode === 37 || keyCode === 39) {
                 parameters.changeMonthBy = keyCode - 38;
-                methods.createNewCalendar();
-                methods.printCalendar();
-                methods.displayEventsOnChangingMonth();
+                methods.refreshCalendar();
             }
         },
 
@@ -225,10 +242,7 @@
         },
 
         changeViewOption: function () {
-            var selectedOption = $(this).find(":selected").val();
-
-            $(".page-display-div").removeClass("active");
-            $("#page-section-" + selectedOption).addClass("active");
+            methods.filterEventView();
         }
     };
 
@@ -247,14 +261,17 @@
         $("#filter-menu #select-view").change(eventHandlers.changeViewOption);
 
         $(document).keydown(eventHandlers.keyDown);
+
+        return this;
     };
 
     $(window).on("load.bs.select.data-api", function () {
         $("#calendar").each(function () {
-            $(this).buildCalendar({
-                daysWithEvent: $("#DayWithEvent").val()
-            });
+            $(this).buildCalendar();
         });
     });
 
 })(jQuery);
+
+//NOTE IMPORTANTE
+//2. arranger le css

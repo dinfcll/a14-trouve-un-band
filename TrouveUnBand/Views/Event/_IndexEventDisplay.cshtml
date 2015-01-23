@@ -1,7 +1,9 @@
-﻿@model List<TrouveUnBand.Classes.EventInfo>
-           
+﻿@model TrouveUnBand.Models.EventPageViewModel
+
+<input type="hidden" id="DayWithEvent" value=@Model.DayWithEvent/>
+
 <div id="page-section-list" class="col-md-12 page-display-div active">
-    @foreach (var item in Model)
+    @foreach (var item in Model.EventList)
     {
         <div class="event-panel col-md-12" data-filter=true>
             <img src="@item.Photo" alt="Image" class="col-md-3">
@@ -32,7 +34,7 @@
 </div>
 
 <div id="page-section-grid" class="col-md-12 page-display-div">
-    @foreach (var item in Model)
+    @foreach (var item in Model.EventList)
     {
         <div class="col-md-3" data-filter=true>
             <div class="thumbnail">
@@ -48,10 +50,10 @@
                         <span class="glyphicon glyphicon-map-marker"></span>
                         @item.Location
                     </p>
-                    @Html.ActionLink("Détails", "EventProfile", new { id = item.Event_ID }, new { @class = "btn btn-primary", @role = "button" })
+                    @Html.ActionLink("Détails", "EventProfile", new {id = item.Event_ID}, new {@class = "btn btn-primary", @role = "button"})
                     @if (item.UserNickname == User.Identity.Name)
                     {
-                        @Html.ActionLink("Modifier", "Edit", new { id = item.Event_ID }, new { @class = "btn btn-default pull-right", @role = "button" })
+                        @Html.ActionLink("Modifier", "Edit", new {id = item.Event_ID}, new {@class = "btn btn-default pull-right", @role = "button"})
                     }
                 </div>
             </div>

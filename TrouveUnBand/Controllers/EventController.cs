@@ -180,9 +180,9 @@ namespace TrouveUnBand.Controllers
         public ActionResult ChangeMonthOnCalendar(int month, int year)
         {
             var listOfEvents = EventDao.CreateMonthEventsList(month, year);
-            var formattedEventList = new EventPageViewModel(listOfEvents).EventList;
+            var eventViewModel = new EventPageViewModel(listOfEvents);
 
-            return PartialView("_IndexEventDisplay", formattedEventList);
+            return PartialView("_IndexEventDisplay", eventViewModel);
         }
 
         private string CropAndSavePhoto(Event eventWithPhoto)

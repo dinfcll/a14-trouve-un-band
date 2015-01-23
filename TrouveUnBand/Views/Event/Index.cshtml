@@ -18,7 +18,6 @@
 
     <div id="page-section-calendar" class="col-md-12 page-display-div">
         <div id="calendar" class="col-md-9"></div>
-        <input type="hidden" id="DayWithEvent" value=@Model.DayWithEvent />
         <div id="filter-menu" class="col-md-3">
             <div id="menu-title" class="col-md-12">
                 <span>Filtres</span>
@@ -40,7 +39,7 @@
     </div>
 
     <div id="event-display">
-        @Html.Partial("_IndexEventDisplay", Model.EventList)
+        @Html.Partial("_IndexEventDisplay", Model)
     </div>
 
 </div>
