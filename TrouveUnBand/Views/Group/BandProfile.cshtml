@@ -23,7 +23,7 @@
                         <span>Localisation:</span>
                         <span class="col-md-12 row">@Model.Location</span>
                     </li>
-                    @if (Model.Genres != null)
+                    @if (Model.Genres.Count > 0)
                     {
                         <li>
                             <span>Style:</span>
@@ -58,7 +58,10 @@
                     <i class="chevron glyphicon glyphicon-minus text-muted pull-right"></i>
                 </div>
                 <div class="profile-tab-content">
-                    @Html.Partial("../SocialMedia/_SoundCloudProfile")
+                    @if (Model.Sc_Name != null)
+                    {
+                        Html.Partial("../SocialMedia/_SoundCloudProfile");
+                    }
                 </div>
             </div>
 
@@ -68,7 +71,7 @@
                     <i class="chevron glyphicon glyphicon-minus text-muted pull-right"></i>
                 </div>
                 <div class="profile-tab-content">
-                                        @foreach (var item in Model.Events)
+                    @foreach (var item in Model.Events)
                     {
                         <div class="home-panel event-panel col-md-12 row-fluid"
                              onclick="location.href='@Url.Action("ViewProfile", "Base", new { type = "EVENT", Id = item.Event_ID })'">
@@ -105,7 +108,6 @@
                 </div>
 
                 <div class="profile-tab-content">
-                    <span>Photo du band</span>
                 </div>
             </div>
 

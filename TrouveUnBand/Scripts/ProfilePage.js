@@ -5,6 +5,19 @@ if ($("#profile-menu")[0]) {
     menuTopPosition = $("#profile-menu").offset().top;
 }
 
+$(document).ready(function() {
+    var $profileTabContent = $(".profile-tab-content");
+    
+    $profileTabContent.each(function () {
+        if ($.trim($(this).html()) === '') {
+            var elementId = $(this).parent(".profile-section").attr("id");
+
+            $("#" + elementId).hide();
+            $("#profile-menu li[data-scroll-spy=" + elementId + "]").hide();
+        }
+    });
+});
+
 $("#profile-menu ul > li").click(function () {
     var scrollSpy = $(this).attr("data-scroll-spy");
 
