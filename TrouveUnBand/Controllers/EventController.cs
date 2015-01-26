@@ -7,6 +7,7 @@ using TrouveUnBand.Classes;
 using TrouveUnBand.Models;
 using TrouveUnBand.POCO;
 using TrouveUnBand.Services;
+using TrouveUnBand.ViewModels;
 
 namespace TrouveUnBand.Controllers
 {

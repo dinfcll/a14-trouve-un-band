@@ -70,12 +70,6 @@
 
     #calendar-head .glyphicon {
         cursor: pointer;
-    }
-
-    #calendar-head .glyphicon-chevron-left {
-        margin-right: 5px;
-    }
-
-    #calendar-head .glyphicon-chevron-right {
-        margin-left: 5px;
+        margin-top: 5px;
+        font-size: 0.8em;
     }

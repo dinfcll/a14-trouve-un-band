@@ -38,9 +38,9 @@
 
             var tHead = '<table class="col-md-12">'
                         + '<div id="calendar-head" class="col-md-12">'
-                        + '<span class="glyphicon glyphicon-chevron-left col-md-1 col-md-offset-2"></span>'
-                        + '<span id="calendar-title" class="col-md-6">' + month + ', ' + year + '</span>'
-                        + '<span class="glyphicon glyphicon-chevron-right col-md-1"></span>'
+                        + '<span class="glyphicon glyphicon-arrow-left pull-left"></span>'
+                        + '<span id="calendar-title">' + month + ', ' + year + '</span>'
+                        + '<span class="glyphicon glyphicon-arrow-right pull-right"></span>'
                         + '</div>';
 
             return tHead;
@@ -215,7 +215,7 @@
         changeMonthClick: function () {
             parameters.changeMonthBy = 1;
 
-            if ($(this).hasClass("glyphicon-chevron-left")) {
+            if ($(this).hasClass("glyphicon-arrow-left")) {
                 parameters.changeMonthBy = -1;
             }
 

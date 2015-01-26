@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using TrouveUnBand.Classes;
+using TrouveUnBand.Models;
 
-namespace TrouveUnBand.Models
+namespace TrouveUnBand.ViewModels
 {
     public class EventPageViewModel
     {
