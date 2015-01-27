@@ -1,5 +1,5 @@
 ﻿var randomImage = Math.floor((Math.random() * 3) + 1);
 
-$("#homeImage").attr("src", "/Photos/_StockPhotos/Home" + randomImage + ".jpg");
+$("#home-photo").css("background-image", "url(/Photos/_StockPhotos/Home" + randomImage + ".jpg)");
 
-var tt = $(".home-container").parent().removeClass("container");
+$(".home-container").parent().removeClass("container");

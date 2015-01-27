@@ -3,33 +3,28 @@
     ViewBag.Title = "Page d'accueil";
 }
 <div class="home-container">
-    <div id="home-jumbotron" class="jumbotron">
-        <div id="home-carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img id="homeImage" src="" alt="" />
-                    <div class="carousel-caption">
-                        <h1 class="col-md-12">
-                            À la recherche d'un band?
-                        </h1>
-                        <h3>
-                            Recherchez un band, un musicien ou un événement.
-                        </h3>
-                        <h3>
-                            Créez vos propres événements et annonces.
-                        </h3>
-                        <h3>
-                            Faites la promotion de votre band, votre événement ou votre bar.
-                        </h3>
-                        <h3>
-                            Tout ça GRATUITEMENT!
-                        </h3>
-                        <p>@Html.ActionLink("Inscrivez-vous", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary btn-lg col-md-6 col-md-offset-3" })</p>
-                    </div>
-                </div>
-            </div>
+    <div id="home-photo"></div>
+    <div id="home-photo-caption">
+        <div id="home-photo-caption-text">
+            <h1 class="col-md-12">
+                À la recherche d'un band?
+            </h1>
+            <h3>
+                Recherchez un band, un musicien ou un événement.
+            </h3>
+            <h3>
+                Créez vos propres événements et annonces.
+            </h3>
+            <h3>
+                Faites la promotion de votre band, votre événement ou votre bar.
+            </h3>
+            <h3>
+                Tout ça GRATUITEMENT!
+            </h3>
+            <p>@Html.ActionLink("Inscrivez-vous", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary btn-lg col-md-6 col-md-offset-3" })</p>
         </div>
     </div>
+
     <div class="home-content-container">
         <div class="home-section col-md-12">
             <div class="container">

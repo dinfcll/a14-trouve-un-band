@@ -1,38 +1,24 @@
-﻿#home-jumbotron {
-    padding: 0 !important;
-    margin-top: -40px;
-    margin-bottom: 0;
-}
-
-    #home-jumbotron img {
-        width: 100%;
-    }
-
-    #home-jumbotron .carousel-caption {
-        background-color: rgba(0,0,0,0.7);
-    }
-
-.home-section-header {
+﻿.home-section-header {
     text-align: center;
     padding-bottom: 60px !important;
 }
 
-   .home-section .home-section-header span,
-    .home-section .home-section-header h1 {
-        color: #333 !important;
-    }
+.home-section .home-section-header span,
+.home-section .home-section-header h1 {
+    color: #333 !important;
+}
 
-   .home-section-invert .home-section-header span,
-    .home-section-invert .home-section-header h1 {
-        color: #F3F3F3 !important;
-    }
+.home-section-invert .home-section-header span,
+.home-section-invert .home-section-header h1 {
+    color: #F3F3F3 !important;
+}
 
-    .home-section-header span {
-        color: White;
-        font-size: 20px;
-        font-weight: 800;
-        margin: 10px 20px;
-    }
+.home-section-header span {
+    color: White;
+    font-size: 20px;
+    font-weight: 800;
+    margin: 10px 20px;
+}
 
 .home-section-invert,
 .home-section {
@@ -41,6 +27,18 @@
     padding-bottom: 50px;
     padding-top: 80px;
 }
+
+.home-section {
+    background-color: #EEEEEE;
+}
+
+.home-section-invert {
+    background-color: #1D1D1D;
+}
+
+    .home-section-invert h4 {
+        color: #BBB !important;
+    }
 
 .home-section-content {
     margin-top: 30px;
@@ -65,7 +63,7 @@
         margin-bottom: 0;
     }
 
-.home-thumbnail p {
+    .home-thumbnail p {
         color: #bbb;
     }
 
@@ -98,15 +96,6 @@
         padding: 1em;
         color: black;
     }
-
-.home-section-invert {
-    background-color: #1D1D1D;
-}
-
-.home-section-invert h4 {
-    color: #BBB !important;
-}
-
 
 .home-thumbnail:hover,
 .home-thumbnail-invert:hover,
@@ -141,4 +130,38 @@
 
     .home-panel-invert span {
         color: black !important;
+    }
+
+
+#home-photo {
+    background-size: cover;
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#home-photo-caption {
+    height: 100vh;
+}
+
+#home-photo-caption-text {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
+    bottom: 10px;
+    position: absolute;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    left: 20%;
+    right: 20%;
+}
+
+    #home-photo-caption-text h1 {
+        font-size: 63px;
+        padding: 0 15px;
     }
