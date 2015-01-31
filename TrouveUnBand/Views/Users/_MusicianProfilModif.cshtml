@@ -3,18 +3,40 @@
 <div class="profile-modif-tab-container">
     @using (Html.BeginForm("MusicianProfileModification", "Users", FormMethod.Post, new { @class = "row", @role = "form" }))
     {
-        <div class="col-md-6">
-            @Html.TextAreaFor(m => m.Description, 10, 10, new { @class = "form-control " })
-        </div>
-
-
-        <div class="col-md-11 pull-right">
-            <div class="col-md-7 pull-right">
-                <input type="submit" class="btn btn-primary col-md-12" value="Enregistrer les Modifications" />
-            </div>
-            <div class="col-md-3 pull-right">
-                <input type="button" class="btn btn-default" value="Annuler" onclick="annuler()" />
+        <div class="form-group">
+            <label class="col-md-1 col-md-offset-2 control-label">Description</label>
+            <div class="col-md-8 col-md-offset-2">
+                <textarea class="form-control" placeholder="Écrivez une brève description de vous, vos influences, vos expériences, etc." rows="7"></textarea>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="col-md-1 col-md-offset-2 control-label">Équipements</label>
+            <div class="col-md-8 col-md-offset-2">
+                <textarea class="form-control" placeholder="Écrivez la liste de vos équipements ici..." rows="7"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group col-md-8 col-md-offset-2 form-group-multi-dropdown">
+            <label class="col-md-6 row">Instrument(s)</label>
+            <label class="col-md-6">Expérience</label>
+
+            <div class="col-md-6 row input-group-multi-dropdown">
+                @Html.DropDownList("instrument-list",
+                 new SelectList(Model.InstrumentList, "Instrument_ID", "Name"),
+                 new { @class = "form-control selectpicker "})
+                <a class="stars star-rating big-star" data-nb-stars="5" data-placement="right" data-rating="1"></a>
+            </div>
+            
+        </div>
+
+        @*<div class="col-md-11 pull-right">
+                <div class="col-md-7 pull-right">
+                    <input type="submit" class="btn btn-primary col-md-12" value="Enregistrer les Modifications" />
+                </div>
+                <div class="col-md-3 pull-right">
+                    <input type="button" class="btn btn-default" value="Annuler" onclick="annuler()" />
+                </div>
+            </div>*@
     }
 </div>

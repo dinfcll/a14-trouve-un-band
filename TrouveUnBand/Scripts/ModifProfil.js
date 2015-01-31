@@ -66,3 +66,16 @@ $(function () {
         yearRange: '-90:+0'
     });
 });
+
+$(function () {
+    $(".profile-modif-tab-container").on('change', '.input-group-multi-dropdown:last-child select', function() {
+        var selectInnerHtml = $("#instrument-list").html();
+        var selectClass = $("#instrument-list").attr('class');
+        var selectHtml = '<div class="col-md-6 row input-group-multi-dropdown">' +
+                         '<select class="' + selectClass + '">' + selectInnerHtml + '</select>' +
+                         '</div>';
+
+        $(".form-group-multi-dropdown").append(selectHtml);
+        $('.selectpicker').selectpicker('refresh');
+    });
+});
